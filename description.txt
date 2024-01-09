@@ -1,0 +1,4 @@
+This is a port of the very first version of the Calamity Mod, now playable on the modern version of tModLoader!
+Done with permission from Fabsol and the Calamity Dev Team.
+
+Suggestions and bug reports will probably not be taken as to keep the version as true as possible, unless it's to fix an error/inconsistency that occurred during porting.

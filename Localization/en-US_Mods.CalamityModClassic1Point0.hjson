@@ -1,0 +1,709 @@
+Items: {
+	AbyssalWarhammer: {
+		DisplayName: Abyssal Warhammer
+		Tooltip: ""
+	}
+
+	AerialHamaxe: {
+		DisplayName: Aerial Hamaxe
+		Tooltip: ""
+	}
+
+	AerialiteBar: {
+		DisplayName: Aerialite Bar
+		Tooltip: ""
+	}
+
+	AerialiteOre: {
+		DisplayName: Aerialite Ore
+		Tooltip: ""
+	}
+
+	AncientFeather: {
+		DisplayName: Ancient Feather
+		Tooltip: ""
+	}
+
+	AncientFossil: {
+		DisplayName: Ancient Fossil
+		Tooltip: Increases pick speed by 35%
+	}
+
+	AerospecBreastplate: {
+		DisplayName: Aerospec Breastplate
+		Tooltip: ""
+	}
+
+	AerospecHelm: {
+		DisplayName: Aerospec Helm
+		Tooltip: ""
+	}
+
+	AerospecLeggings: {
+		DisplayName: Aerospec Leggings
+		Tooltip: ""
+	}
+
+	AtaxiaArmor: {
+		DisplayName: Ataxia Armor
+		Tooltip: ""
+	}
+
+	AtaxiaMask: {
+		DisplayName: Ataxia Mask
+		Tooltip: ""
+	}
+
+	AtaxiaSubligar: {
+		DisplayName: Ataxia Subligar
+		Tooltip: ""
+	}
+
+	DaedalusBreastplate: {
+		DisplayName: Daedalus Breastplate
+		Tooltip: ""
+	}
+
+	DaedalusHelm: {
+		DisplayName: Daedalus Helm
+		Tooltip: ""
+	}
+
+	ReaverCuisses: {
+		DisplayName: Reaver Cuisses
+		Tooltip: ""
+	}
+
+	ReaverHelm: {
+		DisplayName: Reaver Helm
+		Tooltip: ""
+	}
+
+	ReaverScaleMail: {
+		DisplayName: Reaver Scale Mail
+		Tooltip: ""
+	}
+
+	StatigelArmor: {
+		DisplayName: Statigel Armor
+		Tooltip: ""
+	}
+
+	StatigelGreaves: {
+		DisplayName: Statigel Greaves
+		Tooltip: ""
+	}
+
+	StatigelHelm: {
+		DisplayName: Statigel Helm
+		Tooltip: ""
+	}
+
+	TarragonBreastplate: {
+		DisplayName: Tarragon Breastplate
+		Tooltip: ""
+	}
+
+	TarragonHelm: {
+		DisplayName: Tarragon Helm
+		Tooltip: ""
+	}
+
+	TarragonLeggings: {
+		DisplayName: Tarragon Leggings
+		Tooltip: ""
+	}
+
+	VictideBreastplate: {
+		DisplayName: Victide Breastplate
+		Tooltip: ""
+	}
+
+	VictideHelmet: {
+		DisplayName: Victide Helmet
+		Tooltip: ""
+	}
+
+	VictideLeggings: {
+		DisplayName: Victide Leggings
+		Tooltip: ""
+	}
+
+	XerocCuisses: {
+		DisplayName: Xeroc Cuisses
+		Tooltip: ""
+	}
+
+	XerocMask: {
+		DisplayName: Xeroc Mask
+		Tooltip: ""
+	}
+
+	XerocPlateMail: {
+		DisplayName: Xeroc Plate Mail
+		Tooltip: ""
+	}
+
+	AureateWings: {
+		DisplayName: Aureate Wings
+		Tooltip: Mach speed with style!
+	}
+
+	BadgeofBravery: {
+		DisplayName: Badge of Bravery
+		Tooltip: The lower the health the greater the melee speed
+	}
+
+	BarofLife: {
+		DisplayName: Bar of Life
+		Tooltip: ""
+	}
+
+	BeastialPickaxe: {
+		DisplayName: Beastial Pickaxe
+		Tooltip: ""
+	}
+
+	BerserkerWaraxe: {
+		DisplayName: Berserker Waraxe
+		Tooltip: ""
+	}
+
+	BlossomPickaxe: {
+		DisplayName: Blossom Pickaxe
+		Tooltip: ""
+	}
+
+	ChaosAmulet: {
+		DisplayName: Chaos Amulet
+		Tooltip: Attacking enemies will heal the player and set enemies on fire
+	}
+
+	ChaosSerpentShard: {
+		DisplayName: Chaos Serpent Shard
+		Tooltip: ""
+	}
+
+	ChaoswarpedSlashaxe: {
+		DisplayName: Chaoswarped Slashaxe
+		Tooltip: ""
+	}
+
+	CoreofCalamity: {
+		DisplayName: Core of Calamity
+		Tooltip: ""
+	}
+
+	CoreofChaos: {
+		DisplayName: Core of Chaos
+		Tooltip: ""
+	}
+
+	CoreofCinder: {
+		DisplayName: Core of Cinder
+		Tooltip: ""
+	}
+
+	CoreofEleum: {
+		DisplayName: Core of Eleum
+		Tooltip: ""
+	}
+
+	CruptixBar: {
+		DisplayName: Cruptix Bar
+		Tooltip: ""
+	}
+
+	Crystallite: {
+		DisplayName: Crystallite
+		Tooltip: ""
+	}
+
+	DesertFeather: {
+		DisplayName: Desert Feather
+		Tooltip: ""
+	}
+
+	DriedSeafood: {
+		DisplayName: Desert Medallion
+		Tooltip: ""
+	}
+
+	DesertScourgeBag: {
+		DisplayName: Treasure Bag
+		Tooltip: Right click to open
+	}
+
+	DevourerofGodsBag: {
+		DisplayName: Treasure Bag
+		Tooltip: Right click to open
+	}
+
+	DiamondDust: {
+		DisplayName: Diamond Dust
+		Tooltip: ""
+	}
+
+	DiscordianWings: {
+		DisplayName: Discordian Wings
+		Tooltip: Formed from the flames of pure chaos
+	}
+
+	DraedonBar: {
+		DisplayName: Draedon Bar
+		Tooltip: ""
+	}
+
+	EnergyOrb: {
+		DisplayName: Energy Orb
+		Tooltip: ""
+	}
+
+	EssenceofChaos: {
+		DisplayName: Essence of Chaos
+		Tooltip: The essence of underworld creatures
+	}
+
+	EssenceofCinder: {
+		DisplayName: Essence of Cinder
+		Tooltip: The essence of sky and storm creatures
+	}
+
+	EssenceofEleum: {
+		DisplayName: Essence of Eleum
+		Tooltip: The essence of cold creatures
+	}
+
+	FlamebeakHampick: {
+		DisplayName: Flamebeak Hampick
+		Tooltip: ""
+	}
+
+	GallantPickaxe: {
+		DisplayName: Gallant Pickaxe
+		Tooltip: Mining with nuclear power!
+	}
+
+	GreatbayPickaxe: {
+		DisplayName: Greatbay Pickaxe
+		Tooltip: ""
+	}
+
+	HarpyRing: {
+		DisplayName: Harpy Ring
+		Tooltip: Increased move speed and flight time
+	}
+
+	LivingDewDroplet: {
+		DisplayName: Living Dew Droplet
+		Tooltip: ""
+	}
+
+	LivingShard: {
+		DisplayName: Living Shard
+		Tooltip: ""
+	}
+
+	ManaOverloader: {
+		DisplayName: Mana Overloader
+		Tooltip: ""
+	}
+
+	MeldBlob: {
+		DisplayName: Meld Blob
+		Tooltip: ""
+	}
+
+	MeldiateBar: {
+		DisplayName: Meldiate Bar
+		Tooltip: ""
+	}
+
+	NebulousCore: {
+		DisplayName: Nebulous Core
+		Tooltip: ""
+	}
+
+	NecklaceofVexation: {
+		DisplayName: Necklace of Vexation
+		Tooltip: Revenge; increased damage when under 50% life
+	}
+
+	OrnateShield: {
+		DisplayName: Ornate Shield
+		Tooltip: Increased defense when below 25% life
+	}
+
+	ParticleAccelerator: {
+		DisplayName: Particle Accelerator
+		Tooltip: ""
+	}
+
+	PurifiedGel: {
+		DisplayName: Purified Gel
+		Tooltip: ""
+	}
+
+	ReefclawAxe: {
+		DisplayName: Reefclaw Axe
+		Tooltip: ""
+	}
+
+	ShardlightPickaxe: {
+		DisplayName: Shardlight Pickaxe
+		Tooltip: ""
+	}
+
+	ShieldoftheOcean: {
+		DisplayName: Shield of the Ocean
+		Tooltip: Increased defense when submerged in liquid
+	}
+
+	SkyfringePickaxe: {
+		DisplayName: Skyfringe Pickaxe
+		Tooltip: ""
+	}
+
+	SkylineWings: {
+		DisplayName: Skyline Wings
+		Tooltip: ""
+	}
+
+	OverloadedSludge: {
+		DisplayName: Overloaded Sludge
+		Tooltip: ""
+	}
+
+	SlimeGodBag: {
+		DisplayName: Treasure Bag
+		Tooltip: Right click to open
+	}
+
+	SpectralFeather: {
+		DisplayName: Spectral Feather
+		Tooltip: ""
+	}
+
+	Stardust: {
+		DisplayName: Stardust
+		Tooltip: ""
+	}
+
+	StarlightWings: {
+		DisplayName: Starlight Wings
+		Tooltip: Wings of the Nightingale
+	}
+
+	TarragonWings: {
+		DisplayName: Tarragon Wings
+		Tooltip: Born of the jungle
+	}
+
+	CosmicWorm: {
+		DisplayName: Cosmic Worm
+		Tooltip: ""
+	}
+
+	TwistedTendril: {
+		DisplayName: Twisted Tendril
+		Tooltip: ""
+	}
+
+	UeliaceBar: {
+		DisplayName: Ueliace Bar
+		Tooltip: ""
+	}
+
+	VerstaltiteBar: {
+		DisplayName: Verstaltite Bar
+		Tooltip: ""
+	}
+
+	VictideBar: {
+		DisplayName: Victide Bar
+		Tooltip: ""
+	}
+
+	VictoryShard: {
+		DisplayName: Victory Shard
+		Tooltip: ""
+	}
+
+	AbyssalTome: {
+		DisplayName: Abyssal Tome
+		Tooltip: Casts a slow-moving ball of dark energy
+	}
+
+	ApocalypticExpulsor: {
+		DisplayName: Apocalyptic Expulsor
+		Tooltip: ""
+	}
+
+	BalefulHarvester: {
+		DisplayName: Baleful Harvester
+		Tooltip: ""
+	}
+
+	BladedgeGreatbow: {
+		DisplayName: Bladedge Greatbow
+		Tooltip: ""
+	}
+
+	BladeofEnmity: {
+		DisplayName: Blade of Enmity
+		Tooltip: ""
+	}
+
+	CatastropheClaymore: {
+		DisplayName: Catastrophe Claymore
+		Tooltip: Remnant of a specular nova
+	}
+
+	CausticEdge: {
+		DisplayName: Caustic Edge
+		Tooltip: Give Sick
+	}
+
+	DarkechoGreatbow: {
+		DisplayName: Darkecho Greatbow
+		Tooltip: ""
+	}
+
+	DarklightGreatsword: {
+		DisplayName: Darklight Greatsword
+		Tooltip: ""
+	}
+
+	ExsanguinationLance: {
+		DisplayName: Exsanguination Lance
+		Tooltip: ""
+	}
+
+	FeralthornClaymore: {
+		DisplayName: Feralthorn Claymore
+		Tooltip: ""
+	}
+
+	GalacticaBlade: {
+		DisplayName: Galactica Blade
+		Tooltip: Forged with the fury of nuclear chaos
+	}
+
+	Galeforce: {
+		DisplayName: Galeforce
+		Tooltip: ""
+	}
+
+	GammaFusillade: {
+		DisplayName: Gamma Fusillade
+		Tooltip: Unleashes a concentrated beam of gamma radiation
+	}
+
+	GelDart: {
+		DisplayName: Gel Dart
+		Tooltip: ""
+	}
+
+	GoldplumeSpear: {
+		DisplayName: Goldplume Spear
+		Tooltip: ""
+	}
+
+	GreatbowofTurmoil: {
+		DisplayName: Greatbow of Turmoil
+		Tooltip: ""
+	}
+
+	HellfireFlamberge: {
+		DisplayName: Hellfire Flamberge
+		Tooltip: ""
+	}
+
+	HellionFlowerSpear: {
+		DisplayName: Hellion Flower Spear
+		Tooltip: ""
+	}
+
+	Hellkite: {
+		DisplayName: Hellkite
+		Tooltip: Contains the power of an ancient drake
+	}
+
+	HyperiusBullet: {
+		DisplayName: Hyperius Bullet
+		Tooltip: Your enemies might have a bad time.
+	}
+
+	LifefruitScythe: {
+		DisplayName: Lifefruit Scythe
+		Tooltip: Heals the player when attacking enemies
+	}
+
+	Mariana: {
+		DisplayName: Mariana
+		Tooltip: Tropical and deadly
+	}
+
+	Megalodon: {
+		DisplayName: Megalodon
+		Tooltip: ""
+	}
+
+	NettlelineGreatbow: {
+		DisplayName: Nettleline Greatbow
+		Tooltip: ""
+	}
+
+	NuclearFury: {
+		DisplayName: Nuclear Fury
+		Tooltip: Casts a torrent of cosmic typhoons
+	}
+
+	OverloadedBlaster: {
+		DisplayName: Overloaded Blaster
+		Tooltip: Fires a storm of magic slime at enemies
+	}
+
+	RedtideSword: {
+		DisplayName: Redtide Sword
+		Tooltip: ""
+	}
+
+	Seabow: {
+		DisplayName: Seabow
+		Tooltip: ""
+	}
+
+	Shredder: {
+		DisplayName: Shredder
+		Tooltip: Only the first shot consumes ammo
+	}
+
+	StarnightLance: {
+		DisplayName: Starnight Lance
+		Tooltip: ""
+	}
+
+	TemporalFloeSword: {
+		DisplayName: Temporal Floe Sword
+		Tooltip: The iceman cometh...
+	}
+
+	Terratomere: {
+		DisplayName: Terratomere
+		Tooltip: Linked to the essence of Terraria
+	}
+
+	Tradewinds: {
+		DisplayName: Tradewinds
+		Tooltip: Casts fast moving sunlight feathers
+	}
+
+	TrueCausticEdge: {
+		DisplayName: True Caustic Edge
+		Tooltip: Pestilent Defilement
+	}
+
+	TyrantYharimsUltisword: {
+		DisplayName: Tyrant Yharim's Ultisword
+		Tooltip: ""
+	}
+
+	UrchinSpear: {
+		DisplayName: Urchin Spear
+		Tooltip: ""
+	}
+
+	VeriumBullet: {
+		DisplayName: Verium Bullet
+		Tooltip: There is no escape!
+	}
+
+	WindBlade: {
+		DisplayName: Wind Blade
+		Tooltip: ""
+	}
+
+	XerocsGreatsword: {
+		DisplayName: Xeroc Greatsword
+		Tooltip: Fires homing plasma balls
+	}
+
+	WyvernFeather: {
+		DisplayName: Wyvern Feather
+		Tooltip: ""
+	}
+
+	XerocWings: {
+		DisplayName: Xeroc Wings
+		Tooltip: Highly radioactive
+	}
+
+	DaedalusLeggings: {
+		DisplayName: Daedalus Leggings
+		Tooltip: ""
+	}
+}
+
+NPCs: {
+	DriedSeekerTail.DisplayName: Dried Seeker
+	SlimeGod.DisplayName: The Slime God
+	SlimeGodRun.DisplayName: True Slime God
+	SlimeSpawnCorrupt.DisplayName: Corrupt Slime Spawn
+	SlimeSpawnCorrupt2.DisplayName: Corrupt Slime Spawn
+	SlimeSpawnCrimson.DisplayName: Crimson Slime Spawn
+	StasisProbe.DisplayName: Stasis Probe
+	DevourerofGodsBody.DisplayName: The Devourer of Gods
+	DevourerofGodsHead.DisplayName: The Devourer of Gods
+	DevourerofGodsTail.DisplayName: The Devourer of Gods
+	DesertScourgeBody.DisplayName: Desert Scourge
+	DesertScourgeHead.DisplayName: Desert Scourge
+	DesertScourgeTail.DisplayName: Desert Scourge
+	DriedSeekerBody.DisplayName: Dried Seeker Body
+	DriedSeekerHead.DisplayName: Dried Seeker Head
+}
+
+Projectiles: {
+	AbyssBall.DisplayName: Abyss Ball
+	AbyssBallVolley.DisplayName: Abyss Ball Volley
+	BalefulHarvesterProjectile.DisplayName: Baleful Harvester Projectile
+	BlazingPhantomBlade.DisplayName: Blazing Phantom Blade
+	BlueStar.DisplayName: Blue Star
+	CalamityAura.DisplayName: Calamity Aura
+	CalamityAuraType2.DisplayName: Calamity Aura Type 2
+	CalamityAuraType3.DisplayName: Calamity Aura Type 3
+	ChaosFlameLarge.DisplayName: Chaos Flame Large
+	ChaosFlameMedium.DisplayName: Chaos Flame Medium
+	ChaosFlameSmall.DisplayName: Chaos Flame Small
+	ExsanguinationLanceProjectile.DisplayName: Exsanguination Lance
+	GalacticaComet.DisplayName: Galactica Comet
+	GammaLaser.DisplayName: Gamma Laser
+	GelDartProjectile.DisplayName: Gel Dart
+	GoldplumeSpearProjectile.DisplayName: Goldplume Spear
+	HellionFlowerSpearProjectile.DisplayName: Hellion Flower Spear
+	HyperiusBullet.DisplayName: Hyperius Bullet
+	JungleThorn.DisplayName: Jungle Thorn
+	LifeScythe.DisplayName: Life Scythe
+	MarianaProjectile.DisplayName: Mariana Projectile
+	NuclearFuryProjectile.DisplayName: Nuclear Fury Projectile
+	OMGWTH.DisplayName: OMGWTH
+	PlasmaBall.DisplayName: Plasma Ball
+	SlimeBolt.DisplayName: Slime Bolt
+	StarCrystal.DisplayName: Star Crystal
+	StarnightLanceProjectile.DisplayName: Starnight Lance
+	TemporalFloeSwordProjectile.DisplayName: Temporal Floe Sword Projectile
+	TerratomereProjectile.DisplayName: Terratomere Projectile
+	TinyCrystal.DisplayName: Tiny Crystal
+	TinyFlare.DisplayName: Tiny Flare
+	TradewindsProjectile.DisplayName: Tradewinds Projectile
+	TrueCausticEdgeProjectile.DisplayName: True Caustic Edge Projectile
+	UrchinSpearProjectile.DisplayName: Urchin Spear
+	VeriumBullet.DisplayName: Verium Bullet
+}
+
+Buffs: {
+	BrimstoneFlames: {
+		DisplayName: Brimstone Flames
+		Description: Rapid health loss
+	}
+}
