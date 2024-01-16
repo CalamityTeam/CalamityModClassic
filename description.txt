@@ -1,0 +1,12 @@
+This is a port of version 1.1.7 of the Calamity Mod, now playable on the modern version of tModLoader! This update was important to the mod's history as it added six bosses and the mod's first biome.
+
+Suggestions and bug reports will probably not be taken as to keep the version as true as possible, unless it's to fix an error/inconsistency that occurred during porting.
+
+The original description goes as follows:
+This mod was created with the purpose of adding additional content to Terraria.
+It currently contains:
+6 new mineable ores
+12 new bosses (with custom Expert Mode AI)
+Buffed vanilla bosses (through the use of special items) as you progress to Hardmode and post-Moon Lord
+100+ new enemy NPCs
+520+ new items
