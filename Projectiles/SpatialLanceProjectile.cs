@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +18,6 @@ namespace CalamityModClassic1Point2.Projectiles
         public override void SetDefaults()
         {
 			Projectile.width = 40;  //The width of the .png file in pixels divided by 2.
-			Projectile.aiStyle = 19;
 			Projectile.DamageType = DamageClass.Melee;  //Dictates whether this is a melee-class weapon.
 			Projectile.timeLeft = 90;
 			Projectile.height = 40;  //The height of the .png file in pixels divided by 2.
@@ -34,13 +34,19 @@ namespace CalamityModClassic1Point2.Projectiles
 
         public override void AI()
         {
-        	Main.player[Projectile.owner].direction = Projectile.direction;
-        	Main.player[Projectile.owner].heldProj = Projectile.whoAmI;
-        	Main.player[Projectile.owner].itemTime = Main.player[Projectile.owner].itemAnimation;
-        	Projectile.position.X = Main.player[Projectile.owner].position.X + (float)(Main.player[Projectile.owner].width / 2) - (float)(Projectile.width / 2);
-        	Projectile.position.Y = Main.player[Projectile.owner].position.Y + (float)(Main.player[Projectile.owner].height / 2) - (float)(Projectile.height / 2);
-        	Projectile.position += Projectile.velocity * Projectile.ai[0];
-        	if (Main.rand.NextBool(5))
+            Player player = Main.player[Projectile.owner];
+
+            // Adjust owner stats based on this projectile
+            player.ChangeDir(Projectile.direction);
+            player.heldProj = Projectile.whoAmI;
+            player.itemTime = player.itemAnimation;
+
+            // Stick to the player
+            Projectile.Center = player.RotatedRelativePoint(player.MountedCenter);
+
+            // And move outward/inward based on the speed variable.
+            Projectile.position += Projectile.velocity * Projectile.ai[0];
+            if (Main.rand.NextBool(5))
             {
             	int num = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.RainbowTorch, (float)(Projectile.direction * 2), 0f, 150, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f);
             	Main.dust[num].noGravity = true;
@@ -82,6 +88,14 @@ namespace CalamityModClassic1Point2.Projectiles
         	target.AddBuff(Mod.Find<ModBuff>("GlacialState").Type, 300);
         	target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 300);
         	target.AddBuff(Mod.Find<ModBuff>("HolyLight").Type, 300);
-		}
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawPosition = Projectile.Center - Main.screenPosition;
+            Vector2 origin = Vector2.Zero;
+            Main.EntitySpriteDraw(texture, drawPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, 0, 0);
+            return false;
+        }
     }
 }
