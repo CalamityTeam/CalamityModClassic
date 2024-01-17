@@ -21,6 +21,7 @@ using CalamityModClassic1Point1.NPCs.Yharon;
 using CalamityModClassic1Point1.NPCs.Leviathan;
 using CalamityModClassic1Point1.Items.Armor;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
 
 namespace CalamityModClassic1Point1
 {
@@ -717,46 +718,47 @@ namespace CalamityModClassic1Point1
 				NetMessage.SendData(62, -1, -1, null, Player.whoAmI, 1f, 0f, 0f, 0, 0, 0);
 			}
 		}
-		
-		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
-		{
-			if (godSlayerDamage)
-			{
-				if (modifiers.FinalDamage.Flat > 80)
-				{
-					SoundEngine.PlaySound(SoundID.Item73, Player.position);
-					float spread = 45f * 0.0174f;
-					double startAngle = Math.Atan2(Player.velocity.X, Player.velocity.Y) - spread / 2;
-					double deltaAngle = spread / 8f;
-					double offsetAngle;
-					int i;
-					if (Player.whoAmI == Main.myPlayer)
-					{
-						for (i = 0; i < 4; i++) 
-						{
-							offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-							Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center.X, Player.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("GodKiller").Type, 300, 5f, Main.myPlayer, 0f, 0f);
-							Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center.X, Player.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("GodKiller").Type, 300, 5f, Main.myPlayer, 0f, 0f);
-						}
-					}
-				}
-				else if (modifiers.FinalDamage.Flat <= 80)
-				{
-					modifiers.FinalDamage *= 0;
-				}
-			}
-			if (godSlayerReflect && Main.rand.Next(20) == 0)
-			{
-				modifiers.FinalDamage *= 0;
-			}
-			if (Player.whoAmI == Main.myPlayer && dodgeScarf && !scarfCooldown)
-			{
-				ScarfDodge();
-				Player.AddBuff(Mod.Find<ModBuff>("ScarfMeleeBoost").Type, Main.rand.Next(360, 600));
-				Player.AddBuff(Mod.Find<ModBuff>("ScarfCooldown").Type, 600);
-				modifiers.FinalDamage *= 0;
-			}
-		}
+
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            if (godSlayerDamage)
+            {
+                if (info.Damage > 80)
+                {
+                    SoundEngine.PlaySound(SoundID.Item73, Player.position);
+                    float spread = 45f * 0.0174f;
+                    double startAngle = Math.Atan2(Player.velocity.X, Player.velocity.Y) - spread / 2;
+                    double deltaAngle = spread / 8f;
+                    double offsetAngle;
+                    int i;
+                    if (Player.whoAmI == Main.myPlayer)
+                    {
+                        for (i = 0; i < 4; i++)
+                        {
+                            offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center.X, Player.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("GodKiller").Type, 300, 5f, Main.myPlayer, 0f, 0f);
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center.X, Player.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("GodKiller").Type, 300, 5f, Main.myPlayer, 0f, 0f);
+                        }
+                    }
+                }
+                else if (info.Damage <= 80)
+                {
+					return true;
+                }
+            }
+            if (godSlayerReflect && Main.rand.Next(20) == 0)
+            {
+				return true;
+            }
+            if (Player.whoAmI == Main.myPlayer && dodgeScarf && !scarfCooldown)
+            {
+                ScarfDodge();
+                Player.AddBuff(Mod.Find<ModBuff>("ScarfMeleeBoost").Type, Main.rand.Next(360, 600));
+                Player.AddBuff(Mod.Find<ModBuff>("ScarfCooldown").Type, 600);
+				return true;
+            }
+			return false;
+        }
 		
 		public void ModDashMovement()
 		{
