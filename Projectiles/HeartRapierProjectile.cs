@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +15,6 @@ namespace CalamityModClassic1Point1.Projectiles
         {
             //Tooltip.SetDefault("Heart Rapier");
 			Projectile.width = 44;  //The width of the .png file in pixels divided by 2.
-			Projectile.aiStyle = 19;
 			Projectile.DamageType = DamageClass.Melee;  //Dictates whether this is a melee-class weapon.
 			Projectile.timeLeft = 90;
 			Projectile.height = 44;  //The height of the .png file in pixels divided by 2.
@@ -70,6 +70,14 @@ namespace CalamityModClassic1Point1.Projectiles
 			Player player = Main.player[Projectile.owner];
 			player.statLife += 8;
     		player.HealEffect(8);
-		}
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+            Vector2 drawPosition = Projectile.Center - Main.screenPosition;
+            Vector2 origin = Vector2.Zero;
+            Main.EntitySpriteDraw(texture, drawPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, 0, 0);
+            return false;
+        }
     }
 }
