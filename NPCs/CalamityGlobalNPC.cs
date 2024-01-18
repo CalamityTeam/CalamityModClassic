@@ -55,8 +55,9 @@ namespace CalamityModClassic1Point1.NPCs
 		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
-		{
-			bool hardMode = Main.hardMode;
+        {
+            npc.defense = npc.defDefense;
+            bool hardMode = Main.hardMode;
 			int npcDefense = npc.defense;
 			if (cDepth)
 			{
