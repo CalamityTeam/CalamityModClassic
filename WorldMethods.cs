@@ -50,7 +50,10 @@ namespace CalamityModClassic1Point1
                         Main.tile[(int)I, (int)(Y + level)].TileType = type2;
                     }
                     //}
+                    Main.tile[(int)I, (int)(Y + level)].Get<LiquidData>().LiquidType = 0;
+                    Main.tile[(int)I, (int)(Y + level)].LiquidAmount = 0;
                 }
+
             }
 		}
 		
@@ -208,7 +211,9 @@ namespace CalamityModClassic1Point1
 
                                             WorldGen.PlaceTile(k, l, type, true, true);
                                         }
-										goto IL_5C5;
+                                        tile.Get<LiquidData>().LiquidType = 0;
+                                        tile.LiquidAmount = 0;
+                                        goto IL_5C5;
 									}
 									goto IL_5C5;
 									IL_575:
