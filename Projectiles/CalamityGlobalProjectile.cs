@@ -23,6 +23,7 @@ namespace CalamityModClassic1Point1.Projectiles
 				float damageAlch = (float)projectile.damage * 0.5f;
 				int ownerAlch = projectile.owner;
 				int plague = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("PlagueSeeker").Type, 20, 0f, projectile.owner, (float)ownerAlch, damageAlch);
+				Main.projectile[plague].DamageType = DamageClass.Generic;
 			}
 			if (projectile.CountsAsClass(DamageClass.Magic))
 			{

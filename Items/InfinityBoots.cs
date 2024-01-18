@@ -32,10 +32,10 @@ public class InfinityBoots : ModItem
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
 		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
-		player.accRunSpeed = 20f;
+		player.accRunSpeed = 18f;
 		player.rocketBoots = 3;
-		player.moveSpeed += 20f;
-		player.iceSkate = true;
+        player.moveSpeed = 1.6f;
+        player.iceSkate = true;
 		player.waterWalk = true;
 		player.fireWalk = true;
 		player.lavaMax += 920;
