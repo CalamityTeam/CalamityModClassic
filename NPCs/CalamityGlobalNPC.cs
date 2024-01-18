@@ -167,17 +167,15 @@ namespace CalamityModClassic1Point1.NPCs
 			if (ModLoader.HasMod("ThoriumMod"))
 			{
 				if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("TheGrandThunderBird").Type ||
-				    npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Cacklor").Type ||
-				    npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJelly").Type ||
-					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJellyDiverless").Type ||
+				    npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ForgottenOne").Type ||
+                    npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJelly").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("GraniteEnergyStorm").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("SlagFury").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Omnicide").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius").Type ||
-					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius2").Type ||
-					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ThePrimeScouter").Type ||
-					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenDeathBeholder").Type ||
-					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("PhaseBeing").Type ||
+					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("StarScouter").Type ||
+					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder").Type ||
+                    npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder2").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Lich").Type ||
 					npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("LichHeadless").Type)
 				{
@@ -234,7 +232,7 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.damage += 100;
 						npc.scale = 1.25f;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Abyssion").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ForgottenOne").Type)
 					{
 						npc.lifeMax += 26000;
 						npc.damage += 160;
@@ -246,31 +244,25 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.damage += 120;
 						npc.scale = 1.25f;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJellyDiverless").Type)
-					{
-						npc.lifeMax += 12000;
-						npc.damage += 120;
-						npc.scale = 1.25f;
-					}
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("GraniteEnergyStorm").Type)
 					{
 						npc.lifeMax += 14000;
 						npc.damage += 140;
 						npc.scale = 1.25f;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ThePrimeScouter").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("StarScouter").Type)
 					{
 						npc.lifeMax += 30000;
 						npc.damage += 180;
 						npc.scale = 1.25f;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenDeathBeholder").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder").Type)
 					{
 						npc.lifeMax += 34000;
 						npc.damage += 200;
 						npc.scale = 1.25f;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("PhaseBeing").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder2").Type)
 					{
 						npc.lifeMax += 17000;
 						npc.damage += 240;
@@ -303,12 +295,6 @@ namespace CalamityModClassic1Point1.NPCs
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius").Type)
 					{
 						npc.lifeMax += 160000;
-						npc.damage += 440;
-						npc.scale = 1.25f;
-					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius2").Type)
-					{
-						npc.lifeMax += 80000;
 						npc.damage += 440;
 						npc.scale = 1.25f;
 					}
@@ -417,7 +403,7 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.lifeMax += 1000;
 						npc.damage += 20;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Cacklor").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ForgottenOne").Type)
 					{
 						npc.lifeMax += 4000;
 						npc.damage += 40;
@@ -427,27 +413,22 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.lifeMax += 3000;
 						npc.damage += 30;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJellyDiverless").Type)
-					{
-						npc.lifeMax += 3000;
-						npc.damage += 30;
-					}
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("GraniteEnergyStorm").Type)
 					{
 						npc.lifeMax += 3500;
 						npc.damage += 35;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ThePrimeScouter").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("StarScouter").Type)
 					{
 						npc.lifeMax += 7500;
 						npc.damage += 45;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenDeathBeholder").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder").Type)
 					{
 						npc.lifeMax += 8500;
 						npc.damage += 50;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("PhaseBeing").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder2").Type)
 					{
 						npc.lifeMax += 4250;
 						npc.damage += 60;
@@ -475,11 +456,6 @@ namespace CalamityModClassic1Point1.NPCs
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius").Type)
 					{
 						npc.lifeMax += 40000;
-						npc.damage += 110;
-					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius2").Type)
-					{
-						npc.lifeMax += 20000;
 						npc.damage += 110;
 					}
 				}
@@ -587,7 +563,7 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.lifeMax += 2000;
 						npc.damage += 40;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Cacklor").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ForgottenOne").Type)
 					{
 						npc.lifeMax += 8000;
 						npc.damage += 60;
@@ -597,27 +573,22 @@ namespace CalamityModClassic1Point1.NPCs
 						npc.lifeMax += 6000;
 						npc.damage += 50;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("QueenJellyDiverless").Type)
-					{
-						npc.lifeMax += 6000;
-						npc.damage += 50;
-					}
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("GraniteEnergyStorm").Type)
 					{
 						npc.lifeMax += 7000;
 						npc.damage += 60;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ThePrimeScouter").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("StarScouter").Type)
 					{
 						npc.lifeMax += 15000;
 						npc.damage += 60;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenDeathBeholder").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder").Type)
 					{
 						npc.lifeMax += 17000;
 						npc.damage += 80;
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("PhaseBeing").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder2").Type)
 					{
 						npc.lifeMax += 8500;
 						npc.damage += 90;
@@ -645,11 +616,6 @@ namespace CalamityModClassic1Point1.NPCs
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius").Type)
 					{
 						npc.lifeMax += 80000;
-						npc.damage += 170;
-					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius2").Type)
-					{
-						npc.lifeMax += 40000;
 						npc.damage += 170;
 					}
 				}
@@ -801,7 +767,7 @@ namespace CalamityModClassic1Point1.NPCs
 				}
 				if (ModLoader.HasMod("ThoriumMod"))
 				{
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Cacklor").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ForgottenOne").Type)
 					{
 						if (projectile.CountsAsClass(DamageClass.Melee))
 						{
@@ -815,21 +781,21 @@ namespace CalamityModClassic1Point1.NPCs
                             modifiers.FinalDamage /= 3;
 						}
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("ThePrimeScouter").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("StarScouter").Type)
 					{
 						if (projectile.CountsAsClass(DamageClass.Ranged) || projectile.CountsAsClass(DamageClass.Melee))
 						{
                             modifiers.FinalDamage /= 2;
 						}
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenDeathBeholder").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder").Type)
 					{
 						if (projectile.CountsAsClass(DamageClass.Magic) || projectile.minion)
 						{
                             modifiers.FinalDamage /= 2;
 						}
 					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("PhaseBeing").Type)
+					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("FallenBeholder2").Type)
 					{
 						if (projectile.CountsAsClass(DamageClass.Magic) || projectile.minion)
 						{
@@ -858,13 +824,6 @@ namespace CalamityModClassic1Point1.NPCs
 						}
 					}
 					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius").Type)
-					{
-						if (projectile.CountsAsClass(DamageClass.Magic))
-						{
-                            modifiers.FinalDamage /= 3;
-						}
-					}
-					if (npc.type == ModLoader.GetMod("ThoriumMod").Find<ModNPC>("Aquaius2").Type)
 					{
 						if (projectile.CountsAsClass(DamageClass.Magic))
 						{
