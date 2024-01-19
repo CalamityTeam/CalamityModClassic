@@ -849,10 +849,8 @@ namespace CalamityModClassic1Point2.NPCs.Providence
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<PurgeGuzzler>(), 4));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Items.Weapons.Providence.TelluricGlare>(), 4));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Items.Weapons.Providence.SolarFlare>(), 4));
-            LeadingConditionRule notExp = new LeadingConditionRule(new Conditions.IsExpert());
-            notExp.OnSuccess(ItemDropRule.ByCondition(new Conditions.HallowKeyCondition(), ModContent.ItemType<ElysianWings>(), 1)); // will these work? who knows! I'm too lazy to make new rules
-            notExp.OnSuccess(ItemDropRule.ByCondition(new Conditions.YoyosHelFire(), ModContent.ItemType<ElysianAegis>(), 1));
-            npcLoot.Add(notExp);
+            npcLoot.Add(ItemDropRule.ByCondition(new HellProvi(), ModContent.ItemType<ElysianWings>(), 1)); // will these work? who knows! I'm too lazy to make new rules
+            npcLoot.Add(ItemDropRule.ByCondition(new HallowProvi(), ModContent.ItemType<ElysianAegis>(), 1));
         }
 
         public override void OnKill()
@@ -1154,5 +1152,37 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 	enum ProvidenceMessageType : byte
 	{
 		Damage
-	}
+    }
+    public class HallowProvi : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            return Main.LocalPlayer.ZoneHallow && Main.expertMode;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return Main.expertMode;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "While in the Hallow";
+        }
+    }
+    public class HellProvi : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            return Main.LocalPlayer.ZoneUnderworldHeight && Main.expertMode;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return Main.expertMode;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "While in the Underworld";
+        }
+    }
 }
