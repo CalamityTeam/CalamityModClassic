@@ -355,6 +355,11 @@ Buffs: {
 		DisplayName: Zerg
 		Description: Spawn rates are boosted
 	}
+
+	LaceratorBuff: {
+		DisplayName: Lacerator Buff
+		Description: You are never going to see this text, but if you do then uh   have a nice day   !
+	}
 }
 
 Items: {
@@ -6214,6 +6219,7 @@ Projectiles: {
 	YharimsCrystal.DisplayName: Crystal
 	YharimsCrystalBeam.DisplayName: Beam
 	YinYo.DisplayName: Yinyo
+	LaceratorHeal.DisplayName: Lacerator Heal
 }
 
 Tiles: {

@@ -105,6 +105,8 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public int bloodMoonKillCount = 0;
 
+		public bool lacerator = false;
+
 		public override void ResetEffects(NPC npc)
 		{
 			marked = false;
@@ -122,6 +124,7 @@ namespace CalamityModClassic1Point2.NPCs
 			eFreeze = false;
 			wDeath = false;
 			nightwither = false;
+			lacerator = false;
 		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -1300,7 +1303,11 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void AI(NPC npc)
 		{
-			if (npc.buffImmune[Mod.Find<ModBuff>("ExoFreeze").Type] && npc.type != Mod.Find<ModNPC>("Yharon").Type && npc.type != Mod.Find<ModNPC>("SupremeCalamitas").Type && npc.type != Mod.Find<ModNPC>("SupremeCataclysm").Type && npc.type != Mod.Find<ModNPC>("SupremeCatastrophe").Type)
+            if (lacerator)
+            {
+				LaceratorEffects(ref npc);
+            }
+            if (npc.buffImmune[Mod.Find<ModBuff>("ExoFreeze").Type] && npc.type != Mod.Find<ModNPC>("Yharon").Type && npc.type != Mod.Find<ModNPC>("SupremeCalamitas").Type && npc.type != Mod.Find<ModNPC>("SupremeCataclysm").Type && npc.type != Mod.Find<ModNPC>("SupremeCatastrophe").Type)
 			{
 				npc.buffImmune[Mod.Find<ModBuff>("ExoFreeze").Type] = false;
 			}
@@ -3960,8 +3967,43 @@ namespace CalamityModClassic1Point2.NPCs
 			{
 				shop.Add(new NPCShop.Entry(ModContent.ItemType<FrostBarrier>(), Condition.MoonPhaseNew));
 			}
-		}
-	}
+        }
+        public void LaceratorEffects(ref NPC npc)
+        {
+            if (!npc.GetGlobalNPC<CalamityGlobalNPC>().lacerator)
+            {
+                return;
+            }
+            int num = 1100;
+            for (int i = 0; i < 255; i++)
+            {
+                if (!Main.player[i].active || Main.player[i].dead)
+                {
+                    continue;
+                }
+                Vector2 val = npc.Center - Main.player[i].position;
+                if (val.Length() < (float)num && Main.player[i].itemAnimation > 0)
+                {
+                    if (i == Main.myPlayer)
+                    {
+                        Main.player[i].soulDrain++;
+                    }
+                    if (Main.rand.Next(3) != 0)
+                    {
+                        Vector2 center = npc.Center;
+                        center.X += (float)Main.rand.Next(-100, 100) * 0.05f;
+                        center.Y += (float)Main.rand.Next(-100, 100) * 0.05f;
+                        center += npc.velocity;
+                        int num2 = Dust.NewDust(center, 1, 1, 235);
+                        Dust obj = Main.dust[num2];
+                        obj.velocity *= 0f;
+                        Main.dust[num2].scale = (float)Main.rand.Next(70, 85) * 0.01f;
+                        Main.dust[num2].fadeIn = i + 1;
+                    }
+                }
+            }
+        }
+    }
     public class ProvidenceDowned : IItemDropRuleCondition
     {
         public bool CanDrop(DropAttemptInfo info)

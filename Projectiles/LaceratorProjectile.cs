@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.Projectiles
         {
         	if (Projectile.owner == Main.myPlayer)
         	{
-            	Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, 476, (int)((double)Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner, 0f, 0f);
+            	Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<LaceratorHeal>(), (int)((double)Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
         	}
         }
     }

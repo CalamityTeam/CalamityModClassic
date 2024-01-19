@@ -101,7 +101,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			{
 				enrage = true;
 			}
-			float playerRunAcceleration = Main.player[NPC.target].velocity.Y == 0f ? Math.Abs(Main.player[NPC.target].moveSpeed * 0.3f) : (Main.player[NPC.target].runAcceleration * 0.8f);
+			float playerRunAcceleration = 1f; // Main.player[NPC.target].velocity.Y == 0f ? Math.Abs(Main.player[NPC.target].moveSpeed * 0.3f) : (Main.player[NPC.target].runAcceleration * 0.8f); I wish I could keep this authentic, but I'm not gonna bother dealing with reverse enginerring the changes to player movement speed code, so bye!
 			if (playerRunAcceleration <= 1f)
 			{
 				playerRunAcceleration = 1f;
