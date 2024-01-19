@@ -819,10 +819,8 @@ namespace CalamityModClassic1Point1.NPCs.Providence
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<HolyCollider>(), 6));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Items.Weapons.MoltenAmputator>(), 6));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<PurgeGuzzler>(), 6));
-			LeadingConditionRule notExp = new LeadingConditionRule(new Conditions.IsExpert());
-			notExp.OnSuccess(ItemDropRule.ByCondition(new Conditions.HallowKeyCondition(), ModContent.ItemType<ElysianWings>(), 1)); // will these work? who knows! I'm too lazy to make new rules
-            notExp.OnSuccess(ItemDropRule.ByCondition(new Conditions.YoyosHelFire(), ModContent.ItemType<ElysianAegis>(), 1));
-			npcLoot.Add(notExp);
+            npcLoot.Add(ItemDropRule.ByCondition(new HallowProvidence(), ModContent.ItemType<ElysianWings>(), 1));
+            npcLoot.Add(ItemDropRule.ByCondition(new HellProvidence(), ModContent.ItemType<ElysianAegis>(), 1));
         }
 		
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
