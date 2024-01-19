@@ -849,8 +849,8 @@ namespace CalamityModClassic1Point2.NPCs.Providence
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<PurgeGuzzler>(), 4));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Items.Weapons.Providence.TelluricGlare>(), 4));
             npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Items.Weapons.Providence.SolarFlare>(), 4));
-            npcLoot.Add(ItemDropRule.ByCondition(new HellProvi(), ModContent.ItemType<ElysianWings>(), 1)); // will these work? who knows! I'm too lazy to make new rules
-            npcLoot.Add(ItemDropRule.ByCondition(new HallowProvi(), ModContent.ItemType<ElysianAegis>(), 1));
+            npcLoot.Add(ItemDropRule.ByCondition(new HallowProvi(), ModContent.ItemType<ElysianWings>(), 1)); // will these work? who knows! I'm too lazy to make new rules
+            npcLoot.Add(ItemDropRule.ByCondition(new HellProvi(), ModContent.ItemType<ElysianAegis>(), 1));
         }
 
         public override void OnKill()
