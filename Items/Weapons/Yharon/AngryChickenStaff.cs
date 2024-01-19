@@ -28,7 +28,7 @@ public class AngryChickenStaff : ModItem
         Item.noMelee = true; //so the item's animation doesn't do damage
         Item.knockBack = 7f;
         Item.value = 10000000;
-        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/FlareSound");
+        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/FlareSound");
         Item.autoReuse = true;
         Item.shoot = Mod.Find<ModProjectile>("AngryChicken").Type;
         Item.shootSpeed = 10f;

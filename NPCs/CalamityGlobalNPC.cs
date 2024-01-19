@@ -128,6 +128,7 @@ namespace CalamityModClassic1Point2.NPCs
 		{
 			bool hardMode = Main.hardMode;
 			int npcDefense = npc.defense;
+			npc.defense = npc.defDefense;
 			if (Main.raining && NPC.downedMoonlord && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && (double)(npc.position.Y / 16f) < Main.worldSurface)
 			{
 				npc.AddBuff(Mod.Find<ModBuff>("Irradiated").Type, 2);
@@ -886,7 +887,7 @@ namespace CalamityModClassic1Point2.NPCs
 			{
 				this.protection = 0.4f;
 			}
-			/*if (npc.type == Mod.Find<ModNPC>("Crabulon").Type) // the npc's name is "Crabulon" meaning this code doesn't work. It is not being fixed for authenticity :)
+			/*if (npc.type == Mod.Find<ModNPC>("Crabulon").Type) // the npc's name is "Crabulon" meaning this code doesn't work. It is not being fixed for authenticity :) _ YuH
 			{
 				this.protection = 0.2f;
 			}*/

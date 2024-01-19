@@ -41,7 +41,10 @@ namespace CalamityModClassic1Point2
 				{
 					WorldGen.PlaceTile(X, (int)(Y + level - (slope / 2)), type2);
 				}
-				for (int I = X - (int)(length + (level * trueslope)); I < X + (int)(length + (level * truesloperight)); I++)
+				Main.tile[X, (int)(Y + level - (slope / 2))].Get<LiquidData>().LiquidType = 0;
+				Main.tile[X, (int)(Y + level - (slope / 2))].LiquidAmount = 0;
+
+                for (int I = X - (int)(length + (level * trueslope)); I < X + (int)(length + (level * truesloperight)); I++)
                 {
                     if (Main.tile[I, (int)(Y + level)].HasTile)
                     {
@@ -51,7 +54,9 @@ namespace CalamityModClassic1Point2
                     {
                         WorldGen.PlaceTile(I, (int)(Y + level), type2);
                     }
-				}
+                    Main.tile[I, (int)(Y + level)].Get<LiquidData>().LiquidType = 0;
+                    Main.tile[I, (int)(Y + level)].LiquidAmount = 0;
+                }
 			}
 		}
 		
@@ -207,6 +212,8 @@ namespace CalamityModClassic1Point2
 
                                             WorldGen.PlaceTile(k, l, type, true, true);
                                         }
+										tile.Get<LiquidData>().LiquidType = 0;
+										tile.LiquidAmount = 0;
                                         goto IL_5C5;
 									}
 									goto IL_5C5;

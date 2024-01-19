@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.knockBack = 7f;
 	        Item.value = 1050000;
 	        Item.rare = ItemRarityID.Yellow;
-	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/LaserCannon");
+	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 22f;
 	        Item.shoot = Mod.Find<ModProjectile>("ChargedBlast").Type;

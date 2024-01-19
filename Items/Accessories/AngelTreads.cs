@@ -21,9 +21,9 @@ public class AngelTreads : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		player.accRunSpeed = 9.75f;
+		player.accRunSpeed += 1.975f;
 		player.rocketBoots = 3;
-		player.moveSpeed += 0.5f;
+		player.moveSpeed += 1.05f;
 		player.iceSkate = true;
 		player.waterWalk = true;
 		player.fireWalk = true;

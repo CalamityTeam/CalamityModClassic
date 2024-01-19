@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.noMelee = true;
 			Item.knockBack = 1.75f;
 			Item.value = 1000000;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/PlasmaBolt");
+			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBolt");
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("RainbowBlast").Type;
 			Item.shootSpeed = 24f;

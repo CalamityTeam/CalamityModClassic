@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.noMelee = true;
 	        Item.knockBack = 4f;
 	        Item.value = 1500000;
-	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/PlasmaBlast");
+	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBlast");
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 20f;
 	        Item.shoot = Mod.Find<ModProjectile>("PlasmaShot").Type;
@@ -59,14 +59,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				Item.mana = 40;
 	    		Item.useTime = 40;
 	        	Item.useAnimation = 40;
-	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/PlasmaBlast");
+	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBlast");
 			}
 			else
 			{
 				Item.mana = 5;
 	    		Item.useTime = 8;
 	        	Item.useAnimation = 8;
-	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/PlasmaBolt");
+	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBolt");
 			}
 			return base.CanUseItem(player);
 		}

@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Providence
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true; //so the item's animation doesn't do damage
 			Item.knockBack = 4.5f;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/LaserCannon");;
+			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");;
 			Item.value = 5000000;
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("HolyLaser").Type; //idk why but all the guns in the vanilla source have this

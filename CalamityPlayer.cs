@@ -1843,8 +1843,25 @@ namespace CalamityModClassic1Point2
 				Player.maxRunSpeed *= 1.5f;
 			}
 		}
-		
-		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            if (lol)
+            {
+				return true;
+            }
+            if (godSlayerDamage && info.Damage <= 80)
+            {
+				return true;
+            }
+            if (godSlayerReflect && Main.rand.NextBool(20))
+            {
+				return true;
+            }
+			return false;
+        }
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
 			if (nCore && Main.rand.NextBool(10))
 			{
@@ -2219,10 +2236,6 @@ namespace CalamityModClassic1Point2
 		
 		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
 		{
-			if (lol)
-            {
-                modifiers.FinalDamage *= 0;
-            }
 			if (auricSet)
             {
 				modifiers.FinalDamage *= 0.9f;
@@ -2230,15 +2243,6 @@ namespace CalamityModClassic1Point2
 			else if (silvaSet)
             {
 				modifiers.FinalDamage *= 0.95f;
-            }
-			if (godSlayerDamage && modifiers.FinalDamage.Flat <= 80)
-            {
-                modifiers.FinalDamage *= 0;
-            }
-			if (godSlayerReflect && Main.rand.NextBool(20))
-			{
-
-				modifiers.FinalDamage *= 0;
             }
 			if (NPC.CountNPCS(NPCID.CultistBoss) > 0)
             {

@@ -25,7 +25,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useTime = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4.5f;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/LaserCannon");
+			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");
 			Item.autoReuse = true;
 			Item.noMelee = true;
 			Item.height = 50;

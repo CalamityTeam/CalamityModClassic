@@ -31,7 +31,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.knockBack = 2.25f;
 			Item.value = 900000;
 			Item.rare = ItemRarityID.Yellow;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/OpalStrike");
+			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/OpalStrike");
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("OpalStrike").Type;
 			Item.shootSpeed = 15f;

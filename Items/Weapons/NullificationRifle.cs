@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.knockBack = 7f;
 	        Item.value = 1250000;
 	        Item.rare = ItemRarityID.Cyan;
-	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/PlasmaBlast");
+	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBlast");
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 25f;
 	        Item.shoot = Mod.Find<ModProjectile>("NullShot").Type;

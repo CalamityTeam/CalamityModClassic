@@ -58,7 +58,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				Item.useTime = 7;
 	    		Item.useAnimation = 7;
 	    		Item.mana = 6;
-	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/LaserCannon");
+	        	Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");
 			}
 			else
 			{

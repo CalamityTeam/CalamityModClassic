@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.BrimstoneWaifu
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true; //so the item's animation doesn't do damage
 			Item.knockBack = 6.75f;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point1/Sounds/Item/FlareSound");
+			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/FlareSound");
 			Item.value = 500000;
 			Item.rare = ItemRarityID.Pink;
 			Item.autoReuse = true;

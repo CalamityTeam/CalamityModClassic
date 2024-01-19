@@ -47,9 +47,9 @@ public class InfinityBoots : ModItem
 			Main.dust[num60].shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 		}
 		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
-		player.accRunSpeed = 20f;
+		player.accRunSpeed = 18f;
 		player.rocketBoots = 3;
-		player.moveSpeed += 20f;
+        player.moveSpeed = 1.6f;
 		player.iceSkate = true;
 		player.waterWalk = true;
 		player.fireWalk = true;
