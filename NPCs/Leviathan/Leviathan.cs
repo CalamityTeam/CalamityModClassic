@@ -432,9 +432,11 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
         {
             LeadingConditionRule noLevi = new LeadingConditionRule(new NoSiren());
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
+            LeadingConditionRule expert = new LeadingConditionRule(new Conditions.IsExpert());
             noLevi.OnSuccess(new CommonDrop(ModContent.ItemType<EnchantedPearl>(), 1));
             noLevi.OnSuccess(ItemDropRule.ByCondition(new NotDownedPlantera(), ModContent.ItemType<IOU>(), 1));
             noLevi.OnSuccess(new CommonDrop(ModContent.ItemType<LeviathanTrophy>(), 10));
+            noLevi.OnSuccess(expert).OnSuccess(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<LeviathanBag>()));
             noLevi.OnSuccess(notExpert).OnSuccess(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<LeviathanMask>(), 7));
             noLevi.OnSuccess(notExpert).OnSuccess(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Atlantis>(), 4));
             noLevi.OnSuccess(notExpert).OnSuccess(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Greentide>(), 4));
