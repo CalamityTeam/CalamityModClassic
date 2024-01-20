@@ -33,7 +33,7 @@ namespace CalamityModClassic1Point1.Projectiles
         	bool flag64 = (Projectile.type == Mod.Find<ModProjectile>("ElementalAxeG").Type || Projectile.type == Mod.Find<ModProjectile>("ElementalAxeR").Type || Projectile.type == Mod.Find<ModProjectile>("ElementalAxeB").Type || Projectile.type == Mod.Find<ModProjectile>("ElementalAxeO").Type ||
         	              Projectile.type == Mod.Find<ModProjectile>("ElementalAxeY").Type || Projectile.type == Mod.Find<ModProjectile>("ElementalAxeI").Type || Projectile.type == Mod.Find<ModProjectile>("ElementalAxeV").Type);
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 			if (flag64)
 			{
 				if (player.dead)

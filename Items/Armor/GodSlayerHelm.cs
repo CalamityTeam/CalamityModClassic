@@ -35,14 +35,14 @@ namespace CalamityModClassic1Point1.Items.Armor
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	modPlayer.godSlayer = true;
         player.setBonus =("You will survive fatal damage and will be healed 300 HP if an attack would have killed you\nThis effect can only occur once every 30 seconds\nWhile the cooldown for this effect is active you gain a 10% increase to all damage");
     }
     
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	modPlayer.godSlayerDamage = true;
     	player.GetDamage(DamageClass.Melee) *= 1.15f;
         player.GetCritChance(DamageClass.Melee) += 15;

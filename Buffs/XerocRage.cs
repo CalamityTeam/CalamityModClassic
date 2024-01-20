@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point1.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer>().xRage = true;
+			player.GetModPlayer<CalamityPlayer1Point1>().xRage = true;
 		}
 	}
 }

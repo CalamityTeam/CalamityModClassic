@@ -271,7 +271,7 @@ namespace CalamityModClassic1Point1.NPCs.Calamitas
 							{
 								NPC.localAI[1] += 1f;
 							}
-							if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+							if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 							{
 								NPC.localAI[1] += 2f;
 							}

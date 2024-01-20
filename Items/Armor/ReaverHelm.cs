@@ -38,7 +38,7 @@ namespace CalamityModClassic1Point1.Items.Armor
     public override void UpdateArmorSet(Player player)
     {
 		player.thorns = 0.5f;
-    	CalamityPlayer.reaverBlast = true;
+    	CalamityPlayer1Point1.reaverBlast = true;
         player.setBonus =("Grants increased melee damage, melee crit, and melee speed as health decreases\nYou take more damage as health decreases\nMelee projectiles explode on hit\nReaver thorns\nRage activates when you are damaged");
         if (player.immune)
 		{

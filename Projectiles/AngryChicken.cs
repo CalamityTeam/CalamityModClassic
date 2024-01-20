@@ -78,7 +78,7 @@ namespace CalamityModClassic1Point1.Projectiles
 			Lighting.AddLight(Projectile.Center, 1.2f * num, 0.8f * num, 0f * num);
 			bool flag64 = Projectile.type == Mod.Find<ModProjectile>("AngryChicken").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 			if (flag64)
 			{
 				if (player.dead)

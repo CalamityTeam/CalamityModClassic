@@ -33,7 +33,7 @@ public class ElysianTracers : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 		player.accRunSpeed = 22f;
 		player.rocketBoots = 3;
 		player.moveSpeed = 1.6f;

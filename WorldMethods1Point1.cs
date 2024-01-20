@@ -12,7 +12,7 @@ using static Mono.CompilerServices.SymbolWriter.CodeBlockEntry;
 
 namespace CalamityModClassic1Point1
 {
-	public class WorldMethods
+	public class WorldMethods1Point1
 	{
 		public static void RoundHole(int X, int Y, int Xmult, int Ymult, int strength, bool initialdig)
 		{

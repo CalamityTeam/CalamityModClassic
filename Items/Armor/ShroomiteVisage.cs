@@ -31,14 +31,14 @@ namespace CalamityModClassic1Point1.Items.Armor
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	player.shroomiteStealth = true;
         player.setBonus =("Ranged stealth while standing still");
     }
     
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	modPlayer.flamethrowerBoost = true;
     }
 

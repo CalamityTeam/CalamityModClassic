@@ -77,7 +77,7 @@ namespace CalamityModClassic1Point1.NPCs.ProfanedGuardianBoss
 		
 		public override void AI()
 		{
-			CalamityGlobalNPC.doughnutBoss = NPC.whoAmI;
+			CalamityGlobalNPC1Point1.doughnutBoss = NPC.whoAmI;
 			bool fireBalls = (double)NPC.life <= (double)NPC.lifeMax * 0.75;
 			bool powerBoost = (double)NPC.life <= (double)NPC.lifeMax * 0.5;
 			bool fireDust = (double)NPC.life <= (double)NPC.lifeMax * 0.25;

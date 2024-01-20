@@ -36,7 +36,7 @@ namespace CalamityModClassic1Point1.Items.Armor
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	modPlayer.tarraRegen = true;
     	modPlayer.tarraReach = true;
     	modPlayer.tarraCalm = true;

@@ -29,7 +29,7 @@ public class AlchemicalFlask : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer.alchFlask = true;
+		CalamityPlayer1Point1.alchFlask = true;
 		player.buffImmune[Mod.Find<ModBuff>("Plague").Type] = true;
 	}
 	

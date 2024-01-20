@@ -13,11 +13,11 @@ using CalamityModClassic1Point1.Items.Armor;
 
 namespace CalamityModClassic1Point1.Projectiles
 {
-	public class CalamityGlobalProjectile : GlobalProjectile
+	public class CalamityGlobalProjectile1Point1 : GlobalProjectile
 	{
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (CalamityPlayer.alchFlask && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
+			if (CalamityPlayer1Point1.alchFlask && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 180);
 				float damageAlch = (float)projectile.damage * 0.5f;
@@ -27,10 +27,10 @@ namespace CalamityModClassic1Point1.Projectiles
 			}
 			if (projectile.CountsAsClass(DamageClass.Magic))
 			{
-				if (CalamityPlayer.ataxiaHurt)
+				if (CalamityPlayer1Point1.ataxiaHurt)
 				{
 					int num = projectile.damage / 2;
-					CalamityPlayer.ataxiaDmg += (float)num;
+					CalamityPlayer1Point1.ataxiaDmg += (float)num;
 					int[] array = new int[200];
 					int num3 = 0;
 					int num4 = 0;
@@ -76,7 +76,7 @@ namespace CalamityModClassic1Point1.Projectiles
 					num9 *= num10;
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, num8, num9, Mod.Find<ModProjectile>("AtaxiaOrb").Type, num, 0f, projectile.owner, (float)num6, 0f);
 				}
-				if (CalamityPlayer.ataxiaHeal)
+				if (CalamityPlayer1Point1.ataxiaHeal)
 				{
 					float num11 = 0.1f;
 					num11 -= (float)projectile.numHits * 0.05f;
@@ -110,10 +110,10 @@ namespace CalamityModClassic1Point1.Projectiles
 					}
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AtaxiaHealOrb").Type, 0, 0f, projectile.owner, (float)num14, num12);
 				}
-				if (CalamityPlayer.xerocHurt)
+				if (CalamityPlayer1Point1.xerocHurt)
 				{
 					int num = projectile.damage / 2;
-					CalamityPlayer.xerocDmg += (float)num;
+					CalamityPlayer1Point1.xerocDmg += (float)num;
 					int[] array = new int[200];
 					int num3 = 0;
 					int num4 = 0;
@@ -159,7 +159,7 @@ namespace CalamityModClassic1Point1.Projectiles
 					num9 *= num10;
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, num8, num9, Mod.Find<ModProjectile>("XerocOrb").Type, num, 0f, projectile.owner, (float)num6, 0f);
 				}
-				if (CalamityPlayer.xerocHeal)
+				if (CalamityPlayer1Point1.xerocHeal)
 				{
 					float num11 = 0.1f;
 					num11 -= (float)projectile.numHits * 0.05f;
@@ -196,13 +196,13 @@ namespace CalamityModClassic1Point1.Projectiles
 			}
 			else if (projectile.CountsAsClass(DamageClass.Melee))
 			{
-				if (CalamityPlayer.xerocBlast)
+				if (CalamityPlayer1Point1.xerocBlast)
 				{
 					float num16 = (float)projectile.damage * 0.5f;
 					int num17 = projectile.owner;
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("XerocBlast").Type, 60, 0f, projectile.owner, (float)num17, num16);
 				}
-				if (CalamityPlayer.reaverBlast)
+				if (CalamityPlayer1Point1.reaverBlast)
 				{
 					float num18 = (float)projectile.damage * 0.25f;
 					int num19 = projectile.owner;
@@ -211,7 +211,7 @@ namespace CalamityModClassic1Point1.Projectiles
 			}
 			else if (projectile.CountsAsClass(DamageClass.Ranged))
 			{
-				if (CalamityPlayer.xerocSpike)
+				if (CalamityPlayer1Point1.xerocSpike)
 				{
 					float num16 = (float)projectile.damage * 0.35f;
 					int num17 = projectile.owner;
@@ -220,10 +220,10 @@ namespace CalamityModClassic1Point1.Projectiles
 			}
 			else if (projectile.CountsAsClass(DamageClass.Throwing))
 			{
-				if (CalamityPlayer.xerocTear)
+				if (CalamityPlayer1Point1.xerocTear)
 				{
 					int num = projectile.damage;
-					CalamityPlayer.xerocDmg += (float)num;
+					CalamityPlayer1Point1.xerocDmg += (float)num;
 					int[] array = new int[200];
 					int num3 = 0;
 					int num4 = 0;
@@ -272,18 +272,18 @@ namespace CalamityModClassic1Point1.Projectiles
 			}
 			else if (projectile.minion)
 			{
-				if (CalamityPlayer.tearMinions)
+				if (CalamityPlayer1Point1.tearMinions)
 				{
 					target.AddBuff(Mod.Find<ModBuff>("TemporalSadness").Type, 60);
 				}
-				if (CalamityPlayer.shadowMinions)
+				if (CalamityPlayer1Point1.shadowMinions)
 				{
 					target.AddBuff(BuffID.ShadowFlame, 300);
 				}
-				if (CalamityPlayer.xerocSummon)
+				if (CalamityPlayer1Point1.xerocSummon)
 				{
 					int num = projectile.damage / 2;
-					CalamityPlayer.xerocDmg += (float)num;
+					CalamityPlayer1Point1.xerocDmg += (float)num;
 					int[] array = new int[200];
 					int num3 = 0;
 					int num4 = 0;

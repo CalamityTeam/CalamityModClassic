@@ -124,7 +124,7 @@ namespace CalamityModClassic1Point1.NPCs.TheDevourerofGods
 					Main.dust[num935].noLight = true;
 				}
 			}
-			if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+			if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				speed = 40f;
 				turnSpeed = 0.6f;

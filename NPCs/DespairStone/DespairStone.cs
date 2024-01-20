@@ -294,7 +294,7 @@ namespace CalamityModClassic1Point1.NPCs.DespairStone
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			Tile tile = Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY];
-            return spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneCalamity ? 0.25f : 0f; 
+            return spawnInfo.Player.GetModPlayer<CalamityPlayer1Point1>().ZoneCalamity ? 0.25f : 0f; 
 		}
 		
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */

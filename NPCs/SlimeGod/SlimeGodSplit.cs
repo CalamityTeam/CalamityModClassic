@@ -70,7 +70,7 @@ namespace CalamityModClassic1Point1.NPCs.SlimeGod
 			{
 				NPC.localAI[0] += (float)Main.rand.Next(4);
 			}
-			if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+			if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				NPC.localAI[0] += (float)Main.rand.Next(4);
 			}

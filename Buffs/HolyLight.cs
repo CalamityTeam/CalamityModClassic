@@ -21,12 +21,12 @@ namespace CalamityModClassic1Point1.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer>().hFlames = true;
+			player.GetModPlayer<CalamityPlayer1Point1>().hFlames = true;
 		}
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC>().hFlames = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC1Point1>().hFlames = true;
 		}
 	}
 }

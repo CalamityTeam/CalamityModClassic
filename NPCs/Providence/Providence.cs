@@ -67,9 +67,9 @@ namespace CalamityModClassic1Point1.NPCs.Providence
 
         public override void AI()
 		{
-			CalamityGlobalNPC.holyBoss = NPC.whoAmI;
-			bool bossBuff = CalamityGlobalNPC.bossBuff;
-			bool superBossBuff = CalamityGlobalNPC.superBossBuff;
+			CalamityGlobalNPC1Point1.holyBoss = NPC.whoAmI;
+			bool bossBuff = CalamityGlobalNPC1Point1.bossBuff;
+			bool superBossBuff = CalamityGlobalNPC1Point1.superBossBuff;
 			bool expertMode = Main.expertMode;
 			bool isHoly = Main.player[NPC.target].ZoneHallow;
 			bool isHell = Main.player[NPC.target].ZoneUnderworldHeight;

@@ -122,7 +122,7 @@ namespace CalamityModClassic1Point1.NPCs.ProfanedGuardianBoss
 					Main.dust[num1012].fadeIn = 1f;
 				}
 			}
-			if (CalamityGlobalNPC.doughnutBoss < 0) 
+			if (CalamityGlobalNPC1Point1.doughnutBoss < 0) 
 			{
 				NPC.active = false;
 				NPC.netUpdate = true;
@@ -131,8 +131,8 @@ namespace CalamityModClassic1Point1.NPCs.ProfanedGuardianBoss
 			if (NPC.ai[0] == 0f) 
 			{
 				Vector2 vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num784 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.X - vector96.X;
-				float num785 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.Y - vector96.Y;
+				float num784 = Main.npc[CalamityGlobalNPC1Point1.doughnutBoss].Center.X - vector96.X;
+				float num785 = Main.npc[CalamityGlobalNPC1Point1.doughnutBoss].Center.Y - vector96.Y;
 				float num786 = (float)Math.Sqrt((double)(num784 * num784 + num785 * num785));
 				if (num786 > 90f) 
 				{
@@ -170,8 +170,8 @@ namespace CalamityModClassic1Point1.NPCs.ProfanedGuardianBoss
 				value4 *= 27f; //9f
 				NPC.velocity = (NPC.velocity * 99f + value4) / 100f;
 				Vector2 vector97 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num787 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.X - vector97.X;
-				float num788 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.Y - vector97.Y;
+				float num787 = Main.npc[CalamityGlobalNPC1Point1.doughnutBoss].Center.X - vector97.X;
+				float num788 = Main.npc[CalamityGlobalNPC1Point1.doughnutBoss].Center.Y - vector97.Y;
 				float num789 = (float)Math.Sqrt((double)(num787 * num787 + num788 * num788));
 				if (num789 > 700f) 
 				{

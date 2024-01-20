@@ -94,7 +94,7 @@ namespace CalamityModClassic1Point1.Projectiles
 			Lighting.AddLight(Projectile.Center, 0.7f * num, 0.6f * num, 0f * num);
 			bool flag64 = Projectile.type == Mod.Find<ModProjectile>("DrewsSandyWaifu").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 			Projectile.minionSlots = player.maxMinions;
 			if (flag64)
 			{

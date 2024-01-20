@@ -29,6 +29,6 @@ public class TheFirstShadowflame : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer.shadowMinions = true;
+		CalamityPlayer1Point1.shadowMinions = true;
 	}
 }}

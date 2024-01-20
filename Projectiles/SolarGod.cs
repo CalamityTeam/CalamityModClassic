@@ -32,7 +32,7 @@ namespace CalamityModClassic1Point1.Projectiles
         	Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.5f) / 255f, ((255 - Projectile.alpha) * 0.5f) / 255f, ((255 - Projectile.alpha) * 0f) / 255f);
 			bool flag64 = Projectile.type == Mod.Find<ModProjectile>("SolarGod").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 			if (flag64)
 			{
 				if (player.dead)

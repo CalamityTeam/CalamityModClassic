@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point1.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudyWaifu").Type] > 0)
 			{
 				modPlayer.cWaifu = true;

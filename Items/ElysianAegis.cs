@@ -25,7 +25,7 @@ public class ElysianAegis : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 		modPlayer.dashMod = 3;
 		modPlayer.elysianAegis = true;
 		player.noKnockback = true;

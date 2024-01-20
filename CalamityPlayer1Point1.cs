@@ -25,7 +25,7 @@ using Terraria.WorldBuilding;
 
 namespace CalamityModClassic1Point1
 {
-	public class CalamityPlayer : ModPlayer
+	public class CalamityPlayer1Point1 : ModPlayer
 	{
 		private const int saveVersion = 0;
 		public float shieldInvinc = 5f;

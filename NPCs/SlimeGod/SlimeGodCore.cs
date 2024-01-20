@@ -232,7 +232,7 @@ namespace CalamityModClassic1Point1.NPCs.SlimeGod
 			}
 			NPC.TargetClosest(true);
 			float num1372 = 7f;
-			if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+			if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				num1372 = 20f;
 			}
@@ -286,7 +286,7 @@ namespace CalamityModClassic1Point1.NPCs.SlimeGod
 		
 		public override bool CheckDead()
 		{
-			if (!CalamityWorld.stopPerennial)
+			if (!CalamityWorld1Point1.stopPerennial)
 			{
 				Main.NewText("Fossilized plant ore has formed in the earth!", Color.Crimson.R, Color.Crimson.G, Color.Crimson.B);
 			}

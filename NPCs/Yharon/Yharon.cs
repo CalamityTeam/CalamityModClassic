@@ -73,8 +73,8 @@ namespace CalamityModClassic1Point1.NPCs.Yharon
 
         public override void AI()
 		{
-			bool bossBuff = CalamityGlobalNPC.bossBuff;
-			bool superBossBuff = CalamityGlobalNPC.superBossBuff;
+			bool bossBuff = CalamityGlobalNPC1Point1.bossBuff;
+			bool superBossBuff = CalamityGlobalNPC1Point1.superBossBuff;
 			bool expertMode = Main.expertMode; //ALL THESE PHASES THO
 			float expertDamage = expertMode ? (0.6f * Main.GameModeInfo.EnemyDamageMultiplier) : 1f;
 			bool speedBoost1 = (double)NPC.life <= (double)NPC.lifeMax * 0.8; //speed increase

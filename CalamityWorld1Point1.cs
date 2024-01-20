@@ -23,7 +23,7 @@ using Terraria.WorldBuilding;
 
 namespace CalamityModClassic1Point1
 {
-	public class CalamityWorld : ModSystem
+	public class CalamityWorld1Point1 : ModSystem
 	{
 		private const int saveVersion = 0;
 		public static int calamityTiles = 0;
@@ -179,7 +179,7 @@ namespace CalamityModClassic1Point1
 		
 		public override void ResetNearbyTileEffects()
 		{
-			CalamityPlayer modPlayer = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point1 modPlayer = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer1Point1>();
 			calamityTiles = 0;
 		}
 		
@@ -202,7 +202,7 @@ namespace CalamityModClassic1Point1
 				//clearing space
 				int SpaceOutX = Main.rand.Next(130, 155);
 				int SpaceOutY = Main.maxTilesY - Main.rand.Next(30, 40);
-				WorldMethods.RoundHole(SpaceOutX, SpaceOutY, 100, 125, 55, true);
+				WorldMethods1Point1.RoundHole(SpaceOutX, SpaceOutY, 100, 125, 55, true);
 				
 				WorldGen.digTunnel(SpaceOutX, SpaceOutY, 0, 0, 55, 55, false);
 				for (int rotation2 = 0; rotation2 < 350; rotation2++)
@@ -215,24 +215,24 @@ namespace CalamityModClassic1Point1
 				//Generating random spikes layer 1-
 				for (int J = 20; J < (SpaceOutX * 2) + 10; J++) 
 				{
-					WorldMethods.TileRunner(J, Main.maxTilesY - 108, (double)Main.rand.Next(12, 15), 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
-					WorldMethods.TileRunner(J, Main.maxTilesY - 54, (double)102, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
-					WorldMethods.TileRunner(J + 10, Main.maxTilesY - 27, (double)75, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
-					WorldMethods.TileRunner(J + 10, Main.maxTilesY - 78, (double)75, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
+					WorldMethods1Point1.TileRunner(J, Main.maxTilesY - 108, (double)Main.rand.Next(12, 15), 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
+					WorldMethods1Point1.TileRunner(J, Main.maxTilesY - 54, (double)102, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
+					WorldMethods1Point1.TileRunner(J + 10, Main.maxTilesY - 27, (double)75, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
+					WorldMethods1Point1.TileRunner(J + 10, Main.maxTilesY - 78, (double)75, 1, Mod.Find<ModTile>("BrimstoneSlag").Type, true, 0f, 0f, false, true);
 					if (J > 30) 
 					{
 						if (Main.rand.Next(12) == 1) 
 						{
-							WorldMethods.CragSpike(J, Main.maxTilesY - Main.rand.Next(125, 158), 1, Main.rand.Next(85, 114), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)(Main.rand.Next(5, 12)), (float)(Main.rand.Next(5, 12)));
+							WorldMethods1Point1.CragSpike(J, Main.maxTilesY - Main.rand.Next(125, 158), 1, Main.rand.Next(85, 114), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)(Main.rand.Next(5, 12)), (float)(Main.rand.Next(5, 12)));
 						}
 						if (Main.rand.Next(40) == 1) 
 						{
-							WorldMethods.CragSpike(J, Main.maxTilesY - Main.rand.Next(158, 204), 1, Main.rand.Next(124, 154), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)(Main.rand.Next(6, 13)), (float)(Main.rand.Next(6, 13)));
+							WorldMethods1Point1.CragSpike(J, Main.maxTilesY - Main.rand.Next(158, 204), 1, Main.rand.Next(124, 154), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)(Main.rand.Next(6, 13)), (float)(Main.rand.Next(6, 13)));
 						}
 					}
 				}
 				int Position = Main.rand.Next(183, 234);
-				WorldMethods.CragSpike(SpaceOutX, Main.maxTilesY - Position, 1, Main.rand.Next(145, 167), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)4, (float)4);
+				WorldMethods1Point1.CragSpike(SpaceOutX, Main.maxTilesY - Position, 1, Main.rand.Next(145, 167), (ushort)Mod.Find<ModTile>("BrimstoneSlag").Type, (float)4, (float)4);
 				WorldGen.digTunnel(SpaceOutX + 3, (Main.maxTilesY - Position) + 30, 0, 0, 6, 6, false);
 				WorldGen.digTunnel(SpaceOutX - 3, (Main.maxTilesY - Position) + 30, 0, 0, 6, 6, false);
 				for (int TunnelPlace = (Main.maxTilesY - Position) + 30; TunnelPlace < Main.maxTilesY - 95; TunnelPlace++) 
@@ -240,7 +240,7 @@ namespace CalamityModClassic1Point1
 					WorldGen.digTunnel(SpaceOutX, TunnelPlace, 0, 0, 3, 3, false);
 				}
 				
-				WorldMethods.RoundHole(SpaceOutX, (Main.maxTilesY - 72), 80, 27, 4, false);
+				WorldMethods1Point1.RoundHole(SpaceOutX, (Main.maxTilesY - 72), 80, 27, 4, false);
 				
 				for (int rotation3 = 0; rotation3 < 350; rotation3++)
 				{
@@ -251,7 +251,7 @@ namespace CalamityModClassic1Point1
 				}
 				
 				WorldGen.digTunnel(SpaceOutX, Main.maxTilesY - 72, 0, 0, 5, 5, false);
-				WorldMethods.RoundHole(SpaceOutX, (Main.maxTilesY - 72), 12, 6, 4, false);
+				WorldMethods1Point1.RoundHole(SpaceOutX, (Main.maxTilesY - 72), 12, 6, 4, false);
 				
 				for (int OreGen = 0; OreGen < 150; OreGen++) 
 				{

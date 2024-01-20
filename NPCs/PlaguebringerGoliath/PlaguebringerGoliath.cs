@@ -1024,7 +1024,7 @@ namespace CalamityModClassic1Point1.NPCs.PlaguebringerGoliath
 		
 		public override bool CheckDead()
 		{
-			if (!CalamityWorld.stopUelibloom)
+			if (!CalamityWorld1Point1.stopUelibloom)
 			{
 				Main.NewText("New pockets of ore have been energized in the jungle mud!", Color.Lime.R, Color.Lime.G, Color.Lime.B);
 			}

@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point1.Items.Armor
 
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
     	modPlayer.godSlayerReflect = true;
     	player.thorns = 10f;
     	player.statLifeMax2 += 250;

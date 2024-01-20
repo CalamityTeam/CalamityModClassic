@@ -37,12 +37,12 @@ namespace CalamityModClassic1Point1.Items.Armor
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer.xerocBlast = true;
-    	CalamityPlayer.xerocHurt = true;
-    	CalamityPlayer.xerocHeal = true;
-    	CalamityPlayer.xerocSpike = true;
-    	CalamityPlayer.xerocTear = true;
-    	CalamityPlayer.xerocSummon = true;
+    	CalamityPlayer1Point1.xerocBlast = true;
+    	CalamityPlayer1Point1.xerocHurt = true;
+    	CalamityPlayer1Point1.xerocHeal = true;
+    	CalamityPlayer1Point1.xerocSpike = true;
+    	CalamityPlayer1Point1.xerocTear = true;
+    	CalamityPlayer1Point1.xerocSummon = true;
     	if (player.immune)
 		{
         	player.AddBuff(Mod.Find<ModBuff>("XerocRage").Type, 240);

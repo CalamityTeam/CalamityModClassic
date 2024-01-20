@@ -38,25 +38,25 @@ namespace CalamityModClassic1Point1.Items
 
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
-			if (!CalamityGlobalNPC.superBossBuff && CalamityGlobalNPC.bossBuff)
+			if (!CalamityGlobalNPC1Point1.superBossBuff && CalamityGlobalNPC1Point1.bossBuff)
 			{
 				Main.NewText("Welcome to Terraria: Prepare to Cry Edition", Color.Red.R, Color.Purple.G, Color.Blue.B);
-				CalamityGlobalNPC.superBossBuff = true;
+				CalamityGlobalNPC1Point1.superBossBuff = true;
 			}
-			else if (!CalamityGlobalNPC.superBossBuff && !CalamityGlobalNPC.bossBuff)
+			else if (!CalamityGlobalNPC1Point1.superBossBuff && !CalamityGlobalNPC1Point1.bossBuff)
 			{
 				Main.NewText("Welcome to Terraria: Prepare to Die Edition", Color.Red.R, Color.Purple.G, Color.Blue.B);
-				CalamityGlobalNPC.superBossBuff = true;
+				CalamityGlobalNPC1Point1.superBossBuff = true;
 			}
-			else if (CalamityGlobalNPC.superBossBuff && CalamityGlobalNPC.bossBuff)
+			else if (CalamityGlobalNPC1Point1.superBossBuff && CalamityGlobalNPC1Point1.bossBuff)
 			{
 				Main.NewText("Welcome to Terraria: Prepare to Die Edition", Color.Red.R, Color.Purple.G, Color.Blue.B);
-				CalamityGlobalNPC.superBossBuff = false;
+				CalamityGlobalNPC1Point1.superBossBuff = false;
 			}
-			else if (CalamityGlobalNPC.superBossBuff && !CalamityGlobalNPC.bossBuff)
+			else if (CalamityGlobalNPC1Point1.superBossBuff && !CalamityGlobalNPC1Point1.bossBuff)
 			{
 				Main.NewText("Welcome to Terraria", Color.Red.R, Color.Purple.G, Color.Blue.B);
-				CalamityGlobalNPC.superBossBuff = false;
+				CalamityGlobalNPC1Point1.superBossBuff = false;
 			}
 			return true;
 		}

@@ -68,20 +68,20 @@ namespace CalamityModClassic1Point1
                     switch(name)
                     {
                         default: return false;
-                        case "desertscourge": return CalamityWorld.downedDesertScourge;
-                        case "hivemind": return CalamityWorld.downedHiveMind;
-                        case "perforators": return CalamityWorld.downedPerforator;
-                        case "slimegod": return CalamityWorld.downedSlimeGod;
-                        case "cryogen": return CalamityWorld.downedCryogen;
-                        case "calamitas": return CalamityWorld.downedCalamitas;
-                        case "leviathan": return CalamityWorld.downedLeviathan;
-                        case "plaguebringer": return CalamityWorld.downedPlaguebringer;
-                        case "guardians": return CalamityWorld.downedGuardians;
-                        case "providence": return CalamityWorld.downedProvidence;
-                        case "sentinel": return CalamityWorld.downedSentinel;
-                        case "devourerofgods": return CalamityWorld.downedDoG;
-                        case "yharon": return CalamityWorld.downedYharon;
-                        case "supremecalamitas": return CalamityWorld.downedSCal;
+                        case "desertscourge": return CalamityWorld1Point1.downedDesertScourge;
+                        case "hivemind": return CalamityWorld1Point1.downedHiveMind;
+                        case "perforators": return CalamityWorld1Point1.downedPerforator;
+                        case "slimegod": return CalamityWorld1Point1.downedSlimeGod;
+                        case "cryogen": return CalamityWorld1Point1.downedCryogen;
+                        case "calamitas": return CalamityWorld1Point1.downedCalamitas;
+                        case "leviathan": return CalamityWorld1Point1.downedLeviathan;
+                        case "plaguebringer": return CalamityWorld1Point1.downedPlaguebringer;
+                        case "guardians": return CalamityWorld1Point1.downedGuardians;
+                        case "providence": return CalamityWorld1Point1.downedProvidence;
+                        case "sentinel": return CalamityWorld1Point1.downedSentinel;
+                        case "devourerofgods": return CalamityWorld1Point1.downedDoG;
+                        case "yharon": return CalamityWorld1Point1.downedYharon;
+                        case "supremecalamitas": return CalamityWorld1Point1.downedSCal;
                     }
                 };
                 return downed;

@@ -69,7 +69,7 @@ namespace CalamityModClassic1Point1.NPCs.CeaselessVoid
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			CalamityGlobalNPC.voidBoss = NPC.whoAmI;
+			CalamityGlobalNPC1Point1.voidBoss = NPC.whoAmI;
 			if (NPC.defense < 999999)
 			{
 				NPC.defense = 999999;

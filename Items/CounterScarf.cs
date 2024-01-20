@@ -29,7 +29,7 @@ public class CounterScarf : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point1 modPlayer = player.GetModPlayer<CalamityPlayer1Point1>();
 		modPlayer.dodgeScarf = true;
 		modPlayer.dashMod = 1;
 	}

@@ -29,7 +29,7 @@ public class StatisBlessing : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer.tearMinions = true;
+		CalamityPlayer1Point1.tearMinions = true;
 		player.GetKnockback(DamageClass.Summon).Base += 2.5f;
 		player.GetDamage(DamageClass.Summon) += 0.2f;
 		player.maxMinions += 3;

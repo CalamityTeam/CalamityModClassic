@@ -91,7 +91,7 @@ namespace CalamityModClassic1Point1.NPCs.DesertScourge
 				NPC.TargetClosest(true);
 			}
 			NPC.velocity.Length();
-			if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+			if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				speed = 50f;
 				turnSpeed = 0.5f;
@@ -492,7 +492,7 @@ namespace CalamityModClassic1Point1.NPCs.DesertScourge
 		
 		public override bool CheckDead()
 		{
-			if (!CalamityWorld.stopAerialite)
+			if (!CalamityWorld1Point1.stopAerialite)
 			{
 				Main.NewText("The underground is shimmering with cyan light!", Color.Cyan.R, Color.Cyan.G, Color.Cyan.B);
 			}

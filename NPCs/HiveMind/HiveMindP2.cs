@@ -89,7 +89,7 @@ namespace CalamityModClassic1Point1.NPCs.HiveMind
 					{
 						NPC.ai[3] = (float)NPC.life;
 						int num661 = Main.rand.Next(1, 2);
-						if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+						if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 						{
 							num661 = Main.rand.Next(2, 4);
 						}
@@ -117,7 +117,7 @@ namespace CalamityModClassic1Point1.NPCs.HiveMind
 					}
 				}
 			}
-	       	if (CalamityGlobalNPC.bossBuff && CalamityGlobalNPC.superBossBuff)
+	       	if (CalamityGlobalNPC1Point1.bossBuff && CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				NPC.localAI[0] += (float)Main.rand.Next(15);
 			}

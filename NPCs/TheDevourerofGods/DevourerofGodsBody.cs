@@ -67,7 +67,7 @@ namespace CalamityModClassic1Point1.NPCs.TheDevourerofGods
 			{
 				NPC.defense = 99999;
 			}
-			if (CalamityGlobalNPC.bossBuff || CalamityGlobalNPC.superBossBuff)
+			if (CalamityGlobalNPC1Point1.bossBuff || CalamityGlobalNPC1Point1.superBossBuff)
 			{
 				NPC.reflectsProjectiles = true;
 			}

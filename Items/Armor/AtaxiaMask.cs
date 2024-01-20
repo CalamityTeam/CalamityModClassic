@@ -37,8 +37,8 @@ namespace CalamityModClassic1Point1.Items.Armor
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus =("Major magic damage buffs and defense debuffs as health decreases\nInferno effect when below 50% life\nMagic attacks summon damaging and healing flare orbs on hit");
-        CalamityPlayer.ataxiaHurt = true;
-        CalamityPlayer.ataxiaHeal = true;
+        CalamityPlayer1Point1.ataxiaHurt = true;
+        CalamityPlayer1Point1.ataxiaHeal = true;
         if(player.statLife <= (player.statLifeMax2 * 0.75f))
         {
         	player.manaCost *= 1.2f;

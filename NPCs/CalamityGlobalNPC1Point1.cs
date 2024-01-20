@@ -23,7 +23,7 @@ using CalamityModClassic1Point1.Items.DesertScourge;
 
 namespace CalamityModClassic1Point1.NPCs
 {
-	public class CalamityGlobalNPC : GlobalNPC
+	public class CalamityGlobalNPC1Point1 : GlobalNPC
 	{
 		public static bool bossBuff = false;
 		public static bool superBossBuff = false;
@@ -1039,7 +1039,7 @@ namespace CalamityModClassic1Point1.NPCs
 		{
 			if (npc.type == Mod.Find<ModNPC>("DesertScourgeHead").Type) //boss 1
 			{
-				if (!CalamityWorld.stopAerialite)
+				if (!CalamityWorld1Point1.stopAerialite)
 				{
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-05); k++)
 					{
@@ -1048,20 +1048,20 @@ namespace CalamityModClassic1Point1.NPCs
 						WorldGen.OreRunner(i2, j2, (double)WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), (ushort)Mod.Find<ModTile>("AerialiteOre").Type);
 					}
 				}
-				CalamityWorld.stopAerialite = true;
-				CalamityWorld.downedDesertScourge = true;
+				CalamityWorld1Point1.stopAerialite = true;
+				CalamityWorld1Point1.downedDesertScourge = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("HiveMindP2").Type) //boss 2
 			{
-				CalamityWorld.downedHiveMind = true;
+				CalamityWorld1Point1.downedHiveMind = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("PerforatorHeadLarge").Type) //boss 3
 			{
-				CalamityWorld.downedPerforator = true;
+				CalamityWorld1Point1.downedPerforator = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("SlimeGodCore").Type) //boss 4
 			{
-				if (!CalamityWorld.stopPerennial)
+				if (!CalamityWorld1Point1.stopPerennial)
 				{
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-05); k++)
 					{
@@ -1073,12 +1073,12 @@ namespace CalamityModClassic1Point1.NPCs
 						}
 					}
 				}
-				CalamityWorld.stopPerennial = true;
-				CalamityWorld.downedSlimeGod = true;
+				CalamityWorld1Point1.stopPerennial = true;
+				CalamityWorld1Point1.downedSlimeGod = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CryogenP6").Type) //boss 5
 			{
-				if (!CalamityWorld.stopCryonic)
+				if (!CalamityWorld1Point1.stopCryonic)
 				{
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-05); k++)
 					{
@@ -1090,12 +1090,12 @@ namespace CalamityModClassic1Point1.NPCs
 						}
 					}
 				}
-				CalamityWorld.stopCryonic = true;
-				CalamityWorld.downedCryogen = true;
+				CalamityWorld1Point1.stopCryonic = true;
+				CalamityWorld1Point1.downedCryogen = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CalamitasRun3").Type) //boss 6
 			{
-				if (!CalamityWorld.stopChaotic)
+				if (!CalamityWorld1Point1.stopChaotic)
 			    {
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-05); k++)
 					{
@@ -1104,16 +1104,16 @@ namespace CalamityModClassic1Point1.NPCs
 						WorldGen.OreRunner(i2, j2, (double)WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), (ushort)Mod.Find<ModTile>("ChaoticOre").Type);
 					}
 			    }
-				CalamityWorld.stopChaotic = true;
-				CalamityWorld.downedCalamitas = true;
+				CalamityWorld1Point1.stopChaotic = true;
+				CalamityWorld1Point1.downedCalamitas = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Siren").Type) //boss 7
 			{
-				CalamityWorld.downedLeviathan = true;
+				CalamityWorld1Point1.downedLeviathan = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("PlaguebringerGoliath").Type) //boss 8
 			{
-				if (!CalamityWorld.stopUelibloom)
+				if (!CalamityWorld1Point1.stopUelibloom)
 				{
 					int x = Main.maxTilesX;
 					int y = Main.maxTilesY;
@@ -1127,32 +1127,32 @@ namespace CalamityModClassic1Point1.NPCs
 						}
 					}
 			   	}
-				CalamityWorld.stopUelibloom = true;
-				CalamityWorld.downedPlaguebringer = true;
+				CalamityWorld1Point1.stopUelibloom = true;
+				CalamityWorld1Point1.downedPlaguebringer = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("ProfanedGuardianBoss").Type) //boss 9
 			{
-				CalamityWorld.downedGuardians = true;
+				CalamityWorld1Point1.downedGuardians = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Providence").Type) //boss 10
 			{
-				CalamityWorld.downedProvidence = true;
+				CalamityWorld1Point1.downedProvidence = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("StormWeaverHead").Type || npc.type == Mod.Find<ModNPC>("CeaselessVoid").Type || npc.type == Mod.Find<ModNPC>("CosmicWraith").Type) //boss 11
 			{
-				CalamityWorld.downedSentinel = true;
+				CalamityWorld1Point1.downedSentinel = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("DevourerofGodsHead").Type) //boss 12
 			{
-				CalamityWorld.downedDoG = true;
+				CalamityWorld1Point1.downedDoG = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Yharon").Type) //boss 13
 			{
-				CalamityWorld.downedYharon = true;
+				CalamityWorld1Point1.downedYharon = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("SupremeCalamitas").Type) //boss 14
 			{
-				CalamityWorld.downedSCal = true;
+				CalamityWorld1Point1.downedSCal = true;
 			}
 		}
 
@@ -1262,7 +1262,7 @@ namespace CalamityModClassic1Point1.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityGlobalNPC.superBossBuff;
+            return CalamityGlobalNPC1Point1.superBossBuff;
         }
 
         public bool CanShowItemDropInUI()
@@ -1279,7 +1279,7 @@ namespace CalamityModClassic1Point1.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityGlobalNPC.bossBuff;
+            return CalamityGlobalNPC1Point1.bossBuff;
         }
 
         public bool CanShowItemDropInUI()
@@ -1296,7 +1296,7 @@ namespace CalamityModClassic1Point1.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityGlobalNPC.superBossBuff || CalamityGlobalNPC.bossBuff;
+            return CalamityGlobalNPC1Point1.superBossBuff || CalamityGlobalNPC1Point1.bossBuff;
         }
 
         public bool CanShowItemDropInUI()
@@ -1313,7 +1313,7 @@ namespace CalamityModClassic1Point1.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityGlobalNPC.superBossBuff && CalamityGlobalNPC.bossBuff;
+            return CalamityGlobalNPC1Point1.superBossBuff && CalamityGlobalNPC1Point1.bossBuff;
         }
 
         public bool CanShowItemDropInUI()

@@ -361,7 +361,7 @@ namespace CalamityModClassic1Point1.NPCs.Cryogen
 		
 		public override bool CheckDead()
 		{
-			if (!CalamityWorld.stopCryonic)
+			if (!CalamityWorld1Point1.stopCryonic)
 			{
 				Main.NewText("Ancient ice ore has formed in the ice caves!", Color.Orchid.R, Color.Orchid.G, Color.Orchid.B);
 			}

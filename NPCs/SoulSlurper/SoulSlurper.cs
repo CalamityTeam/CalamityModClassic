@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point1.NPCs.SoulSlurper
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneCalamity ? 0.25f : 0f;
+			return spawnInfo.Player.GetModPlayer<CalamityPlayer1Point1>().ZoneCalamity ? 0.25f : 0f;
         }
 		
 		public override void AI()

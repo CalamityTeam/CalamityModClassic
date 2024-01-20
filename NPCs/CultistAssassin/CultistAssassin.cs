@@ -45,7 +45,7 @@ namespace CalamityModClassic1Point1.NPCs.CultistAssassin
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return (spawnInfo.Player.ZoneDungeon || spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneCalamity) && Main.hardMode ? 0.035f : 0f;
+			return (spawnInfo.Player.ZoneDungeon || spawnInfo.Player.GetModPlayer<CalamityPlayer1Point1>().ZoneCalamity) && Main.hardMode ? 0.035f : 0f;
         }
 		
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
