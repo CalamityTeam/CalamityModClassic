@@ -2952,23 +2952,12 @@ namespace CalamityModClassic1Point2.NPCs
 				npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<StaffoftheMechworm>(), 4));
 				npcLoot.Add(ItemDropRule.ByCondition(new RevCondition(), ModContent.ItemType<Murasama>()));
 			}
-			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotFromStatue(), ModContent.ItemType<YharimsCrystal>(), 1000000));
 			if (npc.type == ModContent.NPCType<Yharon.Yharon>())
 			{
 				npcLoot.Add(new CommonDrop(ModContent.ItemType<YharimsCrystal>(), 1000));
 			}
 			#region legends
 			// this is a real scaling legendary moment
-			LeadingConditionRule notStatue = new LeadingConditionRule(new Conditions.NotFromStatue());
-			LeadingConditionRule preHm = new LeadingConditionRule(new Conditions.IsPreHardmode());
-			LeadingConditionRule hm = new LeadingConditionRule(new Conditions.IsHardmode());
-			LeadingConditionRule postML = new LeadingConditionRule(new MoonCondition());
-			LeadingConditionRule expert = new LeadingConditionRule(new Conditions.IsExpert());
-			int[] legendaries = new int[] { ModContent.ItemType<AegisBlade>(), ModContent.ItemType<BlossomFlux>(), ModContent.ItemType<BrinyBaron>(), ModContent.ItemType<SHPC>(), ModContent.ItemType<CosmicDischarge>(), ModContent.ItemType<Vesuvius>(), ModContent.ItemType<TheCommunity>(), ModContent.ItemType<Malachite>() };
-			notStatue.OnSuccess(preHm.OnSuccess(ItemDropRule.OneFromOptions(500000, legendaries)));
-			notStatue.OnSuccess(hm.OnSuccess(ItemDropRule.OneFromOptions(250000, legendaries)));
-			notStatue.OnSuccess(postML.OnSuccess(ItemDropRule.OneFromOptions(150000, legendaries)));
-			npcLoot.Add(notStatue);
 			AddLegendaryBossDrop(ref npcLoot, ref npc, NPCID.Golem, ModContent.ItemType<AegisBlade>());
 			AddLegendaryBossDrop(ref npcLoot, ref npc, NPCID.DukeFishron, ModContent.ItemType<BrinyBaron>());
 			AddLegendaryBossDrop(ref npcLoot, ref npc, ModContent.NPCType<DevourerofGodsHead>(), ModContent.ItemType<CosmicDischarge>());
@@ -3247,17 +3236,32 @@ namespace CalamityModClassic1Point2.NPCs
 			LeadingConditionRule expert = new LeadingConditionRule(new Conditions.IsExpert());
 			if (npc.type == boss)
 			{
-				notStatue.OnSuccess(preHm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 10000))));
-				notStatue.OnSuccess(hm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 5000))));
-				notStatue.OnSuccess(postML.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 4000))));
-				notStatue.OnSuccess(preHm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 9000))));
-				notStatue.OnSuccess(hm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 4500))));
-				notStatue.OnSuccess(postML.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 3700))));
+				notStatue.OnSuccess(preHm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 10000))), true);
+                notStatue.OnSuccess(hm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 5000))));
+				notStatue.OnSuccess(postML.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 4000))), true);
+                notStatue.OnSuccess(preHm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 9000))), true);
+                notStatue.OnSuccess(hm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 4500))), true);
+                notStatue.OnSuccess(postML.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 3700))), true);
 			}
 			npcLoot.Add(notStatue);
 		}
 
-		public override void OnKill(NPC npc)
+        public override void ModifyGlobalLoot(GlobalLoot globalLoot)
+        {
+            LeadingConditionRule notStatue = new LeadingConditionRule(new Conditions.NotFromStatue());
+            LeadingConditionRule preHm = new LeadingConditionRule(new Conditions.IsPreHardmode());
+            LeadingConditionRule hm = new LeadingConditionRule(new Conditions.IsHardmode());
+            LeadingConditionRule postML = new LeadingConditionRule(new MoonCondition());
+            LeadingConditionRule expert = new LeadingConditionRule(new Conditions.IsExpert());
+            int[] legendaries = new int[] { ModContent.ItemType<AegisBlade>(), ModContent.ItemType<BlossomFlux>(), ModContent.ItemType<BrinyBaron>(), ModContent.ItemType<SHPC>(), ModContent.ItemType<CosmicDischarge>(), ModContent.ItemType<Vesuvius>(), ModContent.ItemType<TheCommunity>(), ModContent.ItemType<Malachite>() };
+            notStatue.OnSuccess(preHm.OnSuccess(ItemDropRule.OneFromOptions(500000, legendaries)));
+            notStatue.OnSuccess(hm.OnSuccess(ItemDropRule.OneFromOptions(250000, legendaries)));
+            notStatue.OnSuccess(postML.OnSuccess(ItemDropRule.OneFromOptions(150000, legendaries)));
+            globalLoot.Add(notStatue);
+            globalLoot.Add(ItemDropRule.ByCondition(new Conditions.NotFromStatue(), ModContent.ItemType<YharimsCrystal>(), 1000000));
+        }
+
+        public override void OnKill(NPC npc)
 		{
 			#region stuff ive finished
 			bool revenge = CalamityWorld1Point2.revenge;
