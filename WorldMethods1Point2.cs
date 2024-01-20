@@ -12,18 +12,26 @@ namespace CalamityModClassic1Point2
 {
 	public class WorldMethods1Point2
 	{
-		public static void RoundHole(int X, int Y, int Xmult, int Ymult, int strength, bool initialdig)
+		public static double RoundHole(int X, int Y, int Xmult, int Ymult, int strength, bool initialdig, ref GenerationProgress progress)
 		{
 			if (initialdig) 
 			{
 				WorldGen.digTunnel(X, Y, 0, 0, strength, strength, false);
 			}
+			double pr = progress.Value;
+			progress.Set(pr);
 			for (int rotation2 = 0; rotation2 < 350; rotation2++) 
 			{
 				int DistX = (int)(0 - (Math.Sin(rotation2) * Xmult));
 				int DistY = (int)(0 - (Math.Cos(rotation2) * Ymult));
 				WorldGen.digTunnel(X + DistX, Y + DistY, 0, 0, strength, strength, false);
-			}
+                progress.Set(pr + 350 / 612500 * rotation2);
+				if (rotation2 == 349)
+				{
+					pr += 350 / 612500 * rotation2 * 2;
+                }
+            }
+			return pr;
 		}
 		
 		public static void CragSpike(int X, int Y, int length, int height, ushort type2, float slope, float sloperight)
