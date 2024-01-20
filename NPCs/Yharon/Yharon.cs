@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 		public int skyFlareProjectiles = 1;
 		public const float skyFlareAngleSpread = 360;
 		public int skyFlareCountdown = 0;
-		internal int dpsCap = CalamityWorld.downedYharon ? 182000 : 20000; //60
+		internal int dpsCap = CalamityWorld1Point2.downedYharon ? 182000 : 20000; //60
 		private int damageTotal = 0;
 		public Rectangle safeBox = default(Rectangle);
 		public bool protectionBoost = false;
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			NPC.width = 150;
 			NPC.height = 100;
 			NPC.defense = 260;
-			NPC.lifeMax = CalamityWorld.revenge ? 1300000 : 1150000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 1300000 : 1150000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -75,7 +75,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			float expertDamage = expertMode ? (0.55f * Main.GameModeInfo.EnemyDamageMultiplier) : 1f;
 			bool skyFlareStart = (double)NPC.life <= (double)NPC.lifeMax * 0.9; //starts sky flare barrages

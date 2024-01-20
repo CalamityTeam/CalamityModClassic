@@ -35,7 +35,7 @@ public class VictideHelmet : ModItem
     {
         player.setBonus = "Increased life regen and summon damage while submerged in liquid\n" +
         	"Summons a sea urchin to protect you";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.urchin = true;
 		if (player.whoAmI == Main.myPlayer)
 		{

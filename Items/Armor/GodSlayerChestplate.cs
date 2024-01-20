@@ -32,7 +32,7 @@ public class GodSlayerChestplate : ModItem
 
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.godSlayerReflect = true;
     	player.thorns = 1f;
     	player.statLifeMax2 += 250;

@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.DetonatingFlare2
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.alpha -= 3;
 			NPC.TargetClosest(true);
 			Vector2 vector98 = new Vector2(NPC.Center.X, NPC.Center.Y);

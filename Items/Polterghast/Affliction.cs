@@ -21,7 +21,7 @@ public class Affliction : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		if (modPlayer.stressLevel300)
 		{
 			modPlayer.affliction = true;

@@ -71,14 +71,14 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 		
 		public override void AI()
 		{
-			CalamityGlobalNPC.doughnutBoss = NPC.whoAmI;
+			CalamityGlobalNPC1Point2.doughnutBoss = NPC.whoAmI;
 			bool fireBalls = (double)NPC.life <= (double)NPC.lifeMax * 0.75;
 			bool powerBoost = (double)NPC.life <= (double)NPC.lifeMax * 0.5;
 			bool fireDust = (double)NPC.life <= (double)NPC.lifeMax * 0.25;
 			Player player = Main.player[NPC.target];
 			Vector2 vector = NPC.Center;
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool isHoly = player.ZoneHallow;
 			bool isHell = player.ZoneUnderworldHeight;
 			NPC.defense = (isHoly || isHell) ? 88 : 99999;

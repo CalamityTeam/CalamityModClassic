@@ -35,7 +35,7 @@ public class DaedalusHeadgear : ModItem
     {
         player.setBonus = "Grants minion damage and defensive boosts as health gets lower\n" +
         	"A daedalus crystal floats above you to protect you";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.daedalusCrystal = true;
         if (player.whoAmI == Main.myPlayer)
 		{

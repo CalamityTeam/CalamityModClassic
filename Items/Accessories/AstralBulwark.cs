@@ -21,7 +21,7 @@ public class AstralBulwark : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.aBulwark = true;
 		player.buffImmune[Mod.Find<ModBuff>("GodSlayerInferno").Type] = true;
 	}

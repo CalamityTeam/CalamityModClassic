@@ -33,14 +33,14 @@ public class ShroomiteVisage : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	player.shroomiteStealth = true;
         player.setBonus = "Ranged stealth while standing still";
     }
     
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.flamethrowerBoost = true;
     }
 

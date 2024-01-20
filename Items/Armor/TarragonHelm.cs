@@ -43,7 +43,7 @@ public class TarragonHelm : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.tarraSet = true;
         player.setBonus = "Grants multiple defense boosts if health is low\n" +
         	"You regen health quickly when you damage enemies\n" +

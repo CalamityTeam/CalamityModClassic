@@ -22,7 +22,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer>().hAttack = true;
+			player.GetModPlayer<CalamityPlayer1Point2>().hAttack = true;
 		}
 	}
 }

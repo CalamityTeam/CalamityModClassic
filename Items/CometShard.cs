@@ -32,7 +32,7 @@ namespace CalamityModClassic1Point2.Items
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (modPlayer.cShard)
 			{
 				return false;
@@ -49,7 +49,7 @@ namespace CalamityModClassic1Point2.Items
 				{
 					player.ManaEffect(50);
 				}
-				CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 				modPlayer.cShard = true;
 			}
 			return true;

@@ -54,17 +54,17 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			bool expertMode = Main.expertMode;
 			bool flag48 = false;
 			bool flag49 = false;
-			if (CalamityGlobalNPC.ghostBoss < 0) 
+			if (CalamityGlobalNPC1Point2.ghostBoss < 0) 
 			{
 				NPC.active = false;
 				NPC.netUpdate = true;
 				return;
 			}
-			if (Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].dead) 
+			if (Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].dead) 
 			{
 				flag49 = true;
 			}
-			if (((CalamityGlobalNPC.ghostBoss != -1 && !Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].ZoneDungeon)) | flag49) 
+			if (((CalamityGlobalNPC1Point2.ghostBoss != -1 && !Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].ZoneDungeon)) | flag49) 
 			{
 				NPC.localAI[0] -= 6f;
 				flag48 = true;
@@ -87,19 +87,19 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 					NPC.localAI[0] = 0f;
 				}
 				NPC.localAI[0] -= 1f;
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 2) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 2) 
 				{
 					NPC.localAI[0] -= 2f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 4) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 4) 
 				{
 					NPC.localAI[0] -= 3f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 5) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 5) 
 				{
 					NPC.localAI[0] -= 3f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 10) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 10) 
 				{
 					NPC.localAI[0] -= 3f;
 				}
@@ -127,23 +127,23 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 					while (!flag50 && num764 <= 1000) 
 					{
 						num764++;
-						int num765 = (int)(Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].Center.X / 16f);
-						int num766 = (int)(Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].Center.Y / 16f);
+						int num765 = (int)(Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].Center.X / 16f);
+						int num766 = (int)(Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].Center.Y / 16f);
 						if (NPC.ai[0] == 0f) 
 						{
-							num765 = (int)((Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].Center.X + Main.npc[CalamityGlobalNPC.ghostBoss].Center.X) / 32f);
-							num766 = (int)((Main.player[Main.npc[CalamityGlobalNPC.ghostBoss].target].Center.Y + Main.npc[CalamityGlobalNPC.ghostBoss].Center.Y) / 32f);
+							num765 = (int)((Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].Center.X + Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.X) / 32f);
+							num766 = (int)((Main.player[Main.npc[CalamityGlobalNPC1Point2.ghostBoss].target].Center.Y + Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.Y) / 32f);
 						}
 						if (flag49) 
 						{
-							num765 = (int)Main.npc[CalamityGlobalNPC.ghostBoss].position.X / 16;
-							num766 = (int)(Main.npc[CalamityGlobalNPC.ghostBoss].position.Y + 400f) / 16;
+							num765 = (int)Main.npc[CalamityGlobalNPC1Point2.ghostBoss].position.X / 16;
+							num766 = (int)(Main.npc[CalamityGlobalNPC1Point2.ghostBoss].position.Y + 400f) / 16;
 						}
 						int num767 = 20;
 						num767 += (int)(100f * ((float)num764 / 1000f));
 						int num768 = num765 + Main.rand.Next(-num767, num767 + 1);
 						int num769 = num766 + Main.rand.Next(-num767, num767 + 1);
-						if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 2 && Main.rand.NextBool(4)) 
+						if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 2 && Main.rand.NextBool(4)) 
 						{
 							NPC.TargetClosest(true);
 							int num770 = (int)(Main.player[NPC.target].Center.X / 16f);
@@ -156,7 +156,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 						}
 						try 
 						{
-							if (WorldGen.SolidTile(num768, num769) || (Main.tile[num768, num769].WallType > 0 && (num764 > 500 || Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 2))) 
+							if (WorldGen.SolidTile(num768, num769) || (Main.tile[num768, num769].WallType > 0 && (num764 > 500 || Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 2))) 
 							{
 								flag50 = true;
 								NPC.ai[0] = (float)num768;
@@ -173,19 +173,19 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			if (NPC.ai[0] > 0f && NPC.ai[1] > 0f) 
 			{
 				float num772 = 10f;
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 2) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 2) 
 				{
 					num772 = 12f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 4) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 4) 
 				{
 					num772 = 14f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 5) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 5) 
 				{
 					num772 = 18f;
 				}
-				if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 10) 
+				if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 10) 
 				{
 					num772 = 23f;
 				}
@@ -193,7 +193,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 				{
 					num772 += 1f;
 				}
-				if (expertMode && Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 2) 
+				if (expertMode && Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 2) 
 				{
 					num772 += 1f;
 				}
@@ -221,8 +221,8 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 					NPC.velocity.Y = num774 * num775;
 				}
 				Vector2 vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num776 = Main.npc[CalamityGlobalNPC.ghostBoss].Center.X - vector96.X;
-				float num777 = Main.npc[CalamityGlobalNPC.ghostBoss].Center.Y - vector96.Y;
+				float num776 = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.X - vector96.X;
+				float num777 = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.Y - vector96.Y;
 				NPC.rotation = (float)Math.Atan2((double)num777, (double)num776) - 1.57f;
 				return;
 			}
@@ -255,11 +255,11 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 		
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if (CalamityGlobalNPC.ghostBoss >= 0) 
+			if (CalamityGlobalNPC1Point2.ghostBoss >= 0) 
 			{
 				Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float bossCenterX = Main.npc[CalamityGlobalNPC.ghostBoss].Center.X - center.X;
-				float bossCenterY = Main.npc[CalamityGlobalNPC.ghostBoss].Center.Y - center.Y;
+				float bossCenterX = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.X - center.X;
+				float bossCenterY = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.Y - center.Y;
 				float rotation2 = (float)Math.Atan2((double)bossCenterY, (double)bossCenterX) - 1.57f;
 				bool draw = true;
 				while (draw) 
@@ -277,8 +277,8 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 					bossCenterY *= num10;
 					center.X += bossCenterX;
 					center.Y += bossCenterY;
-					bossCenterX = Main.npc[CalamityGlobalNPC.ghostBoss].Center.X - center.X;
-					bossCenterY = Main.npc[CalamityGlobalNPC.ghostBoss].Center.Y - center.Y;
+					bossCenterX = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.X - center.X;
+					bossCenterY = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center.Y - center.Y;
 					Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16f));
 					Main.spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityModClassic1Point2/NPCs/Polterghast/PolterghastChain").Value, new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y), 
 						new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, ModContent.Request<Texture2D>("CalamityModClassic1Point2/NPCs/Polterghast/PolterghastChain").Value.Width, chainWidth)), color2, rotation2, 

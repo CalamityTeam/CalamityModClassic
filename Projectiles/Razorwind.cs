@@ -34,8 +34,8 @@ namespace CalamityModClassic1Point2.Projectiles
 			Projectile.localNPCHitCooldown = 10 -
 				(NPC.downedFishron ? 2 : 0) -
         		(NPC.downedMoonlord ? 3 : 0) -
-        		(CalamityWorld.downedDoG ? 2 : 0) -
-        		(CalamityWorld.downedYharon ? 1 : 0);
+        		(CalamityWorld1Point2.downedDoG ? 2 : 0) -
+        		(CalamityWorld1Point2.downedYharon ? 1 : 0);
         }
         
         public override void AI()
@@ -52,9 +52,9 @@ namespace CalamityModClassic1Point2.Projectiles
 			bool dukeFish = NPC.downedFishron;
 			bool cultist = NPC.downedAncientCultist;
 			bool moonLord = NPC.downedMoonlord;
-			bool providence = CalamityWorld.downedProvidence;
-			bool devourerOfGods = CalamityWorld.downedDoG;
-			bool yharon = CalamityWorld.downedYharon;
+			bool providence = CalamityWorld1Point2.downedProvidence;
+			bool devourerOfGods = CalamityWorld1Point2.downedDoG;
+			bool yharon = CalamityWorld1Point2.downedYharon;
         	float speedMult = 1f + //1
 				(kingSlime ? 0.1f : 0f) + //1.1
 				(eyeOfCthulhu ? 0.1f : 0f) + //1.2

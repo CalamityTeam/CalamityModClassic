@@ -20,7 +20,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 	[AutoloadBossHead]
 	public class Polterghast : ModNPC
 	{
-		internal int dpsCap = CalamityWorld.downedPolterghast ? 77500 : 7750; //60
+		internal int dpsCap = CalamityWorld1Point2.downedPolterghast ? 77500 : 7750; //60
 		private int damageTotal = 0;
 		
 		public override void SetStaticDefaults()
@@ -36,7 +36,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			NPC.width = 90;
 			NPC.height = 120;
 			NPC.defense = 150;
-			NPC.lifeMax = CalamityWorld.revenge ? 500000 : 465000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 500000 : 465000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -68,8 +68,8 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
         public override void AI()
 		{
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.5f, 1.25f, 1.25f);
-			CalamityGlobalNPC.ghostBoss = NPC.whoAmI;
-			bool revenge = CalamityWorld.revenge;
+			CalamityGlobalNPC1Point2.ghostBoss = NPC.whoAmI;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			bool phase2 = NPC.life < NPC.lifeMax / 2;
 			bool phase3 = revenge ? (NPC.life < NPC.lifeMax / 4) : (NPC.life < NPC.lifeMax / 5);
@@ -720,7 +720,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 				float protection = 0.25f +
 					(NPC.life < NPC.lifeMax / 2 ? 0.25f : 0f) +
 					(NPC.life < NPC.lifeMax / 4 ? 0.2f : 0f) +
-					((NPC.life < NPC.lifeMax / 5 && CalamityWorld.revenge) ? 0.1f : 0f);
+					((NPC.life < NPC.lifeMax / 5 && CalamityWorld1Point2.revenge) ? 0.1f : 0f);
 				newDamage = (double)((int)((double)(1f - (protection * (NPC.ichor ? 0.75f : 1f))) * newDamage));
 				if (newDamage < 1.0)
 				{
@@ -763,7 +763,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 		
 		public override void FindFrame(int frameHeight)
 		{
-			bool phase2 = CalamityWorld.revenge ? (NPC.life > NPC.lifeMax / 4) : (NPC.life > NPC.lifeMax / 5);
+			bool phase2 = CalamityWorld1Point2.revenge ? (NPC.life > NPC.lifeMax / 4) : (NPC.life > NPC.lifeMax / 5);
 			NPC.frameCounter += 1.0;
 			if (NPC.frameCounter > 6.0)
 			{

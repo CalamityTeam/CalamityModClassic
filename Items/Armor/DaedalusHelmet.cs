@@ -36,7 +36,7 @@ public class DaedalusHelmet : ModItem
     {
         player.setBonus = "Grants ranged damage, critical strike chance, and defensive boosts as health gets lower\n" +
         	"Getting hit causes you to emit a blast of crystal shards";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.daedalusShard = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
 		{

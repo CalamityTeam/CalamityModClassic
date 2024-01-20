@@ -36,7 +36,7 @@ public class AtaxiaMask : ModItem
         	"Inferno effect when below 50% life\n" +
         	"Magic attacks summon damaging and healing flare orbs on hit\n" +
         	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.ataxiaBlaze = true;
         modPlayer.ataxiaMage = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))

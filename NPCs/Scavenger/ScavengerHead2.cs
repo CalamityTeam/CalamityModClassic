@@ -42,7 +42,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 0;
 				NPC.defense = 99999;
@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			bool defenseBoost = false;
 			int defenseAdd = 0;
 			for (int nPC = 0; nPC < 200; nPC++)
@@ -68,7 +68,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			{
 				NPC.defense = -99999;
 			}
-			if (CalamityGlobalNPC.scavenger < 0)
+			if (CalamityGlobalNPC1Point2.scavenger < 0)
             {
                 NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
                 return;
@@ -156,19 +156,19 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 				NPC.velocity.Y = NPC.velocity.Y - num2;
 			}
 			NPC.localAI[0] += 1f;
-			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.3)
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.3)
 			{
 				NPC.localAI[0] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.1)
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.1)
 			{
 				NPC.localAI[0] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.5)
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.5)
 			{
 				NPC.localAI[1] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.25)
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.25)
 			{
 				NPC.localAI[1] += 1f;
 			}

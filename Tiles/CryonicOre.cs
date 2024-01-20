@@ -31,7 +31,7 @@ namespace CalamityModClassic1Point2.Tiles
 		
 		public override bool CanExplode(int i, int j)
 		{
-			return CalamityWorld.downedCryogen;
+			return CalamityWorld1Point2.downedCryogen;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

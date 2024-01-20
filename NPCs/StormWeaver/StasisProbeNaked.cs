@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
 				NPC.TargetClosest(true);

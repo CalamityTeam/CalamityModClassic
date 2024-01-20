@@ -75,8 +75,8 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 		{
 			Player player = Main.player[NPC.target];
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
-			CalamityGlobalNPC.voidBoss = NPC.whoAmI;
+			bool revenge = CalamityWorld1Point2.revenge;
+			CalamityGlobalNPC1Point2.voidBoss = NPC.whoAmI;
 			Vector2 vector = NPC.Center;
 			if (Vector2.Distance(player.Center, vector) > 5600f)
 			{

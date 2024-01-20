@@ -64,7 +64,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    		player.name == "Puff" || 
 	    		player.name == "Echo" || 
 	    		player.name == "Testdude";
-	    	bool yharon = CalamityWorld.downedYharon;
+	    	bool yharon = CalamityWorld1Point2.downedYharon;
 	    	if (playerName || yharon)
 	    	{
 	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("YharimsCrystal").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);

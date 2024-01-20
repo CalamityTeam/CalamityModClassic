@@ -57,7 +57,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				}
 			}
         	int dustType = 0;
-        	if (CalamityWorld.spring)
+        	if (CalamityWorld1Point2.spring)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -66,7 +66,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					107
 				});
         	}
-        	else if (CalamityWorld.summer)
+        	else if (CalamityWorld1Point2.summer)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -75,7 +75,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					57
         		});
         	}
-        	else if (CalamityWorld.fall)
+        	else if (CalamityWorld1Point2.fall)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -84,7 +84,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					158
 				});
         	}
-        	else if (CalamityWorld.winter)
+        	else if (CalamityWorld1Point2.winter)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -105,25 +105,25 @@ namespace CalamityModClassic1Point2.Projectiles
         	byte red = 255;
         	byte green = 255;
         	byte blue = 255;
-        	if (CalamityWorld.spring)
+        	if (CalamityWorld1Point2.spring)
         	{
         		red = 0;
         		green = 250;
         		blue = 0;
         	}
-        	else if (CalamityWorld.summer)
+        	else if (CalamityWorld1Point2.summer)
         	{
         		red = 250;
         		green = 250;
         		blue = 0;
         	}
-        	else if (CalamityWorld.fall)
+        	else if (CalamityWorld1Point2.fall)
         	{
         		red = 250;
         		green = 150;
         		blue = 50;
         	}
-        	else if (CalamityWorld.winter)
+        	else if (CalamityWorld1Point2.winter)
         	{
         		red = 100;
         		green = 150;
@@ -142,7 +142,7 @@ namespace CalamityModClassic1Point2.Projectiles
         public override void OnKill(int timeLeft)
         {
         	int dustType = 0;
-        	if (CalamityWorld.spring)
+        	if (CalamityWorld1Point2.spring)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -151,7 +151,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					107
 				});
         	}
-        	else if (CalamityWorld.summer)
+        	else if (CalamityWorld1Point2.summer)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -160,7 +160,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					57
         		});
         	}
-        	else if (CalamityWorld.fall)
+        	else if (CalamityWorld1Point2.fall)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -169,7 +169,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					158
 				});
         	}
-        	else if (CalamityWorld.winter)
+        	else if (CalamityWorld1Point2.winter)
         	{
         		dustType = Utils.SelectRandom<int>(Main.rand, new int[]
 				{

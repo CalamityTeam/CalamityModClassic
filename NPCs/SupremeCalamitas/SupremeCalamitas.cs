@@ -23,7 +23,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		public float bossLife;
 		public bool halfLife = false;
 		public bool secondStage = false;
-		internal int dpsCap = CalamityWorld.downedSCal ? 80000 : 40000; //100
+		internal int dpsCap = CalamityWorld1Point2.downedSCal ? 80000 : 40000; //100
 		private int damageTotal = 0;
 		
 		public override void SetStaticDefaults()
@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			NPC.width = 120; //324
 			NPC.height = 120; //216
 			NPC.defense = 350;
-			NPC.lifeMax = CalamityWorld.revenge ? 2700000 : 2500000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 2700000 : 2500000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -68,9 +68,9 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 
         public override void AI()
 		{
-			CalamityGlobalNPC.supremeCalamitas = NPC.whoAmI;
-			bool bossBuff = CalamityWorld.demonMode;
-			bool superBossBuff = CalamityWorld.onionMode;
+			CalamityGlobalNPC1Point2.supremeCalamitas = NPC.whoAmI;
+			bool bossBuff = CalamityWorld1Point2.demonMode;
+			bool superBossBuff = CalamityWorld1Point2.onionMode;
 			bool expertMode = Main.expertMode;
 			Player player = Main.player[NPC.target];
 			damageTotal -= dpsCap;
@@ -1347,7 +1347,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			target.AddBuff(Mod.Find<ModBuff>("VulnerabilityHex").Type, 300, true);
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

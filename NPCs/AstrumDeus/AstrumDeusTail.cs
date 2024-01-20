@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			NPC.width = 52; //324
 			NPC.height = 68; //216
 			NPC.defense = 90;
-			NPC.lifeMax = CalamityWorld.revenge ? 165000 : 150000; //250000
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 165000 : 150000; //250000
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -145,7 +145,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.downedStarGod)
+			if (CalamityWorld1Point2.downedStarGod)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
 			}

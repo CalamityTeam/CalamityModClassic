@@ -42,7 +42,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 210;
 				NPC.defense = 120;
@@ -52,8 +52,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
-			if (CalamityGlobalNPC.scavenger < 0)
+			bool provy = CalamityWorld1Point2.downedProvidence;
+			if (CalamityGlobalNPC1Point2.scavenger < 0)
             {
                 NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
                 return;
@@ -88,8 +88,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 					num659 += 8f;
 				}
 				Vector2 vector79 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num660 = Main.npc[CalamityGlobalNPC.scavenger].Center.X - vector79.X;
-				float num661 = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - vector79.Y;
+				float num660 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - vector79.X;
+				float num661 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - vector79.Y;
 				num661 += 50f;
 				num660 += 120f;
 				float num662 = (float)Math.Sqrt((double)(num660 * num660 + num661 * num661));
@@ -185,10 +185,10 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 					}
 				}
 				Vector2 vector81 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num667 = Main.npc[CalamityGlobalNPC.scavenger].Center.X - vector81.X;
-				float num668 = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - vector81.Y;
-				num667 += Main.npc[CalamityGlobalNPC.scavenger].velocity.X;
-				num668 += Main.npc[CalamityGlobalNPC.scavenger].velocity.Y;
+				float num667 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - vector81.X;
+				float num668 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - vector81.Y;
+				num667 += Main.npc[CalamityGlobalNPC1Point2.scavenger].velocity.X;
+				num668 += Main.npc[CalamityGlobalNPC1Point2.scavenger].velocity.Y;
 				num668 += 40f;
 				num667 += 110f;
 				float num669 = (float)Math.Sqrt((double)(num667 * num667 + num668 * num668));
@@ -250,8 +250,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y);
-			float drawPositionX = Main.npc[CalamityGlobalNPC.scavenger].Center.X - center.X;
-			float drawPositionY = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - center.Y;
+			float drawPositionX = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - center.X;
+			float drawPositionY = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - center.Y;
 			drawPositionY += 30f;
 			drawPositionX += 70f;
 			float rotation = (float)Math.Atan2((double)drawPositionY, (double)drawPositionX) - 1.57f;
@@ -270,8 +270,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 					drawPositionY *= totalDrawDistance;
 					center.X += drawPositionX;
 					center.Y += drawPositionY;
-					drawPositionX = Main.npc[CalamityGlobalNPC.scavenger].Center.X - center.X;
-					drawPositionY = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - center.Y;
+					drawPositionX = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - center.X;
+					drawPositionY = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - center.Y;
 					drawPositionY += 30f;
 					drawPositionX += 70f;
 					Microsoft.Xna.Framework.Color color = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16f));
@@ -296,7 +296,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

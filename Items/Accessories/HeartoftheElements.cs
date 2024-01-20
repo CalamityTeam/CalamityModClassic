@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 			player.GetCritChance(DamageClass.Throwing) += 10;
 			player.GetDamage(DamageClass.Throwing) += 0.1f;
 			player.GetDamage(DamageClass.Summon) += 0.1f;
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			modPlayer.brimstoneWaifu = true;
 			modPlayer.sandWaifu = true;
 			modPlayer.sandBoobWaifu = true;
@@ -64,7 +64,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 			if (player.whoAmI == Main.myPlayer)
 			{
 				int damage = NPC.downedMoonlord ? 300 : 100;
-				float damageMult = CalamityWorld.downedDoG ? 2.5f : 1f;
+				float damageMult = CalamityWorld1Point2.downedDoG ? 2.5f : 1f;
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] > 1 || player.ownedProjectileCounts[Mod.Find<ModProjectile>("SirenLure").Type] > 1 ||
 				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("DrewsSandyWaifu").Type] > 1 || player.ownedProjectileCounts[Mod.Find<ModProjectile>("SandyWaifu").Type] > 1 ||
 				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudWaifu").Type] > 1)

@@ -31,7 +31,7 @@ public class ElementalQuiver : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.eQuiver = true;
 		player.GetDamage(DamageClass.Ranged) += 0.2f;
         player.GetCritChance(DamageClass.Throwing) += 20;

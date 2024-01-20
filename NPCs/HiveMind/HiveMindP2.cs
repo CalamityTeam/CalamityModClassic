@@ -33,7 +33,7 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			NPC.width = 230; //324
 			NPC.height = 180; //216
 			NPC.defense = 5;
-			NPC.lifeMax = CalamityWorld.revenge ? 3000 : 2000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 3000 : 2000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -79,8 +79,8 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			bool isCorrupt = player.ZoneCorrupt;
 			NPC.dontTakeDamage = isCorrupt ? false : true;
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
-			CalamityGlobalNPC.hiveMind2 = NPC.whoAmI;
+			bool revenge = CalamityWorld1Point2.revenge;
+			CalamityGlobalNPC1Point2.hiveMind2 = NPC.whoAmI;
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
 				if (NPC.localAI[2] == 0f) 
@@ -351,7 +351,7 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

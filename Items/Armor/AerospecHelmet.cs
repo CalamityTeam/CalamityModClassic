@@ -40,7 +40,7 @@ public class AerospecHelmet : ModItem
     {
         player.setBonus = "Increased movement speed as health decreases\n" +
         	"Summons a valkyrie to protect you";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.valkyrie = true;
 		if (player.whoAmI == Main.myPlayer)
 		{

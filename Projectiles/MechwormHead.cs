@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point2.Projectiles
         	}
 			Lighting.AddLight((int)((Projectile.position.X + (float)(Projectile.width / 2)) / 16f), (int)((Projectile.position.Y + (float)(Projectile.height / 2)) / 16f), 0.15f, 0.01f, 0.15f);
 			Player player9 = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player9.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player9.GetModPlayer<CalamityPlayer1Point2>();
 			player9.AddBuff(Mod.Find<ModBuff>("Mechworm").Type, 3600);
 			if ((int)Main.time % 120 == 0)
 			{

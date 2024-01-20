@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.NPCs.Astrageldon
 			NPC.height = 138;
 			NPC.scale = 2f;
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 65000 : 60000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 65000 : 60000;
 			NPC.aiStyle = -1;
 			AIType = -1;
 			NPC.knockBackResist = 0f;
@@ -60,7 +60,7 @@ namespace CalamityModClassic1Point2.NPCs.Astrageldon
         public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			int damageBuff = (int)(200f * (1f - (float)NPC.life / (float)NPC.lifeMax));
 			NPC.damage = NPC.defDamage + damageBuff;
 			int defenseBuff = (int)(40f * (1f - (float)NPC.life / (float)NPC.lifeMax));

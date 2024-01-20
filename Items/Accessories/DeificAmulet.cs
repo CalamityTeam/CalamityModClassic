@@ -22,7 +22,7 @@ public class DeificAmulet : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.dAmulet = true;
 		player.panic = true;
 		player.GetArmorPenetration(DamageClass.Generic) += 25;

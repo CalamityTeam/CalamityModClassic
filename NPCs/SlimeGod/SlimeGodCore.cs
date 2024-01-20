@@ -31,7 +31,7 @@ namespace CalamityModClassic1Point2.NPCs.SlimeGod
 			NPC.width = 44; //324
 			NPC.height = 44; //216
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 1600 : 1000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 1600 : 1000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -67,7 +67,7 @@ namespace CalamityModClassic1Point2.NPCs.SlimeGod
         public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			Player player = Main.player[NPC.target];
 			int randomDust = Main.rand.Next(2);
 			if (randomDust == 0)
@@ -319,7 +319,7 @@ namespace CalamityModClassic1Point2.NPCs.SlimeGod
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			target.AddBuff(BuffID.VortexDebuff, 200, true);
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

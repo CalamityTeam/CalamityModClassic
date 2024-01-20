@@ -24,7 +24,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.moveSpeed -= 0.15f;
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			modPlayer.gShell = true;
 		}
 	}

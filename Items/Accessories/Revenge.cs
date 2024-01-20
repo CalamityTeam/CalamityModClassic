@@ -43,9 +43,9 @@ namespace CalamityModClassic1Point2.Items.Accessories
 					Main.npc[doom].active = false;
 				}
 			}
-			if (!CalamityWorld.revenge)
+			if (!CalamityWorld1Point2.revenge)
 			{
-				CalamityWorld.revenge = true;
+				CalamityWorld1Point2.revenge = true;
 			}
 			return true;
 		}

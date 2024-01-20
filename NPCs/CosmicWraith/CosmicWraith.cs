@@ -41,7 +41,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicWraith
 			NPC.width = 100;
 			NPC.height = 130;
 			NPC.defense = 70;
-			NPC.lifeMax = CalamityWorld.revenge ? 275000 : 250000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 275000 : 250000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -77,7 +77,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicWraith
 			bool cosmicSpeed = (double)NPC.life <= (double)NPC.lifeMax * 0.35;
 			bool cosmicTeleport = (double)NPC.life <= (double)NPC.lifeMax * 0.2;
 			Player player = Main.player[NPC.target];
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			bool isHell = player.ZoneUnderworldHeight;
 			NPC.dontTakeDamage = isHell ? false : true;
@@ -319,7 +319,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicWraith
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
 						float num1070 = 13f; //changed from 10
-						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							num1070 += 1f;
 						}
@@ -706,7 +706,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicWraith
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

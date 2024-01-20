@@ -60,7 +60,7 @@ namespace CalamityModClassic1Point2.NPCs.PlagueBeeLargeG
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.025f, 0.15f, 0.015f);
 			Player player = Main.player[NPC.target];
 			if (player.dead)

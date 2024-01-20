@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.DetonatingFlare
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.alpha -= 3;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{

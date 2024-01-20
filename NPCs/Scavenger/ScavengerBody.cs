@@ -31,7 +31,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.width = 300; //324
 			NPC.height = 240; //216
 			NPC.defense = 80;
-			NPC.lifeMax = CalamityWorld.revenge ? 52000 : 40000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 52000 : 40000;
 			NPC.knockBackResist = 0f;
 			AIType = -1;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.value = Item.buyPrice(0, 30, 0, 0);
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 0;
 				NPC.defense = 180;
@@ -72,11 +72,11 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			bool expertMode = Main.expertMode;
 			Lighting.AddLight((int)(NPC.position.X - 100f) / 16, (int)(NPC.position.Y - 20f) / 16, 0f, 0.51f, 2f);
 			Lighting.AddLight((int)(NPC.position.X + 100f) / 16, (int)(NPC.position.Y - 20f) / 16, 0f, 0.51f, 2f);
-			CalamityGlobalNPC.scavenger = NPC.whoAmI;
+			CalamityGlobalNPC1Point2.scavenger = NPC.whoAmI;
 			if (NPC.localAI[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient) 
 			{
 				NPC.localAI[0] = 1f;
@@ -481,7 +481,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

@@ -56,8 +56,8 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool bossBuff = CalamityWorld.demonMode;
-			bool superBossBuff = CalamityWorld.onionMode;
+			bool bossBuff = CalamityWorld1Point2.demonMode;
+			bool superBossBuff = CalamityWorld1Point2.onionMode;
 			if (NPC.ai[1] == 0f)
 			{
 				NPC.scale -= 0.02f;
@@ -125,7 +125,7 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

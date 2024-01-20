@@ -49,7 +49,7 @@ namespace CalamityModClassic1Point2.NPCs.Bumblefuck
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			int num1305 = revenge ? 30 : 5;
 			NPC.noTileCollide = false;
 			NPC.noGravity = true;

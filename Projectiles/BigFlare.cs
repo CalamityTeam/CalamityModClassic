@@ -108,7 +108,7 @@ namespace CalamityModClassic1Point2.Projectiles
         
         public override void OnKill(int timeLeft)
         {
-        	bool revenge = CalamityWorld.revenge;
+        	bool revenge = CalamityWorld1Point2.revenge;
         	SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
 			int num226 = 36;
 			for (int num227 = 0; num227 < num226; num227++)

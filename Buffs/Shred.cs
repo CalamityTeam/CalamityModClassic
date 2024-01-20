@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC>().pShred = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().pShred = true;
 		}
 	}
 }

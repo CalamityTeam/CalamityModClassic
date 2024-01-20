@@ -40,7 +40,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			NPC.width = 110; //324
 			NPC.height = 100; //216
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 4000 : 2800;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 4000 : 2800;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -86,7 +86,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			Player player = Main.player[NPC.target];
 			bool isCrimson = player.ZoneCrimson;
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (!player.active || player.dead)
 			{
 				NPC.TargetClosest(false);

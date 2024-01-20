@@ -31,7 +31,7 @@ public class Nanotech : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.nanotech = true;
 		player.GetDamage(DamageClass.Throwing) += 0.2f;
         player.GetCritChance(DamageClass.Throwing) += 15;

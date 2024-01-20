@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.Projectiles
 
         public override void AI()
         {
-        	bool revenge = CalamityWorld.revenge;
+        	bool revenge = CalamityWorld1Point2.revenge;
         	Projectile.ai[1] += 1f;
         	if (Projectile.ai[1] > 480)
         	{

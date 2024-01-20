@@ -34,7 +34,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.defense = 10;
 			AnimationType = 126;
 			NPC.alpha = 50;
-			NPC.lifeMax = CalamityWorld.revenge ? 6000 : 4000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 6000 : 4000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -50,7 +50,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.DeathSound = SoundID.NPCDeath14;
 			NPC.timeLeft = NPC.activeTime * 60;
 			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 170;
 				NPC.defense = 80;
@@ -69,10 +69,10 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			bool dayTime = Main.dayTime;
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			Player player = Main.player[NPC.target];
 			if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
 			{
@@ -421,7 +421,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

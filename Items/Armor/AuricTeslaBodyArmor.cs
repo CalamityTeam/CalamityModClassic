@@ -32,7 +32,7 @@ public class AuricTeslaBodyArmor : ModItem
 
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.fBarrier = true;
     	player.statLifeMax2 += 400;
         player.statManaMax2 += 400;

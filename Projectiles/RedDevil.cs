@@ -40,7 +40,7 @@ namespace CalamityModClassic1Point2.Projectiles
         {
         	bool flag64 = Projectile.type == Mod.Find<ModProjectile>("RedDevil").Type;
         	Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         	if (!modPlayer.redDevil)
         	{
         		Projectile.active = false;

@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.NPCs.DankCreeper
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.TargetClosest(true);
 			float num1372 = revenge ? 12f : 11f;
 			Vector2 vector167 = new Vector2(NPC.Center.X + (float)(NPC.direction * 20), NPC.Center.Y + 6f);

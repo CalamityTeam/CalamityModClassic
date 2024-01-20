@@ -13,13 +13,13 @@ using CalamityModClassic1Point2.Items.Armor;
 
 namespace CalamityModClassic1Point2.Projectiles
 {
-	public class CalamityGlobalProjectile : GlobalProjectile
+	public class CalamityGlobalProjectile1Point2 : GlobalProjectile
 	{
 		public static float counter = 0;
 		
 		public override void AI(Projectile projectile)
 		{
-			if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().eQuiver && projectile.CountsAsClass(DamageClass.Ranged))
+			if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().eQuiver && projectile.CountsAsClass(DamageClass.Ranged))
 			{
 				if (Main.rand.Next(150) > 148)
 				{
@@ -41,7 +41,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					}
 				}
 			}
-			if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().nanotech && projectile.CountsAsClass(DamageClass.Throwing))
+			if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().nanotech && projectile.CountsAsClass(DamageClass.Throwing))
 			{
 				counter += 1f;
 				if (counter >= 30f)
@@ -57,7 +57,7 @@ namespace CalamityModClassic1Point2.Projectiles
 		
 		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
 		{
-			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().beeResist)
+			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().beeResist)
 			{
 				if (!projectile.friendly && projectile.hostile && projectile.damage > 0 && 
 					(projectile.type == ProjectileID.Stinger || projectile.type == ProjectileID.HornetStinger || projectile.type == Mod.Find<ModProjectile>("PlagueStingerGoliath").Type ||
@@ -71,7 +71,7 @@ namespace CalamityModClassic1Point2.Projectiles
 		
 		public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
 		{
-			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().projRef && projectile.active && !projectile.friendly && projectile.hostile && info.Damage > 0 && Main.rand.NextBool(4))
+			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().projRef && projectile.active && !projectile.friendly && projectile.hostile && info.Damage > 0 && Main.rand.NextBool(4))
 			{
 				target.statLife += info.Damage;
     			target.HealEffect(info.Damage);
@@ -80,7 +80,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				projectile.velocity.X = -projectile.velocity.X;
 				projectile.velocity.Y = -projectile.velocity.Y;
 			}
-			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().daedalusReflect && projectile.active && !projectile.friendly && projectile.hostile && info.Damage > 0 && Main.rand.NextBool(2))
+			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().daedalusReflect && projectile.active && !projectile.friendly && projectile.hostile && info.Damage > 0 && Main.rand.NextBool(2))
 			{
 				int healAmt = info.Damage / 5;
 				target.statLife += healAmt;
@@ -94,7 +94,7 @@ namespace CalamityModClassic1Point2.Projectiles
 		
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().uberBees && (projectile.type == 566 || projectile.type == 181 || projectile.type == 189))
+			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().uberBees && (projectile.type == 566 || projectile.type == 181 || projectile.type == 189))
 			{
 				modifiers.FinalDamage.Base = modifiers.FinalDamage.Base + Main.rand.Next(70, 101);
 				projectile.penetrate = 1;
@@ -103,7 +103,7 @@ namespace CalamityModClassic1Point2.Projectiles
 		
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().astralStarRain && hit.Crit)
+            if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().astralStarRain && hit.Crit)
             {
                 if (projectile.owner == Main.myPlayer)
                 {
@@ -144,25 +144,25 @@ namespace CalamityModClassic1Point2.Projectiles
 				{
 					return;
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().frostFlare)
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().frostFlare)
 				{
 					target.AddBuff(BuffID.Frostburn, 360);
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().uberBees && (projectile.type == 566 || projectile.type == 181 || projectile.type == 189))
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().uberBees && (projectile.type == 566 || projectile.type == 181 || projectile.type == 189))
 				{
 					target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 360);
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().alchFlask && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().alchFlask && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
 				{
 					target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 120);
 					int plague = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("PlagueSeeker").Type, 22, 0f, projectile.owner, 0f, 0f);
 					Main.projectile[plague].DamageType = DamageClass.Default/* tModPorter Suggestion: Remove. See Item.DamageType */;
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().reaverBlast && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().reaverBlast && (projectile.CountsAsClass(DamageClass.Magic) || projectile.CountsAsClass(DamageClass.Throwing) || projectile.CountsAsClass(DamageClass.Melee) || projectile.minion || projectile.CountsAsClass(DamageClass.Ranged)))
 				{
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ReaverBlast").Type, 17, 0f, projectile.owner, 0f, 0f);
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().auricSet)
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().auricSet)
 				{
 					float num11 = 0.1f;
 					num11 -= (float)projectile.numHits * 0.025f;
@@ -196,7 +196,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					}
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AuricOrb").Type, 0, 0f, projectile.owner, (float)num14, num12);
 				}
-				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().silvaSet)
+				if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().silvaSet)
 				{
 					float num11 = 0.05f;
 					num11 -= (float)projectile.numHits * 0.025f;
@@ -232,7 +232,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				}
 				if (projectile.CountsAsClass(DamageClass.Magic))
 				{
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().reaverBurst)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().reaverBurst)
 					{
 						int num251 = Main.rand.Next(2, 5);
 						for (int num252 = 0; num252 < num251; num252++)
@@ -247,10 +247,10 @@ namespace CalamityModClassic1Point2.Projectiles
 							Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.oldPosition.X + (float)(projectile.width / 2), projectile.oldPosition.Y + (float)(projectile.height / 2), value15.X, value15.Y, 569 + Main.rand.Next(3), (int)((double)projectile.damage * 0.5f), 0f, projectile.owner, 0f, 0f);
 						}
 					}
-					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().ataxiaMage)
+					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().ataxiaMage)
 					{
 						int num = projectile.damage / 2;
-						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().ataxiaDmg += (float)num;
+						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().ataxiaDmg += (float)num;
 						int[] array = new int[200];
 						int num3 = 0;
 						int num4 = 0;
@@ -327,10 +327,10 @@ namespace CalamityModClassic1Point2.Projectiles
 						}
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AtaxiaHealOrb").Type, 0, 0f, projectile.owner, (float)num14, num12);
 					}
-					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocSet)
+					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocSet)
 					{
 						int num = projectile.damage / 2;
-						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocDmg += (float)num;
+						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocDmg += (float)num;
 						int[] array = new int[200];
 						int num3 = 0;
 						int num4 = 0;
@@ -410,25 +410,25 @@ namespace CalamityModClassic1Point2.Projectiles
 				}
 				else if (projectile.CountsAsClass(DamageClass.Melee))
 				{
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().ataxiaGeyser)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().ataxiaGeyser)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ChaosGeyser").Type, 30, 0f, projectile.owner, 0f, 0f);
 					}
-					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocSet)
+					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocSet)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("XerocBlast").Type, 60, 0f, projectile.owner, 0f, 0f);
 					}
 				}
 				else if (projectile.CountsAsClass(DamageClass.Ranged))
 				{
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocSet)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocSet)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("XerocFire").Type, 60, 0f, projectile.owner, 0f, 0f);
 					}
 				}
 				else if (projectile.CountsAsClass(DamageClass.Throwing))
 				{
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().daedalusSplit)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().daedalusSplit)
 					{
 						int num251 = Main.rand.Next(2, 5);
 						for (int num252 = 0; num252 < num251; num252++)
@@ -443,10 +443,10 @@ namespace CalamityModClassic1Point2.Projectiles
 							Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.oldPosition.X + (float)(projectile.width / 2), projectile.oldPosition.Y + (float)(projectile.height / 2), value15.X, value15.Y, 90, (int)((double)projectile.damage * 0.5), 0.25f, projectile.owner, 0f, 0f);
 						}
 					}
-					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocSet)
+					else if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocSet)
 					{
 						int num = projectile.damage;
-						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocDmg += (float)num;
+						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocDmg += (float)num;
 						int[] array = new int[200];
 						int num3 = 0;
 						int num4 = 0;
@@ -495,18 +495,18 @@ namespace CalamityModClassic1Point2.Projectiles
 				}
 				else if (projectile.minion)
 				{
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().tearMinions)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().tearMinions)
 					{
 						target.AddBuff(Mod.Find<ModBuff>("TemporalSadness").Type, 60);
 					}
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().shadowMinions)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().shadowMinions)
 					{
 						target.AddBuff(BuffID.ShadowFlame, 300);
 					}
-					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocSet)
+					if (Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocSet)
 					{
 						int num = projectile.damage / 2;
-						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer>().xerocDmg += (float)num;
+						Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().xerocDmg += (float)num;
 						int[] array = new int[200];
 						int num3 = 0;
 						int num4 = 0;

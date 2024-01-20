@@ -42,7 +42,7 @@ public class DaedalusHat : ModItem
         player.setBonus = "Grants magic damage, crit chance, and defensive boosts as health gets lower\n" +
         	"You have a 10% chance to absorb physical attacks and projectiles when hit\n" +
         	"If you absorb an attack you are healed for 1/2 of that attack's damage";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.daedalusAbsorb = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
 		{

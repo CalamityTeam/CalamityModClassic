@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 	{
 		public bool text = false;
 		public float bossLife;
-		internal int dpsCap = CalamityWorld.downedProvidence ? 72000 : 7200; //50
+		internal int dpsCap = CalamityWorld1Point2.downedProvidence ? 72000 : 7200; //50
 		private int damageTotal = 0;
 		
 		public override void SetStaticDefaults()
@@ -43,7 +43,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			NPC.height = 200;
 			NPC.scale = 1.5f;
 			NPC.defense = 120;
-			NPC.lifeMax = CalamityWorld.revenge ? 300000 : 270000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 300000 : 270000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -76,8 +76,8 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 
         public override void AI()
 		{
-			CalamityGlobalNPC.holyBoss = NPC.whoAmI;
-			bool revenge = CalamityWorld.revenge;
+			CalamityGlobalNPC1Point2.holyBoss = NPC.whoAmI;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			Player player = Main.player[NPC.target];
 			Vector2 vector = NPC.Center;

@@ -37,7 +37,7 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 			NPC.lavaImmune = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 170;
 				NPC.defense = 200;
@@ -57,12 +57,12 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneCalamity ? 0.25f : 0f;
+			return spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity ? 0.25f : 0f;
         }
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
 				NPC.TargetClosest(true);
@@ -227,7 +227,7 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

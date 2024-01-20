@@ -31,7 +31,7 @@ using CalamityModClassic1Point2.NPCs.Leviathan;
 
 namespace CalamityModClassic1Point2.NPCs
 {
-	public class CalamityGlobalNPC : GlobalNPC
+	public class CalamityGlobalNPC1Point2 : GlobalNPC
 	{
 		public override bool InstancePerEntity
 		{
@@ -291,7 +291,7 @@ namespace CalamityModClassic1Point2.NPCs
 			{
 				this.newAI[m] = 0f;
 			}
-			if (Main.hardMode && !CalamityWorld.spawnedHardBoss && !npc.boss && !npc.friendly && !npc.dontTakeDamage &&
+			if (Main.hardMode && !CalamityWorld1Point2.spawnedHardBoss && !npc.boss && !npc.friendly && !npc.dontTakeDamage &&
 				npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.Probe && npc.type != NPCID.PrimeCannon &&
 				npc.type != NPCID.PrimeSaw && npc.type != NPCID.PrimeVice && npc.type != NPCID.PrimeLaser && npc.type != NPCID.TheHungry &&
 				npc.type != NPCID.TheHungryII && npc.type != NPCID.WallofFleshEye && npc.type != NPCID.Creeper && npc.type != NPCID.EaterofWorldsHead &&
@@ -304,7 +304,7 @@ namespace CalamityModClassic1Point2.NPCs
 				npc.lifeMax = (int)((double)npc.lifeMax * multiplier);
 				npc.damage = (int)((double)npc.damage * multiplier);
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				npc.value = (float)((int)((double)npc.value * 5));
 				if (npc.type == NPCID.MoonLordFreeEye)
@@ -315,9 +315,9 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
-				npc.lifeMax = (int)((double)npc.lifeMax * (CalamityWorld.revenge ? 3 : 2));
+				npc.lifeMax = (int)((double)npc.lifeMax * (CalamityWorld1Point2.revenge ? 3 : 2));
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				if (npc.type == NPCID.DukeFishron)
 				{
@@ -391,19 +391,19 @@ namespace CalamityModClassic1Point2.NPCs
 				npc.lifeMax = (int)((double)npc.lifeMax * 7);
 				npc.damage = (int)((double)npc.damage * 2);
 			}
-			if (Main.pumpkinMoon && CalamityWorld.downedDoG && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.pumpkinMoon && CalamityWorld1Point2.downedDoG && !npc.friendly && !npc.dontTakeDamage)
 			{
 				npc.lifeMax = (int)((double)npc.lifeMax * 15);
 			}
-			if (Main.snowMoon && CalamityWorld.downedDoG && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.snowMoon && CalamityWorld1Point2.downedDoG && !npc.friendly && !npc.dontTakeDamage)
 			{
 				npc.lifeMax = (int)((double)npc.lifeMax * 15);
 			}
-			if (Main.eclipse && CalamityWorld.downedYharon && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.eclipse && CalamityWorld1Point2.downedYharon && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
 			{
 				npc.lifeMax = (int)((double)npc.lifeMax * 65);
 			}
-			if (CalamityWorld.downedProvidence && !npc.boss && !npc.friendly && !npc.dontTakeDamage && (npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton || npc.type == NPCID.SkeletonCommando || npc.type == NPCID.Paladin ||
+			if (CalamityWorld1Point2.downedProvidence && !npc.boss && !npc.friendly && !npc.dontTakeDamage && (npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton || npc.type == NPCID.SkeletonCommando || npc.type == NPCID.Paladin ||
 			   npc.type == NPCID.GiantCursedSkull || npc.type == NPCID.BoneLee || npc.type == NPCID.DiabolistWhite || npc.type == NPCID.DiabolistRed ||
 			   npc.type == NPCID.NecromancerArmored || npc.type == NPCID.Necromancer || npc.type == NPCID.RaggedCasterOpenCoat || npc.type == NPCID.RaggedCaster ||
 			   npc.type == NPCID.HellArmoredBonesSword || npc.type == NPCID.HellArmoredBonesMace || npc.type == NPCID.HellArmoredBonesSpikeShield ||
@@ -752,11 +752,11 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.Mothron)
 			{
-				this.protection = CalamityWorld.downedDoG ? 0.5f : 0.33f;
+				this.protection = CalamityWorld1Point2.downedDoG ? 0.5f : 0.33f;
 			}
 			if (npc.type == NPCID.MothronEgg)
 			{
-				this.protection = CalamityWorld.downedDoG ? 0.75f : 0.5f;
+				this.protection = CalamityWorld1Point2.downedDoG ? 0.75f : 0.5f;
 			}
 			if (npc.type == NPCID.GreekSkeleton)
 			{
@@ -1047,15 +1047,15 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
 		{
-			if (Main.pumpkinMoon && CalamityWorld.downedDoG && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.pumpkinMoon && CalamityWorld1Point2.downedDoG && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
 			{
 				cooldownSlot = 1;
 			}
-			if (Main.snowMoon && CalamityWorld.downedDoG && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.snowMoon && CalamityWorld1Point2.downedDoG && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
 			{
 				cooldownSlot = 1;
 			}
-			if (Main.eclipse && CalamityWorld.downedYharon && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
+			if (Main.eclipse && CalamityWorld1Point2.downedYharon && !npc.boss && !npc.friendly && !npc.dontTakeDamage)
 			{
 				cooldownSlot = 1;
 			}
@@ -1064,7 +1064,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().beeResist)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().beeResist)
 			{
 				if (npc.type == NPCID.GiantMossHornet || npc.type == NPCID.BigMossHornet || npc.type == NPCID.LittleMossHornet || npc.type == NPCID.TinyMossHornet ||
 					npc.type == NPCID.MossHornet || npc.type == NPCID.VortexHornetQueen || npc.type == NPCID.VortexHornet || npc.type == NPCID.Bee ||
@@ -1313,12 +1313,12 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.Spazmatism || npc.type == NPCID.Retinazer || npc.type == NPCID.SkeletronPrime)
 			{
-				if (!CalamityWorld.spawnedHardBoss)
+				if (!CalamityWorld1Point2.spawnedHardBoss)
 				{
-					CalamityWorld.spawnedHardBoss = true;
+					CalamityWorld1Point2.spawnedHardBoss = true;
 				}
 			}
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			if (expertMode)
 			{
@@ -1332,7 +1332,7 @@ namespace CalamityModClassic1Point2.NPCs
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
 						npc.localAI[0] += 1f;
-						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							npc.localAI[0] += 1f;
 						}
@@ -1390,7 +1390,7 @@ namespace CalamityModClassic1Point2.NPCs
 						if (Main.netMode != NetmodeID.MultiplayerClient)
 						{
 							npc.localAI[1] += 1f;
-							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 							{
 								npc.localAI[1] += 1f;
 							}
@@ -1615,7 +1615,7 @@ namespace CalamityModClassic1Point2.NPCs
 				if (npc.type == NPCID.GolemHeadFree && NPC.CountNPCS(NPCID.Golem) > 0)
 				{
 					npc.ai[1] += 1f;
-					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 					{
 						npc.ai[1] += 1f;
 					}
@@ -1636,7 +1636,7 @@ namespace CalamityModClassic1Point2.NPCs
 						npc.ai[1] += 4f;
 					}
 					npc.ai[2] += 1f;
-					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 					{
 						npc.ai[2] += 1f;
 					}
@@ -1666,7 +1666,7 @@ namespace CalamityModClassic1Point2.NPCs
 					if (npc.ai[0] == 1f)
 					{
 						npc.ai[1] += 1f;
-						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							npc.ai[1] += 1f;
 						}
@@ -1679,7 +1679,7 @@ namespace CalamityModClassic1Point2.NPCs
 							npc.ai[1] += 3f;
 						}
 						npc.ai[2] += 1f;
-						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							npc.ai[2] += 1f;
 						}
@@ -1712,7 +1712,7 @@ namespace CalamityModClassic1Point2.NPCs
 						if (Main.netMode != NetmodeID.MultiplayerClient)
 						{
 							npc.localAI[1] += 0.5f;
-							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 							{
 								npc.localAI[1] += 1f;
 							}
@@ -1749,7 +1749,7 @@ namespace CalamityModClassic1Point2.NPCs
 							}
 						}
 						npc.localAI[1] += 0.5f;
-						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							npc.localAI[1] += 1f;
 						}
@@ -1772,7 +1772,7 @@ namespace CalamityModClassic1Point2.NPCs
 					if (npc.ai[1] == 1f)
 					{
 						int speed = 5;
-						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							speed++;
 						}
@@ -1844,7 +1844,7 @@ namespace CalamityModClassic1Point2.NPCs
 								npc.localAI[1] += 1f;
 							}
 							this.newAI[0] += 1f;
-							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+							if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 							{
 								this.newAI[0] += 1f;
 							}
@@ -1933,11 +1933,11 @@ namespace CalamityModClassic1Point2.NPCs
 					{
 						shootTime = 8;
 					}
-					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel300)
+					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel300)
 					{
 						shootTime++;
 					}
-					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 					{
 						shootTime++;
 					}
@@ -2079,7 +2079,7 @@ namespace CalamityModClassic1Point2.NPCs
 									num354 += 2;
 									num353 += 2f;
 								}
-								if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel300)
+								if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel300)
 								{
 									num354++;
 									num353 += 1f;
@@ -2246,7 +2246,7 @@ namespace CalamityModClassic1Point2.NPCs
 							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
 								float num602 = 12f;
-								if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel300)
+								if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel300)
 								{
 									num602 += 2f;
 								}
@@ -2293,7 +2293,7 @@ namespace CalamityModClassic1Point2.NPCs
 					{
 						this.newAI[0] += 1f;
 					}
-					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel300)
+					if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel300)
 					{
 						this.newAI[0] += 1f;
 					}
@@ -2429,7 +2429,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				if (npc.type == NPCID.DemonEye)
 				{
@@ -2784,7 +2784,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().eGauntlet)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eGauntlet)
 			{
 				if (item.CountsAsClass(DamageClass.Melee) && npc.damage > 0 /*&& modifiers.crit*/ && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(3) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
 				{
@@ -2802,28 +2802,28 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().eTalisman)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eTalisman)
 			{
 				if (projectile.CountsAsClass(DamageClass.Magic) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
 				{
 					modifiers.FinalDamage.Base = npc.lifeMax * 5;
 				}
 			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().nanotech)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().nanotech)
 			{
 				if (projectile.CountsAsClass(DamageClass.Throwing) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
 				{
 					modifiers.FinalDamage.Base = npc.lifeMax * 5;
 				}
 			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().eQuiver)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eQuiver)
 			{
 				if (projectile.CountsAsClass(DamageClass.Ranged) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
 				{
 					modifiers.FinalDamage.Base = npc.lifeMax * 5;
 				}
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				if (npc.type == NPCID.TheDestroyer ||
 					npc.type == NPCID.TheDestroyerBody ||
@@ -2860,7 +2860,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().bloodflareSet)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().bloodflareSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && ((double)npc.life < (double)npc.lifeMax * 0.5) && Main.rand.NextBool(25))
 				{
@@ -2875,7 +2875,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().bloodflareSet)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().bloodflareSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && ((double)npc.life < (double)npc.lifeMax * 0.5) && Main.rand.NextBool(25))
 				{
@@ -2890,7 +2890,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override bool CheckDead(NPC npc)
 		{
-			if (npc.lifeMax > 1000 && npc.type != NPCID.DungeonSpirit && npc.type != Mod.Find<ModNPC>("PhantomSpirit").Type && npc.value > 0f && npc.HasPlayerTarget && CalamityWorld.downedProvidence && Main.player[npc.target].ZoneDungeon)
+			if (npc.lifeMax > 1000 && npc.type != NPCID.DungeonSpirit && npc.type != Mod.Find<ModNPC>("PhantomSpirit").Type && npc.value > 0f && npc.HasPlayerTarget && CalamityWorld1Point2.downedProvidence && Main.player[npc.target].ZoneDungeon)
 			{
 				int maxValue = 6;
 				if (Main.expertMode)
@@ -3260,7 +3260,7 @@ namespace CalamityModClassic1Point2.NPCs
 		public override void OnKill(NPC npc)
 		{
 			#region stuff ive finished
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (npc.type == Mod.Find<ModNPC>("PhantomSpirit").Type && !NPC.AnyNPCs(Mod.Find<ModNPC>("Polterghast").Type))
 			{
 				CalamityModClassic1Point2.ghostKillCount++;
@@ -3288,13 +3288,13 @@ namespace CalamityModClassic1Point2.NPCs
 					}
 				}
 				npc.position = position2;
-				CalamityWorld.downedDesertScourge = true;
+				CalamityWorld1Point2.downedDesertScourge = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("AstrumDeusHead").Type)
 			{
 				string key = "The seal of the stars has been broken!  You can now mine Astral Ore!";
 				Color messageColor = Color.Gold;
-				if (!CalamityWorld.downedStarGod)
+				if (!CalamityWorld1Point2.downedStarGod)
 				{
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
@@ -3305,7 +3305,7 @@ namespace CalamityModClassic1Point2.NPCs
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 					}
 				}
-				CalamityWorld.downedStarGod = true;
+				CalamityWorld1Point2.downedStarGod = true;
 				if (Main.netMode == NetmodeID.Server)
 				{
 					NetMessage.SendData(MessageID.WorldData, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
@@ -3336,7 +3336,7 @@ namespace CalamityModClassic1Point2.NPCs
 					Color messageColor = Color.Cyan;
 					string key2 = "The harvest moon glows eerily";
 					Color messageColor2 = Color.Orange;
-					if (!CalamityWorld.downedDoG)
+					if (!CalamityWorld1Point2.downedDoG)
 					{
 						if (Main.netMode == NetmodeID.SinglePlayer)
 						{
@@ -3349,7 +3349,7 @@ namespace CalamityModClassic1Point2.NPCs
 							ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key2), messageColor2);
 						}
 					}
-					CalamityWorld.downedDoG = true;
+					CalamityWorld1Point2.downedDoG = true;
 					Vector2 center = Main.player[npc.target].Center;
 					float num2 = 1E+08f;
 					Vector2 position2 = npc.position;
@@ -3372,14 +3372,14 @@ namespace CalamityModClassic1Point2.NPCs
 					npc.boss = false;
 				}
 			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().tarraSet)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().tarraSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && Main.rand.NextBool(5))
 				{
 					Item.NewItem(npc.GetSource_FromThis(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 58, 1, false, 0, false, false);
 				}
 			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().bloodflareSet)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().bloodflareSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && Main.rand.NextBool(5) && Main.bloodMoon && (Main.player[npc.target].ZoneOverworldHeight || Main.player[npc.target].ZoneSkyHeight))
 				{
@@ -3397,14 +3397,14 @@ namespace CalamityModClassic1Point2.NPCs
 			#region Boss Specials
 			if (npc.boss)
 			{
-				CalamityWorld.downedBossAny = true;
+				CalamityWorld1Point2.downedBossAny = true;
 			}
 			if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.BrainofCthulhu)
 			{
 				if (npc.boss)
 				{
-					bool downedEvil = CalamityWorld.downedWhar;
-					CalamityWorld.downedWhar = true;
+					bool downedEvil = CalamityWorld1Point2.downedWhar;
+					CalamityWorld1Point2.downedWhar = true;
 					string key = WorldGen.crimson ? "Bloody cysts are erupting from the crimson's flesh..." : "Rotten cysts are oozing from the corrupt land...";
 					Color messageColor = WorldGen.crimson ? Color.Crimson : Color.Violet;
 					if (!downedEvil)
@@ -3422,8 +3422,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.SkeletronHead)
 			{
-				bool downedSkull = CalamityWorld.downedSkullHead;
-				CalamityWorld.downedSkullHead = true;
+				bool downedSkull = CalamityWorld1Point2.downedSkullHead;
+				CalamityWorld1Point2.downedSkullHead = true;
 				Color messageColor = Color.SpringGreen;
 				if (!downedSkull)
 				{
@@ -3439,8 +3439,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.WallofFlesh)
 			{
-				bool hardMode = CalamityWorld.downedUgly;
-				CalamityWorld.downedUgly = true;
+				bool hardMode = CalamityWorld1Point2.downedUgly;
+				CalamityWorld1Point2.downedUgly = true;
 				string key2 = "The ancient ice spirits have been unbound!";
 				Color messageColor = Color.Crimson;
 				string key = "Calamitous creatures now roam free!";
@@ -3461,8 +3461,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.SkeletronPrime)
 			{
-				bool downedPrime = CalamityWorld.downedSkeletor;
-				CalamityWorld.downedSkeletor = true;
+				bool downedPrime = CalamityWorld1Point2.downedSkeletor;
+				CalamityWorld1Point2.downedSkeletor = true;
 				string key = "A blood red inferno lingers in the night...";
 				Color messageColor = Color.Crimson;
 				if (!downedPrime)
@@ -3479,8 +3479,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.Plantera)
 			{
-				bool downedPlant = CalamityWorld.downedPlantThing;
-				CalamityWorld.downedPlantThing = true;
+				bool downedPlant = CalamityWorld1Point2.downedPlantThing;
+				CalamityWorld1Point2.downedPlantThing = true;
 				string key = "The ocean depths are trembling";
 				Color messageColor = Color.RoyalBlue;
 				if (!downedPlant)
@@ -3497,8 +3497,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.Golem)
 			{
-				bool downedIdiot = CalamityWorld.downedGolemBaby;
-				CalamityWorld.downedGolemBaby = true;
+				bool downedIdiot = CalamityWorld1Point2.downedGolemBaby;
+				CalamityWorld1Point2.downedGolemBaby = true;
 				string key = "A plague has befallen the Jungle";
 				Color messageColor = Color.Lime;
 				string key2 = "An ancient automaton roams the land";
@@ -3519,8 +3519,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.MoonLordCore)
 			{
-				bool downedMoonDude = CalamityWorld.downedMoonDude;
-				CalamityWorld.downedMoonDude = true;
+				bool downedMoonDude = CalamityWorld1Point2.downedMoonDude;
+				CalamityWorld1Point2.downedMoonDude = true;
 				string key = "The profaned flame blazes fiercely!";
 				Color messageColor = Color.Orange;
 				string key2 = "Cosmic terrors are watching...";
@@ -3549,11 +3549,11 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.DD2Betsy)
 			{
-				CalamityWorld.downedBetsy = true;
+				CalamityWorld1Point2.downedBetsy = true;
 			}
 			if (npc.type == NPCID.WallofFlesh)
 			{
-				if (!CalamityWorld.spawnAstralMeteor)
+				if (!CalamityWorld1Point2.spawnAstralMeteor)
 				{
 					string key = "A star has fallen from the heavens!";
 					Color messageColor = Color.Gold;
@@ -3565,10 +3565,10 @@ namespace CalamityModClassic1Point2.NPCs
 					{
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 					}
-					CalamityWorld.spawnAstralMeteor = true;
-					CalamityWorld.dropAstralMeteor();
+					CalamityWorld1Point2.spawnAstralMeteor = true;
+					CalamityWorld1Point2.dropAstralMeteor();
 				}
-				else if (Main.rand.NextBool(2) && !CalamityWorld.spawnAstralMeteor2)
+				else if (Main.rand.NextBool(2) && !CalamityWorld1Point2.spawnAstralMeteor2)
 				{
 					string key = "A star has fallen from the heavens!";
 					Color messageColor = Color.Gold;
@@ -3580,10 +3580,10 @@ namespace CalamityModClassic1Point2.NPCs
 					{
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 					}
-					CalamityWorld.spawnAstralMeteor2 = true;
-					CalamityWorld.dropAstralMeteor();
+					CalamityWorld1Point2.spawnAstralMeteor2 = true;
+					CalamityWorld1Point2.dropAstralMeteor();
 				}
-				else if (Main.rand.NextBool(4) && !CalamityWorld.spawnAstralMeteor3)
+				else if (Main.rand.NextBool(4) && !CalamityWorld1Point2.spawnAstralMeteor3)
 				{
 					string key = "A star has fallen from the heavens!";
 					Color messageColor = Color.Gold;
@@ -3595,8 +3595,8 @@ namespace CalamityModClassic1Point2.NPCs
 					{
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 					}
-					CalamityWorld.spawnAstralMeteor3 = true;
-					CalamityWorld.dropAstralMeteor();
+					CalamityWorld1Point2.spawnAstralMeteor3 = true;
+					CalamityWorld1Point2.dropAstralMeteor();
 				}
 			}
 			if (npc.type == Mod.Find<ModNPC>("Astrageldon").Type)
@@ -3611,47 +3611,47 @@ namespace CalamityModClassic1Point2.NPCs
 				{
 					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 				}
-				CalamityWorld.dropAstralMeteor();
+				CalamityWorld1Point2.dropAstralMeteor();
 			}
 			if (npc.type == Mod.Find<ModNPC>("HiveMindP2").Type) //boss 2
 			{
-				CalamityWorld.downedHiveMind = true;
+				CalamityWorld1Point2.downedHiveMind = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("PerforatorHeadLarge").Type) //boss 3
 			{
-				CalamityWorld.downedPerforator = true;
+				CalamityWorld1Point2.downedPerforator = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("SlimeGodCore").Type) //boss 4
 			{
-				CalamityWorld.downedSlimeGod = true;
+				CalamityWorld1Point2.downedSlimeGod = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Cryogen").Type) //boss 5
 			{
-				CalamityWorld.downedCryogen = true;
+				CalamityWorld1Point2.downedCryogen = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("BrimstoneElemental").Type) //boss 6
 			{
-				CalamityWorld.downedBrimstoneElemental = true;
+				CalamityWorld1Point2.downedBrimstoneElemental = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CalamitasRun3").Type) //boss 7
 			{
-				CalamityWorld.downedCalamitas = true;
+				CalamityWorld1Point2.downedCalamitas = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Siren").Type || npc.type == Mod.Find<ModNPC>("Leviathan").Type) //boss 8
 			{
 				int bossType = (npc.type == Mod.Find<ModNPC>("Siren").Type) ? Mod.Find<ModNPC>("Leviathan").Type : Mod.Find<ModNPC>("Siren").Type;
 				if (!NPC.AnyNPCs(bossType))
 				{
-					CalamityWorld.downedLeviathan = true;
+					CalamityWorld1Point2.downedLeviathan = true;
 				}
 			}
 			if (npc.type == Mod.Find<ModNPC>("PlaguebringerGoliath").Type) //boss 9
 			{
-				CalamityWorld.downedPlaguebringer = true;
+				CalamityWorld1Point2.downedPlaguebringer = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("ProfanedGuardianBoss").Type) //boss 10
 			{
-				CalamityWorld.downedGuardians = true;
+				CalamityWorld1Point2.downedGuardians = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Providence").Type) //boss 11
 			{
@@ -3659,7 +3659,7 @@ namespace CalamityModClassic1Point2.NPCs
 				Color messageColor = Color.Cyan;
 				string key2 = "The calamitous beings have been inundated with bloodstone";
 				Color messageColor2 = Color.Orange;
-				if (!CalamityWorld.downedProvidence)
+				if (!CalamityWorld1Point2.downedProvidence)
 				{
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
@@ -3672,29 +3672,29 @@ namespace CalamityModClassic1Point2.NPCs
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key2), messageColor2);
 					}
 				}
-				CalamityWorld.downedProvidence = true;
+				CalamityWorld1Point2.downedProvidence = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CeaselessVoid").Type) //boss 12
 			{
-				CalamityWorld.downedSentinel1 = true;
+				CalamityWorld1Point2.downedSentinel1 = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("StormWeaverHeadNaked").Type) //boss 13
 			{
-				CalamityWorld.downedSentinel2 = true;
+				CalamityWorld1Point2.downedSentinel2 = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CosmicWraith").Type) //boss 14
 			{
-				CalamityWorld.downedSentinel3 = true;
+				CalamityWorld1Point2.downedSentinel3 = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Bumblefuck").Type) //boss 16
 			{
-				CalamityWorld.downedBumble = true;
+				CalamityWorld1Point2.downedBumble = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Yharon").Type) //boss 17
 			{
 				string key = "The dark sun awaits";
 				Color messageColor = Color.Orange;
-				if (!CalamityWorld.downedYharon)
+				if (!CalamityWorld1Point2.downedYharon)
 				{
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
@@ -3705,23 +3705,23 @@ namespace CalamityModClassic1Point2.NPCs
 						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 					}
 				}
-				CalamityWorld.downedYharon = true;
+				CalamityWorld1Point2.downedYharon = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("SupremeCalamitas").Type) //boss 18
 			{
-				CalamityWorld.downedSCal = true;
+				CalamityWorld1Point2.downedSCal = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("CrabulonIdle").Type) //boss 19
 			{
-				CalamityWorld.downedCrabulon = true;
+				CalamityWorld1Point2.downedCrabulon = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("ScavengerBody").Type) //boss 20
 			{
-				CalamityWorld.downedScavenger = true;
+				CalamityWorld1Point2.downedScavenger = true;
 			}
 			if (npc.type == Mod.Find<ModNPC>("Polterghast").Type) //boss 21
 			{
-				CalamityWorld.downedPolterghast = true;
+				CalamityWorld1Point2.downedPolterghast = true;
 			}
 			#endregion
 		}
@@ -3733,25 +3733,25 @@ namespace CalamityModClassic1Point2.NPCs
 				spawnRate = (int)((double)spawnRate * 0.75);
 				maxSpawns = (int)((float)maxSpawns * 1.25f);
 			}
-			if (player.GetModPlayer<CalamityPlayer>().ZoneCalamity)
+			if (player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity)
 			{
 				spawnRate = (int)((double)spawnRate * 0.5);
 				maxSpawns = (int)((float)maxSpawns * 1.5f);
 			}
-			if (player.GetModPlayer<CalamityPlayer>().ZoneAstral)
+			if (player.GetModPlayer<CalamityPlayer1Point2>().ZoneAstral)
 			{
 				spawnRate = (int)((double)spawnRate * 0.4);
 				maxSpawns = (int)((float)maxSpawns * 1.1f);
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				spawnRate = (int)((double)spawnRate * 0.85);
 			}
-			if (CalamityWorld.demonMode)
+			if (CalamityWorld1Point2.demonMode)
 			{
 				spawnRate = (int)((double)spawnRate * 0.75);
 			}
-			if (player.GetModPlayer<CalamityPlayer>().zerg)
+			if (player.GetModPlayer<CalamityPlayer1Point2>().zerg)
 			{
 				spawnRate = (int)((double)spawnRate * 0.01);
 				maxSpawns = (int)((float)maxSpawns * 5f);
@@ -3904,7 +3904,7 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer>().stressLevel500 && npc.type != NPCID.BrainofCthulhu && npc.type != Mod.Find<ModNPC>("Yharon").Type)
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel500 && npc.type != NPCID.BrainofCthulhu && npc.type != Mod.Find<ModNPC>("Yharon").Type)
 			{
 				Microsoft.Xna.Framework.Color color9 = Lighting.GetColor((int)((double)npc.position.X + (double)npc.width * 0.5) / 16, (int)(((double)npc.position.Y + (double)npc.height * 0.5) / 16.0));
 				float num66 = 0f;
@@ -3970,7 +3970,7 @@ namespace CalamityModClassic1Point2.NPCs
         }
         public void LaceratorEffects(ref NPC npc)
         {
-            if (!npc.GetGlobalNPC<CalamityGlobalNPC>().lacerator)
+            if (!npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().lacerator)
             {
                 return;
             }
@@ -4008,7 +4008,7 @@ namespace CalamityModClassic1Point2.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityWorld.downedProvidence;
+            return CalamityWorld1Point2.downedProvidence;
         }
         public bool CanShowItemDropInUI()
         {
@@ -4024,11 +4024,11 @@ namespace CalamityModClassic1Point2.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityWorld.revenge;
+            return CalamityWorld1Point2.revenge;
         }
         public bool CanShowItemDropInUI()
         {
-            return CalamityWorld.revenge;
+            return CalamityWorld1Point2.revenge;
         }
 
         public string GetConditionDescription()
@@ -4072,7 +4072,7 @@ namespace CalamityModClassic1Point2.NPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-            return CalamityWorld.downedYharon;
+            return CalamityWorld1Point2.downedYharon;
         }
         public bool CanShowItemDropInUI()
         {

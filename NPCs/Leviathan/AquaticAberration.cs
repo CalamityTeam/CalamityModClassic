@@ -57,7 +57,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.TargetClosest(false);
 			NPC.rotation = NPC.velocity.ToRotation();
 			if (Math.Sign(NPC.velocity.X) != 0) 

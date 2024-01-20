@@ -43,7 +43,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
 				NPC.TargetClosest(true);
@@ -276,7 +276,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.downedStarGod)
+			if (CalamityWorld1Point2.downedStarGod)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
 			}

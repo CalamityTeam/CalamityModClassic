@@ -38,7 +38,7 @@ namespace CalamityModClassic1Point2.NPCs.Cryogen
 			NPC.width = 80; //324
 			NPC.height = 80; //216
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 16000 : 14000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 16000 : 14000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -73,7 +73,7 @@ namespace CalamityModClassic1Point2.NPCs.Cryogen
 			Player player = Main.player[NPC.target];
 			bool isChill = player.ZoneSnow;
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.TargetClosest(true);
 			if (NPC.ai[2] == 0f && NPC.localAI[1] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
 			{

@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.NPCs.Cryocore2
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.01f, 0.25f, 0.25f);
 			NPC.TargetClosest(true);
 			float num1372 = revenge ? 13f : 11f;

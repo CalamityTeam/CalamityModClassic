@@ -22,7 +22,7 @@ namespace CalamityModClassic1Point2.Projectiles
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.extraUpdates = 100;
-            Projectile.timeLeft = CalamityWorld.revenge ? 80 : 60;
+            Projectile.timeLeft = CalamityWorld1Point2.revenge ? 80 : 60;
         }
 
         public override void AI()

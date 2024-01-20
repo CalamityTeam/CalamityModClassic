@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override bool CanUseItem(Player player)
 		{
-			bool betsy = CalamityWorld.downedBetsy;
+			bool betsy = CalamityWorld1Point2.downedBetsy;
 			if (player.altFunctionUse == 2)
 			{
 				Item.mana = 9;
@@ -84,9 +84,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedGolemBoss ? 1f : 0f) + //9.25
 				(NPC.downedAncientCultist ? 1f : 0f) + //10.25
 				(NPC.downedMoonlord ? 5f : 0f) + //22.25
-				(CalamityWorld.downedProvidence ? 10f : 0f) + //35
-				(CalamityWorld.downedDoG ? 10f : 0f) + //46
-				(CalamityWorld.downedYharon ? 33f : 0f); //86
+				(CalamityWorld1Point2.downedProvidence ? 10f : 0f) + //35
+				(CalamityWorld1Point2.downedDoG ? 10f : 0f) + //46
+				(CalamityWorld1Point2.downedYharon ? 33f : 0f); //86
 			damage.Base = (int)((double)damage.Base * damageMult);
 	    }
 		
@@ -105,16 +105,16 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedFishron ? 0.15f : 0f) +
 				(NPC.downedAncientCultist ? 0.15f : 0f) +
 				(NPC.downedMoonlord ? 0.35f : 0f) +
-				(CalamityWorld.downedProvidence ? 0.15f : 0f) +
-				(CalamityWorld.downedDoG ? 0.15f : 0f) +
-				(CalamityWorld.downedYharon ? 0.2f : 0f);
+				(CalamityWorld1Point2.downedProvidence ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedDoG ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedYharon ? 0.2f : 0f);
 			knockback = knockback * kbMult;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			bool wallOfFlesh = Main.hardMode;
-			bool betsy = CalamityWorld.downedBetsy;
+			bool betsy = CalamityWorld1Point2.downedBetsy;
 			bool moonLord = NPC.downedMoonlord;
 			if (moonLord)
 			{

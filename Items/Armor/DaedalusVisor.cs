@@ -41,7 +41,7 @@ public class DaedalusVisor : ModItem
     {
         player.setBonus = "Grants throwing damage, critical strike chance, and defensive boosts as health gets lower\n" +
         	"Throwing projectiles split into crystal shards on enemy hits";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.daedalusSplit = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
 		{

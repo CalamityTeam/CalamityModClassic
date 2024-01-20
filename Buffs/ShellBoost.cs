@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer>().shellBoost = true;
+			player.GetModPlayer<CalamityPlayer1Point2>().shellBoost = true;
 		}
 	}
 }

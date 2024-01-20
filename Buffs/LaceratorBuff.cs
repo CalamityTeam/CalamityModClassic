@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<CalamityGlobalNPC>().lacerator = true;
+            npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().lacerator = true;
         }
     }
 }

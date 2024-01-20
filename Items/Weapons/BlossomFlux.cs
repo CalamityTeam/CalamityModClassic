@@ -78,9 +78,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedMechBoss3 ? 0.5f : 0f) +
 				(NPC.downedAncientCultist ? 5f : 0f) + //25
 				(NPC.downedMoonlord ? 20f : 0f) + //40
-				(CalamityWorld.downedProvidence ? 20f : 0f) + //50
-				(CalamityWorld.downedDoG ? 20f : 0f) + //60
-				(CalamityWorld.downedYharon ? 50f : 0f); //75
+				(CalamityWorld1Point2.downedProvidence ? 20f : 0f) + //50
+				(CalamityWorld1Point2.downedDoG ? 20f : 0f) + //60
+				(CalamityWorld1Point2.downedYharon ? 50f : 0f); //75
 			damage.Base = (int)((double)damage.Base * damageMult);
 	    }
 		
@@ -99,9 +99,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedFishron ? 0.15f : 0f) +
 				(NPC.downedAncientCultist ? 0.15f : 0f) +
 				(NPC.downedMoonlord ? 0.35f : 0f) +
-				(CalamityWorld.downedProvidence ? 0.25f : 0f) +
-				(CalamityWorld.downedDoG ? 0.5f : 0f) +
-				(CalamityWorld.downedYharon ? 0.5f : 0f);
+				(CalamityWorld1Point2.downedProvidence ? 0.25f : 0f) +
+				(CalamityWorld1Point2.downedDoG ? 0.5f : 0f) +
+				(CalamityWorld1Point2.downedYharon ? 0.5f : 0f);
 			knockback = knockback * kbMult;
 		}
 		

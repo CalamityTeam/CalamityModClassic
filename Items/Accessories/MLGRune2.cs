@@ -27,7 +27,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (!Main.expertMode || modPlayer.extraAccessoryML)
 			{
 				return false;
@@ -37,14 +37,14 @@ namespace CalamityModClassic1Point2.Items.Accessories
 
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (player.itemAnimation > 0 && !modPlayer.extraAccessoryML && player.itemTime == 0)
 			{
 				player.itemTime = Item.useTime;
 				modPlayer.extraAccessoryML = true;
-				if (!CalamityWorld.onionMode)
+				if (!CalamityWorld1Point2.onionMode)
 				{
-					CalamityWorld.onionMode = true;
+					CalamityWorld1Point2.onionMode = true;
 				}
 				NetMessage.SendData(MessageID.SyncPlayer, -1, -1, null, 0, player.whoAmI, 0f, 0f, 0, 0, 0);
 			}

@@ -39,15 +39,15 @@ namespace CalamityModClassic1Point2.Projectiles
 			Projectile.localNPCHitCooldown = 10 -
 				(NPC.downedGolemBoss ? 2 : 0) -
         		(NPC.downedMoonlord ? 4 : 0) -
-        		(CalamityWorld.downedDoG ? 2 : 0) -
-        		(CalamityWorld.downedYharon ? 1 : 0);
+        		(CalamityWorld1Point2.downedDoG ? 2 : 0) -
+        		(CalamityWorld1Point2.downedYharon ? 1 : 0);
         }
 
         public override void AI()
         {
         	bool flag64 = Projectile.type == Mod.Find<ModProjectile>("SandyWaifu").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (!modPlayer.sandWaifu)
         	{
         		Projectile.active = false;

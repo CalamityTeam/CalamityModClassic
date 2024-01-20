@@ -46,7 +46,7 @@ namespace CalamityModClassic1Point2.UI
 		public static int GetTickedValue() //ditto
 		{
 			Mod calamity = ModLoader.GetMod("CalamityModClassic1Point2");
-			tick = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer>().stress;
+			tick = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer1Point2>().stress;
 			return tick;
 		}
 
@@ -120,7 +120,7 @@ namespace CalamityModClassic1Point2.UI
 			Mod calamity = ModLoader.GetMod("CalamityModClassic1Point2");
 			base.Update(gameTime);
 			Recalculate(); //THIS IS IMPORTANT! IDK why but when this is included it updates the drawing every tick.
-			tick = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer>().stress; //updates the testing tick
+			tick = Main.player[Main.myPlayer].GetModPlayer<CalamityPlayer1Point2>().stress; //updates the testing tick
 			if (tick >= 10000)
 			{
 				tick = 10000;

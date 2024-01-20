@@ -70,27 +70,27 @@ namespace CalamityModClassic1Point2
             if(bossChecklist != null)
             {
                 // 14 is moonlord, 12 is duke fishron
-                bossChecklist.Call("AddBossWithInfo", "Desert Scourge", 1.5f, (Func<bool>)(() => CalamityWorld.downedDesertScourge), "Use a [i:" + mod.Find<ModItem>("DriedSeafood").Type + "] in the Desert Biome"); //1
-                bossChecklist.Call("AddBossWithInfo", "Crabulon", 2.5f, (Func<bool>)(() => CalamityWorld.downedCrabulon), "Use a [i:" + mod.Find<ModItem>("DecapoditaSprout").Type + "] in the Mushroom Biome"); //1.5
-                bossChecklist.Call("AddBossWithInfo", "Hive Mind", 3.51f, (Func<bool>)(() => CalamityWorld.downedHiveMind), "By killing a Hive Cyst OR by using a [i:" + mod.Find<ModItem>("Teratoma").Type + "] in the Corruption Biome"); //2
-                bossChecklist.Call("AddBossWithInfo", "Perforator", 3.51f, (Func<bool>)(() => CalamityWorld.downedPerforator), "By killing a Perforator Cyst OR by using a [i:" + mod.Find<ModItem>("BloodyWormFood").Type + "] in the Crimson Biome"); //3
-                bossChecklist.Call("AddBossWithInfo", "Slime God", 5.5f, (Func<bool>)(() => CalamityWorld.downedSlimeGod), "Use an [i:" + mod.Find<ModItem>("OverloadedSludge").Type + "]"); //4
-                bossChecklist.Call("AddBossWithInfo", "Cryogen", 6.5f, (Func<bool>)(() => CalamityWorld.downedCryogen), "Use a [i:" + mod.Find<ModItem>("CryoKey").Type + "] in the Snow Biome"); //5
-                bossChecklist.Call("AddBossWithInfo", "Brimstone Elemental", 7.5f, (Func<bool>)(() => CalamityWorld.downedBrimstoneElemental), "Use a [i:" + mod.Find<ModItem>("CharredIdol").Type + "] in the Hell Crag"); //6
-                bossChecklist.Call("AddBossWithInfo", "Calamitas", 9.7f, (Func<bool>)(() => CalamityWorld.downedCalamitas), "Use an [i:" + mod.Find<ModItem>("BlightedEyeball").Type + "] at Night"); //7
-                bossChecklist.Call("AddBossWithInfo", "Leviathan", 10.5f, (Func<bool>)(() => CalamityWorld.downedLeviathan), "By killing an unknown entity in the Ocean Biome"); //8
-                bossChecklist.Call("AddBossWithInfo", "Astrum Deus", 10.6f, (Func<bool>)(() => CalamityWorld.downedStarGod), "Use a [i:" + mod.Find<ModItem>("Starcore").Type + "] at Night"); //8.5
-                bossChecklist.Call("AddBossWithInfo", "Plaguebringer Goliath", 11.5f, (Func<bool>)(() => CalamityWorld.downedPlaguebringer), "Use an [i:" + mod.Find<ModItem>("Abomination").Type + "] in the Jungle Biome"); //9
-                bossChecklist.Call("AddBossWithInfo", "Ravager", 12.5f, (Func<bool>)(() => CalamityWorld.downedScavenger), "Find it anywhere in the world or use an [i:" + mod.Find<ModItem>("AncientMedallion").Type + "]"); //9.5
-                bossChecklist.Call("AddBossWithInfo", "Profaned Guardians", 14.5f, (Func<bool>)(() => CalamityWorld.downedGuardians), "Use a [i:" + mod.Find<ModItem>("ProfanedShard").Type + "] in the Hallow or Underworld Biomes"); //10
-                bossChecklist.Call("AddBossWithInfo", "Providence", 15f, (Func<bool>)(() => CalamityWorld.downedProvidence), "Use a [i:" + mod.Find<ModItem>("ProfanedCore").Type + "] in the Hallow or Underworld Biomes"); //11
-                bossChecklist.Call("AddBossWithInfo", "Ceaseless Void", 15.1f, (Func<bool>)(() => CalamityWorld.downedSentinel1), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in the Dungeon"); //12
-                bossChecklist.Call("AddBossWithInfo", "Storm Weaver", 15.2f, (Func<bool>)(() => CalamityWorld.downedSentinel2), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in Space"); //13
-                bossChecklist.Call("AddBossWithInfo", "Signus", 15.3f, (Func<bool>)(() => CalamityWorld.downedSentinel3), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in the Underworld"); //14
-                bossChecklist.Call("AddBossWithInfo", "Devourer of Gods", 16f, (Func<bool>)(() => CalamityWorld.downedDoG), "Use a [i:" + mod.Find<ModItem>("CosmicWorm").Type + "]"); //15
-                bossChecklist.Call("AddBossWithInfo", "Bumblebirb", 16.5f, (Func<bool>)(() => CalamityWorld.downedBumble), "Use [i:" + mod.Find<ModItem>("BirbPheromones").Type + "] in the Jungle Biome or find it in the Jungle Biome"); //16
-                bossChecklist.Call("AddBossWithInfo", "Yharon", 17f, (Func<bool>)(() => CalamityWorld.downedYharon), "Use a [i:" + mod.Find<ModItem>("ChickenEgg").Type + "] in the Jungle Biome"); //17
-                bossChecklist.Call("AddBossWithInfo", "Supreme Calamitas", 18f, (Func<bool>)(() => CalamityWorld.downedSCal), "Use an [i:" + mod.Find<ModItem>("EyeofExtinction").Type + "]"); //18
+                bossChecklist.Call("AddBossWithInfo", "Desert Scourge", 1.5f, (Func<bool>)(() => CalamityWorld1Point2.downedDesertScourge), "Use a [i:" + mod.Find<ModItem>("DriedSeafood").Type + "] in the Desert Biome"); //1
+                bossChecklist.Call("AddBossWithInfo", "Crabulon", 2.5f, (Func<bool>)(() => CalamityWorld1Point2.downedCrabulon), "Use a [i:" + mod.Find<ModItem>("DecapoditaSprout").Type + "] in the Mushroom Biome"); //1.5
+                bossChecklist.Call("AddBossWithInfo", "Hive Mind", 3.51f, (Func<bool>)(() => CalamityWorld1Point2.downedHiveMind), "By killing a Hive Cyst OR by using a [i:" + mod.Find<ModItem>("Teratoma").Type + "] in the Corruption Biome"); //2
+                bossChecklist.Call("AddBossWithInfo", "Perforator", 3.51f, (Func<bool>)(() => CalamityWorld1Point2.downedPerforator), "By killing a Perforator Cyst OR by using a [i:" + mod.Find<ModItem>("BloodyWormFood").Type + "] in the Crimson Biome"); //3
+                bossChecklist.Call("AddBossWithInfo", "Slime God", 5.5f, (Func<bool>)(() => CalamityWorld1Point2.downedSlimeGod), "Use an [i:" + mod.Find<ModItem>("OverloadedSludge").Type + "]"); //4
+                bossChecklist.Call("AddBossWithInfo", "Cryogen", 6.5f, (Func<bool>)(() => CalamityWorld1Point2.downedCryogen), "Use a [i:" + mod.Find<ModItem>("CryoKey").Type + "] in the Snow Biome"); //5
+                bossChecklist.Call("AddBossWithInfo", "Brimstone Elemental", 7.5f, (Func<bool>)(() => CalamityWorld1Point2.downedBrimstoneElemental), "Use a [i:" + mod.Find<ModItem>("CharredIdol").Type + "] in the Hell Crag"); //6
+                bossChecklist.Call("AddBossWithInfo", "Calamitas", 9.7f, (Func<bool>)(() => CalamityWorld1Point2.downedCalamitas), "Use an [i:" + mod.Find<ModItem>("BlightedEyeball").Type + "] at Night"); //7
+                bossChecklist.Call("AddBossWithInfo", "Leviathan", 10.5f, (Func<bool>)(() => CalamityWorld1Point2.downedLeviathan), "By killing an unknown entity in the Ocean Biome"); //8
+                bossChecklist.Call("AddBossWithInfo", "Astrum Deus", 10.6f, (Func<bool>)(() => CalamityWorld1Point2.downedStarGod), "Use a [i:" + mod.Find<ModItem>("Starcore").Type + "] at Night"); //8.5
+                bossChecklist.Call("AddBossWithInfo", "Plaguebringer Goliath", 11.5f, (Func<bool>)(() => CalamityWorld1Point2.downedPlaguebringer), "Use an [i:" + mod.Find<ModItem>("Abomination").Type + "] in the Jungle Biome"); //9
+                bossChecklist.Call("AddBossWithInfo", "Ravager", 12.5f, (Func<bool>)(() => CalamityWorld1Point2.downedScavenger), "Find it anywhere in the world or use an [i:" + mod.Find<ModItem>("AncientMedallion").Type + "]"); //9.5
+                bossChecklist.Call("AddBossWithInfo", "Profaned Guardians", 14.5f, (Func<bool>)(() => CalamityWorld1Point2.downedGuardians), "Use a [i:" + mod.Find<ModItem>("ProfanedShard").Type + "] in the Hallow or Underworld Biomes"); //10
+                bossChecklist.Call("AddBossWithInfo", "Providence", 15f, (Func<bool>)(() => CalamityWorld1Point2.downedProvidence), "Use a [i:" + mod.Find<ModItem>("ProfanedCore").Type + "] in the Hallow or Underworld Biomes"); //11
+                bossChecklist.Call("AddBossWithInfo", "Ceaseless Void", 15.1f, (Func<bool>)(() => CalamityWorld1Point2.downedSentinel1), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in the Dungeon"); //12
+                bossChecklist.Call("AddBossWithInfo", "Storm Weaver", 15.2f, (Func<bool>)(() => CalamityWorld1Point2.downedSentinel2), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in Space"); //13
+                bossChecklist.Call("AddBossWithInfo", "Signus", 15.3f, (Func<bool>)(() => CalamityWorld1Point2.downedSentinel3), "Use a [i:" + mod.Find<ModItem>("RuneofCos").Type + "] in the Underworld"); //14
+                bossChecklist.Call("AddBossWithInfo", "Devourer of Gods", 16f, (Func<bool>)(() => CalamityWorld1Point2.downedDoG), "Use a [i:" + mod.Find<ModItem>("CosmicWorm").Type + "]"); //15
+                bossChecklist.Call("AddBossWithInfo", "Bumblebirb", 16.5f, (Func<bool>)(() => CalamityWorld1Point2.downedBumble), "Use [i:" + mod.Find<ModItem>("BirbPheromones").Type + "] in the Jungle Biome or find it in the Jungle Biome"); //16
+                bossChecklist.Call("AddBossWithInfo", "Yharon", 17f, (Func<bool>)(() => CalamityWorld1Point2.downedYharon), "Use a [i:" + mod.Find<ModItem>("ChickenEgg").Type + "] in the Jungle Biome"); //17
+                bossChecklist.Call("AddBossWithInfo", "Supreme Calamitas", 18f, (Func<bool>)(() => CalamityWorld1Point2.downedSCal), "Use an [i:" + mod.Find<ModItem>("EyeofExtinction").Type + "]"); //18
             }
         }
     	    	
@@ -494,7 +494,7 @@ namespace CalamityModClassic1Point2
     	
     	public override object Call(params object[] args)
 		{
-			return ModSupport.Call(args);
+			return ModSupport1Point2.Call(args);
 		}
     }
     

@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC>().eFreeze = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().eFreeze = true;
 		}
 	}
 }

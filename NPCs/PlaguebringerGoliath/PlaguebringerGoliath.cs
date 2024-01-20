@@ -40,7 +40,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 			NPC.width = 66; //324
 			NPC.height = 66; //216
 			NPC.defense = 55;
-			NPC.lifeMax = CalamityWorld.revenge ? 56000 : 48000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 56000 : 48000;
 			NPC.knockBackResist = 0f;
 			NPC.scale = 1.5f;
 			NPC.aiStyle = -1; //new
@@ -72,7 +72,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			Player player = Main.player[NPC.target];
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.15f, 0.35f, 0.05f);
@@ -950,7 +950,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 180, true);
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

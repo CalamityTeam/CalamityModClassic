@@ -56,7 +56,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
 				int shoot = revenge ? 5 : 4;

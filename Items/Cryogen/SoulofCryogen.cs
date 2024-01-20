@@ -52,7 +52,7 @@ public class SoulofCryogen : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.cryogenSoul = true;
 		player.pickSpeed -= 0.1f;
 		player.GetDamage(DamageClass.Magic) *= 1.1f;

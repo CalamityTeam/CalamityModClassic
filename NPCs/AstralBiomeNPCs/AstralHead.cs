@@ -190,12 +190,12 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return (spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneAstral && !spawnInfo.Player.ZoneTowerStardust && !spawnInfo.Player.ZoneTowerSolar && !spawnInfo.Player.ZoneTowerVortex && !spawnInfo.Player.ZoneTowerNebula) ? 1f : 0f;
+			return (spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneAstral && !spawnInfo.Player.ZoneTowerStardust && !spawnInfo.Player.ZoneTowerSolar && !spawnInfo.Player.ZoneTowerVortex && !spawnInfo.Player.ZoneTowerNebula) ? 1f : 0f;
         }
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.downedStarGod)
+			if (CalamityWorld1Point2.downedStarGod)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
 			}

@@ -31,7 +31,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			NPC.width = 38; //42
 			NPC.height = 38; //42
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 800000 : 750000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 800000 : 750000;
 			if (NPC.CountNPCS(Mod.Find<ModNPC>("DevourerofGodsHead").Type) > 0)
 			{
 				NPC.lifeMax = 600000;
@@ -69,7 +69,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		
 		public override void AI()
 		{
-			if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().warped)
+			if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().warped)
 			{
 				NPC.dontTakeDamage = true;
 				NPC.chaseable = false;

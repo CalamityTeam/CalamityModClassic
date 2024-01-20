@@ -32,7 +32,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			NPC.width = 38; //324
 			NPC.height = 44; //216
 			NPC.defense = 75;
-			NPC.lifeMax = CalamityWorld.revenge ? 165000 : 150000; //250000
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 165000 : 150000; //250000
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -66,7 +66,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			int defenseDown = (int)(30f * (1f - (float)NPC.life / (float)NPC.lifeMax));
 			NPC.defense = NPC.defDefense - defenseDown;
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
@@ -96,7 +96,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
 				int shootTime = 4;
-				if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+				if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 				{
 					shootTime += 2;
 				}
@@ -229,7 +229,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.downedStarGod)
+			if (CalamityWorld1Point2.downedStarGod)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
 			}

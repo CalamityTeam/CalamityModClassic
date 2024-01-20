@@ -27,7 +27,7 @@ namespace CalamityModClassic1Point2.Items
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (modPlayer.mFruit || player.statLifeMax < 500)
 			{
 				return false;
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.Items
 				{
 					player.HealEffect(50);
 				}
-				CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 				modPlayer.mFruit = true;
 			}
 			return true;

@@ -48,7 +48,7 @@ public class SilvaHelm : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.silvaSet = true;
     	for (int k = 0; k < player.buffImmune.Length; k++)
 		{

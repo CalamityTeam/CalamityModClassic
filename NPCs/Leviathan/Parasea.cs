@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.TargetClosest(true);
 			Vector2 vector145 = new Vector2(NPC.Center.X, NPC.Center.Y);
 			float num1258 = Main.player[NPC.target].Center.X - vector145.X;

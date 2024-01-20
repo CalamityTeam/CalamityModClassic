@@ -43,13 +43,13 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
 		
 		public override void AI()
 		{
-			if (CalamityGlobalNPC.energyFlame < 0) 
+			if (CalamityGlobalNPC1Point2.energyFlame < 0) 
 			{
 				NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
 				NPC.netUpdate = true;
 				return;
 			}
-			int num750 = CalamityGlobalNPC.energyFlame;
+			int num750 = CalamityGlobalNPC1Point2.energyFlame;
 			if (NPC.ai[3] > 0f) 
 			{
 				num750 = (int)NPC.ai[3] - 1;
@@ -68,11 +68,11 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
 			NPC.TargetClosest(true);
 			float num751 = 0.1f;
 			float num752 = 500f;
-			if ((double)Main.npc[CalamityGlobalNPC.energyFlame].life < (double)Main.npc[CalamityGlobalNPC.energyFlame].lifeMax * 0.25) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.energyFlame].life < (double)Main.npc[CalamityGlobalNPC1Point2.energyFlame].lifeMax * 0.25) 
 			{
 				num752 += 50f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.energyFlame].life < (double)Main.npc[CalamityGlobalNPC.energyFlame].lifeMax * 0.1) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.energyFlame].life < (double)Main.npc[CalamityGlobalNPC1Point2.energyFlame].lifeMax * 0.1) 
 			{
 				num752 += 50f;
 			}
@@ -82,7 +82,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
 				num752 += num753 * 200f;
 				num751 += 0.15f;
 			}
-			if (!Main.npc[num750].active || CalamityGlobalNPC.energyFlame < 0) 
+			if (!Main.npc[num750].active || CalamityGlobalNPC1Point2.energyFlame < 0) 
 			{
 				NPC.active = false;
 				return;
@@ -195,8 +195,8 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y);
-			float drawPositionX = Main.npc[CalamityGlobalNPC.energyFlame].Center.X - center.X;
-			float drawPositionY = Main.npc[CalamityGlobalNPC.energyFlame].Center.Y - center.Y;
+			float drawPositionX = Main.npc[CalamityGlobalNPC1Point2.energyFlame].Center.X - center.X;
+			float drawPositionY = Main.npc[CalamityGlobalNPC1Point2.energyFlame].Center.Y - center.Y;
 			drawPositionY += 10f;
 			float rotation = (float)Math.Atan2((double)drawPositionY, (double)drawPositionX) - 1.57f;
 			bool draw = true;
@@ -214,8 +214,8 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
 					drawPositionY *= totalDrawDistance;
 					center.X += drawPositionX;
 					center.Y += drawPositionY;
-					drawPositionX = Main.npc[CalamityGlobalNPC.energyFlame].Center.X - center.X;
-					drawPositionY = Main.npc[CalamityGlobalNPC.energyFlame].Center.Y - center.Y;
+					drawPositionX = Main.npc[CalamityGlobalNPC1Point2.energyFlame].Center.X - center.X;
+					drawPositionY = Main.npc[CalamityGlobalNPC1Point2.energyFlame].Center.Y - center.Y;
 					drawPositionY -= 10f;
 					Microsoft.Xna.Framework.Color color = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16f));
 					Main.spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityModClassic1Point2/NPCs/ProfanedEnergy/ProfanedEnergySegment").Value, new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y), 

@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			float num636 = 150f;
 			bool flag64 = Projectile.type == Mod.Find<ModProjectile>("Cataclymini").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (flag64)
 			{
 				if (player.dead)

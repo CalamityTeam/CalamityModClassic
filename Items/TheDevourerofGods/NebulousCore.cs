@@ -28,7 +28,7 @@ public class NebulousCore : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.nCore = true;
 		player.GetCritChance(DamageClass.Magic) += 20;
 		player.GetDamage(DamageClass.Magic) += 0.2f;

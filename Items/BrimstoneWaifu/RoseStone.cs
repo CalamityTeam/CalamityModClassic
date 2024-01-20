@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
 			player.GetCritChance(DamageClass.Throwing) += 2;
 			player.GetDamage(DamageClass.Throwing) += 0.02f;
 			player.GetDamage(DamageClass.Summon) += 0.02f;
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			modPlayer.brimstoneWaifu = true;
 			if (player.whoAmI == Main.myPlayer)
 			{

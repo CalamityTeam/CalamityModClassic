@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			float num636 = 150f;
 			bool flag64 = Projectile.type == Mod.Find<ModProjectile>("PhantomGuy").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			player.AddBuff(Mod.Find<ModBuff>("Phantom").Type, 3600);
 			if (flag64)
 			{

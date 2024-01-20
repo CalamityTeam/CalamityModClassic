@@ -30,7 +30,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				(NPC.downedPlantBoss ? 2 : 0) -
         		(NPC.downedFishron ? 2 : 0) -
 				(NPC.downedMoonlord ? 2 : 0) -
-        		(CalamityWorld.downedDoG ? 1 : 0);
+        		(CalamityWorld1Point2.downedDoG ? 1 : 0);
         }
 
         public override void AI()

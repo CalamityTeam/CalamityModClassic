@@ -56,7 +56,7 @@ public class ElysianTracers : ModItem
 			}
 			Main.dust[num60].shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 		}
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		player.accRunSpeed = 22f;
 		player.rocketBoots = 3;
 		player.moveSpeed = 1.6f;

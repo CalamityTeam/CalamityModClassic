@@ -32,7 +32,7 @@ namespace CalamityModClassic1Point2.Projectiles
 
         public override void AI()
         {
-        	bool revenge = CalamityWorld.revenge;
+        	bool revenge = CalamityWorld1Point2.revenge;
         	Projectile.velocity.X *= 1.005f;
         	Projectile.velocity.Y *= 1.005f;
         	Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;

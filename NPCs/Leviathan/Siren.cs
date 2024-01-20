@@ -43,7 +43,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			NPC.width = 120; //324
 			NPC.height = 120; //216
 			NPC.defense = 25;
-			NPC.lifeMax = CalamityWorld.revenge ? 25000 : 21000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 25000 : 21000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -75,7 +75,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 		{
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0f, 0.5f, 0.3f);
 			Player player = Main.player[NPC.target];
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			bool playerWet = player.wet;
 			float num998 = 8f;
@@ -445,7 +445,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 								num1070 += 4f;
 							}
 						}
-						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							num1070 += 1f;
 						}

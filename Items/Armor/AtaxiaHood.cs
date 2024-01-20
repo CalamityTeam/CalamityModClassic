@@ -37,7 +37,7 @@ public class AtaxiaHood : ModItem
         	"Inferno effect when below 50% life\n" +
         	"Throwing weapons have a 10% chance to unleash a volley of chaos flames around the player that chase enemies when used\n" +
         	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.ataxiaBlaze = true;
     	modPlayer.ataxiaVolley = true;
     	if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))

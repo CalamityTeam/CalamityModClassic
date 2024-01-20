@@ -23,12 +23,12 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer>().irradiated = true;
+			player.GetModPlayer<CalamityPlayer1Point2>().irradiated = true;
 		}
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC>().irradiated = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().irradiated = true;
 		}
 	}
 }

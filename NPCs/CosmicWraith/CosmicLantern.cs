@@ -60,7 +60,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicWraith
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			Player player = Main.player[NPC.target];
 			if (player.dead)
 			{

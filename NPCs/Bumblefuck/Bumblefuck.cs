@@ -64,7 +64,7 @@ namespace CalamityModClassic1Point2.NPCs.Bumblefuck
 		{
 			Player player = Main.player[NPC.target];
 			bool isJungle = player.ZoneJungle;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			Vector2 vector = NPC.Center;
 			int num1305 = revenge ? 30 : 10;
 			NPC.noTileCollide = false;

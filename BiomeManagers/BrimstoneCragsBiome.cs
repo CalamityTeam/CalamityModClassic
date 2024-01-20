@@ -13,15 +13,15 @@ namespace CalamityModClassic1Point2.BiomeManagers
 
         public override bool IsBiomeActive(Player player)
         {
-            return CalamityWorld.calamityTiles > 50;
+            return CalamityWorld1Point2.calamityTiles > 50;
         }
         public override void OnInBiome(Player player)
         {
-            player.GetModPlayer<CalamityPlayer>().ZoneCalamity = true;
+            player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity = true;
         }
         public override void OnLeave(Player player)
         {
-            player.GetModPlayer<CalamityPlayer>().ZoneCalamity = false;
+            player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity = false;
         }
     }
 }

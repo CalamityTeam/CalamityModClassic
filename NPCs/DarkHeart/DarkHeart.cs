@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.NPCs.DarkHeart
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			NPC.TargetClosest(true);
 			float num1164 = revenge ? 4.5f : 4f;
 			float num1165 = revenge ? 0.8f : 0.75f;

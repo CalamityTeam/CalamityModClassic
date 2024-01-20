@@ -21,7 +21,7 @@ public class PsychoticAmulet : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.pAmulet = true;
 		player.shroomiteStealth = true;
 		player.GetDamage(DamageClass.Melee) += 0.05f;

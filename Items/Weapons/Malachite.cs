@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override bool CanUseItem(Player player)
 		{
-	    	bool plague = CalamityWorld.downedPlaguebringer;
+	    	bool plague = CalamityWorld1Point2.downedPlaguebringer;
 			if (player.altFunctionUse == 2)
 			{
 				Item.useTime = plague ? 10 : 20;
@@ -80,9 +80,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedGolemBoss ? 0.3f : 0f) +
 				(NPC.downedAncientCultist ? 1.5f : 0f) + //12
 				(NPC.downedMoonlord ? 4f : 0f) + //18
-				(CalamityWorld.downedProvidence ? 8f : 0f) + //24
-				(CalamityWorld.downedDoG ? 8f : 0f) + //31
-				(CalamityWorld.downedYharon ? 20f : 0f); //55
+				(CalamityWorld1Point2.downedProvidence ? 8f : 0f) + //24
+				(CalamityWorld1Point2.downedDoG ? 8f : 0f) + //31
+				(CalamityWorld1Point2.downedYharon ? 20f : 0f); //55
 			damage.Base = (int)((double)damage.Base * damageMult);
 	    }
 		
@@ -101,9 +101,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedFishron ? 0.15f : 0f) +
 				(NPC.downedAncientCultist ? 0.15f : 0f) +
 				(NPC.downedMoonlord ? 0.35f : 0f) +
-				(CalamityWorld.downedProvidence ? 0.15f : 0f) +
-				(CalamityWorld.downedDoG ? 0.15f : 0f) +
-				(CalamityWorld.downedYharon ? 0.2f : 0f);
+				(CalamityWorld1Point2.downedProvidence ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedDoG ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedYharon ? 0.2f : 0f);
 			knockback = knockback * kbMult;
 		}
 		

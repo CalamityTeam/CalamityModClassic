@@ -27,12 +27,12 @@ namespace CalamityModClassic1Point2.Tiles
 		
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
 		{
-			return CalamityWorld.downedStarGod;
+			return CalamityWorld1Point2.downedStarGod;
 		}
 		
 		public override bool CanExplode(int i, int j)
 		{
-			return CalamityWorld.downedStarGod;
+			return CalamityWorld1Point2.downedStarGod;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

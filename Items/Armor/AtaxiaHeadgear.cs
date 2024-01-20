@@ -42,7 +42,7 @@ public class AtaxiaHeadgear : ModItem
         	"Inferno effect when below 50% life\n" +
         	"You have a 50% chance to fire a homing chaos flare when using ranged weapons\n" +
         	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.ataxiaBlaze = true;
     	modPlayer.ataxiaBolt = true;
     	if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))

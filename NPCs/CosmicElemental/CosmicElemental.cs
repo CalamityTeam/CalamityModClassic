@@ -63,7 +63,7 @@ namespace CalamityModClassic1Point2.NPCs.CosmicElemental
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 150, true);
 			}

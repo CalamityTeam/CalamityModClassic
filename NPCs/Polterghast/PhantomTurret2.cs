@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			float num418 = 15f;
 			float num1261 = revenge ? 15f : 12f;
 			Player player = Main.player[NPC.target];
@@ -72,19 +72,19 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 				NPC.dontTakeDamage = false;
 			}
 			NPC.localAI[1] += 1f;
-			if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 5)
+			if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 5)
 			{
 				NPC.localAI[1] += 1f;
 				num418 += 1f;
 				num1261 += 2f;
 			}
-			if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 8)
+			if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 8)
 			{
 				NPC.localAI[1] += 1f;
 				num418 += 1f;
 				num1261 += 2f;
 			}
-			if (Main.npc[CalamityGlobalNPC.ghostBoss].life < Main.npc[CalamityGlobalNPC.ghostBoss].lifeMax / 10)
+			if (Main.npc[CalamityGlobalNPC1Point2.ghostBoss].life < Main.npc[CalamityGlobalNPC1Point2.ghostBoss].lifeMax / 10)
 			{
 				NPC.localAI[1] += 2f;
 				num418 += 2f;

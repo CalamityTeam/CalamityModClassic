@@ -53,7 +53,7 @@ namespace CalamityModClassic1Point2.Items.Armor
 	        player.setBonus = "Melee attacks inflict shadowflame\n" +
 	        	"Shadowbeams and demon scythes will fire down when you are hit\n" +
 	        	"A friendly red devil follows you around";
-	        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+	        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 	        modPlayer.dsSetBonus = true;
 	        modPlayer.redDevil = true;
 			if (player.whoAmI == Main.myPlayer)

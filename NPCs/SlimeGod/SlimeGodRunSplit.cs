@@ -58,7 +58,7 @@ namespace CalamityModClassic1Point2.NPCs.SlimeGod
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool flag100 = false;
 			for (int num569 = 0; num569 < 200; num569++)
 			{

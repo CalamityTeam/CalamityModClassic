@@ -33,7 +33,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				Projectile.active = false;
 				return;
 			}
-        	bool revenge = CalamityWorld.revenge;
+        	bool revenge = CalamityWorld1Point2.revenge;
         	Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.9f) / 255f, ((255 - Projectile.alpha) * 0f) / 255f, ((255 - Projectile.alpha) * 0f) / 255f);
         	Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
         	if (Projectile.ai[1] == 0f)

@@ -29,8 +29,8 @@ namespace CalamityModClassic1Point2.Projectiles
 			Projectile.localNPCHitCooldown = 7 -
 				(NPC.downedGolemBoss ? 1 : 0) -
         		(NPC.downedMoonlord ? 1 : 0) -
-        		(CalamityWorld.downedDoG ? 1 : 0) -
-        		(CalamityWorld.downedYharon ? 1 : 0);
+        		(CalamityWorld1Point2.downedDoG ? 1 : 0) -
+        		(CalamityWorld1Point2.downedYharon ? 1 : 0);
         }
 
         public override void AI()

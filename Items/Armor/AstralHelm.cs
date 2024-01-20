@@ -34,7 +34,7 @@ public class AstralHelm : ModItem
     {
         player.setBonus = "Massively increased movement speed as health decreases\n" +
         	"Whenever you crit an enemy fallen, hallowed, and astral stars will rain down";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.astralStarRain = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
 		{

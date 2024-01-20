@@ -115,9 +115,9 @@ namespace CalamityModClassic1Point2.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
         	Player player = Main.player[Projectile.owner];
-        	bool betsy = CalamityWorld.downedBetsy;
+        	bool betsy = CalamityWorld1Point2.downedBetsy;
         	bool moonLord = NPC.downedMoonlord;
-        	bool devourerOfGods = CalamityWorld.downedDoG;
+        	bool devourerOfGods = CalamityWorld1Point2.downedDoG;
         	int immuneTime = 8 - 
         		(betsy ? 5 : 0) -
         		(moonLord ? 1 : 0) -

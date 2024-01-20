@@ -34,7 +34,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.height = 120; //216
 			NPC.defense = 15;
 			AnimationType = 125;
-			NPC.lifeMax = CalamityWorld.revenge ? 13500 : 12000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 13500 : 12000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
 			NPC.knockBackResist = 0f;
@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			Music = MusicID.Boss2;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 150;
 				NPC.defense = 130;
@@ -58,10 +58,10 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			bool dayTime = Main.dayTime;
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			Player player = Main.player[NPC.target];
 			if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
 			{
@@ -202,7 +202,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					NPC.localAI[1] += 1f;
-					if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+					if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 					{
 						NPC.localAI[1] += 1f;
 					}
@@ -298,7 +298,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					NPC.localAI[1] += 1f;
-					if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+					if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 					{
 						NPC.localAI[1] += 1f;
 					}
@@ -422,7 +422,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

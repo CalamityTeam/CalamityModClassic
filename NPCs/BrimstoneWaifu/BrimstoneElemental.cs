@@ -34,7 +34,7 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 			NPC.width = 100;
 			NPC.height = 150;
 			NPC.defense = 20;
-			NPC.lifeMax = CalamityWorld.revenge ? 22000 : 20000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 22000 : 20000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
@@ -52,7 +52,7 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 			NPC.DeathSound = SoundID.NPCDeath39;
 			Music = MusicID.Boss2;
 			//bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("BrimstoneWaifuBag").Type;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 210;
 				NPC.defense = 120;
@@ -73,15 +73,15 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
         public override void AI()
 		{
 			Player player = Main.player[NPC.target];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			bool brimDust = (double)NPC.life <= (double)NPC.lifeMax * 0.75;
 			bool speedBoost = (double)NPC.life <= (double)NPC.lifeMax * 0.65;
 			bool brimRain = (double)NPC.life <= (double)NPC.lifeMax * 0.5;
 			bool brimSpeed = (double)NPC.life <= (double)NPC.lifeMax * 0.35;
 			bool brimTeleport = (double)NPC.life <= (double)NPC.lifeMax * 0.2;
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool calamity = modPlayer.ZoneCalamity;
 			bool isHell = player.ZoneUnderworldHeight;
 			NPC.dontTakeDamage = !isHell;
@@ -302,7 +302,7 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
 						float projectileSpeed = 7f; //changed from 10
-						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 						{
 							projectileSpeed += 1f;
 						}
@@ -500,7 +500,7 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

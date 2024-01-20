@@ -25,7 +25,7 @@ using Terraria.WorldBuilding;
 
 namespace CalamityModClassic1Point2
 {
-	public class CalamityPlayer : ModPlayer
+	public class CalamityPlayer1Point2 : ModPlayer
 	{
 		private const int saveVersion = 0;
 		
@@ -659,9 +659,9 @@ namespace CalamityModClassic1Point2
 			if (irradiated)
 			{
 				Player.statDefense -= 30 +
-					(CalamityWorld.revenge ? 30 : 0);
+					(CalamityWorld1Point2.revenge ? 30 : 0);
 				Player.endurance -= 0.1f +
-					(CalamityWorld.revenge ? 0.1f : 0f);
+					(CalamityWorld1Point2.revenge ? 0.1f : 0f);
 				Player.GetCritChance(DamageClass.Melee) += 5;
 				Player.GetDamage(DamageClass.Melee) += 0.05f;
 				Player.GetAttackSpeed(DamageClass.Melee) -= 0.05f;
@@ -933,9 +933,9 @@ namespace CalamityModClassic1Point2
 					(NPC.downedFishron ? 0.01f : 0f) +
 					(NPC.downedAncientCultist ? 0.01f : 0f) +
 					(NPC.downedMoonlord ? 0.03f : 0f) + //0.15
-					(CalamityWorld.downedProvidence ? 0.05f : 0f) + //0.2
-					(CalamityWorld.downedDoG ? 0.05f : 0f) + //0.25
-					(CalamityWorld.downedYharon ? 0.05f : 0f); //0.3
+					(CalamityWorld1Point2.downedProvidence ? 0.05f : 0f) + //0.2
+					(CalamityWorld1Point2.downedDoG ? 0.05f : 0f) + //0.25
+					(CalamityWorld1Point2.downedYharon ? 0.05f : 0f); //0.3
 	        	int integerTypeBoost = (int)(floatTypeBoost * 100f);
 	        	int regenBoost = 1 + (integerTypeBoost / 4);
 	        	Player.endurance += (floatTypeBoost * 0.5f);
@@ -1077,7 +1077,7 @@ namespace CalamityModClassic1Point2
             Player.ManageSpecialBiomeVisuals("CalamityModClassic1Point2:Providence", useHoly);
             bool useSBrimstone = NPC.AnyNPCs(Mod.Find<ModNPC>("SupremeCalamitas").Type);
             Player.ManageSpecialBiomeVisuals("CalamityModClassic1Point2:SupremeCalamitas", useSBrimstone);
-            if (CalamityWorld.revenge && Player.whoAmI == Main.myPlayer)
+            if (CalamityWorld1Point2.revenge && Player.whoAmI == Main.myPlayer)
 			{
 				int stressGain = 0 +
 					(Main.dayTime ? -2 : 2) +
@@ -1122,24 +1122,24 @@ namespace CalamityModClassic1Point2
 					((!NPC.downedPlantBoss && NPC.AnyNPCs(NPCID.Plantera)) ? 5 : 0) +
 					((!NPC.downedFishron && NPC.AnyNPCs(NPCID.DukeFishron)) ? 3 : 0) +
 					((!NPC.downedMoonlord && NPC.AnyNPCs(NPCID.MoonLordCore)) ? 30 : 0) +
-					((!CalamityWorld.downedDesertScourge && NPC.AnyNPCs(Mod.Find<ModNPC>("DesertScourgeHead").Type)) ? 3 : 0) +
+					((!CalamityWorld1Point2.downedDesertScourge && NPC.AnyNPCs(Mod.Find<ModNPC>("DesertScourgeHead").Type)) ? 3 : 0) +
 					(NPC.AnyNPCs(Mod.Find<ModNPC>("LeviathanStart").Type) ? -10 : 0) +
 					(NPC.AnyNPCs(Mod.Find<ModNPC>("Providence").Type) ? -5 : 0) +
-					((!CalamityWorld.downedHiveMind && NPC.AnyNPCs(Mod.Find<ModNPC>("HiveMind").Type)) ? 6 : 0) +
-					((!CalamityWorld.downedHiveMind && NPC.AnyNPCs(Mod.Find<ModNPC>("HiveMindP2").Type)) ? 6 : 0) +
-					((!CalamityWorld.downedPerforator && NPC.AnyNPCs(Mod.Find<ModNPC>("PerforatorHive").Type)) ? 6 : 0) +
-					((!CalamityWorld.downedSlimeGod && NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodCore").Type)) ? 3 : 0) +
-					((!CalamityWorld.downedYharon && NPC.AnyNPCs(Mod.Find<ModNPC>("Yharon").Type)) ? 20 : 0) +
-					((!CalamityWorld.downedDoG && NPC.AnyNPCs(Mod.Find<ModNPC>("DevourerofGodsHead").Type)) ? 25 : 0) +
-					((!CalamityWorld.downedSCal && NPC.AnyNPCs(Mod.Find<ModNPC>("SupremeCalamitas").Type)) ? 30 : 0) +
-					((!CalamityWorld.downedScavenger && NPC.AnyNPCs(Mod.Find<ModNPC>("ScavengerBody").Type)) ? 6 : 0) +
-					((!CalamityWorld.downedPlaguebringer && NPC.AnyNPCs(Mod.Find<ModNPC>("PlaguebringerGoliath").Type)) ? 5 : 0) +
+					((!CalamityWorld1Point2.downedHiveMind && NPC.AnyNPCs(Mod.Find<ModNPC>("HiveMind").Type)) ? 6 : 0) +
+					((!CalamityWorld1Point2.downedHiveMind && NPC.AnyNPCs(Mod.Find<ModNPC>("HiveMindP2").Type)) ? 6 : 0) +
+					((!CalamityWorld1Point2.downedPerforator && NPC.AnyNPCs(Mod.Find<ModNPC>("PerforatorHive").Type)) ? 6 : 0) +
+					((!CalamityWorld1Point2.downedSlimeGod && NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodCore").Type)) ? 3 : 0) +
+					((!CalamityWorld1Point2.downedYharon && NPC.AnyNPCs(Mod.Find<ModNPC>("Yharon").Type)) ? 20 : 0) +
+					((!CalamityWorld1Point2.downedDoG && NPC.AnyNPCs(Mod.Find<ModNPC>("DevourerofGodsHead").Type)) ? 25 : 0) +
+					((!CalamityWorld1Point2.downedSCal && NPC.AnyNPCs(Mod.Find<ModNPC>("SupremeCalamitas").Type)) ? 30 : 0) +
+					((!CalamityWorld1Point2.downedScavenger && NPC.AnyNPCs(Mod.Find<ModNPC>("ScavengerBody").Type)) ? 6 : 0) +
+					((!CalamityWorld1Point2.downedPlaguebringer && NPC.AnyNPCs(Mod.Find<ModNPC>("PlaguebringerGoliath").Type)) ? 5 : 0) +
 					(NPC.AnyNPCs(Mod.Find<ModNPC>("Siren").Type) ? -8 : 0) +
-					((!CalamityWorld.downedLeviathan && NPC.AnyNPCs(Mod.Find<ModNPC>("Leviathan").Type)) ? 15 : 0) +
-					((!CalamityWorld.downedSentinel3 && NPC.AnyNPCs(Mod.Find<ModNPC>("CosmicWraith").Type)) ? 10 : 0) +
-					((!CalamityWorld.downedCalamitas && NPC.AnyNPCs(Mod.Find<ModNPC>("CalamitasRun3").Type)) ? 10 : 0) +
-					((!CalamityWorld.downedStarGod && NPC.AnyNPCs(Mod.Find<ModNPC>("AstrumDeusHead").Type)) ? 5 : 0) +
-					((!CalamityWorld.downedPolterghast && NPC.AnyNPCs(Mod.Find<ModNPC>("Polterghast").Type)) ? 15 : 0) +
+					((!CalamityWorld1Point2.downedLeviathan && NPC.AnyNPCs(Mod.Find<ModNPC>("Leviathan").Type)) ? 15 : 0) +
+					((!CalamityWorld1Point2.downedSentinel3 && NPC.AnyNPCs(Mod.Find<ModNPC>("CosmicWraith").Type)) ? 10 : 0) +
+					((!CalamityWorld1Point2.downedCalamitas && NPC.AnyNPCs(Mod.Find<ModNPC>("CalamitasRun3").Type)) ? 10 : 0) +
+					((!CalamityWorld1Point2.downedStarGod && NPC.AnyNPCs(Mod.Find<ModNPC>("AstrumDeusHead").Type)) ? 5 : 0) +
+					((!CalamityWorld1Point2.downedPolterghast && NPC.AnyNPCs(Mod.Find<ModNPC>("Polterghast").Type)) ? 15 : 0) +
 					(Player.wellFed ? -3 : 0) +
 					(Player.dryadWard ? -5 : 0) +
 					(Player.calmed ? -5 : 0) +
@@ -1281,7 +1281,7 @@ namespace CalamityModClassic1Point2
 					}
 				}
             }
-            else if (!CalamityWorld.revenge && Player.whoAmI == Main.myPlayer)
+            else if (!CalamityWorld1Point2.revenge && Player.whoAmI == Main.myPlayer)
 			{
 				stressCD++;
 				if (stressCD >= 60)
@@ -1343,27 +1343,27 @@ namespace CalamityModClassic1Point2
 			}
 			if (affliction)
 			{
-				Player.lifeRegen += CalamityWorld.revenge ? 4 : 2;
-				Player.endurance += CalamityWorld.revenge ? 0.08f : 0.05f;
-				Player.statDefense += CalamityWorld.revenge ? 45 : 30;
-				Player.GetDamage(DamageClass.Throwing) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Ranged) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Melee) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Magic) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Summon) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.statLifeMax2 += CalamityWorld.revenge ? (Player.statLifeMax / 5 / 20 * 20) : (Player.statLifeMax / 5 / 20 * 10);
+				Player.lifeRegen += CalamityWorld1Point2.revenge ? 4 : 2;
+				Player.endurance += CalamityWorld1Point2.revenge ? 0.08f : 0.05f;
+				Player.statDefense += CalamityWorld1Point2.revenge ? 45 : 30;
+				Player.GetDamage(DamageClass.Throwing) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Ranged) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Melee) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Magic) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Summon) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.statLifeMax2 += CalamityWorld1Point2.revenge ? (Player.statLifeMax / 5 / 20 * 20) : (Player.statLifeMax / 5 / 20 * 10);
 			}
 			else if (afflicted)
 			{
-				Player.lifeRegen += CalamityWorld.revenge ? 4 : 2;
-				Player.endurance += CalamityWorld.revenge ? 0.08f : 0.05f;
-				Player.statDefense += CalamityWorld.revenge ? 45 : 30;
-				Player.GetDamage(DamageClass.Throwing) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Ranged) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Melee) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Magic) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.GetDamage(DamageClass.Summon) += CalamityWorld.revenge ? 0.15f : 0.1f;
-				Player.statLifeMax2 += CalamityWorld.revenge ? (Player.statLifeMax / 5 / 20 * 20) : (Player.statLifeMax / 5 / 20 * 10);
+				Player.lifeRegen += CalamityWorld1Point2.revenge ? 4 : 2;
+				Player.endurance += CalamityWorld1Point2.revenge ? 0.08f : 0.05f;
+				Player.statDefense += CalamityWorld1Point2.revenge ? 45 : 30;
+				Player.GetDamage(DamageClass.Throwing) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Ranged) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Melee) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Magic) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.GetDamage(DamageClass.Summon) += CalamityWorld1Point2.revenge ? 0.15f : 0.1f;
+				Player.statLifeMax2 += CalamityWorld1Point2.revenge ? (Player.statLifeMax / 5 / 20 * 20) : (Player.statLifeMax / 5 / 20 * 10);
 			}
 			if (afflictedBuff)
 			{
@@ -1449,7 +1449,7 @@ namespace CalamityModClassic1Point2
                     TextureAssets.Rain = rainOriginal;
 				}
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				Player.GetDamage(DamageClass.Throwing) += 0.1f;
 				Player.GetDamage(DamageClass.Ranged) += 0.1f;
@@ -1804,7 +1804,7 @@ namespace CalamityModClassic1Point2
 		
 		public override void PostUpdateEquips()
 		{
-			defEndurance = CalamityWorld.revenge ? 0.5f : 0.6f;
+			defEndurance = CalamityWorld1Point2.revenge ? 0.5f : 0.6f;
 			if (Player.endurance >= defEndurance)
 			{
 				Player.endurance = defEndurance;
@@ -2248,23 +2248,23 @@ namespace CalamityModClassic1Point2
             {
                 modifiers.FinalDamage *= 1.45f;
             }
-			if (Main.pumpkinMoon && CalamityWorld.downedDoG)
+			if (Main.pumpkinMoon && CalamityWorld1Point2.downedDoG)
             {
                 modifiers.FinalDamage *= 2.5f;
             }
-			if (Main.snowMoon && CalamityWorld.downedDoG)
+			if (Main.snowMoon && CalamityWorld1Point2.downedDoG)
             {
                 modifiers.FinalDamage *= 2.5f;
             }
-			if (Main.eclipse && CalamityWorld.downedYharon)
+			if (Main.eclipse && CalamityWorld1Point2.downedYharon)
 			{
 				modifiers.FinalDamage *= 3.8f;
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
-				float damageMult = CalamityWorld.downedBossAny ? 1.25f : 0.8f;
+				float damageMult = CalamityWorld1Point2.downedBossAny ? 1.25f : 0.8f;
 				modifiers.FinalDamage.Base = (int)((double)modifiers.FinalDamage.Flat * damageMult);
-				double newDamage = (double)modifiers.FinalDamage.Flat - (double)Player.statDefense * (CalamityWorld.downedBossAny ? 1 : 0.75);
+				double newDamage = (double)modifiers.FinalDamage.Flat - (double)Player.statDefense * (CalamityWorld1Point2.downedBossAny ? 1 : 0.75);
 				double newDamageLimit = 5.0 + (Main.hardMode ? 10.0 : 0.0) + (NPC.downedPlantBoss ? 10.0 : 0.0) + (NPC.downedMoonlord ? 25.0 : 0.0); //5, 15, 25, 50
 				if (newDamage < newDamageLimit)
 				{

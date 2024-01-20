@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			NPC.width = 32; //324
 			NPC.height = 48; //216
 			NPC.defense = 18;
-			NPC.lifeMax = CalamityWorld.revenge ? 5200 : 4000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 5200 : 4000;
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new

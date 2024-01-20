@@ -10,7 +10,7 @@ using Terraria.WorldBuilding;
 
 namespace CalamityModClassic1Point2
 {
-	public class WorldMethods
+	public class WorldMethods1Point2
 	{
 		public static void RoundHole(int X, int Y, int Xmult, int Ymult, int strength, bool initialdig)
 		{

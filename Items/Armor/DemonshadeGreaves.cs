@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Items.Armor
 	
 	    public override void UpdateEquip(Player player)
 	    {
-	    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+	    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     		modPlayer.shadowSpeed = true;
 	        player.moveSpeed += 1f;
 	    }

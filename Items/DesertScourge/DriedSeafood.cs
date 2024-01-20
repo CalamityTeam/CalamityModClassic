@@ -33,7 +33,7 @@ namespace CalamityModClassic1Point2.Items.DesertScourge
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHead").Type);
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHeadSmall").Type);
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHeadSmall").Type);

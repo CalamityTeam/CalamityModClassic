@@ -29,7 +29,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			NPC.width = 34; //38
 			NPC.height = 34; //30
 			NPC.defense = 99999;
-			NPC.lifeMax = CalamityWorld.revenge ? 800000 : 750000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 800000 : 750000;
 			if (NPC.CountNPCS(Mod.Find<ModNPC>("DevourerofGodsHead").Type) > 0)
 			{
 				NPC.lifeMax = 600000;

@@ -35,7 +35,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
 	    
 	    public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-	    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+	    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			modPlayer.sirenWaifu = true;
 			if (player.whoAmI == Main.myPlayer)
 			{

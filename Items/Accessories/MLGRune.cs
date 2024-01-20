@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
-			CalamityWorld.demonMode = true;
+			CalamityWorld1Point2.demonMode = true;
 			return true;
 		}
 	}

@@ -42,7 +42,7 @@ public class BloodflareMask : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.bloodflareSet = true;
         player.setBonus = "Greatly increases life regen\n" +
         	"Enemies are more likely to target you\n" +

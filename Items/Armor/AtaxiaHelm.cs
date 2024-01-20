@@ -36,7 +36,7 @@ public class AtaxiaHelm : ModItem
         	"Inferno effect when below 50% life\n" +
         	"Melee attacks and projectiles cause chaos flames to erupt on enemy hits\n" +
         	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.ataxiaBlaze = true;
     	modPlayer.ataxiaGeyser = true;
     	if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
@@ -71,7 +71,7 @@ public class AtaxiaHelm : ModItem
     
     public override void UpdateEquip(Player player)
     {
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.ataxiaFire = true;
         player.GetDamage(DamageClass.Melee) += 0.12f;
         player.GetCritChance(DamageClass.Melee) += 10;

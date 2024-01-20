@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.NPCs.Crabulon
         }
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			float speed = revenge ? 1.5f : 1f;
 			int sporeDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.BlueFairy, NPC.velocity.X, NPC.velocity.Y, 255, new Color(0, 80, 255, 80), NPC.scale * 0.6f);
 			Main.dust[sporeDust].noGravity = true;

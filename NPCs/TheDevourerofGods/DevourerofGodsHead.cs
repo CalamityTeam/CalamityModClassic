@@ -22,12 +22,12 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 	public class DevourerofGodsHead : ModNPC
 	{
 		public bool tail = false;
-		public int minLength = CalamityWorld.revenge ? 60 : 100;
-		public int maxLength = CalamityWorld.revenge ? 61 : 101;
+		public int minLength = CalamityWorld1Point2.revenge ? 60 : 100;
+		public int maxLength = CalamityWorld1Point2.revenge ? 61 : 101;
 		public bool halfLife = false;
 		public float beamPortal = 0f;
 		public float phaseSwitch = 0f;
-		internal int dpsCap = CalamityWorld.downedDoG ? 190000 : 24000; //40
+		internal int dpsCap = CalamityWorld1Point2.downedDoG ? 190000 : 24000; //40
 		private int damageTotal = 0;
 		
 		public override void SetStaticDefaults()
@@ -53,7 +53,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			NPC.width = 64; //324
 			NPC.height = 76; //216
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld.revenge ? 800000 : 750000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 800000 : 750000;
 			if (NPC.CountNPCS(Mod.Find<ModNPC>("DevourerofGodsHead").Type) > 0)
 			{
 				NPC.lifeMax = 550000;
@@ -124,7 +124,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			{
 				if (!halfLife)
 				{
-					if (CalamityWorld.revenge && NPC.CountNPCS(bossAlive) < 2)
+					if (CalamityWorld1Point2.revenge && NPC.CountNPCS(bossAlive) < 2)
 					{
 						NPC.SpawnOnPlayer(NPC.FindClosestPlayer(), Mod.Find<ModNPC>("DevourerofGodsHead").Type);
 					}
@@ -1025,7 +1025,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

@@ -61,8 +61,8 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool bossBuff = CalamityWorld.demonMode;
-			bool superBossBuff = CalamityWorld.onionMode;
+			bool bossBuff = CalamityWorld1Point2.demonMode;
+			bool superBossBuff = CalamityWorld1Point2.onionMode;
 			Vector2 vectorCenter = NPC.Center;
 			Player player = Main.player[NPC.target];
 			NPC.TargetClosest(false);
@@ -117,7 +117,7 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 					Main.dust[num1012].fadeIn = 1f;
 				}
 			}
-			if (CalamityGlobalNPC.voidBoss < 0) 
+			if (CalamityGlobalNPC1Point2.voidBoss < 0) 
 			{
 				NPC.active = false;
 				NPC.netUpdate = true;
@@ -126,8 +126,8 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 			if (NPC.ai[0] == 0f) 
 			{
 				Vector2 vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num784 = Main.npc[CalamityGlobalNPC.voidBoss].Center.X - vector96.X;
-				float num785 = Main.npc[CalamityGlobalNPC.voidBoss].Center.Y - vector96.Y;
+				float num784 = Main.npc[CalamityGlobalNPC1Point2.voidBoss].Center.X - vector96.X;
+				float num785 = Main.npc[CalamityGlobalNPC1Point2.voidBoss].Center.Y - vector96.Y;
 				float num786 = (float)Math.Sqrt((double)(num784 * num784 + num785 * num785));
 				if (num786 > 90f) 
 				{
@@ -165,8 +165,8 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 				value4 *= 9f; //9f
 				NPC.velocity = (NPC.velocity * 99f + value4) / 100f;
 				Vector2 vector97 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num787 = Main.npc[CalamityGlobalNPC.voidBoss].Center.X - vector97.X;
-				float num788 = Main.npc[CalamityGlobalNPC.voidBoss].Center.Y - vector97.Y;
+				float num787 = Main.npc[CalamityGlobalNPC1Point2.voidBoss].Center.X - vector97.X;
+				float num788 = Main.npc[CalamityGlobalNPC1Point2.voidBoss].Center.Y - vector97.Y;
 				float num789 = (float)Math.Sqrt((double)(num787 * num787 + num788 * num788));
 				if (num789 > 700f) 
 				{
@@ -178,7 +178,7 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 600, true);
 			}

@@ -82,7 +82,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			{
 				NPC.noTileCollide = false;
 			}
-			if (CalamityGlobalNPC.supremeCalamitas < 0)
+			if (CalamityGlobalNPC1Point2.supremeCalamitas < 0)
             {
                 NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
                 return;
@@ -130,19 +130,19 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 				}
 			}
 			NPC.ai[1] += 1f;
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.3) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.3) 
 			{
 				NPC.ai[1] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.2) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.2) 
 			{
 				NPC.ai[1] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.15) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.15) 
 			{
 				NPC.ai[1] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.1) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.1) 
 			{
 				NPC.ai[1] += 1f;
 			}
@@ -179,35 +179,35 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 				}
 			}
 			NPC.ai[2] += 1f;
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 3) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 3) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 3.5) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 3.5) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (Main.npc[CalamityGlobalNPC.supremeCalamitas].life < Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 4) 
+			if (Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 4) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (Main.npc[CalamityGlobalNPC.supremeCalamitas].life < Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 4.5) 
+			if (Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 4.5) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (Main.npc[CalamityGlobalNPC.supremeCalamitas].life < Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 5) 
+			if (Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 5) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (Main.npc[CalamityGlobalNPC.supremeCalamitas].life < Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 5.5) 
+			if (Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 5.5) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (Main.npc[CalamityGlobalNPC.supremeCalamitas].life < Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax / 6) 
+			if (Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax / 6) 
 			{
 				NPC.ai[2] += 1f;
 			}
-			if (!Collision.CanHit(Main.npc[CalamityGlobalNPC.supremeCalamitas].Center, 1, 1, Main.player[NPC.target].Center, 1, 1)) 
+			if (!Collision.CanHit(Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].Center, 1, 1, Main.player[NPC.target].Center, 1, 1)) 
 			{
 				NPC.ai[2] += 4f;
 			}
@@ -228,27 +228,27 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 					float num689 = 12f;
 					int num690 = expertMode ? 120 : 140;
 					int num691 = Mod.Find<ModProjectile>("BrimstoneHellblast").Type;
-					if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.3) 
+					if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.3) 
 					{
 						num690++;
 						num689 += 0.25f;
 					}
-					if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.25) 
+					if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.25) 
 					{
 						num690++;
 						num689 += 0.25f;
 					}
-					if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.2) 
+					if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.2) 
 					{
 						num690++;
 						num689 += 0.25f;
 					}
-					if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.15) 
+					if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.15) 
 					{
 						num690++;
 						num689 += 0.25f;
 					}
-					if ((double)Main.npc[CalamityGlobalNPC.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC.supremeCalamitas].lifeMax * 0.1) 
+					if ((double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].life < (double)Main.npc[CalamityGlobalNPC1Point2.supremeCalamitas].lifeMax * 0.1) 
 					{
 						num690++;
 						num689 += 0.25f;

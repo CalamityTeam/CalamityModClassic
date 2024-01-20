@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("SirenLure").Type] > 0)
 			{
 				modPlayer.slWaifu = true;

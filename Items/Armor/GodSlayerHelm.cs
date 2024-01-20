@@ -42,7 +42,7 @@ public class GodSlayerHelm : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.godSlayer = true;
         player.setBonus = "You will survive fatal damage and will be healed 300 HP if an attack would have killed you\n" +
         	"This effect can only occur once every 40 seconds\n" +
@@ -51,7 +51,7 @@ public class GodSlayerHelm : ModItem
     
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.godSlayerDamage = true;
     	player.maxMinions += 3;
     	player.GetDamage(DamageClass.Melee) += 0.15f;

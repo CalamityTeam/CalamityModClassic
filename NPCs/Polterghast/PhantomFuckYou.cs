@@ -77,7 +77,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 				choice = 0;
 			}
 			NPC.TargetClosest(true);
-			Vector2 direction = Main.npc[CalamityGlobalNPC.ghostBoss].Center - NPC.Center;
+			Vector2 direction = Main.npc[CalamityGlobalNPC1Point2.ghostBoss].Center - NPC.Center;
 			direction.Normalize();
 			direction *= 9f;
 			NPC.rotation = direction.ToRotation();

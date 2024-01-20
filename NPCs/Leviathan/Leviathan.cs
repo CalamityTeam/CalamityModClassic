@@ -37,7 +37,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			NPC.height = 250;
 			NPC.scale = 2f;
 			NPC.defense = 45;
-			NPC.lifeMax = CalamityWorld.revenge ? 55000 : 42000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 55000 : 42000;
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1;
 			AIType = -1;
@@ -70,7 +70,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			Vector2 vector = NPC.Center;
 			Player player = Main.player[NPC.target];
@@ -210,7 +210,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 						if (!player.dead) 
 						{
 							NPC.ai[3] += 1f;
-							if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer>().stressLevel400)
+							if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
 							{
 								NPC.ai[3] += 1f;
 							}

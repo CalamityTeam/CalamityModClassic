@@ -58,9 +58,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedFishron ? 1f : 0f) +
 				(NPC.downedAncientCultist ? 2f : 0f) + //12
 				(NPC.downedMoonlord ? 10f : 0f) + //18
-				(CalamityWorld.downedProvidence ? 20f : 0f) + //24
-				(CalamityWorld.downedDoG ? 20f : 0f) + //31
-				(CalamityWorld.downedYharon ? 40f : 0f); //55
+				(CalamityWorld1Point2.downedProvidence ? 20f : 0f) + //24
+				(CalamityWorld1Point2.downedDoG ? 20f : 0f) + //31
+				(CalamityWorld1Point2.downedYharon ? 40f : 0f); //55
 			damage.Base = (int)((double)damage.Base * damageMult);
 	    }
 		
@@ -79,15 +79,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(NPC.downedFishron ? 0.15f : 0f) +
 				(NPC.downedAncientCultist ? 0.15f : 0f) +
 				(NPC.downedMoonlord ? 0.35f : 0f) +
-				(CalamityWorld.downedProvidence ? 0.15f : 0f) +
-				(CalamityWorld.downedDoG ? 0.15f : 0f) +
-				(CalamityWorld.downedYharon ? 0.2f : 0f);
+				(CalamityWorld1Point2.downedProvidence ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedDoG ? 0.15f : 0f) +
+				(CalamityWorld1Point2.downedYharon ? 0.2f : 0f);
 			knockback = knockback * kbMult;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			bool devourerOfGods = CalamityWorld.downedDoG;
+			bool devourerOfGods = CalamityWorld1Point2.downedDoG;
 	    	Item.useTime = devourerOfGods ? 15 : 20;
 	    	Item.useAnimation = devourerOfGods ? 15 : 20;
 	    	float ai3 = (Main.rand.NextFloat() - 0.75f) * 0.7853982f; //0.5

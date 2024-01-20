@@ -33,7 +33,7 @@ public class ReaverHelm : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		player.thorns = 0.5f;
     	modPlayer.reaverBlast = true;
         player.setBonus = "Grants increased melee and movement stats as health decreases\n" +

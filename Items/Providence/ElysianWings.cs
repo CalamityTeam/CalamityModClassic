@@ -29,7 +29,7 @@ public class ElysianWings : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		player.moveSpeed = 1.6f;
 		player.lavaMax += 920;
 		player.wingTimeMax = 230;

@@ -33,7 +33,7 @@ public class ReaverVisage : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.reaverDoubleTap = true;
     	modPlayer.reaverBlast = true;
         player.setBonus = "Grants increased ranged and movement stats as health decreases\n" +

@@ -111,7 +111,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 					Main.dust[num1012].fadeIn = 1f;
 				}
 			}
-			if (CalamityGlobalNPC.holyBoss < 0) 
+			if (CalamityGlobalNPC1Point2.holyBoss < 0) 
 			{
 				NPC.active = false;
 				NPC.netUpdate = true;
@@ -120,8 +120,8 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			if (NPC.ai[0] == 0f) 
 			{
 				Vector2 vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num784 = Main.npc[CalamityGlobalNPC.holyBoss].Center.X - vector96.X;
-				float num785 = Main.npc[CalamityGlobalNPC.holyBoss].Center.Y - vector96.Y;
+				float num784 = Main.npc[CalamityGlobalNPC1Point2.holyBoss].Center.X - vector96.X;
+				float num785 = Main.npc[CalamityGlobalNPC1Point2.holyBoss].Center.Y - vector96.Y;
 				float num786 = (float)Math.Sqrt((double)(num784 * num784 + num785 * num785));
 				if (num786 > 90f) //Distance from boss
 				{
@@ -159,8 +159,8 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 				value4 *= (27f * speed); //9f
 				NPC.velocity = (NPC.velocity * 99f + value4) / 100f;
 				Vector2 vector97 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num787 = Main.npc[CalamityGlobalNPC.holyBoss].Center.X - vector97.X;
-				float num788 = Main.npc[CalamityGlobalNPC.holyBoss].Center.Y - vector97.Y;
+				float num787 = Main.npc[CalamityGlobalNPC1Point2.holyBoss].Center.X - vector97.X;
+				float num788 = Main.npc[CalamityGlobalNPC1Point2.holyBoss].Center.Y - vector97.Y;
 				float num789 = (float)Math.Sqrt((double)(num787 * num787 + num788 * num788));
 				if (num789 > 700f) 
 				{

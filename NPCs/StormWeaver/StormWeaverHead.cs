@@ -80,7 +80,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 
         public override void AI()
 		{
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			if (NPC.defense < 99999)
 			{
 				NPC.defense = 99999;

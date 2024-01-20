@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Projectiles
         {
         	bool flag64 = Projectile.type == Mod.Find<ModProjectile>("SirenLure").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			if (!modPlayer.sirenWaifu)
         	{
         		Projectile.active = false;
@@ -160,7 +160,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					}
 					float num403 = Main.rand.Next(12, 20);
 					int damage = NPC.downedMoonlord ? 500 : 100;
-					float damageMult = CalamityWorld.downedDoG ? 3f : 1f;
+					float damageMult = CalamityWorld1Point2.downedDoG ? 3f : 1f;
 					Vector2 vector29 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
 					float num404 = num516 - vector29.X;
 					float num405 = num517 - vector29.Y;

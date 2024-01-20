@@ -34,7 +34,7 @@ namespace CalamityModClassic1Point2.NPCs.Crabulon
 			NPC.width = 164; //324
 			NPC.height = 154; //216
 			NPC.defense = 8;
-			NPC.lifeMax = CalamityWorld.revenge ? 4500 : 3000;
+			NPC.lifeMax = CalamityWorld1Point2.revenge ? 4500 : 3000;
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
             NPC.noGravity = false;
@@ -68,7 +68,7 @@ namespace CalamityModClassic1Point2.NPCs.Crabulon
 		{
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0f, 0.5f, 1f);
 			Player player = Main.player[NPC.target];
-			bool revenge = CalamityWorld.revenge;
+			bool revenge = CalamityWorld1Point2.revenge;
 			bool expertMode = Main.expertMode;
 			NPC.spriteDirection = ((NPC.direction > 0) ? 1 : -1);
 			if (!player.active || player.dead)

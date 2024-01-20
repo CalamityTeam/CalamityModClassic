@@ -471,7 +471,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			{
 				target.AddBuff(BuffID.Bleeding, 120, true);
 			}
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

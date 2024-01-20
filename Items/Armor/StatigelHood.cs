@@ -29,7 +29,7 @@ public class StatigelHood : ModItem
     {
         player.setBonus = "Grants minion damage and movement speed as health gets lower\n" +
         	"Summons a mini slime god to fight for you, the type depends on what world evil you have";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.slimeGod = true;
 		if (player.whoAmI == Main.myPlayer)
 		{

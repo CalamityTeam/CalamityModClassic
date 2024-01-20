@@ -36,7 +36,7 @@ public class DaedalusHelm : ModItem
         player.setBonus = "Grants melee damage, crit chance, and defensive boosts as health gets lower\n" +
         	"You have a 50% chance to reflect projectiles back at enemies\n" +
         	"If you reflect a projectile you are also healed for 1/5 of that projectile's damage";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.daedalusReflect = true;
         if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
 		{

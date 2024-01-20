@@ -38,7 +38,7 @@ public class ReaverHelmet : ModItem
         	"Projectiles explode on hit\n" +
         	"Summons a reaver orb that emits spore gas when enemies are near\n" +
         	"Rage activates when you are damaged";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.reaverOrb = true;
 		if (player.whoAmI == Main.myPlayer)
 		{

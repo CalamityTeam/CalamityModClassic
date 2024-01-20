@@ -53,7 +53,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedEnergy
         }
         public override void AI()
 		{
-			CalamityGlobalNPC.energyFlame = NPC.whoAmI;
+			CalamityGlobalNPC1Point2.energyFlame = NPC.whoAmI;
 			if (Main.netMode != NetmodeID.MultiplayerClient) 
 			{
 				if (NPC.localAI[0] == 0f) 

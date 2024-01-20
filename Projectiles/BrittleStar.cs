@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Projectiles
         	Projectile.rotation += Projectile.velocity.X * 0.04f;
         	bool flag64 = Projectile.type == Mod.Find<ModProjectile>("BrittleStar").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			player.AddBuff(Mod.Find<ModBuff>("BrittleStar").Type, 3600);
 			if (flag64)
 			{

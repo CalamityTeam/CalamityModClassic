@@ -110,9 +110,9 @@ namespace CalamityModClassic1Point2.Projectiles
 			bool dukeFish = NPC.downedFishron;
 			bool cultist = NPC.downedAncientCultist;
 			bool moonLord = NPC.downedMoonlord;
-			bool providence = CalamityWorld.downedProvidence;
-			bool devourerOfGods = CalamityWorld.downedDoG;
-			bool yharon = CalamityWorld.downedYharon;
+			bool providence = CalamityWorld1Point2.downedProvidence;
+			bool devourerOfGods = CalamityWorld1Point2.downedDoG;
+			bool yharon = CalamityWorld1Point2.downedYharon;
 			float sizeAdd = 1f +
 				(kingSlime ? 1f : 0f) + //1
 				(eyeOfCthulhu ? 1f : 0f) + //2

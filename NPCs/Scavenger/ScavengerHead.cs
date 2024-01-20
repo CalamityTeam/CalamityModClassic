@@ -43,7 +43,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = null;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 0;
 				NPC.defense = 150;
@@ -53,11 +53,11 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			bool expertMode = Main.expertMode;
 			Player player = Main.player[NPC.target];
 			NPC.noTileCollide = true;
-			if (CalamityGlobalNPC.scavenger < 0)
+			if (CalamityGlobalNPC1Point2.scavenger < 0)
             {
                 NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
                 return;
@@ -68,8 +68,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			}
 			float speed = 12f;
 			Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y);
-			float centerX = Main.npc[CalamityGlobalNPC.scavenger].Center.X - center.X;
-			float centerY = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - center.Y;
+			float centerX = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - center.X;
+			float centerY = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - center.Y;
 			centerY -= 20f;
 			centerX -= 0f;
 			float totalSpeed = (float)Math.Sqrt((double)(centerX * centerX + centerY * centerY));

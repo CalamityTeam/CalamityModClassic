@@ -42,7 +42,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 0;
 				NPC.defense = 135;
@@ -52,9 +52,9 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld.downedProvidence;
+			bool provy = CalamityWorld1Point2.downedProvidence;
 			Vector2 center = NPC.Center;
-			if (CalamityGlobalNPC.scavenger < 0)
+			if (CalamityGlobalNPC1Point2.scavenger < 0)
             {
                 NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
                 return;
@@ -72,7 +72,7 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 				}
 				NPC.ai[1] = 0f;
 			}
-			if (Main.npc[CalamityGlobalNPC.scavenger].ai[0] == 1f && Main.npc[CalamityGlobalNPC.scavenger].velocity.Y == 0f)
+			if (Main.npc[CalamityGlobalNPC1Point2.scavenger].ai[0] == 1f && Main.npc[CalamityGlobalNPC1Point2.scavenger].velocity.Y == 0f)
 			{
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
@@ -99,8 +99,8 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 					num659 += 8f;
 				}
 				Vector2 vector79 = new Vector2(center.X, center.Y);
-				float num660 = Main.npc[CalamityGlobalNPC.scavenger].Center.X - vector79.X;
-				float num661 = Main.npc[CalamityGlobalNPC.scavenger].Center.Y - vector79.Y;
+				float num660 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.X - vector79.X;
+				float num661 = Main.npc[CalamityGlobalNPC1Point2.scavenger].Center.Y - vector79.Y;
 				num661 += 88f;
 				num660 += 70f;
 				float num662 = (float)Math.Sqrt((double)(num660 * num660 + num661 * num661));

@@ -46,7 +46,7 @@ public class AuricTeslaHelm : ModItem
         	"Reduces all damage taken by 10%, this is calculated separately from damage reduction\n" +
         	"All projectiles spawn healing auric orbs on enemy hits\n" +
         	"Max run speed and acceleration boosted by 40%";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.bloodflareSet = true;
     	modPlayer.godSlayerDamage = true;
     	modPlayer.godSlayerReflect = true;
@@ -110,7 +110,7 @@ public class AuricTeslaHelm : ModItem
     
     public override void UpdateEquip(Player player)
     {
-    	CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
     	modPlayer.auricBoost = true;
     	player.maxMinions += 7;
     	player.GetDamage(DamageClass.Melee) += 0.3f;

@@ -42,14 +42,14 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 		public override void AI()
 		{
 			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld.revenge;
-			if (CalamityGlobalNPC.hiveMind2 < 0) 
+			bool revenge = CalamityWorld1Point2.revenge;
+			if (CalamityGlobalNPC1Point2.hiveMind2 < 0) 
 			{
 				NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
 				NPC.netUpdate = true;
 				return;
 			}
-			int num750 = CalamityGlobalNPC.hiveMind2;
+			int num750 = CalamityGlobalNPC1Point2.hiveMind2;
 			if (NPC.ai[3] > 0f) 
 			{
 				num750 = (int)NPC.ai[3] - 1;
@@ -68,11 +68,11 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			NPC.TargetClosest(true);
 			float num751 = 0.02f;
 			float num752 = 300f;
-			if ((double)Main.npc[CalamityGlobalNPC.hiveMind2].life < (double)Main.npc[CalamityGlobalNPC.hiveMind2].lifeMax * 0.25) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.hiveMind2].life < (double)Main.npc[CalamityGlobalNPC1Point2.hiveMind2].lifeMax * 0.25) 
 			{
 				num752 += 30f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC.hiveMind2].life < (double)Main.npc[CalamityGlobalNPC.hiveMind2].lifeMax * 0.1) 
+			if ((double)Main.npc[CalamityGlobalNPC1Point2.hiveMind2].life < (double)Main.npc[CalamityGlobalNPC1Point2.hiveMind2].lifeMax * 0.1) 
 			{
 				num752 += 60f;
 			}
@@ -86,7 +86,7 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			{
 				num751 += 0.1f;
 			}
-			if (!Main.npc[num750].active || CalamityGlobalNPC.hiveMind2 < 0) 
+			if (!Main.npc[num750].active || CalamityGlobalNPC1Point2.hiveMind2 < 0) 
 			{
 				NPC.active = false;
 				return;

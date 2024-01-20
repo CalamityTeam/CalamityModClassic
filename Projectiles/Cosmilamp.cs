@@ -61,7 +61,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			Main.dust[num1262].noGravity = true;
         	bool flag64 = Projectile.type == Mod.Find<ModProjectile>("Cosmilamp").Type;
 			Player player = Main.player[Projectile.owner];
-			CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 			player.AddBuff(Mod.Find<ModBuff>("Cosmilamp").Type, 3600);
 			if (flag64)
 			{

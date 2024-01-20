@@ -35,7 +35,7 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 			NPC.value = Item.buyPrice(0, 2, 0, 0);
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath50;
-			if (CalamityWorld.downedProvidence)
+			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 250;
 				NPC.defense = 130;
@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return (spawnInfo.Player.GetModPlayer<CalamityPlayer>().ZoneCalamity || spawnInfo.Player.ZoneDungeon) && Main.hardMode ? 0.04f : 0f;
+			return (spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity || spawnInfo.Player.ZoneDungeon) && Main.hardMode ? 0.04f : 0f;
         }
 		
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
@@ -81,7 +81,7 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld.revenge)
+			if (CalamityWorld1Point2.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

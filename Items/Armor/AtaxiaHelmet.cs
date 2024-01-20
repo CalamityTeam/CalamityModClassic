@@ -36,7 +36,7 @@ public class AtaxiaHelmet : ModItem
         	"Inferno effect when below 50% life\n" +
         	"Summons a chaos spirit to protect you\n" +
         	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer modPlayer = player.GetModPlayer<CalamityPlayer>();
+        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
         modPlayer.ataxiaBlaze = true;
 		modPlayer.chaosSpirit = true;
 		if (player.whoAmI == Main.myPlayer)
