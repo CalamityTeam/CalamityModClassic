@@ -123,10 +123,10 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.ByCondition(new NotGeldonMinion(), ModContent.ItemType<Stardust>(), 2)); 
-			LeadingConditionRule notExp = new LeadingConditionRule(new NotGeldonMinion());
-            notExp.OnSuccess(ItemDropRule.ByCondition(new Conditions.IsExpert(), ModContent.ItemType<Stardust>()));
-			npcLoot.Add(notExp);
+            LeadingConditionRule notGelMinion = new LeadingConditionRule(new NotGeldonMinion());
+            notGelMinion.OnSuccess(ItemDropRule.ByCondition(new Conditions.IsExpert(), ModContent.ItemType<Stardust>(), 2));
+            notGelMinion.OnSuccess(new CommonDrop(ModContent.ItemType<Stardust>(), 2));
+			npcLoot.Add(notGelMinion);
         }
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -153,7 +153,7 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
     {
         public bool CanDrop(DropAttemptInfo info)
         {
-			return info.npc.ai[3] != 1f;
+			return info.npc.localAI[3] != 1f;
 		}
         public bool CanShowItemDropInUI()
         {

@@ -13,12 +13,12 @@ namespace CalamityModClassic1Point2.BiomeManagers
     {
         public override int Music => MusicID.Space;
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
-        public override string BestiaryIcon => "CalamityModClassic1Point2/BiomeManagers/AstralmeteorBiomeIcon";
+        public override string BestiaryIcon => "CalamityModClassic1Point2/BiomeManagers/AstralMeteorBiomeIcon";
         public override string BackgroundPath => "CalamityModClassic1Point2/BiomeManagers/AstralMap";
 
         public override bool IsBiomeActive(Player player)
         {
-            return CalamityWorld1Point2.calamityTiles > 50;
+            return CalamityWorld1Point2.astralTiles > 50;
         }
         public override void OnInBiome(Player player)
         {
