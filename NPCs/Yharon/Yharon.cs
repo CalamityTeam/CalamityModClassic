@@ -252,7 +252,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			{
 				aiChangeRate = 25;
 			}
-			float playerRunAcceleration = Main.player[NPC.target].velocity.Y == 0f ? Math.Abs(Main.player[NPC.target].moveSpeed * 0.5f) : (Main.player[NPC.target].runAcceleration * 1f);
+			float playerRunAcceleration = 1f; // Main.player[NPC.target].velocity.Y == 0f ? Math.Abs(Main.player[NPC.target].moveSpeed * 0.5f) : (Main.player[NPC.target].runAcceleration * 1f); // Broken as of the movement speed rework
 			if (playerRunAcceleration <= 1f)
 			{
 				playerRunAcceleration = 1f;
