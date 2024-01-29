@@ -281,7 +281,7 @@ namespace CalamityModClassic1Point1.NPCs.ProfanedEnergy
 				num6 = NPC.ai[0] * 16f + 8f - vector2.X;
 				num7 = NPC.ai[1] * 16f + 8f - vector2.Y;
 				Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)vector2.X / 16, (int)(vector2.Y / 16f));
-				Texture2D texture = ModContent.Request<Texture2D>("NPCs/ProfanedEnergy/ProfanedEnergySegment").Value;
+				Texture2D texture = ModContent.Request<Texture2D>("CalamityMod/NPCs/ProfanedEnergy/ProfanedEnergySegment").Value;
 				Main.spriteBatch.Draw(texture, new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, texture.Width, num8)), color2, rotation2, new Vector2((float)texture.Width * 0.5f, (float)texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
 			}
 			return false;
