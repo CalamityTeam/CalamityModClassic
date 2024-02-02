@@ -30,16 +30,16 @@ namespace CalamityModClassic1Point1.Items.TheDevourerofGods
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DevourerofGodsMask>(), 7));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<NebulousCore>(), 1));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<CosmiliteBar>(), 1, 30, 39));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DeathhailStaff>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Eradicator>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Excelsus>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<TheObliterator>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<EradicatorMelee>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<Deathwind>(), 10));
-            itemLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<StaffoftheMechworm>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<DevourerofGodsMask>(), 7));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<NebulousCore>(), 1));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<CosmiliteBar>(), 1, 30, 39));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<DeathhailStaff>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<Eradicator>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<Excelsus>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<TheObliterator>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<EradicatorMelee>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<Deathwind>(), 10));
+            itemLoot.Add(new CommonDrop(ModContent.ItemType<StaffoftheMechworm>(), 10));
         }
 	}
 }
