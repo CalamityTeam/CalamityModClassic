@@ -492,8 +492,8 @@ namespace CalamityModClassic1Point1.NPCs.StormWeaver
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<ArmoredShell>(), 1, 3, 4));
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<TheStorm>(), 3));
+            npcLoot.Add(new CommonDrop(ModContent.ItemType<ArmoredShell>(), 1, 3, 4));
+            npcLoot.Add(new CommonDrop(ModContent.ItemType<TheStorm>(), 3));
         }
 		
 		public override void BossLoot(ref string name, ref int potionType)
