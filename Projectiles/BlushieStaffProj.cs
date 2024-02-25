@@ -101,13 +101,12 @@ namespace CalamityModClassic1Point2.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			RasterizerState rasterizer = (RasterizerState)typeof(Main).GetField("Rasterizer", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Main.instance);
 			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, rasterizer, null, Main.Transform);
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
 			Vector2 center = Projectile.Center - Main.screenPosition;
 			Vector2 aura = center + new Vector2(-xRange, yRange);
-			Texture2D texture = ModContent.Request<Texture2D>("ExtraTextures/BlushieStaffAura").Value;
+			Texture2D texture = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/BlushieStaffAura").Value;
 			Rectangle frame = new Rectangle(50, 0, 50, 32);
 			int count = 2 * xRange / 50;
 			SpriteEffects effects = Projectile.ai[0] % 30f < 15f ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -156,7 +155,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			{
 				scale = 4f - 3f * Projectile.ai[0] / 60f;
 			}
-			texture = ModContent.Request<Texture2D>("ExtraTextures/BlushieStaffGear").Value;
+			texture = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/BlushieStaffGear").Value;
 			Vector2 origin = new Vector2(48f, 48f);
 			Main.EntitySpriteDraw(texture, center, null, Color.White, Projectile.ai[0] / 20f, origin, 1.5f * scale, SpriteEffects.None, 0f);
 			Main.EntitySpriteDraw(texture, topLeftGear, null, Color.White, Projectile.ai[0] / 10f, origin, scale, SpriteEffects.None, 0f);
@@ -165,7 +164,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			Main.EntitySpriteDraw(texture, bottomRightGear, null, Color.White, Projectile.ai[0] / 10f, origin, scale, SpriteEffects.None, 0f);
 
 			float seed = Projectile.localAI[0];
-			texture = ModContent.Request<Texture2D>("ExtraTextures/BlushieStaffFire").Value;
+			texture = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/BlushieStaffFire").Value;
 			Vector2 topLeft = center + new Vector2(-xRange, -yRange);
 			for (int k = (int)Projectile.ai[0] - 60; k < (int)Projectile.ai[0]; k++)
 			{
@@ -177,13 +176,13 @@ namespace CalamityModClassic1Point2.Projectiles
 			}
 
 			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, rasterizer, null, Main.Transform);
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 			return false;
 		}
 
 		private void DrawChains(SpriteBatch spriteBatch, Vector2 start, Vector2 end, float alpha)
 		{
-			Texture2D texture = ModContent.Request<Texture2D>("ExtraTextures/BlushieStaffChain").Value;
+			Texture2D texture = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/BlushieStaffChain").Value;
 			Vector2 unit = end - start;
 			float distance = unit.Length() - 36f;
 			unit.Normalize();
