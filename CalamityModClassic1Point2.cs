@@ -66,9 +66,9 @@ namespace CalamityModClassic1Point2
     	public override void PostSetupContent()
         {
     		Mod mod = ModLoader.GetMod("CalamityModClassic1Point2");
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-            if(bossChecklist != null)
+            if(ModLoader.HasMod("BossChecklist"))
             {
+                Mod bossChecklist = ModLoader.GetMod("BossChecklist");
                 // 14 is moonlord, 12 is duke fishron
                 bossChecklist.Call("AddBossWithInfo", "Desert Scourge", 1.5f, (Func<bool>)(() => CalamityWorld1Point2.downedDesertScourge), "Use a [i:" + mod.Find<ModItem>("DriedSeafood").Type + "] in the Desert Biome"); //1
                 bossChecklist.Call("AddBossWithInfo", "Crabulon", 2.5f, (Func<bool>)(() => CalamityWorld1Point2.downedCrabulon), "Use a [i:" + mod.Find<ModItem>("DecapoditaSprout").Type + "] in the Mushroom Biome"); //1.5
