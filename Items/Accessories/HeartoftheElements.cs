@@ -66,8 +66,8 @@ namespace CalamityModClassic1Point2.Items.Accessories
 				int damage = NPC.downedMoonlord ? 300 : 100;
 				float damageMult = CalamityWorld1Point2.downedDoG ? 2.5f : 1f;
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] > 1 || player.ownedProjectileCounts[Mod.Find<ModProjectile>("SirenLure").Type] > 1 ||
-				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("DrewsSandyWaifu").Type] > 1 || player.ownedProjectileCounts[Mod.Find<ModProjectile>("SandyWaifu").Type] > 1 ||
-				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudWaifu").Type] > 1)
+				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("DrewsSandyWaifu").Type] > 1 || player.ownedProjectileCounts[Mod.Find<ModProjectile>("SandyWaifu").Type] > 1/* ||
+				    player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudWaifu").Type] > 1*/) // invalid check, previously this wouldnt do anything but with modern tml it just freezes you, so commenting out
 				{
 					player.ClearBuff(Mod.Find<ModBuff>("BrimstoneWaifu").Type);
 					player.ClearBuff(Mod.Find<ModBuff>("SirenLure").Type);
