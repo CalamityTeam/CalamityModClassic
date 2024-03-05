@@ -76,7 +76,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			{
 				NPC.buffImmune[k] = true;
 			}
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/ScourgeofTheUniverse");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/ScourgeofTheUniverse");
 			//bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("DevourerofGodsBag").Type;
 			if (Main.expertMode)
 			{

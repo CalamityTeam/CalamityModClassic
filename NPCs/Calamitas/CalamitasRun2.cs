@@ -48,7 +48,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
 			NPC.timeLeft = NPC.activeTime * 30;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
 			if (CalamityWorld1Point2.downedProvidence)
 			{
 				NPC.damage = 200;

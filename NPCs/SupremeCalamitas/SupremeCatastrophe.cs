@@ -41,7 +41,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			}
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
 		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

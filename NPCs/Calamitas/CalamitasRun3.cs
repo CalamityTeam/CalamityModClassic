@@ -60,7 +60,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/TerrariaBoss2");
 			//bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("CalamitasBag").Type;
 			if (CalamityWorld1Point2.downedProvidence)
 			{

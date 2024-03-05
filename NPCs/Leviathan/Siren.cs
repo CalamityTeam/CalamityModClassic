@@ -58,7 +58,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/SirenLure");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/SirenLure");
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("LeviathanBag").Type;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -106,7 +106,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 				if (!spawnedLevi)
 				{
 					NPC.NewNPC(NPC.GetSource_FromThis(), (int)spawnAt.X, (int)spawnAt.Y - 200, Mod.Find<ModNPC>("SirenClone").Type);
-					Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/LeviathanAndSiren");
+					Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/LeviathanAndSiren");
 					NPC.NewNPC(NPC.GetSource_FromThis(), (int)spawnAt.X, (int)spawnAt.Y, Mod.Find<ModNPC>("Leviathan").Type);
 					spawnedLevi = true;
 				}

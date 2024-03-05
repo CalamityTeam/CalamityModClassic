@@ -54,7 +54,7 @@ namespace CalamityModClassic1Point2.NPCs.Cryogen
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit5;
 			NPC.DeathSound = SoundID.NPCDeath15;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/Cryogen");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/Cryogen");
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("CryogenBag").Type;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

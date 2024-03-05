@@ -58,7 +58,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			NPC.noTileCollide = true;
 			NPC.netAlways = true;
 			NPC.chaseable = true;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/ProvidenceTheme");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/ProvidenceTheme");
 			NPC.HitSound = SoundID.NPCHit44;
 			NPC.DeathSound = SoundID.NPCDeath46;
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("ProvidenceBag").Type;

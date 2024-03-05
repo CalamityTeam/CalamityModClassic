@@ -58,7 +58,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.netAlways = true;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/YHARON");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/YHARON");
 			NPC.HitSound = SoundID.NPCHit56;
 			NPC.DeathSound = SoundID.NPCDeath60;
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("YharonBag").Type;

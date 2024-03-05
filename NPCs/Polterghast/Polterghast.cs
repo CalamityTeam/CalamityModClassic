@@ -50,7 +50,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.netAlways = true;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/RUIN");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/RUIN");
 			NPC.HitSound = SoundID.NPCHit7;
 			NPC.DeathSound = SoundID.NPCDeath39;
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("PolterghastBag").Type;

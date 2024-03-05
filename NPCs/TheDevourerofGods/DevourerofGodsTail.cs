@@ -54,7 +54,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			{
 				NPC.buffImmune[k] = true;
 			}
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/CaveStoryBossBattle");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/CaveStoryBossBattle");
 			NPC.dontCountMe = true;
 			if (Main.expertMode)
 			{

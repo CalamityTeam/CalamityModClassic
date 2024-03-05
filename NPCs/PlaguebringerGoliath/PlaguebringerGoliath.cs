@@ -57,7 +57,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/EyeofCthulhu");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/EyeofCthulhu");
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("PlaguebringerGoliathBag").Type;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

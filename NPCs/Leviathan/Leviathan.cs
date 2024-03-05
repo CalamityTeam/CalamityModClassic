@@ -54,7 +54,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			NPC.boss = true;
 			NPC.netAlways = true;
 			NPC.chaseable = false;
-			Music = MusicLoader.GetMusicSlot(Mod, "CalamityModClassic1Point2/Sounds/Music/LeviathanAndSiren");
+			Music = MusicLoader.GetMusicSlot("CalamityModClassic1Point2/Sounds/Music/LeviathanAndSiren");
 			NPC.timeLeft = NPC.activeTime * 30;
             //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("LeviathanBag").Type;
         }
