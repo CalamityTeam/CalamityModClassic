@@ -197,6 +197,7 @@ namespace CalamityModClassic1Point2
 			if (spawnAstralMeteor3) downed.Add("astralMeteor3");
 			if (spawnedHardBoss) downed.Add("hardBoss");
 			if (downedPolterghast) downed.Add("polterghast");
+			tag.Add("downed", downed);
 		}
 
 		public override void LoadWorldData(TagCompound tag)

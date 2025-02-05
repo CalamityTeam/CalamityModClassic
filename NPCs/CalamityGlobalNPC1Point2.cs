@@ -3132,7 +3132,8 @@ namespace CalamityModClassic1Point2.NPCs
 			if (npc.type == NPCID.EyeofCthulhu)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TeardropCleaver>(), 7, 5));
-			}
+                npcLoot.Add(ItemDropRule.ByCondition(new RevCondition(), ModContent.ItemType<CounterScarf>()));
+            }
 			if (npc.type == NPCID.GoblinSummoner)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TheFirstShadowflame>(), 7, 5));
