@@ -3203,11 +3203,11 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.IceQueen)
 			{
-				npcLoot.Add(ItemDropRule.ByCondition(new YharonCondition(), ModContent.ItemType<EndothermicEnergy>(), 1, 10, 20));
+				npcLoot.Add(ItemDropRule.ByCondition(new DogCondition(), ModContent.ItemType<EndothermicEnergy>(), 1, 10, 20));
 			}
 			if (npc.type == NPCID.Pumpking)
 			{
-				npcLoot.Add(ItemDropRule.ByCondition(new YharonCondition(), ModContent.ItemType<NightmareFuel>(), 1, 10, 20));
+				npcLoot.Add(ItemDropRule.ByCondition(new DogCondition(), ModContent.ItemType<NightmareFuel>(), 1, 10, 20));
 			}
 			if (npc.type == NPCID.Mothron)
 			{
@@ -4071,6 +4071,22 @@ namespace CalamityModClassic1Point2.NPCs
         public string GetConditionDescription()
         {
             return "After beating the Eye of Cthulhu";
+        }
+    }
+    public class DogCondition : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            return CalamityWorld1Point2.downedDoG;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return "After beating The Devourer of Gods";
         }
     }
     public class YharonCondition : IItemDropRuleCondition
