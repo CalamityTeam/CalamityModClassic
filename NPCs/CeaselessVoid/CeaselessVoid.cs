@@ -47,6 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.CeaselessVoid
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.boss = true;
+			NPC.takenDamageMultiplier = 0.000001f;
 			NPC.dontTakeDamage = true;
 			NPC.chaseable = false;
 			NPC.HitSound = SoundID.NPCHit4;

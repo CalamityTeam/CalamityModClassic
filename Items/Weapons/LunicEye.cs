@@ -41,7 +41,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			float damageMult = player.GetDamage(DamageClass.Melee).Flat + player.GetDamage(DamageClass.Ranged).Flat + player.GetDamage(DamageClass.Magic).Flat + player.GetDamage(DamageClass.Throwing).Flat + player.GetDamage(DamageClass.Summon).Flat;
+			float damageMult = player.GetDamage(DamageClass.Melee).Additive + player.GetDamage(DamageClass.Ranged).Additive + player.GetDamage(DamageClass.Magic).Additive + player.GetDamage(DamageClass.Throwing).Additive + player.GetDamage(DamageClass.Summon).Additive;
 	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
