@@ -26,6 +26,7 @@ public class StatisNinjaBelt : ModItem
 		player.extraFall += 35;
 		player.blackBelt = true;
 		player.dash = 1;
+		player.dashType = 1;
 		player.spikedBoots = 2;
 		player.GetDamage(DamageClass.Throwing) += 0.15f;
         player.GetCritChance(DamageClass.Throwing) += 10;

@@ -11,14 +11,10 @@ using CalamityModClassic1Point2.Items;
 namespace CalamityModClassic1Point2.Items.Accessories {
 [AutoloadEquip(EquipType.Wings)]
 public class TarragonWings : ModItem
-{
-    public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Tarragon Wings");
-		//Tooltip.SetDefault("Born of the jungle\nExcellent acceleration: 3\nExcellent flight time: 240");
-	}
+    {
+        public override void SetStaticDefaults() => ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(240, 12f, 3f);
 
-    public override void SetDefaults()
+        public override void SetDefaults()
     {
         Item.width = 22;
         Item.height = 20;
@@ -55,7 +51,6 @@ public class TarragonWings : ModItem
 			}
 			Main.dust[num60].shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 		}
-        player.wingTimeMax = 240;
     }
 
     public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -65,12 +60,6 @@ public class TarragonWings : ModItem
         maxCanAscendMultiplier = 1f;
         maxAscentMultiplier = 3f;
         constantAscend = 0.135f;
-    }
-
-    public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-    {
-        speed = 12f;
-        acceleration *= 3f;
     }
 
     public override void AddRecipes()

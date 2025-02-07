@@ -11,14 +11,10 @@ using CalamityModClassic1Point2.Items;
 namespace CalamityModClassic1Point2.Items.Accessories {
 [AutoloadEquip(EquipType.Wings)]
 public class DiscordianWings : ModItem
-{
-    public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Discordian Wings");
-		//Tooltip.SetDefault("Formed from the flames of pure chaos\nExcellent acceleration: 2.5\nExcellent flight time: 150");
-	}
+    {
+        public override void SetStaticDefaults() => ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150, 10f, 2.5f);
 
-    public override void SetDefaults()
+        public override void SetDefaults()
     {
         Item.width = 22;
         Item.height = 20;
@@ -45,7 +41,6 @@ public class DiscordianWings : ModItem
 			}
 			Main.dust[num60].shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 		}
-        player.wingTimeMax = 150;
     }
 
     public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -55,12 +50,6 @@ public class DiscordianWings : ModItem
         maxCanAscendMultiplier = 1f;
         maxAscentMultiplier = 3f;
         constantAscend = 0.135f;
-    }
-
-    public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-    {
-        speed = 10f;
-        acceleration *= 2.5f;
     }
 
     public override void AddRecipes()

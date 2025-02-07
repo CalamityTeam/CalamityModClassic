@@ -12,9 +12,10 @@ using CalamityModClassic1Point2.Items;
 namespace CalamityModClassic1Point2.Items.Accessories {
 [AutoloadEquip(EquipType.Wings)]
 public class MOAB : ModItem
-{
-	
-	public override void SetDefaults()
+    {
+        public override void SetStaticDefaults() => ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(80, 10.5f, 2f);
+
+        public override void SetDefaults()
 	{
 		Item.width = 28;
 		Item.height = 32;
@@ -86,7 +87,6 @@ public class MOAB : ModItem
 		player.autoJump = true;
 		player.noFallDmg = true;
 		player.jumpSpeedBoost += 4f;
-		player.wingTimeMax = 80;
 	}
 	
 	public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -96,12 +96,6 @@ public class MOAB : ModItem
         maxCanAscendMultiplier = 1f;
         maxAscentMultiplier = 3f;
         constantAscend = 0.135f;
-    }
-
-    public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-    {
-        speed = 10.5f;
-        acceleration *= 2f;
     }
 	
 	public override void AddRecipes()

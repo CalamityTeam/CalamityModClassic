@@ -12,14 +12,10 @@ using CalamityModClassic1Point2.Items;
 namespace CalamityModClassic1Point2.Items.Accessories {
 [AutoloadEquip(EquipType.Wings)]
 public class ElysianTracers : ModItem
-{
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Elysian Tracers");
-		//Tooltip.SetDefault("Counts as wings\nExcellent acceleration: 3.5\nExcellent flight time: 300\nLudicrous speed!\nGreater mobility on ice\nWater and lava walking\nTemporary immunity to lava");
-	}
-	
-	public override void SetDefaults()
+    {
+        public override void SetStaticDefaults() => ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(300, 17f, 3.8f);
+
+        public override void SetDefaults()
 	{
 		Item.width = 36;
 		Item.height = 32;
@@ -64,7 +60,6 @@ public class ElysianTracers : ModItem
 		player.waterWalk = true;
 		player.fireWalk = true;
 		player.lavaMax += 920;
-		player.wingTimeMax = 300;
 		player.runAcceleration *= 1.5f;
 		player.maxRunSpeed *= 1.5f;
 		modPlayer.IBoots = true;
@@ -83,12 +78,6 @@ public class ElysianTracers : ModItem
         maxCanAscendMultiplier = 1f;
         maxAscentMultiplier = 3f;
         constantAscend = 0.135f;
-    }
-	
-	public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-    {
-        speed = 17f;
-        acceleration *= 3.8f;
     }
 	
 	public override void AddRecipes()
