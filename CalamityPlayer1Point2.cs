@@ -390,6 +390,7 @@ namespace CalamityModClassic1Point2
 			if (dFruit) boost.Add("dragonFruit");
 			if (pHeart) boost.Add("phantomHeart");
 			if (cShard) boost.Add("cometShard");
+			tag.Add("boost", boost);
 		}
 
 		public override void LoadData(TagCompound tag)
@@ -408,7 +409,7 @@ namespace CalamityModClassic1Point2
 		
 		public override void ResetEffects()
 		{
-			if (extraAccessoryML && Player.extraAccessory && (Main.expertMode || Main.gameMenu))
+			/*if (extraAccessoryML && Player.extraAccessory && (Main.expertMode || Main.gameMenu))
 			{
 				Player.extraAccessorySlots = 2;
 			}
@@ -423,7 +424,7 @@ namespace CalamityModClassic1Point2
 			else
 			{
 				Player.extraAccessorySlots = 0;
-			}
+			}*/
 			defEndurance = 0f;
 			dashMod = 0;
 			afflicted = false;

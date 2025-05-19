@@ -857,33 +857,33 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int num52 = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
-				int num53 = (int)(NPC.position.Y + (float)(NPC.height / 2)) / 16;
-				int num54 = NPC.width / 2 / 16 + 1;
-				for (int num55 = num52 - num54; num55 <= num52 + num54; num55++)
+				int xMin = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
+				int yMin = (int)(NPC.position.Y + (float)(NPC.height / 2)) / 16;
+				int size = NPC.width / 2 / 16 + 1;
+				for (int curX = xMin - size; curX <= xMin + size; curX++)
 				{
-					for (int num56 = num53 - num54; num56 <= num53 + num54; num56++)
+					for (int curY = yMin - size; curY <= yMin + size; curY++)
 					{
-						if ((num55 == num52 - num54 || num55 == num52 + num54 || num56 == num53 - num54 || num56 == num53 + num54) && !Main.tile[num55, num56].HasTile)
+						if ((curX == xMin - size || curX == xMin + size || curY == yMin - size || curY == yMin + size) && !Main.tile[curX, curY].HasTile)
 						{
-							if (Main.tile[num55, num56].HasTile)
+							if (Main.tile[curX, curY].HasTile)
                             {
-                                Main.tile[num55, num56].TileType = 226;
+                                Main.tile[curX, curY].ResetToType(226);
                             }
 							else
 							{
-								WorldGen.PlaceTile(num55, num56, 266);
+								WorldGen.PlaceTile(curX, curY, 226);
 							}
 						}
-						Main.tile[num55, num56].Get<LiquidData>().LiquidType = 0;
-						Main.tile[num55, num56].LiquidAmount = 0;
+						Main.tile[curX, curY].Get<LiquidData>().LiquidType = 0;
+						Main.tile[curX, curY].LiquidAmount = 0;
 						if (Main.netMode == NetmodeID.Server)
 						{
-							NetMessage.SendTileSquare(-1, num55, num56, 1, TileChangeType.None);
+							NetMessage.SendTileSquare(-1, curX, curY, 1, TileChangeType.None);
 						}
 						else
 						{
-							WorldGen.SquareTileFrame(num55, num56, true);
+							WorldGen.SquareTileFrame(curX, curY, true);
 						}
 					}
 				}

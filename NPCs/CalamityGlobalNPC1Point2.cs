@@ -3183,7 +3183,7 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 			if (npc.type == NPCID.AngryTrapper)
 			{
-				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ManeaterBulb>(), 5, 4));
+				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TrapperBulb>(), 5, 4));
 			}
 			if (npc.type == NPCID.MotherSlime || npc.type == NPCID.CorruptSlime || npc.type == NPCID.Crimslime)
 			{
