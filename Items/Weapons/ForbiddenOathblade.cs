@@ -6,31 +6,31 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ForbiddenOathblade : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Forbidden Oathblade");
-			//Tooltip.SetDefault("Sword of an ancient demon god");
+			// DisplayName.SetDefault("Forbidden Oathblade");
+			// Tooltip.SetDefault("Sword of an ancient demon god");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 70;
-			Item.damage = 58;
+			Item.width = 76;
+			Item.damage = 61;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 25;
 			Item.useTime = 25;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 70;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.LightPurple;
+			Item.height = 76;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 			Item.shoot = Mod.Find<ModProjectile>("Oathblade").Type;
 			Item.shootSpeed = 3f;
 		}
@@ -47,9 +47,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.ShadowbeamStaff);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 173);
 	        }
 	    }
 	    

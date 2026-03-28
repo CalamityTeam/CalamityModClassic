@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class AncientShiv : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Ancient Shiv");
-			//Tooltip.SetDefault("Enemies release a blue aura cloud on death");
+			// DisplayName.SetDefault("Ancient Shiv");
+			// Tooltip.SetDefault("Enemies release a blue aura cloud on death");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 12;
 			Item.useTime = 12;
@@ -30,15 +30,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 55000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.MagicMirror);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 15);
 	        }
 	    }
 	    
@@ -46,7 +46,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    {
 	    	if (target.life <= 0)
 	    	{
-	    		Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("BlueAura").Type, hit.Damage, hit.Knockback, Main.myPlayer);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("BlueAura").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

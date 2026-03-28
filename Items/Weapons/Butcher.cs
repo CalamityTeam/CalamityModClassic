@@ -5,30 +5,30 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Butcher : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Butcher");
-			//Tooltip.SetDefault("Fires faster and more accurately the longer you hold the trigger");
+			// DisplayName.SetDefault("Butcher");
+			// Tooltip.SetDefault("Fires faster and more accurately the longer you hold the trigger");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 15;
+	        Item.damage = 17;
 	        Item.width = 20;
 	        Item.height = 12;
 	        Item.useTime = 40;
 	        Item.useAnimation = 40;
-	        Item.useStyle = ItemUseStyleID.Shoot;
-	        Item.rare = ItemRarityID.Pink;
+	        Item.useStyle = 5;
+	        Item.rare = 5;
 	        Item.knockBack = 1f;
-	        Item.value = 100000;
-	        Item.UseSound = SoundID.Item38;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.UseSound = SoundID.Item38;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.DamageType = DamageClass.Ranged;
@@ -41,7 +41,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Butcher").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Butcher").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 	    }
 	

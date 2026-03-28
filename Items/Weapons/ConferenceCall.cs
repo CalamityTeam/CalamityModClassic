@@ -5,35 +5,35 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ConferenceCall : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Conclave Crossfire");
-			//Tooltip.SetDefault("50% chance to not consume ammo");
+			// DisplayName.SetDefault("Conclave Crossfire");
+			// Tooltip.SetDefault("50% chance to not consume ammo");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 35;
+	        Item.damage = 30;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 66;
 	        Item.height = 26;
 	        Item.useTime = 26;
 	        Item.useAnimation = 26;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 4.5f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item38;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 13f;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.useAmmo = 97;
 	    }
 	    
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 50)
+	    	if (Main.rand.Next(0, 100) < 50)
 	    		return false;
 	    	return true;
 	    }
@@ -54,9 +54,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        int num6 = Main.rand.Next(4, 6);
 	        for (int index = 0; index < num6; ++index)
 	        {
-	            float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
-	            float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-	            Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				float SpeedX = velocity.X + (float)Main.rand.Next(-30, 31) * 0.05f;
+				float SpeedY = velocity.Y + (float)Main.rand.Next(-30, 31) * 0.05f;
+	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
 	        }
 			float num72 = Item.shootSpeed;
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -80,8 +80,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			}
 	    	num78 *= num80;
 			num79 *= num80;
-			int num107 = Main.rand.Next(4, 6);
-			for (int num108 = 0; num108 < num107; num108++)
+			for (int num108 = 0; num108 < num6; num108++)
 			{
 				vector2 = new Vector2(player.position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -(float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
 				vector2.X = (vector2.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
@@ -101,8 +100,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				float speedY5 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 	        return false;
 	    }

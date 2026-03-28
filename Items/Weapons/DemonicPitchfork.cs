@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class DemonicPitchfork : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Demonic Pitchfork");
-			//Tooltip.SetDefault("Fires a demonic pitchfork");
+			// DisplayName.SetDefault("Demonic Pitchfork");
+			// Tooltip.SetDefault("Fires a demonic pitchfork");
 			Item.staff[Item.type] = true;
 		}
 
@@ -27,11 +27,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 56;
 	        Item.useTime = 24;
 	        Item.useAnimation = 24;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 6;
-	        Item.value = 450000;
-	        Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item20;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("DemonicPitchfork").Type;

@@ -7,55 +7,68 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using Terraria.WorldBuilding;
-using CalamityModClassic1Point2.Items.Perforator;
-using Terraria.GameContent.ItemDropRules;
+using CalamityModClassicPreTrailer.Tiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.Perforator
+namespace CalamityModClassicPreTrailer.NPCs.Perforator
 {
 	[AutoloadBossHead]
 	public class PerforatorHeadSmall : ModNPC
 	{
-		public bool flies = false;
-		public float speed = 21f;
-		public float turnSpeed = 0.19f;
-		bool TailSpawned = false;
+        private bool flies = false;
+        private float speed = 21f;
+        private float turnSpeed = 0.19f;
+        private int minLength = (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive) ? 3 : 6;
+        private int maxLength = (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive) ? 4 : 7;
+        private bool TailSpawned = false;
 		
 		public override void SetStaticDefaults()
-        {
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Scale = 0.7f,
-                PortraitScale = 0.7f,
-                CustomTexturePath = "CalamityModClassic1Point2/NPCs/Perforator/Bestiary_Small",
-                PortraitPositionXOverride = 40,
-                PortraitPositionYOverride = 40
-            };
-            value.Position.X += 50;
-            value.Position.Y += 35;
-            NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
-            //DisplayName.SetDefault("The Perforator");
+		{
+			// DisplayName.SetDefault("The Perforator");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			{
+				Scale = 0.8f,
+				PortraitScale = 0.8f,
+				CustomTexturePath = "CalamityModClassicPreTrailer/NPCs/Perforator/PerforatorSmall_Bestiary",
+				PortraitPositionXOverride = 40,
+				PortraitPositionYOverride = 60
+			};
+			value.Position.X += 60;
+			value.Position.Y += 50;
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
+				new FlavorTextBestiaryInfoElement("The smallest of the perforators, its purpose is to pierce.")
+			});
 		}
 		
 		public override void SetDefaults()
 		{
 			NPC.damage = 30; //150
 			NPC.npcSlots = 5f;
-			NPC.width = 32; //324
-			NPC.height = 32; //216
+			NPC.width = 42; //324
+			NPC.height = 62; //216
 			NPC.defense = 0;
-			NPC.lifeMax = 2500; //250000
+			NPC.lifeMax = 1250; //250000
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = CalamityWorldPreTrailer.death ? 600000 : 500000;
+			}
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
 			NPC.knockBackResist = 0f;
-			NPC.scale = 0.9f;
-			NPC.boss = true;
-			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.alpha = 255;
 			NPC.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
 			NPC.buffImmune[Mod.Find<ModBuff>("TemporalSadness").Type] = true;
@@ -65,22 +78,12 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.netAlways = true;
-			Music = MusicID.Boss2;
         }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
-                new FlavorTextBestiaryInfoElement("The smallest of the bloodworms.")
-
-            });
-        }
-
-        public override void AI()
+		
+		public override void AI()
 		{
-			bool expertMode = Main.expertMode;
-			float speedMult = expertMode ? 1.5f : 1.45f;
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
+			float speedMult = expertMode ? 1.5f : 1.425f;
 			float life = (float)NPC.life;
 			float totalLife = (float)NPC.lifeMax;
 			speed = 13f * (speedMult - (life / totalLife));
@@ -102,22 +105,22 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			if (!TailSpawned)
             {
                 int Previous = NPC.whoAmI;
-                for (int num36 = 0; num36 < 11; num36++)
+                for (int num36 = 0; num36 < maxLength; num36++)
                 {
                     int lol = 0;
-                    if (num36 >= 0 && num36 < 10)
+                    if (num36 >= 0 && num36 < minLength)
                     {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("PerforatorBodySmall").Type, NPC.whoAmI);
+                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("PerforatorBodySmall").Type, NPC.whoAmI);
                     }
                     else
                     {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("PerforatorTailSmall").Type, NPC.whoAmI);
+                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("PerforatorTailSmall").Type, NPC.whoAmI);
                     }
                     Main.npc[lol].realLife = NPC.whoAmI;
                     Main.npc[lol].ai[2] = (float)NPC.whoAmI;
                     Main.npc[lol].ai[1] = (float)Previous;
                     Main.npc[Previous].ai[0] = (float)lol;
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, lol, 0f, 0f, 0f, 0);
+                    NetMessage.SendData(23, -1, -1, null, lol, 0f, 0f, 0f, 0);
                     Previous = lol;
                 }
                 TailSpawned = true;
@@ -167,7 +170,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			{
 				NPC.localAI[1] = 1f;
 				Rectangle rectangle12 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-				int num954 = 1000;
+				int num954 = 100;
 				bool flag95 = true;
 				if (NPC.position.Y > Main.player[NPC.target].position.Y)
 				{
@@ -189,7 +192,11 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 					}
 				}
 			}
-			if (Main.player[NPC.target].dead)
+            else
+            {
+                NPC.localAI[1] = 0f;
+            }
+            if (Main.player[NPC.target].dead || !NPC.AnyNPCs(Mod.Find<ModNPC>("PerforatorHive").Type))
 			{
 				flag94 = false;
 				NPC.velocity.Y = NPC.velocity.Y + 0.05f;
@@ -204,7 +211,7 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 						if (Main.npc[num957].aiStyle == NPC.aiStyle)
 						{
 							Main.npc[num957].active = false;
-						}
+                        }
 					}
 				}
 			}
@@ -237,9 +244,6 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 				num193 = (num193 - (float)num194) / num193;
 				num191 *= num193;
 				num192 *= num193;
-				NPC.velocity = Vector2.Zero;
-				NPC.position.X = NPC.position.X + num191;
-				NPC.position.Y = NPC.position.Y + num192;
 			}
 			else
 			{
@@ -430,35 +434,43 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 				}
 			}
 		}
-		
-		public override void HitEffect(NPC.HitInfo hit)
+
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 5; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
-			}
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity, Mod.Find<ModGore>("SmallPerf").Type, 1f);
+            }
 		}
 		
 		public override void BossLoot(ref string name, ref int potionType)
 		{
 			name = "The Small Perforator";
 			potionType = ItemID.HealingPotion;
-        }
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<BloodSample>(), 1, 2, 5));
-            npcLoot.Add(new CommonDrop(ItemID.Vertebrae, 1, 1, 3));
-            npcLoot.Add(new CommonDrop(ItemID.CrimtaneBar, 1, 1, 2));
-        }
+		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(new CommonDrop(Mod.Find<ModItem>("BloodSample").Type, 1, 2, 6));
+			npcLoot.Add(new CommonDrop(ItemID.Vertebrae, 1, 1, 4));
+			npcLoot.Add(new CommonDrop(ItemID.CrimtaneBar, 1, 1, 3));
+		}
+		
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 1.15f);
@@ -466,14 +478,11 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			target.AddBuff(Mod.Find<ModBuff>("BurningBlood").Type, 120, true);
-			if (Main.expertMode)
+			target.AddBuff(Mod.Find<ModBuff>("BurningBlood").Type, 180, true);
+			target.AddBuff(BuffID.Bleeding, 180, true);
+			if (CalamityWorldPreTrailer.revenge)
 			{
-				target.AddBuff(BuffID.Bleeding, 120, true);
-			}
-			if (CalamityWorld1Point2.revenge)
-			{
-				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
+				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 180, true);
 			}
 		}
 	}

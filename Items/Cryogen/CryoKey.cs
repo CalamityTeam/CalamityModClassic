@@ -1,16 +1,16 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Cryogen
+namespace CalamityModClassicPreTrailer.Items.Cryogen
 {
 	public class CryoKey : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Cryo Key");
-			//Tooltip.SetDefault("Summons the magic of the ancient ice castle");
+			// DisplayName.SetDefault("Cryo Key");
+			// Tooltip.SetDefault("Summons Cryogen");
 		}
 		
 		public override void SetDefaults()
@@ -18,10 +18,10 @@ namespace CalamityModClassic1Point2.Items.Cryogen
 			Item.width = 28;
 			Item.height = 18;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 5;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		

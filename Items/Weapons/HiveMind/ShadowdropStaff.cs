@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
+namespace CalamityModClassicPreTrailer.Items.Weapons.HiveMind
 {
 	public class ShadowdropStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Shadowdrop Staff");
-			//Tooltip.SetDefault("Summons dark aura rain from the sky");
+			// DisplayName.SetDefault("Shadowdrop Staff");
+			// Tooltip.SetDefault("Summons dark aura rain from the sky");
 			Item.staff[Item.type] = true;
 		}
 
@@ -27,11 +27,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 	        Item.height = 48;
 	        Item.useTime = 9;
 	        Item.useAnimation = 18;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2.25f;
-	        Item.value = 50000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.UseSound = SoundID.Item66;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("AuraRain").Type;
@@ -93,8 +93,8 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-120, 121) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("AuraRain").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
+				float speedY5 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("AuraRain").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
 			}
 			return false;
 		}

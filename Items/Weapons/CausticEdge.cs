@@ -6,30 +6,31 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class CausticEdge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Caustic Edge");
-			//Tooltip.SetDefault("Give Sick");
+			// DisplayName.SetDefault("Caustic Edge");
+			// Tooltip.SetDefault("Inflicts poison and venom on enemy hits");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 42;
-			Item.damage = 40;
+			Item.width = 46;
+			Item.damage = 44;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+            Item.useTurn = true;
 			Item.useAnimation = 27;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 27;
-			Item.knockBack = 5;
+			Item.knockBack = 5f;
 			Item.UseSound = SoundID.Item1;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
 			Item.height = 48;
-			Item.value = 160000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 		}
 	
 		public override void AddRecipes()
@@ -44,15 +45,16 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.GreenFairy);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 74);
 	        }
 	    }
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.Poisoned, 480);
+			target.AddBuff(BuffID.Venom, 240);
 		}
 	}
 }

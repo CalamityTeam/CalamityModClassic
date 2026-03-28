@@ -1,23 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
 	public class ManaJelly : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Mana Jelly");
+			/* Tooltip.SetDefault("+20 max mana\n" +
+				"Standing still boosts mana regen"); */
+		}
 		
 		public override void SetDefaults()
 		{
 			Item.width = 20;
 			Item.height = 24;
-			Item.value = 30000;
-			Item.rare = ItemRarityID.Blue;
+            Item.value = Item.buyPrice(0, 6, 0, 0);
+            Item.rare = 1;
 			Item.accessory = true;
 		}
 		

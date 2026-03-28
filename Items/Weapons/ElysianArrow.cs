@@ -4,21 +4,21 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ElysianArrow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elysian Arrow");
-			//Tooltip.SetDefault("Summons meteors from the sky on death");
+			// DisplayName.SetDefault("Elysian Arrow");
+			// Tooltip.SetDefault("Summons meteors from the sky on death");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 23;
+			Item.damage = 20;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 22;
 			Item.height = 36;
@@ -29,18 +29,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.shoot = Mod.Find<ModProjectile>("ElysianArrow").Type;
 			Item.shootSpeed = 10f;
 			Item.ammo = 40;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 
 		public override void AddRecipes()
 		{

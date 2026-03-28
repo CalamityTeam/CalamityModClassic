@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FlameburstShortsword : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Flameburst Shortsword");
-			//Tooltip.SetDefault("Enemies explode on hit when below half life");
+			// DisplayName.SetDefault("Flameburst Shortsword");
+			// Tooltip.SetDefault("Enemies explode on hit when below half life");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
@@ -30,8 +30,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 20000;
-			Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 		
 		public override void AddRecipes()
@@ -44,9 +44,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6);
 	        }
 	    }
 	    
@@ -54,7 +54,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    {
 	    	if (target.life <= (target.lifeMax * 0.5f))
 	    	{
-	    		Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, 612, hit.Damage, hit.Knockback, Main.myPlayer);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, 612, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

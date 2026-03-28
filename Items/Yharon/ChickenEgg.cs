@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -8,36 +8,32 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Yharon
+namespace CalamityModClassicPreTrailer.Items.Yharon
 {
 	public class ChickenEgg : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Dragon Egg");
+			/* Tooltip.SetDefault("Summons the loyal guardian of the tyrant king\n" +
+			                   "It yearns for the jungle\n" +
+                               "Not consumable"); */
+		}
 		
 		public override void SetDefaults()
 		{
 			Item.width = 28;
 			Item.height = 18;
-			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.consumable = true;
+			Item.useStyle = 4;
+			Item.consumable = false;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(43, 96, 222);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
-			return player.ZoneJungle && !NPC.AnyNPCs(Mod.Find<ModNPC>("Yharon").Type);
+			return player.ZoneJungle && !NPC.AnyNPCs(Mod.Find<ModNPC>("Yharon").Type) && CalamityWorldPreTrailer.downedBossAny;
 		}
 		
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
@@ -50,10 +46,9 @@ namespace CalamityModClassic1Point2.Items.Yharon
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "EffulgentFeather", 5);
-			recipe.AddIngredient(null, "BarofLife", 3);
-			recipe.AddIngredient(null, "CosmiliteBar", 3);
-			recipe.AddTile(null, "DraedonsForge");
+			recipe.AddIngredient(null, "EffulgentFeather", 15);
+			recipe.AddIngredient(null, "BarofLife", 15);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
 	}

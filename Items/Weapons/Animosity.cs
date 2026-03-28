@@ -5,29 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Animosity : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Animosity");
+			/* Tooltip.SetDefault("50% chance to not consume ammo\n" +
+			                   "Fires a powerful sniper round\n" +
+			                   "Right click to fire a burst of bullets\n" +
+                               "Revengeance drop"); */
+		}
+
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 28;
+	        Item.damage = 25;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 70;
 	        Item.height = 18;
 	        Item.useTime = 4;
 	        Item.reuseDelay = 15;
 	        Item.useAnimation = 12;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2f;
-	        Item.value = 900000;
-	        Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 	        Item.UseSound = SoundID.Item31;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.shootSpeed = 11f;
 	        Item.useAmmo = 97;
 	    }
@@ -69,19 +78,19 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    	{
 	    		float SpeedX = velocity.X + (float) Main.rand.Next(-10, 11) * 0.05f;
 		    	float SpeedY = velocity.Y + (float) Main.rand.Next(-10, 11) * 0.05f;
-		    	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, 242, (int)((double)damage * 3.9f), knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, 242, (int)((double)damage * 5.8f), knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 		}
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 50)
+	    	if (Main.rand.Next(0, 100) < 50)
 	    		return false;
 	    	return true;
 	    }

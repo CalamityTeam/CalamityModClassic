@@ -1,23 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using CalamityModClassicPreTrailer.BiomeManagers;
+using CalamityModClassicPreTrailer.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
-using CalamityModClassic1Point2.Items;
-using Terraria.GameContent.ItemDropRules;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
-namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
+namespace CalamityModClassicPreTrailer.NPCs.CalamityBiomeNPCs
 {
 	public class SoulSlurper : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Soul Slurper");
+			// DisplayName.SetDefault("Soul Slurper");
 		}
 		
 		public override void SetDefaults()
@@ -25,44 +26,47 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 			NPC.aiStyle = -1;
 			AIType = -1;
 			NPC.npcSlots = 1f;
-			NPC.damage = 65;
+			NPC.damage = 30;
 			NPC.width = 60; //324
 			NPC.height = 40; //216
 			NPC.defense = 40;
-			NPC.lifeMax = 300;
+			NPC.lifeMax = 60;
 			NPC.knockBackResist = 0.65f;
-			NPC.value = Item.buyPrice(0, 0, 50, 0);
+			NPC.value = Item.buyPrice(0, 0, 5, 0);
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.lavaImmune = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld1Point2.downedProvidence)
+			if (CalamityWorldPreTrailer.downedProvidence)
 			{
 				NPC.damage = 170;
 				NPC.defense = 200;
 				NPC.lifeMax = 3000;
-				NPC.value = Item.buyPrice(0, 3, 0, 0);
-            }
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BiomeManagers.BrimstoneCragsBiome>().Type };
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+				NPC.value = Item.buyPrice(0, 0, 50, 0);
+			}
+			Banner = NPC.type;
+			BannerItem = Mod.Find<ModItem>("SoulSlurperBanner").Type;
+			SpawnModBiomes = new int[] { ModContent.GetInstance<Crag>().Type };
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+				new FlavorTextBestiaryInfoElement("Guardians of the crags, they relentlessly chase potential threats to their home.")
+			});
+		}
+		
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                new FlavorTextBestiaryInfoElement("A mechanical construct that absorbs souls.")
-
-            });
-        }
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-			return spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity ? 0.25f : 0f;
+			return spawnInfo.Player.GetModPlayer<CalamityPlayerPreTrailer>().ZoneCalamity ? 0.25f : 0f;
         }
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld1Point2.downedProvidence;
+			bool provy = CalamityWorldPreTrailer.downedProvidence;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
 				NPC.TargetClosest(true);
@@ -146,18 +150,18 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 			{
 				NPC.localAI[0] = 0f;
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[0] >= 120f)
+			if (Main.netMode != 1 && NPC.localAI[0] >= 120f)
 			{
 				NPC.localAI[0] = 0f;
 				if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
 				{
-					int num8 = 40;
+					int num8 = 30;
 					if (Main.expertMode)
 					{
-						num8 = 32;
+						num8 = 22;
 					}
 					int num9 = Mod.Find<ModProjectile>("BrimstoneLaser").Type;
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
 			int num10 = (int)NPC.position.X + NPC.width / 2;
@@ -227,57 +231,66 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld1Point2.revenge)
+			if (CalamityWorldPreTrailer.revenge)
 			{
-				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
+				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 180, true);
 			}
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<EssenceofChaos>(), 2, 1, 2));
-            npcLoot.Add(ItemDropRule.ByCondition(new ProvidenceDowned(), ModContent.ItemType<Bloodstone>(), 2));
-        }
+		}
+		
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.ByCondition(new ProvCondition(), Mod.Find<ModItem>("Bloodstone").Type, 2));
+			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsHardmode(), Mod.Find<ModItem>("EssenceofChaos").Type, 3));
+		}
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LifeDrain, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 235, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 50;
-				NPC.height = 50;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				for (int num621 = 0; num621 < 10; num621++)
+				if (Main.netMode != NetmodeID.Server)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper4").Type, 1f);
+					NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
+					NPC.width = 50;
+					NPC.height = 50;
+					NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
+					for (int num621 = 0; num621 < 10; num621++)
 					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 2f);
+						Main.dust[num622].velocity *= 3f;
+						if (Main.rand.Next(2) == 0)
+						{
+							Main.dust[num622].scale = 0.5f;
+							Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						}
+					}
+
+					for (int num623 = 0; num623 < 20; num623++)
+					{
+						int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 3f);
+						Main.dust[num624].noGravity = true;
+						Main.dust[num624].velocity *= 5f;
+						num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235,
+							0f, 0f, 100, default(Color), 2f);
+						Main.dust[num624].velocity *= 2f;
 					}
 				}
-				for (int num623 = 0; num623 < 20; num623++)
-				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 3f);
-					Main.dust[num624].noGravity = true;
-					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num624].velocity *= 2f;
-				}
 			}
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.65f * balance);
-			NPC.damage = (int)(NPC.damage * 0.65f);
 		}
 	}
 }

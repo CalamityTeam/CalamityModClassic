@@ -6,31 +6,31 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class CatastropheClaymore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Catastrophe Claymore");
-			//Tooltip.SetDefault("Remnant of a specular nova");
+			// DisplayName.SetDefault("Catastrophe Claymore");
+			// Tooltip.SetDefault("Remnant of a specular nova");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 50;
-			Item.damage = 61;
+			Item.width = 56;
+			Item.damage = 67;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 23;
 			Item.useTime = 23;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 50;
-			Item.value = 750000;
-			Item.rare = ItemRarityID.Lime;
+			Item.height = 56;
+            Item.value = Item.buyPrice(0, 48, 0, 0);
+            Item.rare = 6;
 			Item.shoot = Mod.Find<ModProjectile>("CalamityAura").Type;
 			Item.shootSpeed = 11f;
 		}
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    		case 2: type = Mod.Find<ModProjectile>("CalamityAuraType3").Type; break;
 	    		default: break;
 			}
-	       	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	       	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 	    	return false;
 		}
 		
@@ -74,15 +74,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.PinkFairy);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 73);
 	        }
 	    }
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-	    	if(Main.rand.NextBool(3))
+	    	if(Main.rand.Next(3) == 0)
 	    	{
 	    		target.AddBuff(BuffID.CursedInferno, 200);
 	    		target.AddBuff(BuffID.OnFire, 200);

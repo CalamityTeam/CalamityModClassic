@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class GleamingMagnolia : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Gleaming Magnolia");
-			//Tooltip.SetDefault("Casts a gleaming bolt that explodes into smaller bolts");
+			// DisplayName.SetDefault("Gleaming Magnolia");
+			// Tooltip.SetDefault("Casts a gleaming bolt that explodes into smaller bolts");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 36;
+	        Item.damage = 32;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 11;
 	        Item.width = 52;
 	        Item.height = 54;
 	        Item.useTime = 27;
 	        Item.useAnimation = 27;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5.5f;
-	        Item.value = 200000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item109;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("GleamingBolt").Type;

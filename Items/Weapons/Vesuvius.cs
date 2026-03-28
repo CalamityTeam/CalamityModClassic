@@ -6,44 +6,41 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Vesuvius : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
+			// DisplayName.SetDefault("Vesuvius");
+			/* Tooltip.SetDefault("Legendary drop\n" +
+				"Asteroids give the Molten buff on enemy hits\n" +
+				"Calls down a swarm of molten asteroids\n" +
+				"Right click to fire a spread of molten asteroids from the staff\n" +
+                "Revengeance drop"); */
 			Item.staff[Item.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 62;  //The width of the .png file in pixels divided by 2.
-			Item.damage = 11;  //Keep this reasonable please.
+			Item.width = 62;
+			Item.damage = 70;
 			Item.mana = 6;
-			Item.DamageType = DamageClass.Magic;  //Dictates whether this is a melee-class weapon.
+			Item.DamageType = DamageClass.Magic;
 			Item.useAnimation = 20;
-			Item.useTime = 20;  //Ranges from 1 to 55. 
+			Item.useTime = 20;
 			Item.noMelee = true;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 3f;  //Ranges from 1 to 9.
+			Item.useStyle = 5;
+			Item.knockBack = 3f;
 			Item.UseSound = SoundID.Item88;
-			Item.autoReuse = true;  //Dictates whether the weapon can be "auto-fired".
-			Item.height = 62;  //The height of the .png file in pixels divided by 2.
-			Item.value = 5000000;  //Value is calculated in copper coins.
-			Item.shootSpeed = 11f;
+			Item.autoReuse = true;
+			Item.height = 62;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
+            Item.shootSpeed = 20f;
 			Item.shoot = Mod.Find<ModProjectile>("AsteroidMolten").Type;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 17;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, Main.DiscoG, 0);
-	            }
-	        }
-	    }
 		
 		public override bool AltFunctionUse(Player player)
 		{
@@ -52,91 +49,31 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override bool CanUseItem(Player player)
 		{
-			bool betsy = CalamityWorld1Point2.downedBetsy;
 			if (player.altFunctionUse == 2)
 			{
 				Item.mana = 9;
-	    		Item.useTime = betsy ? 20 : 25;
-	    		Item.useAnimation = betsy ? 20 : 25;
+	    		Item.useTime = 20;
+	    		Item.useAnimation = 20;
 			}
 			else
 			{
 				Item.mana = 6;
-	    		Item.useTime = betsy ? 15 : 20;
-	    		Item.useAnimation = betsy ? 15 : 20;
+	    		Item.useTime = 15;
+	    		Item.useAnimation = 15;
 			}
 			return base.CanUseItem(player);
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-	    {
-			float damageMult = 1f + //1
-				(NPC.downedSlimeKing ? 0.3f : 0f) + //1.5
-				(NPC.downedBoss1 ? 0.3f : 0f) + //2
-				(NPC.downedBoss2 ? 0.3f : 0f) + //2.5
-				(NPC.downedQueenBee ? 0.1f : 0f) + //2.75
-				(NPC.downedBoss3 ? 0.3f : 0f) + //3.25
-				(Main.hardMode ? 0.3f : 0f) + //5.25
-				(NPC.downedMechBoss1 ? 0.3f : 0f) + //5.75
-				(NPC.downedMechBoss2 ? 0.3f : 0f) + //6.25
-				(NPC.downedMechBoss3 ? 0.3f : 0f) + //6.75
-				(NPC.downedPlantBoss ? 1f : 0f) + //8.25
-				(NPC.downedGolemBoss ? 1f : 0f) + //9.25
-				(NPC.downedAncientCultist ? 1f : 0f) + //10.25
-				(NPC.downedMoonlord ? 5f : 0f) + //22.25
-				(CalamityWorld1Point2.downedProvidence ? 10f : 0f) + //35
-				(CalamityWorld1Point2.downedDoG ? 10f : 0f) + //46
-				(CalamityWorld1Point2.downedYharon ? 33f : 0f); //86
-			damage.Base = (int)((double)damage.Base * damageMult);
-	    }
-		
-		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)
-		{
-			float kbMult = 1f +
-				(NPC.downedSlimeKing ? 0.1f : 0f) +
-				(NPC.downedBoss1 ? 0.1f : 0f) + 
-				(NPC.downedBoss2 ? 0.1f : 0f) + 
-				(NPC.downedQueenBee ? 0.15f : 0f) +
-				(NPC.downedBoss3 ? 0.15f : 0f) +
-				(Main.hardMode ? 0.15f : 0f) +
-				(NPC.downedMechBossAny ? 0.1f : 0f) +
-				(NPC.downedPlantBoss ? 0.15f : 0f) +
-				(NPC.downedGolemBoss ? 0.1f : 0f) +
-				(NPC.downedFishron ? 0.15f : 0f) +
-				(NPC.downedAncientCultist ? 0.15f : 0f) +
-				(NPC.downedMoonlord ? 0.35f : 0f) +
-				(CalamityWorld1Point2.downedProvidence ? 0.15f : 0f) +
-				(CalamityWorld1Point2.downedDoG ? 0.15f : 0f) +
-				(CalamityWorld1Point2.downedYharon ? 0.2f : 0f);
-			knockback = knockback * kbMult;
-		}
-		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			bool wallOfFlesh = Main.hardMode;
-			bool betsy = CalamityWorld1Point2.downedBetsy;
-			bool moonLord = NPC.downedMoonlord;
-			if (moonLord)
-			{
-				Item.shootSpeed = 20f;
-			}
-			else if (wallOfFlesh)
-			{
-				Item.shootSpeed = 15f;
-			}
-			else
-			{
-				Item.shootSpeed = 11f;
-			}
-			int projAmt = betsy ? 3 : 1;
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		int num6 = Main.rand.Next(1, 3) + projAmt;
+	    		int num6 = Main.rand.Next(4, 6);
 			    for (int index = 0; index < num6; ++index)
 			    {
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-			        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f);
+			        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f);
 			    }
 	    		return false;
 	    	}
@@ -164,8 +101,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				}
 		    	num78 *= num80;
 				num79 *= num80;
-				int num112 = betsy ? 4 : 2;
-				for (int num113 = 0; num113 < num112; num113++) 
+				for (int num113 = 0; num113 < 4; num113++) 
 				{
 					vector2 = new Vector2(player.position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -(float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
 					vector2.X = (vector2.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
@@ -186,7 +122,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 					num79 *= num80;
 					float num114 = num78;
 					float num115 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-					Projectile.NewProjectile(source, vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f); //0.3
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f); //0.3
 				}
 	    		return false;
 	    	}

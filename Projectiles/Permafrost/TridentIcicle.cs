@@ -1,0 +1,60 @@
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Projectiles.Permafrost
+{
+	public class TridentIcicle : ModProjectile
+	{
+		public override void SetDefaults()
+		{
+			Projectile.width = 18;
+			Projectile.height = 18;
+            Projectile.aiStyle = 1;
+            AIType = ProjectileID.Bullet;
+			Projectile.friendly = true;
+            Projectile.coldDamage = true;
+            Projectile.DamageType = DamageClass.Magic;
+			Projectile.penetrate = 2;
+			Projectile.ignoreWater = true;
+		}
+		
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Trident Icicle");
+		}
+
+		public override void AI()
+		{
+            //make pretty dust
+            int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 88);
+            Main.dust[index2].noGravity = true;
+        }
+		
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+            target.AddBuff(BuffID.Frostburn, 480);
+            target.AddBuff(Mod.Find<ModBuff>("GlacialState").Type, 180);
+        }
+
+		public override Color? GetAlpha (Color lightColor)
+		{
+			return new Color(200, 200, 200, Projectile.alpha);
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+            for (int i = 0; i < 10; i++)
+            {
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 88);
+                Main.dust[index2].noGravity = true;
+                Main.dust[index2].velocity *= 2f;
+            }
+        }
+	}
+}

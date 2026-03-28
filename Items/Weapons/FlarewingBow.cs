@@ -5,38 +5,44 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FlarewingBow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Flarewing Bow");
+			// DisplayName.SetDefault("Flarewing Bow");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 26;
+	        Item.damage = 25;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 20;
 	        Item.height = 62;
 	        Item.useTime = 28;
 	        Item.useAnimation = 28;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 1.5f;
-	        Item.value = 200000;
-	        Item.rare = ItemRarityID.Lime;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item5;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.WoodenArrowFriendly;
+	        Item.shoot = 1;
 	        Item.shootSpeed = 16f;
 	        Item.useAmmo = 40;
 	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 	    	float num117 = 0.314159274f;
@@ -53,15 +59,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				{
 					value9 -= vector7;
 				}
-				int num122 = type;
-				if (num122 == ProjectileID.WoodenArrowFriendly)
+				if (type == ProjectileID.WoodenArrowFriendly)
 				{
-					int num123 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FlareBat").Type, (int)((double)damage * 1.4f), knockback, player.whoAmI, 0.0f, 0.0f);
+					int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FlareBat").Type, (int)((double)damage * 1.5f), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[num123].noDropItem = true;
 				}
 				else
 				{
-					int num123 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.7f), knockback, player.whoAmI, 0.0f, 0.0f);
+					int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.66), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[num123].noDropItem = true;
 				}
 			}

@@ -11,31 +11,40 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
+namespace CalamityModClassicPreTrailer.Items.Weapons.Leviathan
 {
 	public class LureofEnthrallment : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Pearl of Enthrallment");
-			//Tooltip.SetDefault("Summons a siren lure to fight for you\nThe lure stays above you, shooting water spears, ice mist, and treble clefs at nearby enemies");
-			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 13));
+			// DisplayName.SetDefault("Pearl of Enthrallment");
+			// Tooltip.SetDefault("Summons a siren to fight for you\nThe siren stays above you, shooting water spears, ice mist, and treble clefs at nearby enemies");
 		}
 
 	    public override void SetDefaults()
 	    {
 	        Item.width = 56;
 	        Item.height = 56;
-	        Item.value = 500000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 30, 0, 0);
+            Item.rare = 7;
 	        Item.accessory = true;
 	    }
-	    
-	    public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)/* tModPorter Suggestion: Consider using new hook CanAccessoryBeEquippedWith */
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            if (modPlayer.elementalHeart)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-	    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+	    	CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.sirenWaifu = true;
 			if (player.whoAmI == Main.myPlayer)
 			{
@@ -45,12 +54,12 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("SirenLure").Type] < 1)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SirenLure").Type, 0, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SirenLure").Type, (int)(65f * player.GetDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}
-	    
-	    public override void AddRecipes()
+
+        public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(null, "IOU");

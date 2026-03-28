@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Chaotrix : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Chaotrix");
-			//Tooltip.SetDefault("Explodes on enemy hits");
+			// DisplayName.SetDefault("Chaotrix");
+			// Tooltip.SetDefault("Explodes on enemy hits");
 		}
 
 	    public override void SetDefaults()
@@ -23,12 +23,12 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.damage = 110;
 	        Item.useTime = 22;
 	        Item.useAnimation = 22;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.channel = true;
 	        Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-	        Item.knockBack = 3.6f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Yellow;
+	        Item.knockBack = 4f;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("ChaotrixProjectile").Type;
 	    }

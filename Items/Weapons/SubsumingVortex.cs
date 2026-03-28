@@ -5,47 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class SubsumingVortex : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Subsuming Vortex");
-			//Tooltip.SetDefault("Fires 3 vortexes of elemental energy");
+			// DisplayName.SetDefault("Subsuming Vortex");
+			// Tooltip.SetDefault("Fires 3 vortexes of elemental energy");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 330;
+	        Item.damage = 520;
 	        Item.DamageType = DamageClass.Magic;
-	        Item.mana = 30;
+	        Item.mana = 20;
 	        Item.width = 28;
 	        Item.height = 30;
 	        Item.UseSound = SoundID.Item84;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5f;
-	        Item.value = 100000000;
-	        Item.autoReuse = true;
+            Item.value = Item.buyPrice(2, 50, 0, 0);
+            Item.rare = 10;
+            Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("Vortex").Type;
 	        Item.shootSpeed = 9f;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 15;
+		}
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{    
@@ -55,7 +46,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		        float SpeedX = velocity.X + (float) Main.rand.Next(-50, 51) * 0.05f;
 		        float SpeedY = velocity.Y + (float) Main.rand.Next(-50, 51) * 0.05f;
 		        float ai = (Main.rand.NextFloat() + 0.5f);
-		        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, ai);
+		        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, ai);
 		    }
 		    return false;
 		}
@@ -67,11 +58,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        recipe.AddIngredient(null, "NuclearFury");
 	        recipe.AddIngredient(null, "RelicofRuin");
 	        recipe.AddIngredient(null, "TearsofHeaven");
-	        recipe.AddIngredient(null, "NightmareFuel", 10);
-        	recipe.AddIngredient(null, "EndothermicEnergy", 10);
-	        recipe.AddIngredient(null, "CosmiliteBar", 10);
-	        recipe.AddIngredient(null, "Phantoplasm", 50);
-	        recipe.AddTile(null, "DraedonsForge");
+	        recipe.AddIngredient(null, "NightmareFuel", 5);
+        	recipe.AddIngredient(null, "EndothermicEnergy", 5);
+	        recipe.AddIngredient(null, "CosmiliteBar", 5);
+            recipe.AddIngredient(null, "DarksunFragment", 5);
+            recipe.AddIngredient(null, "HellcasterFragment", 3);
+            recipe.AddIngredient(null, "Phantoplasm", 5);
+            recipe.AddIngredient(null, "AuricOre", 25);
+            recipe.AddTile(null, "DraedonsForge");
 	        recipe.Register();
 	    }
 	}

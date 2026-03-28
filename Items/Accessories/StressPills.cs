@@ -1,28 +1,37 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class StressPills : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	
-	public override void SetDefaults()
-	{
-		Item.width = 26;
-		Item.height = 26;
-		Item.value = 50000;
-		Item.rare = ItemRarityID.Orange;
-		Item.accessory = true;
-	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.stressPills = true;
-	}
-}}
+    public class StressPills : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Stress Pills");
+            /* Tooltip.SetDefault("Boosts your damage by 8%,\n" +
+                               "defense by 8, and max movement speed and acceleration by 5%\n" +
+                               "Revengeance drop"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
+            Item.value = Item.buyPrice(0, 6, 0, 0);
+            Item.rare = 3;
+            Item.accessory = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.stressPills = true;
+        }
+    }
+}

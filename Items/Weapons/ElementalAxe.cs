@@ -11,41 +11,42 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ElementalAxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elemental Axe");
-			//Tooltip.SetDefault("Summons an elemental axe to fight for you");
+			// DisplayName.SetDefault("Elemental Axe");
+			// Tooltip.SetDefault("Summons an elemental axe to fight for you");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 225;
+	        Item.damage = 140;
 	        Item.DamageType = DamageClass.Summon;
 	        Item.mana = 10;
 	        Item.width = 36;
 	        Item.height = 36;
 	        Item.useTime = 36;
 	        Item.useAnimation = 36;
-	        Item.useStyle = ItemUseStyleID.Swing;
+	        Item.useStyle = 1;
 	        Item.noMelee = true;
 	        Item.knockBack = 5f;
 	        Item.buffType = Mod.Find<ModBuff>("ElementalAxe").Type;
 	        Item.buffTime = 3600;
-	        Item.value = 10000000;
-	        Item.rare = ItemRarityID.Red;
-	        Item.UseSound = SoundID.Item44;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item44;
 	        Item.autoReuse = true;
-	        Item.shoot = Mod.Find<ModProjectile>("ElementalAxeG").Type;
+	        Item.shoot = Mod.Find<ModProjectile>("ElementalAxe").Type;
 	        Item.shootSpeed = 10f;
-	    }
-	    
-	    public override void AddRecipes()
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(null, "BarofLife", 5);
@@ -82,36 +83,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			num79 = 0f;
 			vector2.X = (float)Main.mouseX + Main.screenPosition.X;
 			vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-			type = Main.rand.Next(7);
-			if (type == 0)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeR").Type;
-			}
-			else if (type == 1)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeO").Type;
-			}
-			else if (type == 2)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeY").Type;
-			}
-			else if (type == 3)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeG").Type;
-			}
-			else if (type == 4)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeB").Type;
-			}
-			else if (type == 5)
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeI").Type;
-			}
-			else
-			{
-				type = Mod.Find<ModProjectile>("ElementalAxeV").Type;
-			}
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, num78, num79, type, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num78, num79, type, damage, knockback, player.whoAmI, 0f, 0f);
 			return false;
 	    }
 	}

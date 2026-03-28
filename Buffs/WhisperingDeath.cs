@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class WhisperingDeath : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Whispering Death");
-			//Description.SetDefault("Death approaches");
+			// DisplayName.SetDefault("Whispering Death");
+			// Description.SetDefault("Death approaches");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().wDeath = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC>().wDeath = true;
 		}
 	}
 }

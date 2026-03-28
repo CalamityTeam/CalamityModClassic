@@ -4,29 +4,24 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class PerennialOre : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileSolid[Type] = true;
+            Main.tileLighted[Type] = true;
+            Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			DustType = ModContent.DustType<Dusts.CESparkle>();
-			RegisterItemDrop(ModContent.ItemType<Items.PerennialOre>());
+			Main.tileOreFinderPriority[Type] = 690;
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Perennial Ore");
- 			AddMapEntry(new Color(255, 51, 204));
+ 			AddMapEntry(new Color(200, 250, 100), name);
 			MineResist = 3f;
 			MinPick = 199;
-			HitSound = Terraria.ID.SoundID.Tink;
+			HitSound = SoundID.Tink;
 			Main.tileSpelunker[Type] = true;
-		}
-		
-		public override void RandomUpdate(int i, int j)
-		{
-			Main.tileOreFinderPriority[Type] = (short)(Main.hardMode ? 690 : 0);
 		}
 		
 		public override bool CanExplode(int i, int j)
@@ -38,5 +33,12 @@ namespace CalamityModClassic1Point2.Tiles
 		{
 			num = fail ? 1 : 3;
 		}
-	}
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            r = 0.04f;
+            g = 0.10f;
+            b = 0.02f;
+        }
+    }
 }

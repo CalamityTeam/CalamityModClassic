@@ -4,55 +4,66 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using CalamityModClassic1Point2;
-using Terraria.WorldBuilding;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Tiles;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs.NPCLootConditions.CalamityBosses;
 using Terraria.GameContent.ItemDropRules;
-using CalamityModClassic1Point2.Items.DevourerMunsters;
-using CalamityModClassic1Point2.Items.Placeables;
-using CalamityModClassic1Point2.Items.Weapons;
+using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.StormWeaver
+namespace CalamityModClassicPreTrailer.NPCs.StormWeaver
 {
 	[AutoloadBossHead]
 	public class StormWeaverHeadNaked : ModNPC
 	{
-		public bool flies = true;
-		public const float speed = 13f;
-		public const float turnSpeed = 0.35f;
-		public bool tail = false;
-		public const int minLength = 60;
-		public const int maxLength = 61;
-		
-		public override void SetStaticDefaults()
+        private bool flies = true;
+        private const float speed = 13f;
+        private const float turnSpeed = 0.35f;
+        private bool tail = false;
+        private int minLength = (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive) ? 5 : 30;
+        private int maxLength = (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive) ? 6 : 31;
+        private int invinceTime = 180;
+
+        public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Storm Weaver");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("Storm Weaver");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
-			NPC.damage = 200; //150
+			NPC.damage = 180; //150
 			NPC.npcSlots = 5f;
-			NPC.width = 42; //324
-			NPC.height = 42; //216
+			NPC.width = 74; //324
+			NPC.height = 74; //216
 			NPC.defense = 0;
-			NPC.lifeMax = 300000; //250000
+            NPC.lifeMax = 50000;
+            Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/ScourgeofTheUniverse");
+            if (CalamityWorldPreTrailer.DoGSecondStageCountdown <= 0)
+            {
+				NPC.value = Item.buyPrice(0, 35, 0, 0);
+				Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/Weaver");
+                NPC.lifeMax = 300000;
+            }
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = 2300000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
 			NPC.knockBackResist = 0f;
 			NPC.boss = true;
-			NPC.value = Item.buyPrice(0, 30, 0, 0);
 			NPC.alpha = 255;
 			NPC.behindTiles = true;
 			NPC.noGravity = true;
@@ -60,19 +71,30 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			NPC.HitSound = SoundID.NPCHit13;
 			NPC.DeathSound = SoundID.NPCDeath13;
 			NPC.netAlways = true;
+			NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+			NPCID.Sets.TrailingMode[NPC.type] = 1;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
 			}
-			Music = MusicID.Boss3;
-		}
+        }
 		
 		public override void AI()
 		{
-			bool revenge = CalamityWorld1Point2.revenge;
-			bool expertMode = Main.expertMode;
-			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
+			bool revenge = (CalamityWorldPreTrailer.revenge || CalamityWorldPreTrailer.bossRushActive);
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
+            if (invinceTime > 0)
+            {
+                invinceTime--;
+                NPC.damage = 0;
+                NPC.dontTakeDamage = true;
+            }
+            else
+            {
+                NPC.damage = expertMode ? 360 : 180;
+                NPC.dontTakeDamage = false;
+            }
+            Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
 			if (NPC.ai[3] > 0f)
 			{
 				NPC.realLife = (int)NPC.ai[3];
@@ -86,7 +108,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			{
 				for (int num934 = 0; num934 < 2; num934++)
 				{
-					int num935 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.TheDestroyer, 0f, 0f, 100, default(Color), 2f);
+					int num935 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 182, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num935].noGravity = true;
 					Main.dust[num935].noLight = true;
 				}
@@ -96,7 +118,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			{
 				NPC.alpha = 0;
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != 1)
             {
 	            if (!tail && NPC.ai[0] == 0f)
 				{
@@ -106,11 +128,11 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 	                    int lol = 0;
 	                    if (num36 >= 0 && num36 < minLength)
 	                    {
-	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("StormWeaverBodyNaked").Type, NPC.whoAmI);
+	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("StormWeaverBodyNaked").Type, NPC.whoAmI);
 	                    }
 	                    else
 	                    {
-	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("StormWeaverTailNaked").Type, NPC.whoAmI);
+	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("StormWeaverTailNaked").Type, NPC.whoAmI);
 	                    }
 	                    Main.npc[lol].realLife = NPC.whoAmI;
 	                    Main.npc[lol].ai[2] = (float)NPC.whoAmI;
@@ -121,10 +143,21 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 					}
 					tail = true;
 	            }
-                if (!NPC.active && Main.netMode == NetmodeID.Server)
+                if (!NPC.active && Main.netMode == 2)
 				{
-					NetMessage.SendData(MessageID.DamageNPC, -1, -1, null, NPC.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(28, -1, -1, null, NPC.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 				}
+                NPC.localAI[0] += 1f;
+                if (NPC.localAI[0] >= ((CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive) ? 180f : 360f))
+                {
+                    NPC.localAI[0] = 0f;
+                    NPC.TargetClosest(true);
+                    NPC.netUpdate = true;
+                    int damage = expertMode ? 50 : 70;
+                    float xPos = (Main.rand.Next(2) == 0 ? NPC.position.X + 300f : NPC.position.X - 300f);
+                    Vector2 vector2 = new Vector2(xPos, NPC.position.Y + Main.rand.Next(-300, 301));
+                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, 0f, 0f, 465, damage, 0f, Main.myPlayer, 0f, 0f);
+                }
             }
 			int num180 = (int)(NPC.position.X / 16f) - 1;
 			int num181 = (int)((NPC.position.X + (float)NPC.width) / 16f) + 2;
@@ -159,15 +192,41 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 				}
 				if ((double)NPC.position.Y > Main.rockLayer * 16.0)
 				{
-					for (int num957 = 0; num957 < 200; num957++)
+                    CalamityWorldPreTrailer.DoGSecondStageCountdown = 0;
+                    if (Main.netMode == 2)
+                    {
+                        var netMessage = Mod.GetPacket();
+                        netMessage.Write((byte)CalamityModClassicPreTrailerMessageType.DoGCountdownSync);
+                        netMessage.Write(CalamityWorldPreTrailer.DoGSecondStageCountdown);
+                        netMessage.Send();
+                    }
+                    for (int num957 = 0; num957 < 200; num957++)
 					{
 						if (Main.npc[num957].aiStyle == NPC.aiStyle)
 						{
 							Main.npc[num957].active = false;
-						}
+                        }
 					}
 				}
 			}
+            if (Vector2.Distance(Main.player[NPC.target].Center, NPC.Center) > 10000f)
+            {
+                CalamityWorldPreTrailer.DoGSecondStageCountdown = 0;
+                if (Main.netMode == 2)
+                {
+                    var netMessage = Mod.GetPacket();
+                    netMessage.Write((byte)CalamityModClassicPreTrailerMessageType.DoGCountdownSync);
+                    netMessage.Write(CalamityWorldPreTrailer.DoGSecondStageCountdown);
+                    netMessage.Send();
+                }
+                for (int num957 = 0; num957 < 200; num957++)
+                {
+                    if (Main.npc[num957].aiStyle == NPC.aiStyle)
+                    {
+                        Main.npc[num957].active = false;
+                    }
+                }
+            }
 			float num188 = speed;
 			float num189 = turnSpeed;
 			Vector2 vector18 = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
@@ -191,7 +250,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 					break;
 				}
 			}
-			if (num42 > 0)
+			if (num42 > 0 && !CalamityWorldPreTrailer.death && !CalamityWorldPreTrailer.bossRushActive)
 			{
 				num42 *= 16;
 				float num47 = (float)(num42 - 800);
@@ -213,13 +272,13 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			}
 			else
 			{
-				num188 = revenge ? 19f : 18f;
-				num189 = revenge ? 0.7f : 0.65f;
-			}
-			if (!Main.player[NPC.target].ZoneSkyHeight)
-			{
-				num188 = 24f;
-				num189 = 0.85f;
+				num188 = revenge ? 17f : 16f;
+				num189 = revenge ? 0.5f : 0.45f;
+				if (!Main.player[NPC.target].ZoneSkyHeight)
+				{
+					num188 = 24f;
+					num189 = 0.6f;
+				}
 			}
 			float num48 = num188 * 1.3f;
 			float num49 = num188 * 0.7f;
@@ -237,7 +296,7 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 					NPC.velocity *= num49;
 				}
 			}
-			if (num42 > 0)
+			if (num42 > 0 && !CalamityWorldPreTrailer.death && !CalamityWorldPreTrailer.bossRushActive)
 			{
 				for (int num51 = 0; num51 < 200; num51++)
 				{
@@ -404,7 +463,48 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			}
 			NPC.rotation = (float)System.Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 1.57f;
 		}
-		
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			SpriteEffects spriteEffects = SpriteEffects.None;
+			Microsoft.Xna.Framework.Color color24 = NPC.GetAlpha(drawColor);
+			Microsoft.Xna.Framework.Color color25 = Lighting.GetColor((int)((double)NPC.position.X + (double)NPC.width * 0.5) / 16, (int)(((double)NPC.position.Y + (double)NPC.height * 0.5) / 16.0));
+			Texture2D texture2D3 = TextureAssets.Npc[NPC.type].Value;
+			int num156 = TextureAssets.Npc[NPC.type].Value.Height / Main.npcFrameCount[NPC.type];
+			int y3 = num156 * (int)NPC.frameCounter;
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(0, y3, texture2D3.Width, num156);
+			Vector2 origin2 = rectangle.Size() / 2f;
+			int num157 = 8;
+			int num158 = 2;
+			int num159 = 1;
+			float num160 = 0f;
+			int num161 = num159;
+			while (((num158 > 0 && num161 < num157) || (num158 < 0 && num161 > num157)) && Lighting.NotRetro)
+			{
+				Microsoft.Xna.Framework.Color color26 = NPC.GetAlpha(color25);
+				{
+					goto IL_6899;
+				}
+				IL_6881:
+				num161 += num158;
+				continue;
+				IL_6899:
+				float num164 = (float)(num157 - num161);
+				if (num158 < 0)
+				{
+					num164 = (float)(num159 - num161);
+				}
+				color26 *= num164 / ((float)NPCID.Sets.TrailCacheLength[NPC.type] * 1.5f);
+				Vector2 value4 = (NPC.oldPos[num161]);
+				float num165 = NPC.rotation;
+				Main.spriteBatch.Draw(texture2D3, value4 + NPC.Size / 2f - Main.screenPosition + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, num165 + NPC.rotation * num160 * (float)(num161 - 1) * -(float)spriteEffects.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), origin2, NPC.scale, spriteEffects, 0f);
+				goto IL_6881;
+			}
+			var something = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			spriteBatch.Draw(texture2D3, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY), NPC.frame, color24, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, something, 0);
+			return false;
+		}
+
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
 			cooldownSlot = 1;
@@ -420,11 +520,13 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.ShadowbeamStaff, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 173, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity, Mod.Find<ModGore>("SWNude").Type, 1f);
+                NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 30;
 				NPC.height = 30;
@@ -432,9 +534,9 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
 				for (int num621 = 0; num621 < 20; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					if (Main.rand.Next(2) == 0)
 					{
 						Main.dust[num622].scale = 0.5f;
 						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
@@ -442,22 +544,34 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 				}
 				for (int num623 = 0; num623 < 40; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 3f);
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 3f);
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num624].velocity *= 2f;
 				}
 				Vector2 spawnAt = NPC.Center + new Vector2(0f, (float)NPC.height / 2f);
 			}
 		}
 
+        public override bool CheckDead()
+        {
+            for (int num569 = 0; num569 < 200; num569++)
+            {
+                if (Main.npc[num569].active && (Main.npc[num569].type == Mod.Find<ModNPC>("StormWeaverBodyNaked").Type || Main.npc[num569].type == Mod.Find<ModNPC>("StormWeaverTailNaked").Type))
+                {
+                    Main.npc[num569].active = false;
+                }
+            }
+            return true;
+        }
+        
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<ArmoredShell>(), 1, 5, 8));
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<WeaverTrophy>(), 10));
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<TheStorm>(), 3));
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<StormDragoon>(), 3));
+	        npcLoot.Add(ItemDropRule.ByCondition(new NotInDoGSentinelPhase(), Mod.Find<ModItem>("ArmoredShell").Type, 1, 5, 9));
+	        npcLoot.Add(ItemDropRule.ByCondition(new NotInDoGSentinelPhase(), Mod.Find<ModItem>("WeaverTrophy").Type, 10));
+	        npcLoot.Add(ItemDropRule.ByCondition(new NotInDoGSentinelPhase(), Mod.Find<ModItem>("TheStorm").Type, 3));
+	        npcLoot.Add(ItemDropRule.ByCondition(new NotInDoGSentinelPhase(), Mod.Find<ModItem>("StormDragoon").Type, 3));
         }
 		
 		public override void BossLoot(ref string name, ref int potionType)
@@ -465,10 +579,9 @@ namespace CalamityModClassic1Point2.NPCs.StormWeaver
 			potionType = ItemID.SuperHealingPotion;
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
-			NPC.damage *= 2;
 		}
 	}
 }

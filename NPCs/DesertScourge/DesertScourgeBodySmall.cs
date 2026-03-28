@@ -6,40 +6,44 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.DesertScourge
+namespace CalamityModClassicPreTrailer.NPCs.DesertScourge
 {
 	public class DesertScourgeBodySmall : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Desert Scourge");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("Desert Scourge");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
-			NPC.damage = 10; //70
+			NPC.damage = 9; //70
 			NPC.npcSlots = 5f;
 			NPC.width = 32; //324
 			NPC.height = 36; //216
 			NPC.defense = 5;
-			NPC.lifeMax = 1000; //250000
-			NPC.aiStyle = 6; //new
+			NPC.lifeMax = 800; //250000
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = 350000;
+            }
+            NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
 			NPC.knockBackResist = 0f;
 			NPC.alpha = 255;
 			NPC.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
-			NPC.boss = true;
-			NPC.behindTiles = true;
+            NPC.behindTiles = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
+			NPC.canGhostHeal = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.netAlways = true;
@@ -85,22 +89,31 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				float randomSpread = (float)(Main.rand.Next(-100, 100) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody").Type, 0.65f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody2").Type, 0.65f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody3").Type, 0.65f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					float randomSpread = (float)(Main.rand.Next(-100, 100) / 100);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody").Type,
+						0.65f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody2").Type,
+						0.65f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("ScourgeBody3").Type,
+						0.65f);
+				}
 				for (int k = 0; k < 10; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
@@ -108,7 +121,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			target.AddBuff(BuffID.Bleeding, 100, true);
+			target.AddBuff(BuffID.Bleeding, 60, true);
 		}
 	}
 }

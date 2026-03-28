@@ -11,24 +11,41 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Crabulon 
+namespace CalamityModClassicPreTrailer.Items.Crabulon 
 {
 	public class FungalClump : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Fungal Clump");
+			/* Tooltip.SetDefault("Summons a fungal clump to fight for you\n" +
+	                   "The clump latches onto enemies and steals their life for you"); */
+		}
+		
 	    public override void SetDefaults()
 	    {
 	        Item.width = 20;
 	        Item.height = 26;
-	        Item.value = 40000;
-	        Item.expert = true;
+            Item.value = Item.buyPrice(0, 9, 0, 0);
+            Item.expert = true;
 	        Item.accessory = true;
 	    }
-	    
-	    public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)/* tModPorter Suggestion: Consider using new hook CanAccessoryBeEquippedWith */
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            if (modPlayer.fungalClump)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-	    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+	    	CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.fungalClump = true;
 			if (player.whoAmI == Main.myPlayer)
 			{
@@ -38,16 +55,7 @@ namespace CalamityModClassic1Point2.Items.Crabulon
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("FungalClump").Type] < 1)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("FungalClump").Type, 10, 1f, Main.myPlayer, 0f, 0f);
-				}
-			}
-			for (int num569 = 0; num569 < 200; num569++)
-			{
-				if (Main.npc[num569].active && Main.npc[num569].type == (Mod.Find<ModNPC>("CrabulonIdle").Type))
-				{
-					Main.npc[num569].friendly = true;
-					Main.npc[num569].dontTakeDamage = true;
-					Main.npc[num569].chaseable = false;
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("FungalClump").Type, (int)(10f * player.GetDamage(DamageClass.Summon).Multiplicative), 1f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

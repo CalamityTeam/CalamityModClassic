@@ -5,43 +5,51 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod {
-public class Goobow : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Goobow");
-	}
-
-    public override void SetDefaults()
+    public class Goobow : ModItem
     {
-        Item.damage = 42;
-        Item.DamageType = DamageClass.Ranged;
-        Item.width = 20;
-        Item.height = 36;
-        Item.useTime = 25;
-        Item.useAnimation = 25;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true; //so the item's animation doesn't do damage
-        Item.knockBack = 4.5f;
-        Item.value = 105000;
-        Item.rare = ItemRarityID.Pink;
-        Item.UseSound = SoundID.Item5;
-        Item.autoReuse = true;
-        Item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
-        Item.shootSpeed = 12f;
-        Item.useAmmo = 40;
-    }
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Goobow");
+        }
 
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "PurifiedGel", 18);
-        recipe.AddIngredient(ItemID.Gel, 30);
-        recipe.AddIngredient(ItemID.HellstoneBar, 5);
-        recipe.AddTile(TileID.Anvils);
-        recipe.Register();
+        public override void SetDefaults()
+        {
+            Item.damage = 46;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 30;
+            Item.height = 48;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 3f;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 4;
+            Item.UseSound = SoundID.Item5;
+            Item.autoReuse = true;
+            Item.shoot = 10;
+            Item.shootSpeed = 12f;
+            Item.useAmmo = 40;
+        }
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "PurifiedGel", 18);
+            recipe.AddIngredient(ItemID.Gel, 30);
+            recipe.AddIngredient(ItemID.HellstoneBar, 5);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
     }
-}}
+}

@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
+namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
 {
 	public class TheHive : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("The Hive");
+			// DisplayName.SetDefault("The Hive");
 		}
 
 	    public override void SetDefaults()
@@ -24,14 +24,14 @@ namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
 			Item.height = 30;
 			Item.useTime = 21;
 			Item.useAnimation = 21;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.noMelee = true; //so the item's animation doesn't do damage
+			Item.useStyle = 5;
+			Item.noMelee = true;
 			Item.knockBack = 3.5f;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 			Item.UseSound = SoundID.Item61;
 			Item.autoReuse = true;
-			Item.shoot = Mod.Find<ModProjectile>("BeeRPG").Type; //idk why but all the guns in the vanilla source have this
+			Item.shoot = Mod.Find<ModProjectile>("BeeRPG").Type;
 			Item.shootSpeed = 13f;
 			Item.useAmmo = 771;
 		}
@@ -46,7 +46,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
 	    		case 3: type = Mod.Find<ModProjectile>("BeeRPG").Type; break;
 	    		default: break;
 			}
-	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

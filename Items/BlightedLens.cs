@@ -1,26 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items {
-public class BlightedLens : ModItem
+namespace CalamityModClassicPreTrailer.Items
 {
-	public override void SetStaticDefaults()
+	public class BlightedLens : ModItem
 	{
-		//DisplayName.SetDefault("Blighted Lens");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Blighted Lens");
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 16;
+			Item.height = 22;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = 5;
+		}
 	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 16;
-		Item.height = 22;
-		Item.maxStack = 999;
-		Item.value = 5000;
-		Item.rare = ItemRarityID.Green;
-	}
-}}
+}

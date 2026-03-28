@@ -1,37 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class ArcanumoftheVoid : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetDefaults()
-	{
-		Item.width = 26;
-		Item.height = 26;
-		Item.value = 1500000;
-		Item.accessory = true;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class ArcanumoftheVoid : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 0);
-            }
+            // DisplayName.SetDefault("Arcanum of the Void");
+            /* Tooltip.SetDefault("You have a 5% chance to reflect projectiles when they hit you\n" +
+                               "If this effect triggers you get healed for the projectile's damage"); */
         }
-    }
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.projRef = true;
+
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.accessory = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+			modPlayer.projRef = true;
+        }
 	}
-}}
+}

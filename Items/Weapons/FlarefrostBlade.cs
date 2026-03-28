@@ -6,33 +6,32 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FlarefrostBlade : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Flarefrost Blade");
+			// DisplayName.SetDefault("Flarefrost Blade");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 66;
-			Item.damage = 55;
+			Item.damage = 58;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.useAnimation = 28;
-			Item.useTime = 28;
+			Item.useAnimation = 24;
+			Item.useTime = 24;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 66;
-			Item.maxStack = 1;
-			Item.value = 550000;
-			Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 			Item.shoot = Mod.Find<ModProjectile>("Flarefrost").Type;
-			Item.shootSpeed = 9f;
+			Item.shootSpeed = 11f;
 		}
 		
 		public override void AddRecipes()
@@ -56,7 +55,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    	{
 	    		dustChoice = 6;
 	    	}
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
 	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, dustChoice);
 	        }

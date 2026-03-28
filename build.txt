@@ -1,9 +1,8 @@
-author = Fabsol and the Dev Team
-version = 1.0.0.8
-displayName = Calamity Mod Classic 1.2
-homepage = https://discord.gg/calamity
-buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*
+author = The Calamity Dev Team
+version = 1.0.0.0
+displayName = Calamity Mod Classic 1.4.2.101
+buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes
 hideCode = false
-hideResources = true
-includeSource = false
+hideResources = false
+includeSource = true
 includePDB = true

@@ -1,15 +1,15 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class ZergPotion : ModItem
 	{
 		public override void SetStaticDefaults()
 	 	{
-	 		//DisplayName.SetDefault("Zerg Potion");
-	 		//Tooltip.SetDefault("Boosts spawn rates...a lot...");
+	 		// DisplayName.SetDefault("Zerg Potion");
+	 		// Tooltip.SetDefault("Boosts spawn rates...a lot...");
 	 	}
 	
 		public override void SetDefaults()
@@ -18,10 +18,10 @@ namespace CalamityModClassic1Point2.Items
 			Item.height = 18;
 			Item.useTurn = true;
 			Item.maxStack = 30;
-			Item.rare = ItemRarityID.Orange;
+			Item.rare = 3;
 			Item.useAnimation = 17;
 			Item.useTime = 17;
-			Item.useStyle = ItemUseStyleID.EatFood;
+			Item.useStyle = 2;
 			Item.UseSound = SoundID.Item3;
 			Item.consumable = true;
 			Item.buffType = Mod.Find<ModBuff>("Zerg").Type;
@@ -32,11 +32,17 @@ namespace CalamityModClassic1Point2.Items
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.BattlePotion);
-			recipe.AddIngredient(null, "DemonicBoneAsh");
+			recipe.AddIngredient(null, "EssenceofChaos", 3);
 			recipe.AddIngredient(null, "MurkySludge", 2);
-			recipe.AddTile(TileID.AlchemyTable);
+            recipe.AddIngredient(null, "DemonicBoneAsh");
+            recipe.AddIngredient(ItemID.BottledWater);
+            recipe.AddTile(TileID.AlchemyTable);
 			recipe.Register();
-		}
+            recipe = CreateRecipe();
+            recipe.AddIngredient(null, "BloodOrb", 20);
+            recipe.AddIngredient(ItemID.BottledWater);
+            recipe.AddTile(TileID.AlchemyTable);
+            recipe.Register();
+        }
 	}
 }

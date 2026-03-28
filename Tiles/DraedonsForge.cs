@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class DraedonsForge : ModTile
 	{
@@ -20,10 +21,16 @@ namespace CalamityModClassic1Point2.Tiles
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Draedon's Forge");
- 			AddMapEntry(new Color(0, 255, 0));
+ 			AddMapEntry(new Color(0, 255, 0), name);
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			AdjTiles = new int[]{ TileID.AdamantiteForge, TileID.LunarCraftingStation, TileID.MythrilAnvil };
-		}
+            AdjTiles = new int[] { TileID.Anvils, TileID.Furnaces, TileID.WorkBenches, TileID.LunarCraftingStation,
+                TileID.MythrilAnvil, TileID.AdamantiteForge, TileID.Hellforge };
+        }
+
+		/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, Mod.Find<ModItem>("DraedonsForge").Type);
+		}*/
 		
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{

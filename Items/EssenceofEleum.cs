@@ -1,36 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.NPCs;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items {
-public class EssenceofEleum : ModItem
+namespace CalamityModClassicPreTrailer.Items
 {
-	public override void SetStaticDefaults()
+	public class EssenceofEleum : ModItem
 	{
-		//DisplayName.SetDefault("Essence of Eleum");
-		//Tooltip.SetDefault("The essence of cold creatures");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Essence of Eleum");
+			// Tooltip.SetDefault("The essence of cold creatures");
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			maxFallSpeed = 0f;
+			float num = (float)Main.rand.Next(90, 111) * 0.01f;
+			num *= Main.essScale;
+			Lighting.AddLight((int)((Item.position.X + (float)(Item.width / 2)) / 16f), (int)((Item.position.Y + (float)(Item.height / 2)) / 16f), 0.15f * num, 0.05f * num, 0.5f * num);
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 8;
+			Item.height = 20;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = 5;
+		}
 	}
-		
-	public override void Update(ref float gravity, ref float maxFallSpeed)
-    {
-		maxFallSpeed *= 0f;
-        float num = (float)Main.rand.Next(90, 111) * 0.01f;
-        num *= Main.essScale;
-        Lighting.AddLight((int)((Item.position.X + (float)(Item.width / 2)) / 16f), (int)((Item.position.Y + (float)(Item.height / 2)) / 16f), 0.15f * num, 0.05f * num, 0.5f * num);
-    }
-	
-	public override void SetDefaults()
-	{
-		Item.width = 8;
-		Item.height = 20;
-		Item.maxStack = 999;
-		Item.value = 25000;
-		Item.rare = ItemRarityID.Pink;
-	}
-}}
+}

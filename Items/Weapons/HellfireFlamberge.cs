@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class HellfireFlamberge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hellfire Flamberge");
+			// DisplayName.SetDefault("Hellfire Flamberge");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 50;
+			Item.width = 60;
 			Item.damage = 102;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 20;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 20;
 			Item.useTurn = true;
 			Item.knockBack = 7.75f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 50;
-			Item.value = 415000;
-			Item.rare = ItemRarityID.Yellow;
+			Item.height = 60;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 			Item.shoot = Mod.Find<ModProjectile>("ChaosFlameSmall").Type;
 			Item.shootSpeed = 20f;
 		}
@@ -53,7 +53,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    			case 2: type = Mod.Find<ModProjectile>("ChaosFlameLarge").Type; break;
 	    			default: break;
 				}
-	            Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, 0.0f);
+	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, velocity.Y, type, (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	}
 	    	return false;
 		}
@@ -68,9 +68,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 174);
 	        }
 	    }
 	    

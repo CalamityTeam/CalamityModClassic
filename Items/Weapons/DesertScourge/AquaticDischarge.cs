@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons.DesertScourge
+namespace CalamityModClassicPreTrailer.Items.Weapons.DesertScourge
 {
 	public class AquaticDischarge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Aquatic Discharge");
-			//Tooltip.SetDefault("Enemies release electric sparks on death");
+			// DisplayName.SetDefault("Aquatic Discharge");
+			// Tooltip.SetDefault("Enemies release electric sparks on death");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 12;
 			Item.useTime = 12;
@@ -30,15 +30,15 @@ namespace CalamityModClassic1Point2.Items.Weapons.DesertScourge
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 8000;
-			Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Electric);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 226);
 	        }
 	    }
 	    
@@ -46,7 +46,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.DesertScourge
 	    {
 	    	if (target.life <= 0)
 	    	{
-	    		Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Spark").Type, hit.Damage, hit.Knockback, Main.myPlayer);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Spark").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

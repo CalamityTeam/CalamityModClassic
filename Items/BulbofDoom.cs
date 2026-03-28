@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -8,14 +8,14 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class BulbofDoom : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Portable Bulb");
-			//Tooltip.SetDefault("Summons Plantera");
+			// DisplayName.SetDefault("Portabulb");
+			// Tooltip.SetDefault("Summons Plantera");
 		}
 		
 		public override void SetDefaults()
@@ -25,8 +25,8 @@ namespace CalamityModClassic1Point2.Items
 			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.rare = ItemRarityID.Lime;
+			Item.useStyle = 4;
+			Item.rare = 7;
 			Item.consumable = true;
 		}
 		
@@ -45,8 +45,12 @@ namespace CalamityModClassic1Point2.Items
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "BarofLife", 3);
-			recipe.AddIngredient(null, "LivingShard");
+			recipe.AddIngredient(ItemID.JungleSpores, 15);
+			recipe.AddIngredient(ItemID.SoulofNight, 10);
+			recipe.AddIngredient(ItemID.SoulofLight, 10);
+			recipe.AddIngredient(null, "MurkyPaste", 3);
+			recipe.AddIngredient(null, "ManeaterBulb");
+			recipe.AddIngredient(null, "TrapperBulb");
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}

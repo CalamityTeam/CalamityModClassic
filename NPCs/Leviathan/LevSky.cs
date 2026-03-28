@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Leviathan
+namespace CalamityModClassicPreTrailer.NPCs.Leviathan
 {
 	public class LevSky : CustomSky
 	{
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 
 		private bool UpdateLIndex()
 		{
-			int LevType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("Leviathan").Type;
+			int LevType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("Leviathan").Type;
 			if (LevIndex >= 0 && Main.npc[LevIndex].active && Main.npc[LevIndex].type == LevType)
 			{
 				return true;

@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class CoralSpout : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Coral Spout");
-			//Tooltip.SetDefault("Casts coral water spouts that lay on the ground and damage enemies");
+			// DisplayName.SetDefault("Coral Spout");
+			// Tooltip.SetDefault("Casts coral water spouts that lay on the ground and damage enemies");
 		}
 
 	    public override void SetDefaults()
@@ -26,11 +26,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 30;
 	        Item.useTime = 18;
 	        Item.useAnimation = 18;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2.5f;
-	        Item.value = 50000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item17;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("CoralSpike").Type;

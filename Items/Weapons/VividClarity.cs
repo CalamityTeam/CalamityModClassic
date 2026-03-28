@@ -5,46 +5,41 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class VividClarity : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
+			// DisplayName.SetDefault("Vivid Clarity");
+			/* Tooltip.SetDefault("Fires 3 beams of elemental energy near the mouse cursor that bounce on tile hits\n" +
+			                   "These beams split into more beams when enemies are near\n" +
+			                   "The more enemies and tiles the beams hit/pierce the more damage they do"); */
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 450;
+	        Item.damage = 500;
 	        Item.DamageType = DamageClass.Magic;
-	        Item.mana = 50;
-	        Item.width = 82;
-	        Item.height = 82;
-	        Item.useTime = 35;
-	        Item.useAnimation = 35;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.mana = 150;
+	        Item.width = 90;
+	        Item.height = 112;
+	        Item.useTime = 33;
+	        Item.useAnimation = 33;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7.5f;
-	        Item.value = 100000000;
-	        Item.UseSound = SoundID.Item60;
+            Item.value = Item.buyPrice(2, 50, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item60;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("VividClarity").Type;
 	        Item.shootSpeed = 6f;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 15;
+		}
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
@@ -91,8 +86,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("VividClarity").Type, damage, knockback, player.whoAmI, 0f, 0f);
+				float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("VividClarity").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			return false;
 		}
@@ -107,11 +102,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        recipe.AddIngredient(null, "PhantasmalFury");
 	        recipe.AddIngredient(null, "ShadowboltStaff");
 	        recipe.AddIngredient(null, "VenusianTrident");
-	        recipe.AddIngredient(null, "NightmareFuel", 10);
-        	recipe.AddIngredient(null, "EndothermicEnergy", 10);
-	        recipe.AddIngredient(null, "CosmiliteBar", 10);
-	        recipe.AddIngredient(null, "Phantoplasm", 50);
-	        recipe.AddTile(null, "DraedonsForge");
+	        recipe.AddIngredient(null, "NightmareFuel", 5);
+        	recipe.AddIngredient(null, "EndothermicEnergy", 5);
+	        recipe.AddIngredient(null, "CosmiliteBar", 5);
+            recipe.AddIngredient(null, "DarksunFragment", 5);
+            recipe.AddIngredient(null, "HellcasterFragment", 3);
+            recipe.AddIngredient(null, "Phantoplasm", 5);
+            recipe.AddIngredient(null, "AuricOre", 25);
+            recipe.AddTile(null, "DraedonsForge");
 	        recipe.Register();
 	    }
 	}

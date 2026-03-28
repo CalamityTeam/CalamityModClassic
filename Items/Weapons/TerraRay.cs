@@ -5,48 +5,50 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons {
-public class TerraRay : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Terra Ray");
-		Item.staff[Item.type] = true;
-	}
+    public class TerraRay : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Terra Ray");
+            Item.staff[Item.type] = true;
+        }
 
-    public override void SetDefaults()
-    {
-        Item.damage = 55;
-        Item.DamageType = DamageClass.Magic;
-        Item.mana = 10;
-        Item.width = 58;
-        Item.height = 58;
-        Item.useTime = 20;
-        Item.useAnimation = 20;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true; //so the item's animation doesn't do damage
-        Item.knockBack = 5.5f;
-        Item.value = 1000000;
-        Item.rare = ItemRarityID.Yellow;
-        Item.UseSound = SoundID.Item60;
-        Item.autoReuse = true;
-        Item.shoot = Mod.Find<ModProjectile>("TerraRay").Type;
-        Item.shootSpeed = 6f;
+        public override void SetDefaults()
+        {
+            Item.damage = 75;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 10;
+            Item.width = 54;
+            Item.height = 54;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 4f;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
+            Item.UseSound = SoundID.Item60;
+            Item.autoReuse = true;
+            Item.shoot = Mod.Find<ModProjectile>("TerraRay").Type;
+            Item.shootSpeed = 6f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "NightsRay");
+            recipe.AddIngredient(null, "LivingShard", 7);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+            recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CarnageRay");
+            recipe.AddIngredient(null, "LivingShard", 7);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+        }
     }
-    
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "LivingShard", 7);
-        recipe.AddIngredient(null, "NightsRay");
-        recipe.AddTile(TileID.MythrilAnvil);
-        recipe.Register();
-        recipe = CreateRecipe();
-        recipe.AddIngredient(null, "LivingShard", 7);
-        recipe.AddIngredient(null, "CarnageRay");
-        recipe.AddTile(TileID.MythrilAnvil);
-        recipe.Register();
-    }
-}}
+}

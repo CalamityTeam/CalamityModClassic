@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class NightsRay : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Night's Ray");
+			// DisplayName.SetDefault("Night's Ray");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 32;
+	        Item.damage = 35;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 10;
-	        Item.width = 56;
-	        Item.height = 56;
+	        Item.width = 50;
+	        Item.height = 50;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3.25f;
-	        Item.value = 100000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 4;
 	        Item.UseSound = SoundID.Item72;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("NightRay").Type;

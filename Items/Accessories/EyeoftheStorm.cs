@@ -11,30 +11,40 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories 
+namespace CalamityModClassicPreTrailer.Items.Accessories 
 {
 	public class EyeoftheStorm : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Eye of the Storm");
-			//Tooltip.SetDefault("Summons a cloud elemental to fight for you");
+			// DisplayName.SetDefault("Eye of the Storm");
+			// Tooltip.SetDefault("Summons a cloud elemental to fight for you");
 		}
 		
 	    public override void SetDefaults()
 	    {
 	        Item.width = 20;
 	        Item.height = 26;
-	        Item.value = 500000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 15, 0, 0);
+            Item.rare = 5;
 	        Item.accessory = true;
 	    }
-	    
-	    public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)/* tModPorter Suggestion: Consider using new hook CanAccessoryBeEquippedWith */
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            if (modPlayer.elementalHeart)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-	    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+	    	CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.cloudWaifu = true;
 			if (player.whoAmI == Main.myPlayer)
 			{
@@ -44,7 +54,7 @@ namespace CalamityModClassic1Point2.Items.Accessories
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudyWaifu").Type] < 1)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("CloudyWaifu").Type, 60, 2f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("CloudyWaifu").Type, (int)(45f * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

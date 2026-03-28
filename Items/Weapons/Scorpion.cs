@@ -5,31 +5,31 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Scorpion : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Scorpio");
-			//Tooltip.SetDefault("Rockets\nRight click to change modes");
+			// DisplayName.SetDefault("Scorpio");
+			// Tooltip.SetDefault("Rockets\nRight click to change modes");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 103;
+	        Item.damage = 95;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 58;
 	        Item.height = 26;
 	        Item.useTime = 13;
 	        Item.useAnimation = 13;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 6.5f;
-	        Item.value = 3050000;
-	        Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.buyPrice(0, 95, 0, 0);
+            Item.rare = 9;
 	        Item.UseSound = SoundID.Item11;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 20f;
@@ -61,12 +61,12 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigNuke").Type, (int)((double)damage * 3f), knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigNuke").Type, (int)((double)damage * 3.0), knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MiniRocket").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MiniRocket").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 		}

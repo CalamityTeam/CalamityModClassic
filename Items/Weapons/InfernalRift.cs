@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class InfernalRift : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Infernal Rift");
-			//Tooltip.SetDefault("Summons infernal blades");
+			// DisplayName.SetDefault("Infernal Rift");
+			// Tooltip.SetDefault("Summons infernal blades");
 			Item.staff[Item.type] = true;
 		}
 
@@ -29,11 +29,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.useTime = 4;
 	        Item.reuseDelay = Item.useAnimation + 6;
 	        Item.crit = 25;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 600000;
-	        Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item9;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("InfernalBlade").Type;
@@ -74,7 +74,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Vector2 vector15 = new Vector2(num78, num79).SafeNormalize(Vector2.UnitY) * num72;
 			vector14 = vector14.SafeNormalize(vector15) * num72;
 			vector14 = Vector2.Lerp(vector14, vector15, 0.25f);
-			Projectile.NewProjectile(source, vector13, vector14, type, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector13, vector14, type, damage, knockback, player.whoAmI, 0f, 0f);
 			return false;
 		}
 	}

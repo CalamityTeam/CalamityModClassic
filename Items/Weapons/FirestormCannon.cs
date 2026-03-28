@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class FirestormCannon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Firestorm Cannon");
-			//Tooltip.SetDefault("70% chance to not consume flares\nRight click to change modes");
+			// DisplayName.SetDefault("Firestorm Cannon");
+			// Tooltip.SetDefault("70% chance to not consume flares\nRight click to change modes");
 		}
 
 	    public override void SetDefaults()
@@ -22,24 +22,24 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.damage = 11;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 56;
-			Item.height = 24;
+			Item.height = 28;
 			Item.useTime = 9;
 			Item.useAnimation = 9;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 1.5f;
-			Item.value = 50000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.Flare;
+			Item.shoot = 163;
 			Item.shootSpeed = 5.5f;
 			Item.useAmmo = 931;
 		}
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 70)
+	    	if (Main.rand.Next(0, 100) < 70)
 	    		return false;
 	    	return true;
 	    }
@@ -73,7 +73,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		        {
 		            float SpeedX = velocity.X + (float) Main.rand.Next(-50, 51) * 0.05f;
 		            float SpeedY = velocity.Y + (float) Main.rand.Next(-50, 51) * 0.05f;
-		            int flare = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		            int flare = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		            Main.projectile[flare].penetrate = 1;
 		            Main.projectile[flare].timeLeft = 600;
 		        }
@@ -88,7 +88,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			        float num8 = velocity.Y;
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-40, 41) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-40, 41) * 0.05f;
-			        int projectile = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.85f), knockback, player.whoAmI, 0.0f, 0.0f);
+			        int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.85), knockback, player.whoAmI, 0.0f, 0.0f);
 			        Main.projectile[projectile].timeLeft = 200;
 			    }
 			    return false;

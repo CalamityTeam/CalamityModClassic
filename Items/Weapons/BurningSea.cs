@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class BurningSea : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Burning Sea");
+			// DisplayName.SetDefault("Burning Sea");
 		}
 
 	    public override void SetDefaults()
@@ -25,11 +25,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 30;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 6.5f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 48, 0, 0);
+            Item.rare = 6;
 	        Item.UseSound = SoundID.Item20;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("BrimstoneFireball").Type;

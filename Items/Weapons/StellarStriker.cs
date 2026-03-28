@@ -6,46 +6,37 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class StellarStriker : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Stellar Striker");
-			//Tooltip.SetDefault("Summons a swarm of lunar flares from the sky on enemy hits");
+			// DisplayName.SetDefault("Stellar Striker");
+			// Tooltip.SetDefault("Summons a swarm of lunar flares from the sky on enemy hits");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 86;  //The width of the .png file in pixels divided by 2.
-			Item.damage = 300;  //Keep this reasonable please.
-			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;  //Dictates whether this is a melee-class weapon.
+			Item.width = 86;
+			Item.damage = 640;
+			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 25;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 25;
 			Item.useTurn = true;
-			Item.knockBack = 7.75f;  //Ranges from 1 to 9.
+			Item.knockBack = 7.75f;
 			Item.UseSound = SoundID.Item1;
-			Item.autoReuse = true;  //Dictates whether the weapon can be "auto-fired".
-			Item.height = 86;  //The height of the .png file in pixels divided by 2.
-			Item.maxStack = 1;
-			Item.value = 800000;  //Value is calculated in copper coins.
-			Item.shootSpeed = 12f;
+			Item.autoReuse = true;
+			Item.height = 86;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.shootSpeed = 12f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 		
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	    {
@@ -77,7 +68,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			}
 	    	num78 *= num80;
 			num79 *= num80;
-			int num112 = 6;
+			int num112 = 2;
 			for (int num113 = 0; num113 < num112; num113++) 
 			{
 				vector2 = new Vector2(player.position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -(float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
@@ -99,16 +90,16 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num79 *= num80;
 				float num114 = num78;
 				float num115 = num79 + (float)Main.rand.Next(-80, 81) * 0.02f;
-				int meteor = Projectile.NewProjectile(player.GetSource_FromThis(), vector2.X, vector2.Y, num114, num115, 645, hit.Damage, hit.Knockback, i, 0f, (float)Main.rand.Next(3));
-				Main.projectile[meteor].DamageType = DamageClass.Melee;
+				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114, num115, 645, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.5), Item.knockBack, i, 0f, (float)Main.rand.Next(3));
+				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
 		}
 		
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	            Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Vortex);
+	            Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 229);
 	        }
 	    }
 	

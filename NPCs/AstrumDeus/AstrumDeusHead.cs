@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -7,62 +7,71 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using CalamityModClassic1Point2;
-using Terraria.WorldBuilding;
+using CalamityModClassicPreTrailer.Tiles;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.BiomeManagers;
+using CalamityModClassicPreTrailer.Dusts;
 using Terraria.GameContent.Bestiary;
+using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.AstrumDeus
+namespace CalamityModClassicPreTrailer.NPCs.AstrumDeus
 {
 	[AutoloadBossHead]
 	public class AstrumDeusHead : ModNPC
 	{
-		public bool flies = false;
-		public const int minLength = 50;
-		public const int maxLength = 51;
-		public int addOrbiter = 0;
-		public int addOrbiter2 = 0;
-		public float speed = 0.15f;
-		public float turnSpeed = 0.1f;
-		bool TailSpawned = false;
-		public bool secondStage = false;
-		public bool thirdStage = false;
+        private bool flies = false;
+        private const int minLength = 4;
+        private const int maxLength = 5;
+        private int addOrbiter = 0;
+        private int addOrbiter2 = 0;
+        private float speed = 0.15f;
+        private float turnSpeed = 0.1f;
+        private bool TailSpawned = false;
+        private bool secondStage = false;
+        private bool thirdStage = false;
 		
 		public override void SetStaticDefaults()
-        {
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Scale = 0.8f,
-                PortraitScale = 0.8f,
-                CustomTexturePath = "CalamityModClassic1Point2/NPCs/AstrumDeus/Bestiary",
-                PortraitPositionXOverride = 40,
-                PortraitPositionYOverride = 40
-            };
-            value.Position.X += 50;
-            value.Position.Y += 35;
-            NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
-            //DisplayName.SetDefault("Astrum Deus");
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BiomeManagers.AstralMeteorBiome>().Type };
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                new FlavorTextBestiaryInfoElement("The god of the stars.")
-
-            });
-        }
-
-        public override void SetDefaults()
 		{
-			NPC.damage = 110; //150
+			// DisplayName.SetDefault("Astrum Deus");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			{
+				Scale = 0.70f,
+				PortraitScale = 0.75f,
+				CustomTexturePath = "CalamityModClassicPreTrailer/NPCs/AstrumDeus/AstrumDeus_Bestiary"
+			};
+			value.Position.X += 55f;
+			value.Position.Y += 23f;
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				new FlavorTextBestiaryInfoElement("Despite its catastrophic fall to the infection and subsequent demolition by an upstart worm, it and its smaller brethren willfully seek to return to the cosmos.")
+			});
+		}
+		
+		public override void SetDefaults()
+		{
+			NPC.damage = 85; //150
 			NPC.npcSlots = 5f;
 			NPC.width = 56; //324
 			NPC.height = 56; //216
-			NPC.defense = 60;
-			NPC.lifeMax = CalamityWorld1Point2.revenge ? 165000 : 150000; //250000
+			NPC.defense = 30;
+            NPC.lifeMax = CalamityWorldPreTrailer.revenge ? 12000 : 8000; //250000
+            if (CalamityWorldPreTrailer.death)
+            {
+                NPC.lifeMax = 19400;
+            }
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = CalamityWorldPreTrailer.death ? 420000 : 360000;
+			}
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -72,8 +81,6 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			{
 				NPC.scale = 1.35f;
 			}
-			NPC.boss = true;
-			NPC.value = Item.buyPrice(0, 30, 0, 0);
 			NPC.alpha = 255;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
@@ -85,45 +92,82 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
 			NPC.netAlways = true;
-			Music = MusicID.Boss3;
-		}
+            Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/AstrumDeus");
+            SpawnModBiomes = new int[] { ModContent.GetInstance<Astral>().Type };
+        }
 		
 		public override void AI()
 		{
-			bool expertMode = Main.expertMode;
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
 			int defenseDown = (int)(30f * (1f - (float)NPC.life / (float)NPC.lifeMax));
 			NPC.defense = NPC.defDefense - defenseDown;
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
-			if ((NPC.life <= NPC.lifeMax * 0.65f))
-			{
-				if (secondStage == false && Main.netMode != NetmodeID.MultiplayerClient) 
-				{
-					SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-					for (int I = 0; I < 3; I++) 
-					{
-						int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(), (int)(NPC.Center.X + (Math.Sin(I * 120) * 75)), (int)(NPC.Center.Y + (Math.Cos(I * 120) * 75)), Mod.Find<ModNPC>("AstrumDeusProbe").Type, NPC.whoAmI, 0, 0, 0, -1);
-						NPC Eye = Main.npc[FireEye];
-						Eye.ai[0] = I * 120;
-						Eye.ai[3] = I * 120;
-					}
-					secondStage = true;
-				}
-			}
-			if ((NPC.life <= NPC.lifeMax * 0.3f))
-			{
-				if (thirdStage == false && Main.netMode != NetmodeID.MultiplayerClient) 
-				{
-					SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-					for (int I = 0; I < 5; I++) 
-					{
-						int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(), (int)(NPC.Center.X + (Math.Sin(I * 72) * 150)), (int)(NPC.Center.Y + (Math.Cos(I * 72) * 150)), Mod.Find<ModNPC>("AstrumDeusProbe2").Type, NPC.whoAmI, 0, 0, 0, -1);
-						NPC Eye = Main.npc[FireEye];
-						Eye.ai[0] = I * 72;
-						Eye.ai[3] = I * 72;
-					}
-					thirdStage = true;
-				}
-			}
+            if (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive)
+            {
+                if ((NPC.life <= NPC.lifeMax * 0.9f))
+                {
+                    if (secondStage == false && Main.netMode != 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item74, NPC.position);
+                        for (int I = 0; I < 3; I++)
+                        {
+                            int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)(NPC.Center.X + (Math.Sin(I * 120) * 75)), (int)(NPC.Center.Y + (Math.Cos(I * 120) * 75)), Mod.Find<ModNPC>("AstrumDeusProbe").Type, NPC.whoAmI, 0, 0, 0, -1);
+                            NPC Eye = Main.npc[FireEye];
+                            Eye.ai[0] = I * 120;
+                            Eye.ai[3] = I * 120;
+                        }
+                        secondStage = true;
+                    }
+                }
+                if ((NPC.life <= NPC.lifeMax * 0.8f))
+                {
+                    if (thirdStage == false && Main.netMode != 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item74, NPC.position);
+                        for (int I = 0; I < 5; I++)
+                        {
+                            int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)(NPC.Center.X + (Math.Sin(I * 72) * 150)), (int)(NPC.Center.Y + (Math.Cos(I * 72) * 150)), Mod.Find<ModNPC>("AstrumDeusProbe2").Type, NPC.whoAmI, 0, 0, 0, -1);
+                            NPC Eye = Main.npc[FireEye];
+                            Eye.ai[0] = I * 72;
+                            Eye.ai[3] = I * 72;
+                        }
+                        thirdStage = true;
+                    }
+                }
+            }
+            else
+            {
+                if ((NPC.life <= NPC.lifeMax * 0.65f))
+                {
+                    if (secondStage == false && Main.netMode != 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item74, NPC.position);
+                        for (int I = 0; I < 3; I++)
+                        {
+                            int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)(NPC.Center.X + (Math.Sin(I * 120) * 75)), (int)(NPC.Center.Y + (Math.Cos(I * 120) * 75)), Mod.Find<ModNPC>("AstrumDeusProbe").Type, NPC.whoAmI, 0, 0, 0, -1);
+                            NPC Eye = Main.npc[FireEye];
+                            Eye.ai[0] = I * 120;
+                            Eye.ai[3] = I * 120;
+                        }
+                        secondStage = true;
+                    }
+                }
+                if ((NPC.life <= NPC.lifeMax * 0.3f))
+                {
+                    if (thirdStage == false && Main.netMode != 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item74, NPC.position);
+                        for (int I = 0; I < 5; I++)
+                        {
+                            int FireEye = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)(NPC.Center.X + (Math.Sin(I * 72) * 150)), (int)(NPC.Center.Y + (Math.Cos(I * 72) * 150)), Mod.Find<ModNPC>("AstrumDeusProbe2").Type, NPC.whoAmI, 0, 0, 0, -1);
+                            NPC Eye = Main.npc[FireEye];
+                            Eye.ai[0] = I * 72;
+                            Eye.ai[3] = I * 72;
+                        }
+                        thirdStage = true;
+                    }
+                }
+            }
 			if (NPC.ai[3] > 0f)
 			{
 				NPC.realLife = (int)NPC.ai[3];
@@ -133,7 +177,11 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 				NPC.TargetClosest(true);
 			}
 			NPC.velocity.Length();
-			float speedMult = expertMode ? 2f : 1.8f;
+			float speedMult = expertMode ? 1.8f : 1.6f;
+            if (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive)
+            {
+                speedMult = ((NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive)) ? 2.8f : 2.5f);
+            }
 			float life = (float)NPC.life;
 			float totalLife = (float)NPC.lifeMax;
 			float newSpeed = speed * (speedMult - (life / totalLife));
@@ -142,7 +190,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			{
 				for (int num934 = 0; num934 < 2; num934++)
 				{
-					int num935 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.TheDestroyer, 0f, 0f, 100, default(Color), 2f);
+					int num935 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 182, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num935].noGravity = true;
 					Main.dust[num935].noLight = true;
 				}
@@ -152,7 +200,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 			{
 				NPC.alpha = 0;
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != 1)
 			{
 				if (!TailSpawned && NPC.ai[0] == 0f)
 	            {
@@ -162,11 +210,11 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 	                    int lol = 0;
 	                    if (num36 >= 0 && num36 < minLength)
 	                    {
-	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("AstrumDeusBody").Type, NPC.whoAmI);
+	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("AstrumDeusBody").Type, NPC.whoAmI);
 	                    }
 	                    else
 	                    {
-	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("AstrumDeusTail").Type, NPC.whoAmI);
+	                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("AstrumDeusTail").Type, NPC.whoAmI);
 	                    }
 	                    if (num36 % 2 == 0)
 	                    {
@@ -180,9 +228,9 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 	                }
 	                TailSpawned = true;
 	            }
-				if (!NPC.active && Main.netMode == NetmodeID.Server)
+				if (!NPC.active && Main.netMode == 2)
 				{
-					NetMessage.SendData(MessageID.DamageNPC, -1, -1, null, NPC.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(28, -1, -1, null, NPC.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 				}
 			}
 			int num180 = (int)(NPC.position.X / 16f) - 1;
@@ -231,15 +279,16 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 				Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
 				NPC.localAI[1] = 1f;
 				Rectangle rectangle12 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-				int num954 = 1000;
-				bool flag95 = true;
+                int rectX = 300;
+                int rectY = ((NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive)) ? 100 : 200);
+                bool flag95 = true;
 				if (NPC.position.Y > Main.player[NPC.target].position.Y)
 				{
 					for (int num955 = 0; num955 < 255; num955++)
 					{
 						if (Main.player[num955].active)
 						{
-							Rectangle rectangle13 = new Rectangle((int)Main.player[num955].position.X - num954, (int)Main.player[num955].position.Y - num954, num954 * 2, num954 * 2);
+							Rectangle rectangle13 = new Rectangle((int)Main.player[num955].position.X - rectX, (int)Main.player[num955].position.Y - rectY, rectX * 2, rectY * 2);
 							if (rectangle12.Intersects(rectangle13))
 							{
 								flag95 = false;
@@ -274,7 +323,7 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 						if (Main.npc[num957].aiStyle == NPC.aiStyle)
 						{
 							Main.npc[num957].active = false;
-						}
+                        }
 					}
 				}
 			}
@@ -523,13 +572,13 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 		
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (projectile.penetrate == -1 && !projectile.minion)
+            if (projectile.penetrate == -1 && !projectile.minion && !projectile.CountsAsClass(DamageClass.Throwing))
 			{
-				modifiers.FinalDamage /= 5;
+				projectile.damage /= 5;
 			}
 			else if (projectile.penetrate > 1)
 			{
-				modifiers.FinalDamage /= projectile.penetrate;
+				projectile.damage /= projectile.penetrate;
 			}
 		}
 		
@@ -545,9 +594,9 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
 				for (int num621 = 0; num621 < 5; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					if (Main.rand.Next(2) == 0)
 					{
 						Main.dust[num622].scale = 0.5f;
 						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
@@ -555,32 +604,29 @@ namespace CalamityModClassic1Point2.NPCs.AstrumDeus
 				}
 				for (int num623 = 0; num623 < 10; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 3f);
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, ModContent.DustType<AstralOrange>(), 0f, 0f, 100, default(Color), 3f);
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, ModContent.DustType<AstralOrange>(), 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num624].velocity *= 2f;
 				}
 			}
 		}
-		
-		public override void BossLoot(ref string name, ref int potionType)
+
+        public override bool PreKill()
+        {
+            return false;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			potionType = ItemID.None;
+			target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 180, true);
 		}
 		
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-		{
-			if (CalamityWorld1Point2.downedStarGod)
-			{
-				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
-			}
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
-			NPC.damage = (int)(NPC.damage * 1.5f);
+			NPC.damage = (int)(NPC.damage * 0.8f);
 		}
 	}
 }

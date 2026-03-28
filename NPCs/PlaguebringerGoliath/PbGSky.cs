@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
+namespace CalamityModClassicPreTrailer.NPCs.PlaguebringerGoliath
 {
 	public class PbGSky : CustomSky
 	{
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 
 		private bool UpdatePbGIndex()
 		{
-			int PbGType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("PlaguebringerGoliath").Type;
+			int PbGType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("PlaguebringerGoliath").Type;
 			if (PbGIndex >= 0 && Main.npc[PbGIndex].active && Main.npc[PbGIndex].type == PbGType)
 			{
 				return true;

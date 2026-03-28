@@ -1,22 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
 	public class VitalJelly : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Vital Jelly");
+			/* Tooltip.SetDefault("10% increased movement speed\n" +
+				"100% increased jump speed"); */
+		}
+		
 		public override void SetDefaults()
 		{
 			Item.width = 20;
 			Item.height = 24;
-			Item.value = 30000;
-			Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 5;
 			Item.accessory = true;
 		}
 		

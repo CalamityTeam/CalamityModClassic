@@ -5,15 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class PurityAxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Axe of Purity");
+			// DisplayName.SetDefault("Axe of Purity");
+			// Tooltip.SetDefault("Cleanses the evil");
 		}
 
 	    public override void SetDefaults()
@@ -26,19 +27,22 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.useAnimation = 19;
 	        Item.useTurn = true;
 	        Item.axe = 25;
-	        Item.useStyle = ItemUseStyleID.Swing;
-	        Item.knockBack = 7.5f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Pink;
+	        Item.useStyle = 1;
+	        Item.knockBack = 5f;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item1;
 	        Item.autoReuse = true;
-	    }
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shootSpeed = 12f;
+		}
 	
 	    public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(null, "FellerofEvergreens");
-	        recipe.AddIngredient(ItemID.PixieDust, 10);
+			recipe.AddIngredient(ItemID.PurificationPowder, 20);
+			recipe.AddIngredient(ItemID.PixieDust, 10);
 	        recipe.AddIngredient(ItemID.CrystalShard, 5);
 	        recipe.AddTile(TileID.Anvils);
 	        recipe.Register();
@@ -46,9 +50,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Enchanted_Pink);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 58);
 	        }
 	    }
 	}

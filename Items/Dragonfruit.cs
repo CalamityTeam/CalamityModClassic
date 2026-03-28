@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,37 +6,35 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class Dragonfruit : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Dragonfruit");
+			/* Tooltip.SetDefault("Permanently increases maximum life by 25\n" +
+			                   "Can only be used if the max amount of life fruit has been consumed"); */
+		}
+		
 		public override void SetDefaults()
 		{
 			Item.width = 20;
 			Item.height = 20;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item4;
 			Item.consumable = true;
+			Item.rare = 10;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(43, 96, 222);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.dFruit || player.statLifeMax < 500)
 			{
 				return false;
@@ -51,9 +49,9 @@ namespace CalamityModClassic1Point2.Items
 				player.itemTime = Item.useTime;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.HealEffect(50);
+					player.HealEffect(25);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.dFruit = true;
 			}
 			return true;
@@ -62,13 +60,13 @@ namespace CalamityModClassic1Point2.Items
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LifeFruit, 20);
-			recipe.AddIngredient(null, "Phantoplasm", 20);
-			recipe.AddIngredient(null, "CosmiliteBar", 20);
-			recipe.AddIngredient(null, "EffulgentFeather", 30);
-			recipe.AddIngredient(ItemID.FragmentSolar, 50);
-			recipe.AddIngredient(null, "NightmareFuel", 10);
-        	recipe.AddIngredient(null, "EndothermicEnergy", 10);
+			recipe.AddIngredient(ItemID.LifeFruit, 5);
+			recipe.AddIngredient(null, "Phantoplasm", 5);
+			recipe.AddIngredient(null, "CosmiliteBar", 5);
+			recipe.AddIngredient(null, "DarksunFragment", 10);
+			recipe.AddIngredient(ItemID.FragmentSolar, 15);
+			recipe.AddIngredient(null, "NightmareFuel", 5);
+        	recipe.AddIngredient(null, "EndothermicEnergy", 5);
 	        recipe.AddTile(null, "DraedonsForge");
 	        recipe.Register();
 		}

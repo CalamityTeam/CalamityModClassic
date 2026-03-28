@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class AccelerationBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Acceleration Round");
-			//Tooltip.SetDefault("Gains speed over time");
+			// DisplayName.SetDefault("Acceleration Round");
+			// Tooltip.SetDefault("Gains speed over time");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.25f;
 			Item.value = 250;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 1;
 			Item.shoot = Mod.Find<ModProjectile>("AccelerationBullet").Type;
 			Item.shootSpeed = 1f;
 			Item.ammo = 97;

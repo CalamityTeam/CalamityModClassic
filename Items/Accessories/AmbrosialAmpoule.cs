@@ -1,48 +1,64 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class AmbrosialAmpoule : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	
-	public override void SetDefaults()
-	{
-		Item.defense = 15;
-		Item.width = 20;
-		Item.height = 20;
-		Item.value = 5000000;
-		Item.rare = ItemRarityID.Red;
-		Item.accessory = true;
-	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.beeResist = true;
-		modPlayer.aAmpoule = true;
-	}
-	
-	public override void AddRecipes()
+    public class AmbrosialAmpoule : ModItem
     {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "CorruptFlask");
-        recipe.AddIngredient(null, "ArchaicPowder");
-        recipe.AddIngredient(null, "RadiantOoze");
-        recipe.AddIngredient(null, "HoneyDew");
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-        recipe = CreateRecipe();
-        recipe.AddIngredient(null, "CrimsonFlask");
-        recipe.AddIngredient(null, "ArchaicPowder");
-        recipe.AddIngredient(null, "RadiantOoze");
-        recipe.AddIngredient(null, "HoneyDew");
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Ambrosial Ampoule");
+            /* Tooltip.SetDefault("25% increased mining speed\n" +
+                "You emit light\n" +
+                "5% increased damage reduction and increased life regen\n" +
+                "Poison, Freeze, Chill, Frostburn, and Venom immunity\n" +
+                "Honey-like life regen with no speed penalty\n" +
+                "Most bee/hornet enemies and projectiles do 75% damage to you"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.defense = 4;
+            Item.width = 20;
+            Item.height = 20;
+            Item.value = Item.buyPrice(0, 45, 0, 0);
+            Item.rare = 10;
+            Item.accessory = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.beeResist = true;
+            modPlayer.aAmpoule = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CorruptFlask");
+            recipe.AddIngredient(null, "ArchaicPowder");
+            recipe.AddIngredient(null, "RadiantOoze");
+            recipe.AddIngredient(null, "HoneyDew");
+            recipe.AddIngredient(null, "Stardust", 15);
+            recipe.AddIngredient(null, "CryoBar", 5);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+            recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CrimsonFlask");
+            recipe.AddIngredient(null, "ArchaicPowder");
+            recipe.AddIngredient(null, "RadiantOoze");
+            recipe.AddIngredient(null, "HoneyDew");
+            recipe.AddIngredient(null, "Stardust", 15);
+            recipe.AddIngredient(null, "CryoBar", 5);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+        }
     }
-}}
+}

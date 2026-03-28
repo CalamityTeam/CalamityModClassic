@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
+namespace CalamityModClassicPreTrailer.Items.Weapons.HiveMind
 {
 	public class ShaderainStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Shaderain Staff");
-			//Tooltip.SetDefault("Fires a shade storm cloud");
+			// DisplayName.SetDefault("Shaderain Staff");
+			// Tooltip.SetDefault("Fires a shade storm cloud");
 		}
 
 	    public override void SetDefaults()
@@ -26,11 +26,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 	        Item.height = 34;
 	        Item.useTime = 25;
 	        Item.useAnimation = 25;
-	        Item.useStyle = ItemUseStyleID.Swing;
+	        Item.useStyle = 1;
 	        Item.noMelee = true;
 	        Item.knockBack = 0f;
-	        Item.value = 40000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.UseSound = SoundID.Item66;
 	        Item.shoot = Mod.Find<ModProjectile>("ShadeNimbus").Type;
 	        Item.shootSpeed = 16f;
@@ -60,7 +60,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 			}
 	    	num78 *= num80;
 			num79 *= num80;
-			int num154 = Projectile.NewProjectile(source, vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("ShadeNimbusCloud").Type, damage, knockback, player.whoAmI, 0f, 0f);
+			int num154 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("ShadeNimbusCloud").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			Main.projectile[num154].ai[0] = (float)Main.mouseX + Main.screenPosition.X;
 			Main.projectile[num154].ai[1] = (float)Main.mouseY + Main.screenPosition.Y;
 	    	return false;

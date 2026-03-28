@@ -5,39 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class CosmicRainbow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Cosmic Rainbow");
-			//Tooltip.SetDefault("Launch a barrage of rainbows!");
+			// DisplayName.SetDefault("Cosmic Rainbow");
+			// Tooltip.SetDefault("Launch a barrage of rainbows!");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 100;
+	        Item.damage = 105;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 30;
 	        Item.width = 38;
 	        Item.height = 66;
 	        Item.useTime = 35;
 	        Item.useAnimation = 35;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
-	        Item.knockBack = 0.5f;
-	        Item.value = 1550000;
-	        Item.rare = ItemRarityID.Red;
+	        Item.knockBack = 0f;
+            Item.value = Item.buyPrice(0, 95, 0, 0);
+            Item.rare = 9;
 	        Item.UseSound = SoundID.Item67;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.RainbowFront;
+	        Item.shoot = 250;
 	        Item.shootSpeed = 18f;
 	    }
-	    
-	    public override void AddRecipes()
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+
+        public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(ItemID.RainbowGun);
@@ -73,15 +79,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    	num78 *= num80;
 			num79 *= num80;
 	    	int num130 = 7;
-			if (Main.rand.NextBool(3))
+			if (Main.rand.Next(3) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(4))
+			if (Main.rand.Next(4) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(5))
+			if (Main.rand.Next(5) == 0)
 			{
 				num130++;
 			}
@@ -105,8 +111,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-360, 361) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-360, 361) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, type, damage, knockback, player.whoAmI, 0f, 0f);
+				float speedY5 = num79 + (float)Main.rand.Next(-360, 361) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			return false;
 		}

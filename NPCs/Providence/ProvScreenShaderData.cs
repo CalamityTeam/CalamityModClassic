@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Providence
+namespace CalamityModClassicPreTrailer.NPCs.Providence
 {
 	public class ProvScreenShaderData : ScreenShaderData
 	{
@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 
 		private void UpdatePIndex()
 		{
-			int ProvType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("Providence").Type;
+			int ProvType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("Providence").Type;
 			if (ProvIndex >= 0 && Main.npc[ProvIndex].active && Main.npc[ProvIndex].type == ProvType)
 			{
 				return;

@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class AerialiteOre : ModTile
 	{
@@ -14,14 +14,12 @@ namespace CalamityModClassic1Point2.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			DustType = ModContent.DustType<Dusts.AHSparkle>();
-			RegisterItemDrop(ModContent.ItemType<Items.AerialiteOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Aerialite Ore");
- 			AddMapEntry(new Color(0, 255, 255));
+ 			AddMapEntry(new Color(0, 255, 255), name);
 			MineResist = 2f;
 			MinPick = 64;
-			HitSound = Terraria.ID.SoundID.Tink;
+			HitSound = SoundID.Tink;
 			Main.tileSpelunker[Type] = true;
 		}
 		

@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ForbiddenSun : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Forbidden Sun");
+			// DisplayName.SetDefault("Forbidden Sun");
 		}
 
 	    public override void SetDefaults()
@@ -25,11 +25,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 30;
 	        Item.useTime = 30;
 	        Item.useAnimation = 30;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 500000;
-	        Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("ForbiddenSunProjectile").Type;
 	        Item.shootSpeed = 9f;

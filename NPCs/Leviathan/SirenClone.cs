@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.Leviathan
+namespace CalamityModClassicPreTrailer.NPCs.Leviathan
 {
 	public class SirenClone : ModNPC
 	{
@@ -16,8 +16,13 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Siren Clone");
-			Main.npcFrameCount[NPC.type] = 4;
+			// DisplayName.SetDefault("Siren Clone");
+			Main.npcFrameCount[NPC.type] = 6;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 		}
 		
 		public override void SetDefaults()
@@ -25,12 +30,11 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			NPC.aiStyle = -1;
 			AIType = -1;
 			NPC.damage = 0;
-			NPC.width = 120; //324
+			NPC.width = 70; //324
 			NPC.height = 120; //216
 			NPC.defense = 0;
 			NPC.lifeMax = 3000;
 			NPC.knockBackResist = 0f;
-			NPC.value = Item.buyPrice(0, 0, 0, 0);
 			NPC.noGravity = true;
 			NPC.chaseable = false;
 			NPC.dontTakeDamage = true;
@@ -62,29 +66,31 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			}
 			Vector2 direction = Main.player[NPC.target].Center - center;
 			direction.Normalize();
-			direction *= 9f;
+			direction *= (CalamityWorldPreTrailer.death ? 15f : 11f); //9
 			timer++;
-			if (timer > 60)
+			if (timer > (CalamityWorldPreTrailer.death ? 30 : 60))
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(3))
+				if (Main.netMode != 1)
 				{
 					int type = Mod.Find<ModProjectile>("WaterSpear").Type;
-					int damage = Main.expertMode ? 20 : 23;
-					if (Main.rand.NextBool(15))
-					{
-						type = Mod.Find<ModProjectile>("SirenSong").Type;
-					}
-					else if (Main.rand.NextBool(10))
-					{
-						type = Mod.Find<ModProjectile>("FrostMist").Type;
-					}
-					int proj2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X, center.Y, direction.X, direction.Y, type, damage, 1f, NPC.target);
+                    switch (Main.rand.Next(6))
+                    {
+                        case 0: type = Mod.Find<ModProjectile>("FrostMist").Type; break;
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5: type = Mod.Find<ModProjectile>("WaterSpear").Type; break;
+                    }
+                    int damage = Main.expertMode ? 26 : 32;
+					Projectile.NewProjectile(NPC.GetSource_FromThis(null), center.X, center.Y, direction.X, direction.Y, type, damage, 1f, NPC.target);
 				}
 				timer = 0;
 			}
 			if (NPC.CountNPCS(Mod.Find<ModNPC>("Siren").Type) < 1)
 			{
 				NPC.active = false;
+                NPC.netUpdate = true;
 				return;
 			}
 		}
@@ -94,7 +100,7 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 			return false;
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = 3000;
 			NPC.damage = 0;
@@ -104,13 +110,13 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 20; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.IceRod, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 67, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}

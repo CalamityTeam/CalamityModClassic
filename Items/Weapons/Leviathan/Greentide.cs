@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
+namespace CalamityModClassicPreTrailer.Items.Weapons.Leviathan
 {
     public class Greentide : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Greentide");
-			//Tooltip.SetDefault("Summons green blasts of water from the sky on enemy hits");
+			// DisplayName.SetDefault("Greentide");
+			// Tooltip.SetDefault("Summons green blasts of water from the sky on enemy hits");
 		}
 
         public override void SetDefaults()
@@ -26,10 +26,10 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
             Item.useTime = 24;
             Item.useAnimation = 24;
 			Item.useTurn = true;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = 1;
             Item.knockBack = 7;
-            Item.value = 750000;
-            Item.rare = ItemRarityID.Lime;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.shootSpeed = 18f;
@@ -48,8 +48,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
         {
             int i = Main.myPlayer;
 			float num72 = Item.shootSpeed;
-			int num73 = hit.Damage;
-			float num74 = hit.Knockback;
+			float num74 = Item.knockBack;
 	    	num74 = player.GetWeaponKnockback(Item, num74);
 	    	player.itemTime = Item.useTime;
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -94,8 +93,8 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78;
-				float speedY4 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				Projectile.NewProjectile(player.GetSource_FromThis(), vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("GreenWater").Type, num73, num74, i, 0f, (float)Main.rand.Next(10));
+				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GreenWater").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), num74, i, 0f, (float)Main.rand.Next(10));
 			}
         }
         
@@ -110,7 +109,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Leviathan
 			{
 				randomDust = 89;
 			}
-            if (Main.rand.NextBool(4))
+            if (Main.rand.Next(4) == 0)
             {
                 int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, randomDust);
             }

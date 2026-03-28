@@ -5,43 +5,34 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Animus : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Animus");
+			// DisplayName.SetDefault("Animus");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 82;
-			Item.damage = 1000;
+			Item.width = 84;
+			Item.damage = 4000;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 11;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 11;
 			Item.useTurn = true;
 			Item.knockBack = 20f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 84;
-			Item.value = 8000000;
+			Item.height = 90;
+            Item.value = Item.buyPrice(5, 0, 0, 0);
+            Item.rare = 10;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 16;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, 0, 255);
-	            }
-	        }
-	    }
 	
 		public override void AddRecipes()
 		{
@@ -58,27 +49,27 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			int damageRan = Main.rand.Next(195); //0 to 195
 			if (damageRan >= 50 && damageRan <= 99) //25%
 			{
-				Item.damage = 2000;
+				Item.damage = 6000;
 			}
 			else if (damageRan >= 100 && damageRan <= 139) //20%
 			{
-				Item.damage = 4000;
+				Item.damage = 9000;
 			}
 			else if (damageRan >= 140 && damageRan <= 169) //15%
 			{
-				Item.damage = 8000;
+				Item.damage = 15000;
 			}
 			else if (damageRan >= 170 && damageRan <= 189) //10%
 			{
-				Item.damage = 16000;
+				Item.damage = 30000;
 			}
 			else if (damageRan >= 190 && damageRan <= 194) //5%
 			{
-				Item.damage = 36000;
+				Item.damage = 50000;
 			}
 			else
 			{
-				Item.damage = 1000;
+				Item.damage = 4000;
 			}
 		}
 	}

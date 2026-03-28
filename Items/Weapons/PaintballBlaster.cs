@@ -5,35 +5,35 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class PaintballBlaster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Speed Blaster");
+			// DisplayName.SetDefault("Speed Blaster");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 24;
+	        Item.damage = 26;
 	        Item.DamageType = DamageClass.Ranged;
-	        Item.width = 68;
-	        Item.height = 42;
+	        Item.width = 54;
+	        Item.height = 26;
 	        Item.useAnimation = 24;
 	        Item.reuseDelay = 9;
 	        Item.useTime = 4;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2.25f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = null;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 20f;
-	        Item.shoot = ProjectileID.PainterPaintball;
+	        Item.shoot = 587;
 	    }
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -66,7 +66,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			{
 				vector2 += new Vector2(num208, num209);
 			}
-			Projectile.NewProjectile(source, position.X, position.Y - player.gravDir * 4f, num208, num209, 587, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(12) / 6f);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y - player.gravDir * 4f, num208, num209, 587, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(12) / 6f);
 	    	return false;
 		}
 	

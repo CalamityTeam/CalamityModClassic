@@ -5,16 +5,17 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class CometQuasher : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Comet Quasher");
-			//Tooltip.SetDefault("Summons a swarm of meteors from the sky on enemy hits");
+			// DisplayName.SetDefault("Comet Quasher");
+			// Tooltip.SetDefault("Summons a swarm of meteors from the sky on enemy hits");
 		}
 
 		public override void SetDefaults()
@@ -23,15 +24,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.damage = 120;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 22;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 22;
 			Item.useTurn = true;
 			Item.knockBack = 7.75f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 54;
-			Item.value = 800000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 			Item.shootSpeed = 9f;
 		}
 		
@@ -85,17 +86,16 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num79 *= num80;
 				float num114 = num78;
 				float num115 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				int meteor = Projectile.NewProjectile(player.GetSource_FromThis(), vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, 424 + Main.rand.Next(3), (int)((double)hit.Damage * 0.5f), hit.Knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
-				Main.projectile[meteor].tileCollide = false;
-				Main.projectile[meteor].DamageType = DamageClass.Melee;
+				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, 424 + Main.rand.Next(3), (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.75), Item.knockBack, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
+				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
 		}
 		
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	            Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch);
+	            Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6);
 	        }
 	    }
 	

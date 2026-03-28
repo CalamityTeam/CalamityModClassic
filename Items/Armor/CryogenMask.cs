@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Armor
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class CryogenMask : ModItem
 	{
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Cryogen Mask");
+            // DisplayName.SetDefault("Cryogen Mask");
             ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
         }
 
@@ -17,7 +17,7 @@ namespace CalamityModClassic1Point2.Items.Armor
 		{
 			Item.width = 28;
 			Item.height = 20;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 1;
 			Item.vanity = true;
 		}
 	}

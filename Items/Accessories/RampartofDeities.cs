@@ -1,83 +1,57 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class RampartofDeities : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetDefaults()
-	{
-		Item.width = 38;
-		Item.height = 44;
-		Item.value = 10000000;
-		Item.defense = 12;
-		Item.accessory = true;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class RampartofDeities : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(43, 96, 222);
-            }
+            // DisplayName.SetDefault("Rampart of Deities");
+            /* Tooltip.SetDefault("Taking damage makes you move very fast for a short time\n" +
+                "Increases armor penetration by 50 and immune time after being struck\n" +
+                "Provides light underwater and causes stars to fall when damaged\n" +
+                "Increases pickup range for mana stars and you restore mana when damaged\n" +
+                "Absorbs 25% of damage done to players on your team\n" +
+                "Only active above 25% life\n" +
+                "Grants immunity to knockback\n" +
+                "Puts a shell around the owner when below 50% life that reduces damage\n" +
+                "The shell becomes more powerful when below 15% life and reduces damage even further"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 38;
+            Item.height = 44;
+            Item.value = Item.buyPrice(0, 90, 0, 0);
+            Item.defense = 12;
+            Item.accessory = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
+		}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.dAmulet = true;
+			modPlayer.rampartOfDeities = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "FrigidBulwark");
+            recipe.AddIngredient(null, "DeificAmulet");
+            recipe.AddIngredient(null, "GalacticaSingularity", 5);
+            recipe.AddIngredient(null, "DivineGeode", 10);
+            recipe.AddIngredient(null, "CosmiliteBar", 20);
+            recipe.AddTile(null, "DraedonsForge");
+            recipe.Register();
         }
     }
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.dAmulet = true;
-		player.panic = true;
-		player.GetArmorPenetration(DamageClass.Generic) += 50;
-		player.manaMagnet = true;
-		player.magicCuffs = true;
-		if (player.wet)
-		{
-			Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 1.35f, 0.3f, 0.9f);
-		}
-		player.noKnockback = true;
-		if ((float)player.statLife > (float)player.statLifeMax2 * 0.25f)
-		{
-			player.hasPaladinShield = true;
-			if (player.whoAmI != Main.myPlayer && player.miscCounter % 10 == 0)
-			{
-				int myPlayer = Main.myPlayer;
-				if (Main.player[myPlayer].team == player.team && player.team != 0)
-				{
-					float arg = player.position.X - Main.player[myPlayer].position.X;
-					float num3 = player.position.Y - Main.player[myPlayer].position.Y;
-					if ((float)Math.Sqrt((double)(arg * arg + num3 * num3)) < 800f)
-					{
-						Main.player[myPlayer].AddBuff(43, 20, true);
-					}
-				}
-			}
-		}
-		if ((double)player.statLife <= (double)player.statLifeMax2 * 0.3)
-		{
-			player.AddBuff(62, 5, true);
-		}
-		if ((double)player.statLife <= (double)player.statLifeMax2 * 0.15)
-		{
-			player.endurance += 0.05f;
-		}
-	}
-	
-	public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-		recipe.AddIngredient(null, "FrigidBulwark");
-		recipe.AddIngredient(null, "DeificAmulet");
-		recipe.AddIngredient(null, "CosmiliteBar", 20);
-		recipe.AddIngredient(null, "GalacticaSingularity", 5);
-        recipe.AddTile(null, "DraedonsForge");
-        recipe.Register();
-	}
-}}
+}

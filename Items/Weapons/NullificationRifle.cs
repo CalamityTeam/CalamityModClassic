@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class NullificationRifle : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Nullification Pistol");
-			//Tooltip.SetDefault("Is it nullable or not?  Let's find out!\nFires a fast null bullet that distorts NPC stats\nUses your life as ammo");
+			// DisplayName.SetDefault("Nullification Pistol");
+			// Tooltip.SetDefault("Is it nullable or not?  Let's find out!\nFires a fast null bullet that distorts NPC stats\nUses your life as ammo");
 		}
 
 	    public override void SetDefaults()
@@ -25,21 +25,34 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 30;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 1250000;
-	        Item.rare = ItemRarityID.Cyan;
-	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBlast");
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
+	        Item.UseSound = SoundID.Item33;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 25f;
 	        Item.shoot = Mod.Find<ModProjectile>("NullShot").Type;
 	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, 0);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 	    	player.statLife -= 5;
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NullShot").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+			if (Main.myPlayer == player.whoAmI)
+			{
+				player.HealEffect(-5, true);
+			}
+			if (player.statLife <= 0)
+			{
+				player.KillMe(PlayerDeathReason.ByOther(10), 1000.0, 0, false);
+			}
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NullShot").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

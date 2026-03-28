@@ -5,32 +5,34 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
+using Terraria.Audio;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class LunicEye : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Lunic Eye");
-			//Tooltip.SetDefault("Fires lunic beams that reduce enemy protection\nHolding this weapon reduces stress\nProjectile damage is multiplied by all of your damage bonuses");
+			// DisplayName.SetDefault("Lunic Eye");
+			// Tooltip.SetDefault("Fires lunic beams that reduce enemy protection\nProjectile damage is multiplied by all of your damage bonuses");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 80;
-			Item.damage = 18;
-			Item.rare = ItemRarityID.Pink;
+			Item.damage = 7;
+			Item.rare = 5;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.knockBack = 4.5f;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");
+			Item.UseSound = new SoundStyle("CalamityModClassicPreTrailer/Sounds/Item/LaserCannon");
 			Item.autoReuse = true;
 			Item.noMelee = true;
 			Item.height = 50;
-			Item.value = 100000;
-			Item.shoot = Mod.Find<ModProjectile>("LunicBeam").Type;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.shoot = Mod.Find<ModProjectile>("LunicBeam").Type;
 			Item.shootSpeed = 13f;
 		}
 		
@@ -41,8 +43,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			float damageMult = player.GetDamage(DamageClass.Melee).Additive + player.GetDamage(DamageClass.Ranged).Additive + player.GetDamage(DamageClass.Magic).Additive + player.GetDamage(DamageClass.Throwing).Additive + player.GetDamage(DamageClass.Summon).Additive;
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
+			float damageMult = player.GetDamage(DamageClass.Melee).Additive + player.GetDamage(DamageClass.Ranged).Additive + player.GetDamage(DamageClass.Magic).Additive + 
+                CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage + player.GetDamage(DamageClass.Summon).Additive;
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 		

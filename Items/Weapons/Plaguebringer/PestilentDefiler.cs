@@ -5,44 +5,46 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer {
-public class PestilentDefiler : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Pestilent Defiler");
-	}
-
-    public override void SetDefaults()
+    public class PestilentDefiler : ModItem
     {
-        Item.damage = 135;
-        Item.DamageType = DamageClass.Ranged;
-        Item.width = 46;
-        Item.height = 20;
-        Item.useTime = 37;
-        Item.useAnimation = 37;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true; //so the item's animation doesn't do damage
-        Item.knockBack = 9.5f;
-        Item.value = 950000;
-        Item.rare = ItemRarityID.Cyan;
-        Item.UseSound = SoundID.Item40;
-        Item.autoReuse = false;
-        Item.shootSpeed = 20f;
-        Item.shoot = Mod.Find<ModProjectile>("SicknessRound").Type;
-        Item.useAmmo = 97;
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Pestilent Defiler");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 135;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 46;
+            Item.height = 20;
+            Item.useTime = 37;
+            Item.useAnimation = 37;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 9.5f;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
+            Item.UseSound = SoundID.Item40;
+            Item.autoReuse = false;
+            Item.shootSpeed = 20f;
+            Item.shoot = Mod.Find<ModProjectile>("SicknessRound").Type;
+            Item.useAmmo = 97;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, -5);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SicknessRound").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+            return false;
+        }
     }
-    
-    public override Vector2? HoldoutOffset()
-	{
-		return new Vector2(0, -5);
-	}
-    
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-	{
-    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SicknessRound").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-    	return false;
-	}
-}}
+}

@@ -5,47 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class AsteroidStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Asteroid Staff");
+			// DisplayName.SetDefault("Asteroid Staff");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 200;
+	        Item.damage = 130;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 20;
 	        Item.width = 50;
 	        Item.height = 50;
 	        Item.useTime = 10;
 	        Item.useAnimation = 10;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 6.75f;
-	        Item.value = 900000;
-	        Item.UseSound = SoundID.Item88;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item88;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("Asteroid").Type;
 	        Item.shootSpeed = 20f;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
 	    
 	    public override void AddRecipes()
 		{
@@ -102,7 +93,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num79 *= num80;
 				float num114 = num78;
 				float num115 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f);
 			}
 			return false;
 		}

@@ -5,38 +5,44 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class LunarianBow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Lunarian Bow");
+			// DisplayName.SetDefault("Lunarian Bow");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 22;
+	        Item.damage = 21;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 22;
 	        Item.height = 58;
 	        Item.useTime = 18;
 	        Item.useAnimation = 18;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 4;
 	        Item.UseSound = SoundID.Item75;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("LunarBolt").Type;
 	        Item.shootSpeed = 8f;
 	        Item.useAmmo = 40;
 	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 	    	float num117 = 0.314159274f;
@@ -53,7 +59,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				{
 					value9 -= vector7;
 				}
-				int num121 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LunarBolt").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+				int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LunarBolt").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 				Main.projectile[num121].noDropItem = true;
 			}
 			return false;

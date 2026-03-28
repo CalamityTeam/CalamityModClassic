@@ -5,46 +5,37 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class NettlelineGreatbow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Nettlevine Greatbow");
+			// DisplayName.SetDefault("Nettlevine Greatbow");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 189;
+	        Item.damage = 120;
 	        Item.DamageType = DamageClass.Ranged;
-	        Item.width = 30;
-	        Item.height = 58;
+	        Item.width = 36;
+	        Item.height = 64;
 	        Item.useTime = 17;
 	        Item.useAnimation = 17;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3f;
-	        Item.value = 1200000;
-	        Item.UseSound = SoundID.Item5;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item5;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.shootSpeed = 16f;
 	        Item.useAmmo = 40;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -52,14 +43,23 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        {
 	        	float SpeedX = velocity.X + (float) Main.rand.Next(-40, 41) * 0.05f;
 	        	float SpeedY = velocity.Y + (float) Main.rand.Next(-40, 41) * 0.05f;
-	    		switch (Main.rand.Next(4))
-				{
-	    			case 1: type = ProjectileID.VenomArrow; break;
-	    			case 2: type = ProjectileID.ChlorophyteArrow; break;
-	    			default: break;
-				}
-	    		Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-	        }
+                if (type == ProjectileID.WoodenArrowFriendly)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 1: type = ProjectileID.VenomArrow; break;
+                        case 2: type = ProjectileID.ChlorophyteArrow; break;
+                        default: break;
+                    }
+                    int index = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                    Main.projectile[index].noDropItem = true;
+                }
+                else
+                {
+                    int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                    Main.projectile[num121].noDropItem = true;
+                }
+            }
 	    	return false;
 		}
 	    

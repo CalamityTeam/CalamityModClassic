@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,41 +6,32 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Polterghast
+namespace CalamityModClassicPreTrailer.Items.Polterghast
 {
 	public class NecroplasmicBeacon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Necroplasmic Beacon");
-			//Tooltip.SetDefault("It's spooky");
+			// DisplayName.SetDefault("Necroplasmic Beacon");
+			/* Tooltip.SetDefault("It's spooky\n" +
+                "Summons Polterghast\n" +
+                "Not consumable"); */
 		}
 		
 		public override void SetDefaults()
 		{
 			Item.width = 28;
 			Item.height = 18;
-			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.consumable = true;
+			Item.useStyle = 4;
+			Item.consumable = false;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
-			return player.ZoneDungeon && !NPC.AnyNPCs(Mod.Find<ModNPC>("Polterghast").Type);
+			return player.ZoneDungeon && !NPC.AnyNPCs(Mod.Find<ModNPC>("Polterghast").Type) && CalamityWorldPreTrailer.downedBossAny;
 		}
 		
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
@@ -53,8 +44,7 @@ namespace CalamityModClassic1Point2.Items.Polterghast
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "Phantoplasm", 10);
-			recipe.AddIngredient(null, "RuinousSoul");
+			recipe.AddIngredient(null, "Phantoplasm", 100);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}

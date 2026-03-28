@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Dusts
+namespace CalamityModClassicPreTrailer.Dusts
 {
 	public class HolyFlame : ModDust
 	{

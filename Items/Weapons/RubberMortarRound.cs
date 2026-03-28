@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class RubberMortarRound : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Rubber Mortar Round");
-			//Tooltip.SetDefault("Large blast radius\nWill destroy tiles on each bounce\nUsed by normal guns");
+			// DisplayName.SetDefault("Rubber Mortar Round");
+			// Tooltip.SetDefault("Large blast radius\nWill destroy tiles on each bounce\nUsed by normal guns");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 7.5f;
 			Item.value = 1000;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 5;
 			Item.ammo = 97;
 			Item.shoot = Mod.Find<ModProjectile>("RubberMortarRound").Type;
 		}
@@ -35,7 +35,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 			Recipe recipe = CreateRecipe(100);
 			recipe.AddIngredient(null, "MortarRound", 100);
-			recipe.AddIngredient(null, "UnholyEssence");
+			recipe.AddIngredient(ItemID.PinkGel, 5);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}

@@ -1,0 +1,148 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Chat;
+using Terraria.Localization;
+using Terraria.ID;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using CalamityModClassicPreTrailer.NPCs;
+
+namespace CalamityModClassicPreTrailer.Items.DifficultyItems
+{
+	public class Revenge : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Revengeance");
+			/* Tooltip.SetDefault("Activates revengeance mode, can only be used in expert mode.\n" +
+                "Activates rage, which is a new stat. When rage is maxed press V to activate rage mode.\n" +
+                "You gain rage whenever you take damage.\n" +
+                "Activates adrenaline, which is a new stat. When adrenaline is maxed press B to activate adrenaline mode.\n" +
+                "You gain adrenaline whenever a boss is alive. Getting hit drops adrenaline back to 0.\n" +
+                "If you hit max adrenaline and don't use it within 3 seconds your adrenaline damage will drop gradually.\n" +
+				"All enemies drop 50% more cash and enemy spawn rates are boosted.\n" +
+				"Before you have killed your first boss you take 20% LESS damage from everything.\n" +
+                "Changes the Expert Mode 75% defense back to the Normal Mode 50% defense for the duration of prehardmode.\n" +
+                "Changes ALL boss AIs in vanilla and the Calamity Mod.\n" +
+				"DO NOT USE IF A BOSS IS ALIVE!\n" +
+				"Can be toggled on and off."); */
+		}
+		
+		public override void SetDefaults()
+		{
+			Item.width = 28;
+			Item.height = 28;
+			Item.useAnimation = 45;
+			Item.useTime = 45;
+			Item.useStyle = 4;
+            Item.rare = 11;
+			Item.UseSound = SoundID.Item119;
+			Item.consumable = false;
+		}
+		
+		public override bool CanUseItem(Player player)
+		{
+			if (!Main.expertMode || CalamityWorldPreTrailer.bossRushActive)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
+		{
+			for (int doom = 0; doom < 200; doom++)
+			{
+				if (Main.npc[doom].active && (Main.npc[doom].boss || Main.npc[doom].type == NPCID.EaterofWorldsHead || Main.npc[doom].type == NPCID.EaterofWorldsTail || Main.npc[doom].type == Mod.Find<ModNPC>("SlimeGodRun").Type ||
+					Main.npc[doom].type == Mod.Find<ModNPC>("SlimeGodRunSplit").Type || Main.npc[doom].type == Mod.Find<ModNPC>("SlimeGod").Type || Main.npc[doom].type == Mod.Find<ModNPC>("SlimeGodSplit").Type))
+				{
+					player.KillMe(PlayerDeathReason.ByOther(12), 1000.0, 0, false);
+					Main.npc[doom].active = false;
+                    Main.npc[doom].netUpdate = true;
+                }
+			}
+			if (!CalamityWorldPreTrailer.revenge)
+			{
+				CalamityWorldPreTrailer.revenge = true;
+				string key = "Revengeance is active.";
+				Color messageColor = Color.Crimson;
+				if (Main.netMode == 0)
+				{
+					Main.NewText(Language.GetTextValue(key), messageColor);
+				}
+				else if (Main.netMode == 2)
+				{
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+				}
+				if (Main.netMode == 2)
+				{
+					NetMessage.SendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+				}
+			}
+			else
+			{
+				CalamityWorldPreTrailer.revenge = false;
+				string key = "Revengeance is not active.";
+				Color messageColor = Color.Crimson;
+				if (Main.netMode == 0)
+				{
+					Main.NewText(Language.GetTextValue(key), messageColor);
+				}
+				else if (Main.netMode == 2)
+				{
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+				}
+				if (Main.netMode == 2)
+				{
+					NetMessage.SendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+				}
+				if (CalamityWorldPreTrailer.death)
+				{
+					CalamityWorldPreTrailer.death = false;
+					key = "Death is not active, not fun enough for you?";
+					messageColor = Color.Crimson;
+					if (Main.netMode == 0)
+					{
+						Main.NewText(Language.GetTextValue(key), messageColor);
+					}
+					else if (Main.netMode == 2)
+					{
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+					}
+					if (Main.netMode == 2)
+					{
+						NetMessage.SendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+				if (CalamityWorldPreTrailer.defiled)
+				{
+					CalamityWorldPreTrailer.defiled = false;
+					key = "Your soul is yours once more...";
+					messageColor = Color.DarkSeaGreen;
+					if (Main.netMode == 0)
+					{
+						Main.NewText(Language.GetTextValue(key), messageColor);
+					}
+					else if (Main.netMode == 2)
+					{
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+					}
+					if (Main.netMode == 2)
+					{
+						NetMessage.SendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+			}
+			return true;
+		}
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.Register();
+        }
+    }
+}

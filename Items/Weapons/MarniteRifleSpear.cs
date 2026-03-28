@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class MarniteRifleSpear : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Marnite Rifle Spear");
+			// DisplayName.SetDefault("Marnite Rifle Spear");
 		}
 
 	    public override void SetDefaults()
@@ -24,15 +24,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 20;
 	        Item.useTime = 28;
 	        Item.useAnimation = 28;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.knockBack = 2.25f;
-	        Item.value = 40000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item41;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 22f;
 	        Item.useAmmo = 97;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	    }
 	    
 	    public override void AddRecipes()

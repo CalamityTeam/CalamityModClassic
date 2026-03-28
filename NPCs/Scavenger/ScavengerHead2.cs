@@ -7,42 +7,43 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.Scavenger
+namespace CalamityModClassicPreTrailer.NPCs.Scavenger
 {
 	public class ScavengerHead2 : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Ravager");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("Ravager");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
 			NPC.aiStyle = -1;
-			NPC.damage = 0;
+			NPC.damage = 88;
 			NPC.width = 80; //324
-			NPC.height = 64; //216
-			NPC.defense = 99999;
-			NPC.lifeMax = 5000;
+			NPC.height = 80; //216
+			NPC.defense = 0;
+			NPC.lifeMax = 100;
 			NPC.knockBackResist = 0f;
 			AIType = -1;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
 			}
+            NPC.dontTakeDamage = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.value = Item.buyPrice(0, 0, 0, 0);
-			NPC.HitSound = SoundID.NPCHit4;
+			NPC.HitSound = SoundID.NPCHit41;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			if (CalamityWorld1Point2.downedProvidence)
+			if (CalamityWorldPreTrailer.downedProvidence)
 			{
 				NPC.damage = 0;
 				NPC.defense = 99999;
@@ -52,37 +53,25 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		
 		public override void AI()
 		{
-			bool provy = CalamityWorld1Point2.downedProvidence;
-			bool defenseBoost = false;
-			int defenseAdd = 0;
-			for (int nPC = 0; nPC < 200; nPC++)
-			{
-				if (Main.npc[nPC].active && Main.npc[nPC].type == (Mod.Find<ModNPC>("ScavengerBody").Type))
-				{
-					defenseBoost = true;
-					defenseAdd++;
-				}
-			}
-			NPC.defense += defenseAdd * 25;
-			if (!defenseBoost)
-			{
-				NPC.defense = -99999;
-			}
-			if (CalamityGlobalNPC1Point2.scavenger < 0)
+			bool provy = (CalamityWorldPreTrailer.downedProvidence && !CalamityWorldPreTrailer.bossRushActive);
+            if (!Main.npc[CalamityGlobalNPC.scavenger].active)
             {
-                NPC.SimpleStrikeNPC(9999, 0, false, noPlayerInteraction: true);
+                NPC.dontTakeDamage = false;
+                NPC.life = 0;
+                NPC.HitEffect(NPC.direction, 9999);
+                NPC.netUpdate = true;
                 return;
-			}
-			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
+            }
+            if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
 				NPC.TargetClosest(true);
 			}
-			if (NPC.timeLeft > 1800)
+			if (NPC.timeLeft < 3000)
 			{
-				NPC.timeLeft = 1800;
+				NPC.timeLeft = 3000;
 			}
-			float num = 9f;
-			float num2 = 0.225f;
+			float num = 5f;
+			float num2 = 0.1f;
 			Vector2 vector = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
 			float num4 = Main.player[NPC.target].position.X + (float)(Main.player[NPC.target].width / 2);
 			float num5 = Main.player[NPC.target].position.Y + (float)(Main.player[NPC.target].height / 2);
@@ -155,50 +144,68 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 			{
 				NPC.velocity.Y = NPC.velocity.Y - num2;
 			}
-			NPC.localAI[0] += 1f;
-			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.3)
+            NPC.ai[1] += 1f;
+            int nukeTimer = 720;
+            if (NPC.ai[1] >= (float)nukeTimer)
+            {
+                SoundEngine.PlaySound(SoundID.Item62, NPC.position);
+                NPC.TargetClosest(true);
+                NPC.ai[1] = 0f;
+                Vector2 shootFromVector = new Vector2(NPC.Center.X, NPC.Center.Y);
+                float nukeSpeed = 1f;
+                float playerDistanceX = Main.player[NPC.target].position.X + (float)Main.player[NPC.target].width * 0.5f - shootFromVector.X;
+                float playerDistanceY = Main.player[NPC.target].position.Y + (float)Main.player[NPC.target].height * 0.5f - shootFromVector.Y;
+                float totalPlayerDistance = (float)Math.Sqrt((double)(playerDistanceX * playerDistanceX + playerDistanceY * playerDistanceY));
+                totalPlayerDistance = nukeSpeed / totalPlayerDistance;
+                playerDistanceX *= totalPlayerDistance;
+                playerDistanceY *= totalPlayerDistance;
+                int nukeDamage = Main.expertMode ? 40 : 60;
+                int projectileType = Mod.Find<ModProjectile>("ScavengerNuke").Type;
+                if (Main.netMode != 1)
+                {
+                    int nuke = Projectile.NewProjectile(NPC.GetSource_FromThis(null), shootFromVector.X, shootFromVector.Y, playerDistanceX, playerDistanceY, projectileType, nukeDamage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+                }
+            }
+            NPC.localAI[0] += 1f;
+			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.3)
 			{
 				NPC.localAI[0] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.1)
+			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.1)
 			{
 				NPC.localAI[0] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.5)
+			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.5)
 			{
 				NPC.localAI[1] += 1f;
 			}
-			if ((double)Main.npc[CalamityGlobalNPC1Point2.scavenger].life < (double)Main.npc[CalamityGlobalNPC1Point2.scavenger].lifeMax * 0.25)
+			if ((double)Main.npc[CalamityGlobalNPC.scavenger].life < (double)Main.npc[CalamityGlobalNPC.scavenger].lifeMax * 0.25)
 			{
 				NPC.localAI[1] += 1f;
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[0] >= 180f)
+			if (Main.netMode != 1 && NPC.localAI[0] >= 900f)
 			{
 				NPC.localAI[0] = 0f;
 				if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
 				{
 					SoundEngine.PlaySound(SoundID.Item33, NPC.position);
-					int num8 = 58;
+					int num8 = 42;
 					if (Main.expertMode)
 					{
-						num8 = 50;
+						num8 = 30;
 					}
 					int num9 = Mod.Find<ModProjectile>("ScavengerLaser").Type;
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[1] >= 60f)
+			if (Main.netMode != 1 && NPC.localAI[1] >= 30f)
 			{
 				NPC.localAI[1] = 0f;
 				if (!Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
 				{
-					int num8 = 68;
-					if (Main.expertMode)
-					{
-						num8 = 60;
-					}
+					int num8 = 50;
 					int num9 = 259;
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector.X, vector.Y, num4, num5, num9, num8 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
 			int num10 = (int)NPC.position.X + NPC.width / 2;
@@ -270,15 +277,24 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScavengerHead").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScavengerHead2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScavengerHead3").Type, 1f);
+				}
 				for (int k = 0; k < 20; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}
@@ -286,12 +302,6 @@ namespace CalamityModClassic1Point2.NPCs.Scavenger
 		public override bool PreKill()
 		{
 			return false;
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.5f * balance);
-			NPC.damage = 0;
 		}
 	}
 }

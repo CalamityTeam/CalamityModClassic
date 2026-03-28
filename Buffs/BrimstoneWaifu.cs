@@ -1,21 +1,21 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class BrimstoneWaifu : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Brimstone Waifu");
-			//Description.SetDefault("The brimstone elemental will protect you");
+			// DisplayName.SetDefault("Brimstone Elemental");
+			// Description.SetDefault("The brimstone elemental will protect you");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] > 0)
 			{
 				modPlayer.bWaifu = true;

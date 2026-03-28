@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class ScarfMeleeBoost : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Scarf Boost");
-			//Description.SetDefault("10% increased melee damage, crit chance, and speed");
+			// DisplayName.SetDefault("Scarf Boost");
+			// Description.SetDefault("10% increased damage, 5% increased crit chance, and 10% increased melee speed");
 			Main.debuff[Type] = false;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().sMeleeBoost = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().sMeleeBoost = true;
 		}
 	}
 }

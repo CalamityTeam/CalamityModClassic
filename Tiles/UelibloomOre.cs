@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class UelibloomOre : ModTile
 	{
@@ -13,20 +13,14 @@ namespace CalamityModClassic1Point2.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			DustType = ModContent.DustType<Dusts.TCESparkle>();
-			RegisterItemDrop(ModContent.ItemType<Items.UelibloomOre>());
+			Main.tileOreFinderPriority[Type] = 805;
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Uelibloom Ore");
- 			AddMapEntry(new Color(0, 255, 0));
+ 			AddMapEntry(new Color(0, 255, 0), name);
 			MineResist = 5f;
 			MinPick = 249;
-			HitSound = Terraria.ID.SoundID.Tink;
+			HitSound = SoundID.Tink;
 			Main.tileSpelunker[Type] = true;
-		}
-		
-		public override void RandomUpdate(int i, int j)
-		{
-			Main.tileOreFinderPriority[Type] = (short)(Main.hardMode ? 805 : 0);
 		}
 		
 		public override bool CanExplode(int i, int j)

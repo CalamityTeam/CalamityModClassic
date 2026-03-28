@@ -5,14 +5,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Placeables
+namespace CalamityModClassicPreTrailer.Items.Placeables
 {
 	public class DraedonsForge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Draedon's Forge");
-			//Tooltip.SetDefault("Used to craft uber-tier items");
+			// DisplayName.SetDefault("Draedon's Forge");
+			// Tooltip.SetDefault("Used to craft uber-tier items");
 		}
 		
 		public override void SetDefaults()
@@ -24,23 +24,13 @@ namespace CalamityModClassic1Point2.Items.Placeables
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.consumable = true;
 			Item.value = 5000000;
-			Item.rare = ItemRarityID.Red;
+			Item.rare = 10;
 			Item.createTile = Mod.Find<ModTile>("DraedonsForge").Type;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 20;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
-	            }
-	        }
-	    }
 		
 		public override void AddRecipes()
 		{

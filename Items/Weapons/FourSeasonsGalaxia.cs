@@ -6,45 +6,35 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FourSeasonsGalaxia : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Galaxia");
-			//Tooltip.SetDefault("Fires different homing projectiles based on what biome you're in\nUpon hitting an enemy you are granted a buff based on what biome you're in\nProjectiles also change based on moon events");
+			// DisplayName.SetDefault("Galaxia");
+			// Tooltip.SetDefault("Fires homing projectiles that inflict different debuffs depending on what biome you're in\nUpon hitting an enemy you are granted a buff based on what biome you're in\nProjectiles also change based on moon events");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 64;
-			Item.damage = 325;
+			Item.width = 70;
+			Item.damage = 425;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 17;
 			Item.useTime = 17;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 9;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 64;
-			Item.maxStack = 1;
-			Item.value = 10000000;
-			Item.shoot = Mod.Find<ModProjectile>("Galaxia").Type;
+			Item.height = 70;
+            Item.value = Item.buyPrice(1, 80, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("Galaxia").Type;
 			Item.shootSpeed = 24f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(43, 96, 222);
-	            }
-	        }
-	    }
 		
 		public override void AddRecipes()
 		{
@@ -52,15 +42,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			recipe.AddIngredient(null, "OmegaBiomeBlade");
 			recipe.AddIngredient(null, "CosmiliteBar", 10);
 			recipe.AddIngredient(null, "Phantoplasm", 5);
-	        recipe.AddTile(null, "DraedonsForge");
+            recipe.AddTile(null, "DraedonsForge");
 	        recipe.Register();
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Dirt);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 0);
 	        }
 	    }
 	    

@@ -5,34 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class FeralthornClaymore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Feralthorn Claymore");
+			// DisplayName.SetDefault("Feralthorn Claymore");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 58;
+			Item.width = 66;
 			Item.damage = 63;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.useAnimation = 19;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTime = 19;
+			Item.useAnimation = 13;
+			Item.useStyle = 1;
+			Item.useTime = 13;
 			Item.useTurn = true;
 			Item.knockBack = 7.25f;
 			Item.UseSound = SoundID.Item8;
 			Item.autoReuse = true;
-			Item.height = 58;
-			Item.value = 355000;
-			Item.rare = ItemRarityID.LightPurple;
-			Item.shoot = Mod.Find<ModProjectile>("JungleThorn").Type;
-			Item.shootSpeed = 16f;
+			Item.height = 66;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 		}
 	
 		public override void AddRecipes()
@@ -42,12 +40,12 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        recipe.AddTile(TileID.MythrilAnvil);
 	        recipe.Register();
 		}
-	
-	    public override void MeleeEffects(Player player, Rectangle hitbox)
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(4))
+	        if (Main.rand.Next(4) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.JungleSpore);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 44);
 	        }
 	    }
 	    

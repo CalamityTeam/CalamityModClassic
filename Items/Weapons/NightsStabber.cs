@@ -6,32 +6,32 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class NightsStabber : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Night's Stabber");
-			//Tooltip.SetDefault("Don't underestimate the power of stabby knives\nEnemies release homing dark energy on death");
+			// DisplayName.SetDefault("Night's Stabber");
+			// Tooltip.SetDefault("Don't underestimate the power of stabby knives\nEnemies release homing dark energy on death");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
 			Item.width = 30;
 			Item.height = 30;
-			Item.damage = 49;
+			Item.damage = 52;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.knockBack = 6f;
+			Item.knockBack = 6.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 	
 		public override void AddRecipes()
@@ -54,9 +54,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Demonite);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 14);
 	        }
 	    }
 	    
@@ -66,7 +66,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    	{
 	    		for (int i = 0; i <= 2; i++)
 	    		{
-	    			Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("NightStabber").Type, hit.Damage, hit.Knockback, Main.myPlayer);
+	    			Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("NightStabber").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    		}
 	    	}
 		}

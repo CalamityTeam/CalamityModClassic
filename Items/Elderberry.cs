@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,27 +6,34 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class Elderberry : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Elderberry");
+			/* Tooltip.SetDefault("Permanently increases maximum life by 25\n" +
+			                   "Can only be used if the max amount of life fruit has been consumed"); */
+		}
+		
 		public override void SetDefaults()
 		{
 			Item.width = 20;
 			Item.height = 20;
 			Item.useAnimation = 30;
-			Item.rare = ItemRarityID.Red;
+			Item.rare = 10;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item4;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.eBerry || player.statLifeMax < 500)
 			{
 				return false;
@@ -41,9 +48,9 @@ namespace CalamityModClassic1Point2.Items
 				player.itemTime = Item.useTime;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.HealEffect(50);
+					player.HealEffect(25);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.eBerry = true;
 			}
 			return true;
@@ -52,10 +59,10 @@ namespace CalamityModClassic1Point2.Items
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LifeFruit, 15);
-			recipe.AddIngredient(null, "UeliaceBar", 20);
-			recipe.AddIngredient(ItemID.LunarBar, 30);
-			recipe.AddIngredient(null, "UnholyEssence", 50);
+			recipe.AddIngredient(ItemID.LifeFruit, 5);
+			recipe.AddIngredient(null, "UeliaceBar", 10);
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(null, "UnholyEssence", 20);
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();
 		}

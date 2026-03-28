@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Perforators
+namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 {
 	public class VeinBurster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Vein Burster");
+			// DisplayName.SetDefault("Vein Burster");
 		}
 
 		public override void SetDefaults()
@@ -22,15 +22,15 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 			Item.damage = 22;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 25;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 25;
 			Item.useTurn = true;
 			Item.knockBack = 4.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 52;
-			Item.value = 50000;
-			Item.rare = ItemRarityID.LightRed;
+			Item.height = 50;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("BloodBall").Type;
 			Item.shootSpeed = 5f;
 		}

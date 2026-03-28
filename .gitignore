@@ -1,0 +1,7 @@
+.vs/
+.vs/*
+bin/
+bin/*
+obj/
+obj/*
+CalamityModClassicPreTrailer.csproj.user

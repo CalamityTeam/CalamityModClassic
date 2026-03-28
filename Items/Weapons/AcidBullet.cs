@@ -4,21 +4,22 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class AcidBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Acid Round");
-			//Tooltip.SetDefault("Explodes into acid that inflicts the plague");
+			// DisplayName.SetDefault("Acid Round");
+			/* Tooltip.SetDefault("Explodes into acid that inflicts the plague\n" +
+                "Does more damage the higher the target's defense"); */
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 24;
+			Item.damage = 28;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 8;
 			Item.height = 8;
@@ -26,7 +27,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
 			Item.value = 1250;
-			Item.rare = ItemRarityID.Yellow;
+			Item.rare = 8;
 			Item.shoot = Mod.Find<ModProjectile>("AcidBullet").Type;
 			Item.shootSpeed = 10f;
 			Item.ammo = 97;

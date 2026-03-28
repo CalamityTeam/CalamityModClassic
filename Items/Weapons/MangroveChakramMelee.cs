@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class MangroveChakramMelee : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Mangrove Chakram");
+			// DisplayName.SetDefault("Mangrove Chakram");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 38;
-			Item.damage = 56;
+			Item.damage = 84;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.useAnimation = 14;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 14;
 			Item.knockBack = 7.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.height = 38;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.LightPurple;
-			Item.shoot = Mod.Find<ModProjectile>("MangroveChakramProjectileMelee").Type;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
+            Item.shoot = Mod.Find<ModProjectile>("MangroveChakramProjectileMelee").Type;
 			Item.shootSpeed = 15.5f;
 		}
 		

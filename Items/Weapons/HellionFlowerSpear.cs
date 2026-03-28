@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class HellionFlowerSpear : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hellion Flower Spear");
+			// DisplayName.SetDefault("Hellion Flower Spear");
 		}
 
 		public override void SetDefaults()
@@ -25,14 +25,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useTurn = true;
 			Item.noUseGraphic = true;
 			Item.useAnimation = 20;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.useTime = 20;
 			Item.knockBack = 7.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.height = 74;
-			Item.value = 355000;
-			Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 			Item.shoot = Mod.Find<ModProjectile>("HellionFlowerSpearProjectile").Type;
 			Item.shootSpeed = 8f;
 		}

@@ -5,39 +5,39 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class DarklightGreatsword : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Darklight Greatsword");
+			// DisplayName.SetDefault("Darklight Greatsword");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 44;
+			Item.width = 56;
 			Item.damage = 55;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 24;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 24;
 			Item.useTurn = true;
 			Item.knockBack = 5;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 50;
-			Item.value = 305000;
-			Item.rare = ItemRarityID.Pink;
+			Item.height = 60;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 			Item.shoot = Mod.Find<ModProjectile>("StarCrystal").Type;
 			Item.shootSpeed = 16f;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
-	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.6f), knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.6), knockback, player.whoAmI, 0.0f, 0.0f);
 	        return false;
 		}
 	
@@ -54,9 +54,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.WaterCandle);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 29);
 	        }
 	    }
 	    

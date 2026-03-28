@@ -5,49 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class MajesticGuard : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Majestic Guard");
-			//Tooltip.SetDefault("Has a chance to lower enemy defense by 10 when striking them\nIf enemy defense is 0 or below your attacks will heal you");
+			// DisplayName.SetDefault("Majestic Guard");
+			// Tooltip.SetDefault("Has a chance to lower enemy defense by 10 when striking them\nIf enemy defense is 0 or below your attacks will heal you");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 138;
+			Item.width = 98;
 			Item.damage = 60;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 22;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 22;
 			Item.useTurn = true;
 			Item.knockBack = 7.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 138;
-			Item.value = 600000;
-			Item.rare = ItemRarityID.Pink;
+			Item.height = 98;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 		}
 		
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	    {
-			if (target.type == NPCID.TargetDummy)
-			{
-				return;
-			}
-			if (Main.rand.NextBool(5))
+			if (Main.rand.Next(5) == 0)
 			{
 				target.defense -= 10;
 			}
-			if (target.defense <= 0)
+			if (target.defense <= 0 && target.canGhostHeal)
 			{
-		    	player.statLife += 6;
-		    	player.HealEffect(6);
+		    	player.statLife += 3;
+		    	player.HealEffect(3);
 			}
 		}
 	

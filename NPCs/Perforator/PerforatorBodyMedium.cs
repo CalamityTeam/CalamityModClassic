@@ -6,42 +6,47 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.Perforator
+namespace CalamityModClassicPreTrailer.NPCs.Perforator
 {
 	public class PerforatorBodyMedium : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("The Perforator");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("The Perforator");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
 			NPC.damage = 25; //70
 			NPC.npcSlots = 5f;
-			NPC.width = 32; //324
-			NPC.height = 32; //216
+			NPC.width = 54; //324
+			NPC.height = 54; //216
 			NPC.defense = 10;
-			NPC.lifeMax = 3500; //250000
+			NPC.lifeMax = 2000; //250000
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 900000 : 700000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
 			NPC.knockBackResist = 0f;
-			NPC.scale = 1.15f;
 			NPC.alpha = 255;
 			NPC.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
 			NPC.buffImmune[Mod.Find<ModBuff>("TemporalSadness").Type] = true;
-			NPC.boss = true;
-			NPC.behindTiles = true;
+            NPC.behindTiles = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
+			NPC.canGhostHeal = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.netAlways = true;
@@ -55,9 +60,9 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 		
 		public override void AI()
 		{
-			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld1Point2.revenge;
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
+			bool revenge = (CalamityWorldPreTrailer.revenge || CalamityWorldPreTrailer.bossRushActive);
+			if (Main.netMode != 1)
 			{
 				int shoot = revenge ? 5 : 4;
 				NPC.localAI[0] += (float)Main.rand.Next(shoot);
@@ -81,8 +86,11 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 						int num946 = Mod.Find<ModProjectile>("BloodClot").Type;
 						vector104.X += num942 * 5f;
 						vector104.Y += num943 * 5f;
-						int num947 = Projectile.NewProjectile(NPC.GetSource_FromThis(), vector104.X, vector104.Y, num942, num943, num946, num945, 0f, Main.myPlayer, 0f, 0f);
-						Main.projectile[num947].timeLeft = 160;
+                        if (Main.rand.Next(2) == 0)
+                        {
+                            int num947 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector104.X, vector104.Y, num942, num943, num946, num945, 0f, Main.myPlayer, 0f, 0f);
+                            Main.projectile[num947].timeLeft = 160;
+                        }
 						NPC.netUpdate = true;
 					}
 				}
@@ -117,21 +125,36 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
+
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 10; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
+				}
+
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("MediumPerf2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("MediumPerf3").Type, 1f);
 				}
 			}
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
-	}
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(Mod.Find<ModBuff>("BurningBlood").Type, 120, true);
+            target.AddBuff(BuffID.Bleeding, 120, true);
+        }
+    }
 }

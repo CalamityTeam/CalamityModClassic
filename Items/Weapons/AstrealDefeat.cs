@@ -5,32 +5,42 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class AstrealDefeat : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Astreal Defeat");
+			/* Tooltip.SetDefault("Fires Astreal Arrows\n" +
+	                   "Ethereal bow of the tyrant king's mother\n" +
+	                   "The mother strongly discouraged acts of violence throughout her life\n" +
+	                   "Though she kept this bow close to protect her family in times of great disaster"); */
+		}
+
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 142;
+	        Item.damage = 109;
 	        Item.DamageType = DamageClass.Ranged;
-	        Item.width = 34;
+	        Item.width = 44;
 	        Item.height = 54;
 	        Item.useTime = 3;
 	        Item.useAnimation = 15;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5.5f;
-	        Item.value = 17500000;
-	        Item.UseSound = SoundID.Item102;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item102;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("AstrealArrow").Type;
 	        Item.shootSpeed = 1f;
 	        Item.useAmmo = 40;
 	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
+
+        public override void ModifyTooltips(List<TooltipLine> list)
 	    {
 	        foreach (TooltipLine line2 in list)
 	        {
@@ -43,7 +53,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("AstrealArrow").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("AstrealArrow").Type, (int)((double)damage), knockback, player.whoAmI, 0f, 0f);
 	    	return false;
 		}
 	

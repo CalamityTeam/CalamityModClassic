@@ -5,25 +5,25 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Grax : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Grax");
-			//Tooltip.SetDefault("Hitting an enemy will greatly boost your defense and melee stats for a short time");
+			// DisplayName.SetDefault("Grax");
+			// Tooltip.SetDefault("Hitting an enemy will greatly boost your defense and melee stats for a short time");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 60;
-			Item.damage = 350;
+			Item.damage = 450;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 25;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 5;
 			Item.useTurn = true;
 			Item.axe = 50;
@@ -32,26 +32,17 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 60;
-			Item.value = 5000000;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 	
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "FellerofEvergreens");
 			recipe.AddIngredient(null, "DraedonBar", 5);
-			recipe.AddRecipeGroup("LunarAxe");
+			recipe.AddRecipeGroup("LunarHamaxe");
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();
 		}

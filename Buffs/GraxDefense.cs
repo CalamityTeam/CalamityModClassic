@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class GraxDefense : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Grax Boost");
-			//Description.SetDefault("Your defenses and muscles are strong");
+			// DisplayName.SetDefault("Grax Boost");
+			// Description.SetDefault("Your defenses and muscles are strong");
 			Main.debuff[Type] = false;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -21,7 +21,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().graxDefense = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().graxDefense = true;
 		}
 	}
 }

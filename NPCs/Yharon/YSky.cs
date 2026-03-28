@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Yharon
+namespace CalamityModClassicPreTrailer.NPCs.Yharon
 {
 	public class YSky : CustomSky
 	{
@@ -34,9 +34,9 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 				{
 					x = Vector2.Distance(Main.player[Main.myPlayer].Center, Main.npc[this.YIndex].Center);
 				}
-				return 1f - Utils.SmoothStep(3000f, 6000f, x);
+				return (1f - Utils.SmoothStep(3000f, 6000f, x)) * 0.66f;
 			}
-			return 0f;
+			return 0.66f;
 		}
 		
 		public override Color OnTileColor(Color inColor)
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 
 		private bool UpdateYIndex()
 		{
-			int YType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("Yharon").Type;
+			int YType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("Yharon").Type;
 			if (YIndex >= 0 && Main.npc[YIndex].active && Main.npc[YIndex].type == YType)
 			{
 				return true;

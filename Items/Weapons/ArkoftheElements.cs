@@ -6,45 +6,36 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ArkoftheElements : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Ark of the Elements");
-			//Tooltip.SetDefault("A heavenly blade infused with the essence of Terraria");
+			// DisplayName.SetDefault("Ark of the Elements");
+			// Tooltip.SetDefault("A heavenly blade infused with the essence of Terraria");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 84;
-			Item.damage = 210;
+			Item.damage = 126;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 20;
 			Item.useTime = 20;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.crit += 10;
 			Item.knockBack = 8.5f;
 			Item.UseSound = SoundID.Item60;
 			Item.autoReuse = true;
 			Item.height = 84;
-			Item.value = 10000000;
-			Item.shoot = Mod.Find<ModProjectile>("EonBeam").Type;
-			Item.shootSpeed = 24f;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("EonBeam").Type;
+			Item.shootSpeed = 16f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -55,11 +46,10 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		    	case 2: type = Mod.Find<ModProjectile>("EonBeamV3").Type; break;
 		    	case 3: type = Mod.Find<ModProjectile>("EonBeamV4").Type; break;
 			}
-	        int projectile = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	        int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 	        Main.projectile[projectile].timeLeft = 160;
 	        Main.projectile[projectile].tileCollide = false;
 			float num72 = Main.rand.Next(22, 30);
-			damage = Main.rand.Next(300, 500);
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 	    	float num78 = (float)Main.mouseX + Main.screenPosition.X + vector2.X;
 			float num79 = (float)Main.mouseY + Main.screenPosition.Y + vector2.Y;
@@ -94,8 +84,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-360, 361) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-360, 361) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("ElementBall").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				float speedY5 = num79 + (float)Main.rand.Next(-360, 361) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("ElementBall").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
 			}
 	    	return false;
 		}
@@ -114,9 +104,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 			{
-				int num250 = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, DustID.RainbowTorch, (float)(player.direction * 2), 0f, 150, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1.3f);
+				int num250 = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, 66, (float)(player.direction * 2), 0f, 150, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1.3f);
 				Main.dust[num250].velocity *= 0.2f;
 				Main.dust[num250].noGravity = true;
 			}

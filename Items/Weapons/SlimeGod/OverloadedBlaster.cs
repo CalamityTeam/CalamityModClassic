@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod
+namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
 {
 	public class OverloadedBlaster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Overloaded Blaster");
-			//Tooltip.SetDefault("33% chance to not consume gel");
+			// DisplayName.SetDefault("Overloaded Blaster");
+			// Tooltip.SetDefault("33% chance to not consume gel");
 		}
 
 	    public override void SetDefaults()
@@ -25,11 +25,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod
 			Item.height = 20;
 			Item.useTime = 17;
 			Item.useAnimation = 17;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.noMelee = true; //so the item's animation doesn't do damage
+			Item.useStyle = 5;
+			Item.noMelee = true;
 			Item.knockBack = 1.5f;
-			Item.value = 100000;
-			Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 4;
 			Item.UseSound = SoundID.Item9;
 			Item.autoReuse = true;
 			Item.shootSpeed = 6.5f;
@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 33)
+	    	if (Main.rand.Next(0, 100) < 33)
 	    		return false;
 	    	return true;
 	    }
@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod
                 float num8 = velocity.Y;
                 float SpeedX = velocity.X + (float) Main.rand.Next(-40, 41) * 0.05f;
                 float SpeedY = velocity.Y + (float) Main.rand.Next(-40, 41) * 0.05f;
-                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
 		}

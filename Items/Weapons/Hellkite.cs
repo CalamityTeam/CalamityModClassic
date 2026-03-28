@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Hellkite : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hellkite");
-			//Tooltip.SetDefault("Contains the power of an ancient drake");
+			// DisplayName.SetDefault("Hellkite");
+			// Tooltip.SetDefault("Contains the power of an ancient drake");
 		}
 
 		public override void SetDefaults()
@@ -23,15 +23,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.damage = 118;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 22;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 22;
 			Item.useTurn = true;
 			Item.knockBack = 8f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 84;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 		}
 	
 		public override void AddRecipes()
@@ -45,9 +45,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(4))
+	        if (Main.rand.Next(4) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 174);
 	        }
 	    }
 	    

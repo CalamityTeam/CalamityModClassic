@@ -5,32 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ArkoftheAncients : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Ark of the Ancients");
-			//Tooltip.SetDefault("A heavenly blade forged to vanquish all evil");
+			// DisplayName.SetDefault("Ark of the Ancients");
+			// Tooltip.SetDefault("A heavenly blade forged to vanquish all evil");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 50;
-			Item.damage = 52;
+			Item.damage = 55;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 22;
 			Item.useTime = 22;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 50;
-			Item.value = 1000000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 48, 0, 0);
+            Item.rare = 6;
 			Item.shoot = Mod.Find<ModProjectile>("EonBeam").Type;
 			Item.shootSpeed = 12f;
 		}
@@ -42,7 +43,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    		case 0: type = Mod.Find<ModProjectile>("EonBeam").Type; break;
 	    		case 1: type = 173; break;
 			}
-	       	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	       	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 			float num72 = Main.rand.Next(18, 25);
 			damage = Main.rand.Next(40, 60);
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -87,8 +88,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-120, 121) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, 92, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				float speedY5 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
+				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, 92, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
 	    	return false;
 		}
@@ -115,7 +117,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 			{
 				int num249 = Main.rand.Next(3);
 				if (num249 == 0)
@@ -137,7 +139,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-	    	if(Main.rand.NextBool(2))
+	    	if(Main.rand.Next(2) == 0)
 	    	{
 	    		target.AddBuff(Mod.Find<ModBuff>("HolyLight").Type, 500);
 	    	}

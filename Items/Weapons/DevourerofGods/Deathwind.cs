@@ -1,70 +1,71 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods {
-public class Deathwind : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons.DevourerofGods
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Deathwind");
-	}
-
-    public override void SetDefaults()
+    public class Deathwind : ModItem
     {
-        Item.damage = 240;
-        Item.DamageType = DamageClass.Ranged;
-        Item.width = 38;
-        Item.height = 66;
-        Item.useTime = 14;
-        Item.useAnimation = 14;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true; //so the item's animation doesn't do damage
-        Item.knockBack = 5;
-        Item.value = 1250000;
-        Item.UseSound = SoundID.Item5;
-        Item.autoReuse = true;
-        Item.shoot = Mod.Find<ModProjectile>("NebulaShot").Type;
-		Item.shootSpeed = 20f;
-		Item.useAmmo = 40;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
+            // DisplayName.SetDefault("Deathwind");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 265;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 40;
+            Item.height = 82;
+            Item.useTime = 14;
+            Item.useAnimation = 14;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 5f;
+            Item.value = Item.buyPrice(1, 40, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item5;
+            Item.autoReuse = true;
+            Item.shoot = Mod.Find<ModProjectile>("NebulaShot").Type;
+            Item.shootSpeed = 20f;
+            Item.useAmmo = 40;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			Vector2 origin = new Vector2(20f, 41f);
+			spriteBatch.Draw(ModContent.Request<Texture2D>("CalamityModClassicPreTrailer/Items/Weapons/DevourerofGods/DeathwindGlow").Value, Item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float SpeedA = velocity.X;
+            float SpeedB = velocity.Y;
+            int num6 = Main.rand.Next(4, 6);
+            for (int index = 0; index < num6; ++index)
             {
-                line2.OverrideColor = new Color(0, 255, 0);
+                float num7 = velocity.X;
+                float num8 = velocity.Y;
+                float SpeedX = velocity.X + (float)Main.rand.Next(-20, 21) * 0.05f;
+                float SpeedY = velocity.Y + (float)Main.rand.Next(-20, 21) * 0.05f;
+                if (type == ProjectileID.WoodenArrowFriendly)
+                {
+                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("NebulaShot").Type, damage, knockback, player.whoAmI, 0f, 0f);
+                }
+                else
+                {
+                    int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+                    Main.projectile[num121].noDropItem = true;
+                }
             }
+            return false;
         }
     }
-    
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-	{
-    	float SpeedA = velocity.X;
-   		float SpeedB = velocity.Y;
-        int num6 = Main.rand.Next(4, 8);
-        for (int index = 0; index < num6; ++index)
-        {
-      	 	float num7 = velocity.X;
-            float num8 = velocity.Y;
-            float SpeedX = velocity.X + (float) Main.rand.Next(-20, 21) * 0.05f;
-            float SpeedY = velocity.Y + (float) Main.rand.Next(-20, 21) * 0.05f;
-    		if (Main.rand.NextBool(3))
-	        {
-	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("IceBeam").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-	        }
-	        else
-	        {
-	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("NebulaShot").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-	        }
-    	}
-    	return false;
-	}
-}}
+}

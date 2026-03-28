@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ManaRose : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Mana Rose");
-			//Tooltip.SetDefault("Casts a mana bolt that explodes into smaller bolts");
+			// DisplayName.SetDefault("Mana Rose");
+			// Tooltip.SetDefault("Casts a mana bolt that explodes into smaller bolts");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 11;
+	        Item.damage = 9;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 8;
 	        Item.width = 38;
 	        Item.height = 38;
 	        Item.useTime = 27;
 	        Item.useAnimation = 27;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3.25f;
-	        Item.value = 50000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item109;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("ManaBolt").Type;

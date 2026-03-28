@@ -1,29 +1,29 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class ExtremeGrav : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Extreme Gravity");
-			//Description.SetDefault("Your wing time is reduced by 50%, infinite flight is disabled");
+			// DisplayName.SetDefault("Extreme Gravity");
+			// Description.SetDefault("Your wing time is reduced by 66%, infinite flight is disabled");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
-			BuffID.Sets.LongerExpertDebuff[Type] = true;
+			BuffID.Sets.LongerExpertDebuff[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().eGrav = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().eGrav = true;
 		}
 	}
 }

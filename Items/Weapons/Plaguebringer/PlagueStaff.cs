@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
+namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
 {
 	public class PlagueStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Plague Staff");
-			//Tooltip.SetDefault("Fires a spread of plague fangs");
+			// DisplayName.SetDefault("Plague Staff");
+			// Tooltip.SetDefault("Fires a spread of plague fangs");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 98;
+	        Item.damage = 78;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 22;
 	        Item.width = 46;
 	        Item.height = 46;
 	        Item.useTime = 21;
 	        Item.useAnimation = 21;
-	        Item.useStyle = ItemUseStyleID.Shoot;
-	        Item.noMelee = true; //so the item's animation doesn't do damage
-	        Item.knockBack = 8;
-	        Item.value = 1250000;
-	        Item.rare = ItemRarityID.Yellow;
+	        Item.useStyle = 5;
+	        Item.noMelee = true;
+	        Item.knockBack = 8f;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item43;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("PlagueFang").Type;
@@ -46,15 +46,15 @@ namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
 			float num79 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
 			float num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
 	    	int num130 = 6;
-			if (Main.rand.NextBool(3))
+			if (Main.rand.Next(3) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(4))
+			if (Main.rand.Next(4) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(5))
+			if (Main.rand.Next(5) == 0)
 			{
 				num130++;
 			}
@@ -71,7 +71,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Plaguebringer
 				num133 *= num80;
 				float x2 = vector2.X;
 				float y2 = vector2.Y;
-				Projectile.NewProjectile(source, x2, y2, num132, num133, Mod.Find<ModProjectile>("PlagueFang").Type, damage, knockback, Main.myPlayer, 0f, 0f);
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), x2, y2, num132, num133, Mod.Find<ModProjectile>("PlagueFang").Type, damage, knockback, Main.myPlayer, 0f, 0f);
 			}
 			return false;
 		}

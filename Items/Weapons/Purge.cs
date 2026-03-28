@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Purge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Nano Purge");
+			// DisplayName.SetDefault("Nano Purge");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 83;
+	        Item.damage = 70;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 6;
 	        Item.width = 20;
 	        Item.height = 12;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.noUseGraphic = true;
 			Item.channel = true;
 	        Item.knockBack = 3f;
-	        Item.value = 900000;
-	        Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.buyPrice(0, 95, 0, 0);
+            Item.rare = 9;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("Purge").Type;
 	        Item.shootSpeed = 24f;
@@ -49,7 +49,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Purge").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Purge").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

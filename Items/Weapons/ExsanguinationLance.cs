@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ExsanguinationLance : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Exsanguination Lance");
+			// DisplayName.SetDefault("Exsanguination Lance");
 		}
 
 		public override void SetDefaults()
@@ -25,14 +25,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useTurn = true;
 			Item.noUseGraphic = true;
 			Item.useAnimation = 22;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.useTime = 22;
 			Item.knockBack = 6.75f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 44;
-			Item.value = 385000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 			Item.shoot = Mod.Find<ModProjectile>("ExsanguinationLanceProjectile").Type;
 			Item.shootSpeed = 8f;
 		}

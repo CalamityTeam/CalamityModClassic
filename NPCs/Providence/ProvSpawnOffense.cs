@@ -5,11 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.Providence
+namespace CalamityModClassicPreTrailer.NPCs.Providence
 {
 	public class ProvSpawnOffense : ModNPC
 	{
@@ -17,34 +18,50 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("A Profaned Guardian");
-			Main.npcFrameCount[NPC.type] = 4;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("A Profaned Guardian");
+			Main.npcFrameCount[NPC.type] = 6;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
 			NPC.npcSlots = 1f;
 			NPC.aiStyle = -1;
-			NPC.damage = 140;
+			NPC.damage = 100;
 			NPC.width = 100; //324
 			NPC.height = 80; //216
-			NPC.defense = 58;
-			NPC.lifeMax = 70000;
+			NPC.defense = 30;
+			NPC.lifeMax = 42500;
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 500000 : 400000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			AIType = -1;
+			NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+			NPCID.Sets.TrailingMode[NPC.type] = 1;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
-			}
-			NPC.value = Item.buyPrice(0, 10, 0, 0);
+            }
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("AbyssalFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("ArmorCrunch").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("DemonFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("GodSlayerInferno").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Nightwither").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Shred").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("WhisperingDeath").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("SilvaStun").Type] = false;
 			NPC.HitSound = SoundID.NPCHit52;
 			NPC.DeathSound = SoundID.NPCDeath55;
 		}
@@ -59,66 +76,38 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 		
 		public override void AI()
 		{
-			bool powerBoost = (double)NPC.life <= (double)NPC.lifeMax * 0.5;
 			bool fireDust = (double)NPC.life <= (double)NPC.lifeMax * 0.25;
 			bool expertMode = Main.expertMode;
 			bool isHoly = Main.player[NPC.target].ZoneHallow;
 			bool isHell = Main.player[NPC.target].ZoneUnderworldHeight;
-			NPC.defense = (isHoly || isHell) ? 58 : 99999;
+			NPC.defense = (isHoly || isHell || CalamityWorldPreTrailer.bossRushActive) ? 30 : 99999;
 			Vector2 vectorCenter = NPC.Center;
 			Player player = Main.player[NPC.target];
 			NPC.TargetClosest(false);
-			if (!player.active || player.dead)
-			{
-				NPC.TargetClosest(false);
-				player = Main.player[NPC.target];
-				if (!player.active || player.dead)
-				{
-					NPC.velocity = new Vector2(0f, -10f);
-					if (NPC.timeLeft > 150)
-					{
-						NPC.timeLeft = 150;
-					}
-					return;
-				}
-			}
-			else if (NPC.timeLeft > 1800)
-			{
-				NPC.timeLeft = 1800;
-			}
-			if (Math.Sign(NPC.velocity.X) != 0) 
+            if (!Main.npc[CalamityGlobalNPC.holyBoss].active)
+            {
+                NPC.active = false;
+                NPC.netUpdate = true;
+                return;
+            }
+            if (Math.Sign(NPC.velocity.X) != 0) 
 			{
 				NPC.spriteDirection = -Math.Sign(NPC.velocity.X);
 			}
 			NPC.spriteDirection = Math.Sign(NPC.velocity.X);
-			float num998 = 10f;
-			float scaleFactor3 = 200f;
-			float num999 = 750f;
-			float num1000 = powerBoost ? 40f : 30f;
-			float num1001 = 30f;
-			float scaleFactor4 = 0.95f;
-			int num1002 = 50;
-			float scaleFactor5 = 14f;
+			float num998 = 8f;
+			float scaleFactor3 = 300f;
+			float num999 = 800f;
+			float num1000 = 60f;
+			float num1001 = 5f;
+			float scaleFactor4 = 0.8f;
+			int num1002 = 0;
+			float scaleFactor5 = 10f;
 			float num1003 = 30f;
-			float num1004 = 100f;
-			float num1005 = 20f;
-			float num1006 = 0f;
-			float num1007 = 7f;
-			bool flag63 = true;
-			num998 = 8f;
-			scaleFactor3 = 300f;
-			num999 = 800f;
-			num1000 = powerBoost ? 80f : 60f;
-			num1001 = 5f;
-			scaleFactor4 = 0.8f;
-			num1002 = 0;
-			scaleFactor5 = 10f;
-			num1003 = 30f;
-			num1004 = 150f;
-			num1005 = 60f;
-			num1006 = 0.333333343f;
-			num1007 = 8f;
-			flag63 = false;
+			float num1004 = 150f;
+			float num1005 = 60f;
+			float num1006 = 0.333333343f;
+			float num1007 = 8f;
 			num1006 *= num1005;
 			int num1009 = (NPC.ai[0] == 2f) ? 2 : 1;
 			int num1010 = (NPC.ai[0] == 2f) ? 80 : 60;
@@ -126,13 +115,13 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			{
 				if (Main.rand.Next(3) < num1009) 
 				{
-					int num1012 = Dust.NewDust(NPC.Center - new Vector2((float)num1010), num1010 * 2, num1010 * 2, DustID.CopperCoin, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, 90, default(Color), 0.5f);
+					int num1012 = Dust.NewDust(NPC.Center - new Vector2((float)num1010), num1010 * 2, num1010 * 2, 244, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, 90, default(Color), 0.5f);
 					Main.dust[num1012].noGravity = true;
 					Main.dust[num1012].velocity *= 0.2f;
 					Main.dust[num1012].fadeIn = 1f;
 				}
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != 1)
 			{
 				NPC.localAI[0] += expertMode ? 2f : 1f;
 				if (NPC.localAI[0] >= 600f)
@@ -144,21 +133,22 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 						SoundEngine.PlaySound(SoundID.Item20, NPC.position);
 						Vector2 value9 = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
 						float spread = 45f * 0.0174f;
-				    	double startAngle = Math.Atan2(NPC.velocity.X, NPC.velocity.Y)- spread/2;
-				    	double deltaAngle = spread/8f;
+				    	double startAngle = Math.Atan2(NPC.velocity.X, NPC.velocity.Y) - spread / 2;
+				    	double deltaAngle = spread / 8f;
 				    	double offsetAngle;
-				    	int damage = expertMode ? 50 : 54;
+				    	int damage = expertMode ? 40 : 59;
 				    	int projectileShot = Mod.Find<ModProjectile>("ProfanedSpear").Type;
 				    	int i;
-				    	for (i = 0; i < 8; i++ )
+				    	for (i = 0; i < 8; i++)
 				    	{
 				   			offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-				        	Projectile.NewProjectile(NPC.GetSource_FromThis(), value9.X, value9.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
-				        	Projectile.NewProjectile(NPC.GetSource_FromThis(), value9.X, value9.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
+				        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), value9.X, value9.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
+				        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), value9.X, value9.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
 				    	}
 					}
 				}
 			}
+			NPC.damage = expertMode ? 200 : 100;
 			if (NPC.ai[0] == 0f) 
 			{
 				NPC.knockBackResist = 0f;
@@ -220,21 +210,22 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			} 
 			else if (NPC.ai[0] == 2f) 
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				if (Main.netMode != 1)
 				{
 					dustTimer--;
 					if (fireDust && dustTimer <= 0)
 					{
 						SoundEngine.PlaySound(SoundID.Item20, NPC.position);
-						int damage = expertMode ? 50 : 54;
+						int damage = expertMode ? 40 : 59;
 						Vector2 vector173 = Vector2.Normalize(player.Center - vectorCenter) * (float)(NPC.width + 20) / 2f + vectorCenter;
-						int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(), (int)vector173.X, (int)vector173.Y, (float)(NPC.direction * 2), 4f, Mod.Find<ModProjectile>("FlareDust").Type, damage, 0f, Main.myPlayer, 0f, 0f); //changed
+						int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(null), (int)vector173.X, (int)vector173.Y, (float)(NPC.direction * 2), 4f, Mod.Find<ModProjectile>("FlareDust").Type, damage, 0f, Main.myPlayer, 0f, 0f); //changed
 						Main.projectile[projectile].timeLeft = 120;
 						Main.projectile[projectile].velocity.X = 0f;
 				        Main.projectile[projectile].velocity.Y = 0f;
 				        dustTimer = 3;
 					}
 				}
+				NPC.damage = expertMode ? 240 : 120;
 				NPC.knockBackResist = 0f;
 				float num1016 = num1003;
 				NPC.ai[1] += 1f;
@@ -248,7 +239,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 					NPC.velocity /= 2f;
 					NPC.netUpdate = true;
 					NPC.ai[1] = 45f;
-					NPC.ai[0] = 4f;
+					NPC.ai[0] = 3f;
 				} 
 				else 
 				{
@@ -262,86 +253,70 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 					}
 					NPC.velocity = (NPC.velocity * (num1005 - 1f) + vec2 * (NPC.velocity.Length() + num1006)) / num1005;
 				}
-				if (flag63 && Collision.SolidCollision(NPC.position, NPC.width, NPC.height)) 
-				{
-					NPC.ai[0] = 3f;
-					NPC.ai[1] = 0f;
-					NPC.ai[2] = 0f;
-					NPC.ai[3] = 0f;
-					NPC.netUpdate = true;
-				}
 			} 
-			else if (NPC.ai[0] == 4f) 
+			else if (NPC.ai[0] == 3f) 
 			{
-				NPC.ai[1] -= 3f;
+				NPC.ai[1] -= 1f;
 				if (NPC.ai[1] <= 0f) 
 				{
 					NPC.ai[0] = 0f;
 					NPC.ai[1] = 0f;
 					NPC.netUpdate = true;
 				}
-				NPC.velocity *= 0.95f;
-			}
-			if (flag63 && NPC.ai[0] != 3f && Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) < 64f) 
-			{
-				NPC.ai[0] = 3f;
-				NPC.ai[1] = 0f;
-				NPC.ai[2] = 0f;
-				NPC.ai[3] = 0f;
-				NPC.netUpdate = true;
-			}
-			if (NPC.ai[0] == 3f) 
-			{
-				NPC.position = NPC.Center;
-				NPC.width = (NPC.height = 192);
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				NPC.velocity = Vector2.Zero;
-				NPC.damage = (int)(100f * Main.GameModeInfo.EnemyDamageMultiplier);
-				NPC.alpha = 255;
-				Lighting.AddLight((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16, 2f, 0.75f, 0f);
-				for (int num1017 = 0; num1017 < 10; num1017++) 
-				{
-					int num1018 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num1018].velocity *= 1.4f;
-					Main.dust[num1018].position = ((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + NPC.Center;
-				}
-				for (int num1019 = 0; num1019 < 40; num1019++) 
-				{
-					int num1020 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, 0f, 0f, 100, default(Color), 0.5f);
-					Main.dust[num1020].noGravity = true;
-					Main.dust[num1020].velocity *= 2f;
-					Main.dust[num1020].position = ((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + NPC.Center;
-					Main.dust[num1020].velocity = Main.dust[num1020].velocity / 2f + Vector2.Normalize(Main.dust[num1020].position - NPC.Center);
-					if (Main.rand.NextBool(2)) 
-					{
-						num1020 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, 0f, 0f, 100, default(Color), 0.9f);
-						Main.dust[num1020].noGravity = true;
-						Main.dust[num1020].velocity *= 1.2f;
-						Main.dust[num1020].position = ((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + NPC.Center;
-						Main.dust[num1020].velocity = Main.dust[num1020].velocity / 2f + Vector2.Normalize(Main.dust[num1020].position - NPC.Center);
-					}
-					if (Main.rand.NextBool(4)) 
-					{
-						num1020 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, 0f, 0f, 100, default(Color), 0.7f);
-						Main.dust[num1020].velocity *= 1.2f;
-						Main.dust[num1020].position = ((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + NPC.Center;
-						Main.dust[num1020].velocity = Main.dust[num1020].velocity / 2f + Vector2.Normalize(Main.dust[num1020].position - NPC.Center);
-					}
-				}
-				NPC.ai[1] += 1f;
-				if (NPC.ai[1] >= 3f) 
-				{
-					SoundEngine.PlaySound(SoundID.Item14, NPC.position);
-					NPC.life = 0;
-					NPC.HitEffect(0, 10.0);
-					NPC.active = false;
-					return;
-				}
+				NPC.velocity *= 0.98f;
 			}
 		}
-		
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			SpriteEffects spriteEffects = SpriteEffects.None;
+			if (NPC.spriteDirection == 1)
+			{
+				spriteEffects = SpriteEffects.FlipHorizontally;
+			}
+			Microsoft.Xna.Framework.Color color24 = NPC.GetAlpha(drawColor);
+			Microsoft.Xna.Framework.Color color25 = Lighting.GetColor((int)((double)NPC.position.X + (double)NPC.width * 0.5) / 16, (int)(((double)NPC.position.Y + (double)NPC.height * 0.5) / 16.0));
+			Texture2D texture2D3 = TextureAssets.Npc[NPC.type].Value;
+			int num156 = TextureAssets.Npc[NPC.type].Value.Height / Main.npcFrameCount[NPC.type];
+			int y3 = num156 * (int)NPC.frameCounter;
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(0, y3, texture2D3.Width, num156);
+			Vector2 origin2 = rectangle.Size() / 2f;
+			int num157 = 8;
+			int num158 = 2;
+			int num159 = 1;
+			float num160 = 0f;
+			int num161 = num159;
+			spriteBatch.Draw(texture2D3, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY), NPC.frame, color24, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, spriteEffects, 0);
+			while (NPC.ai[0] == 2f && Lighting.NotRetro && ((num158 > 0 && num161 < num157) || (num158 < 0 && num161 > num157)))
+			{
+				Microsoft.Xna.Framework.Color color26 = NPC.GetAlpha(color25);
+				{
+					goto IL_6899;
+				}
+				IL_6881:
+				num161 += num158;
+				continue;
+				IL_6899:
+				float num164 = (float)(num157 - num161);
+				if (num158 < 0)
+				{
+					num164 = (float)(num159 - num161);
+				}
+				color26 *= num164 / ((float)NPCID.Sets.TrailCacheLength[NPC.type] * 1.5f);
+				Vector2 value4 = (NPC.oldPos[num161]);
+				float num165 = NPC.rotation;
+				Main.spriteBatch.Draw(texture2D3, value4 + NPC.Size / 2f - Main.screenPosition + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, num165 + NPC.rotation * num160 * (float)(num161 - 1) * -(float)spriteEffects.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), origin2, NPC.scale, spriteEffects, 0f);
+				goto IL_6881;
+			}
+			return false;
+		}
+
+		public override bool CheckActive()
+        {
+            return false;
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
 			cooldownSlot = 1;
 			return true;
@@ -349,26 +324,35 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
+			if (CalamityWorldPreTrailer.revenge)
+			{
+				target.AddBuff(Mod.Find<ModBuff>("MarkedforDeath").Type, 180);
+			}
 			target.AddBuff(BuffID.OnFire, 600, true);
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 244, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				for (int k = 0; k < 50; k++)
+				if (Main.netMode != NetmodeID.Server)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossA").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossA2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossA3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossA4").Type, 1f);
+				}
+				for (int k = 0; k < 30; k++)
+				{
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 244, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}

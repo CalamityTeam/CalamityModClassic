@@ -5,33 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class HellwingStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hellwing Staff");
-			//Tooltip.SetDefault("Unleashes pillars of flame");
+			// DisplayName.SetDefault("Hellwing Staff");
+			// Tooltip.SetDefault("Unleashes pillars of flame");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 18;
+	        Item.damage = 20;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 18;
 	        Item.width = 54;
 	        Item.height = 52;
 	        Item.useTime = 33;
 	        Item.useAnimation = 33;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5;
-	        Item.value = 55000;
-	        Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.UseSound = SoundID.Item43;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("FlamePillar").Type;
@@ -72,15 +72,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    	num78 *= num80;
 			num79 *= num80;
 	    	int num130 = 7;
-			if (Main.rand.NextBool(6))
+			if (Main.rand.Next(6) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(7))
+			if (Main.rand.Next(7) == 0)
 			{
 				num130++;
 			}
-			if (Main.rand.NextBool(8))
+			if (Main.rand.Next(8) == 0)
 			{
 				num130++;
 			}
@@ -104,8 +104,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("FlamePillar").Type, damage, knockback, player.whoAmI, 0f, 0f);
+				float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("FlamePillar").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			return false;
 		}

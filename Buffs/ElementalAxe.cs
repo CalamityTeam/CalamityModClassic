@@ -1,46 +1,22 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class ElementalAxe : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elemental Axe");
-			//Description.SetDefault("The elemental axe will protect you");
+			// DisplayName.SetDefault("Elemental Axe");
+			// Description.SetDefault("The elemental axe will protect you");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeG").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeR").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeO").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeY").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeB").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeI").Type] > 0)
-			{
-				modPlayer.eAxe = true;
-			}
-			else if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxeV").Type] > 0)
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ElementalAxe").Type] > 0)
 			{
 				modPlayer.eAxe = true;
 			}

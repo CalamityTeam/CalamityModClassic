@@ -1,66 +1,52 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class BadgeofBravery : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Badge of Bravery");
-		//Tooltip.SetDefault("The lower the health the greater the melee speed");
-	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 30;
-		Item.height = 30;
-		Item.value = 150000;
-		Item.accessory = true;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class BadgeofBravery : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 200);
-            }
+            // DisplayName.SetDefault("Badge of Bravery");
+            // Tooltip.SetDefault("15% increased melee speed");
         }
-    }
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+
+        public override void SetDefaults()
+        {
+            Item.width = 30;
+            Item.height = 30;
+            Item.value = Item.buyPrice(0, 21, 0, 0);
+            Item.accessory = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.badgeOfBravery = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "UeliaceBar", 2);
+            recipe.AddIngredient(ItemID.FeralClaws);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
+        }
+
+		public override void OnCraft(Recipe recipe)
 		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
+			if (Main.rand.Next(40) == 0)
+				recipe.createItem.type = Mod.Find<ModItem>("SamuraiBadge").Type;
+			else
+				recipe.createItem.type = Item.type;
 		}
 	}
-	
-	public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-		recipe.AddIngredient(null, "UeliaceBar", 2);
-		recipe.AddIngredient(ItemID.FeralClaws);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-	}
-}}
+}

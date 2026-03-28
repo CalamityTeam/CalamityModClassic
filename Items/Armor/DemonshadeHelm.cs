@@ -1,94 +1,89 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.Armor 
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class DemonshadeHelm : ModItem
 	{
-        public override void SetStaticDefaults()
-        {
-            //DisplayName.SetDefault("Demonshade Helm");
-            //Tooltip.SetDefault("50% increased damage and crit. chance and +20 max minions");
-        }
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Demonshade Helm");
+			// Tooltip.SetDefault("30% increased damage and 15% increased critical strike chance, +10 max minions");
+		}
 
-	    public override void SetDefaults()
-	    {
-	        Item.width = 18;
-	        Item.height = 18;
-	        Item.value = 10000000;
-	        Item.defense = 55; //15
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, 0, 255);
-	            }
-	        }
-	    }
-	
-	    public override bool IsArmorSet(Item head, Item body, Item legs)
-	    {
-	        return body.type == Mod.Find<ModItem>("DemonshadeBreastplate").Type && legs.type == Mod.Find<ModItem>("DemonshadeGreaves").Type;
-	    }
-	    
-	    public override void ArmorSetShadows(Player player)
-	    {
-	    	player.armorEffectDrawShadow = true;
-	    	player.armorEffectDrawOutlines = true;
-	    }
-	
-	    public override void UpdateArmorSet(Player player)
-	    {
-	        player.setBonus = "Melee attacks inflict shadowflame\n" +
-	        	"Shadowbeams and demon scythes will fire down when you are hit\n" +
-	        	"A friendly red devil follows you around";
-	        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-	        modPlayer.dsSetBonus = true;
-	        modPlayer.redDevil = true;
-			if (player.whoAmI == Main.myPlayer)
+		public override void SetDefaults()
+		{
+			Item.width = 18;
+			Item.height = 18;
+			Item.value = Item.buyPrice(5, 0, 0, 0);
+			Item.defense = 50; //15
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 16;
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return body.type == Mod.Find<ModItem>("DemonshadeBreastplate").Type && legs.type == Mod.Find<ModItem>("DemonshadeGreaves").Type;
+		}
+
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawShadow = true;
+			player.armorEffectDrawOutlines = true;
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "100% increased minion damage\n" +
+				"All attacks inflict the demon flame debuff\n" +
+				"Shadowbeams and demon scythes will fire down when you are hit\n" +
+				"A friendly red devil follows you around\n" +
+				"Press Y to enrage nearby enemies with a dark magic spell for 10 seconds\n" +
+				"This makes them do 25% more damage but they also take 125% more damage";
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+			modPlayer.dsSetBonus = true;
+			if (player.whoAmI == Main.myPlayer && !modPlayer.chibii)
 			{
+				modPlayer.redDevil = true;
 				if (player.FindBuffIndex(Mod.Find<ModBuff>("RedDevil").Type) == -1)
 				{
 					player.AddBuff(Mod.Find<ModBuff>("RedDevil").Type, 3600, true);
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("RedDevil").Type] < 1)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("RedDevil").Type, 0, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("RedDevil").Type, 10000, 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
-	    }
-	    
-	    public override void UpdateEquip(Player player)
-	    {
-	    	player.maxMinions += 20;
-			player.GetDamage(DamageClass.Melee) += 0.5f;
-	       	player.GetDamage(DamageClass.Throwing) += 0.5f;
-		    player.GetDamage(DamageClass.Ranged) += 0.5f;
-	        player.GetDamage(DamageClass.Magic) += 0.5f;
-	        player.GetDamage(DamageClass.Summon) += 0.5f;
-	   	    player.GetCritChance(DamageClass.Melee) += 50;
-			player.GetCritChance(DamageClass.Magic) += 50;
-			player.GetCritChance(DamageClass.Ranged) += 50;
-			player.GetCritChance(DamageClass.Throwing) += 50;
-	    }
-	
-	    public override void AddRecipes()
-	    {
-	        Recipe recipe = CreateRecipe();
-	        recipe.AddIngredient(null, "ShadowspecBar", 40);
-	        recipe.AddTile(null, "DraedonsForge");
-	        recipe.Register();
-	    }
+			player.GetDamage(DamageClass.Summon) += 1f;
+		}
+
+		public override void UpdateEquip(Player player)
+		{
+			player.maxMinions += 10;
+			player.GetDamage(DamageClass.Melee) += 0.3f;
+			CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.3f;
+			player.GetDamage(DamageClass.Ranged) += 0.3f;
+			player.GetDamage(DamageClass.Magic) += 0.3f;
+			player.GetDamage(DamageClass.Summon) += 0.3f;
+			player.GetCritChance(DamageClass.Melee) += 15;
+			player.GetCritChance(DamageClass.Magic) += 15;
+			player.GetCritChance(DamageClass.Ranged) += 15;
+			CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingCrit += 15;
+		}
+
+		public override void AddRecipes()
+		{
+			Recipe recipe = CreateRecipe();
+			recipe.AddIngredient(null, "ShadowspecBar", 8);
+			recipe.AddTile(null, "DraedonsForge");
+			recipe.Register();
+		}
 	}
 }

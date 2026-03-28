@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,16 +6,16 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class PhantomHeart : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Phantom Heart");
-			//Tooltip.SetDefault("Permanently increases maximum mana by 100");
+			// DisplayName.SetDefault("Phantom Heart");
+			// Tooltip.SetDefault("Permanently increases maximum mana by 50");
 		}
 		
 		public override void SetDefaults()
@@ -24,25 +24,16 @@ namespace CalamityModClassic1Point2.Items
 			Item.height = 20;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item29;
 			Item.consumable = true;
+			Item.rare = 10;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.pHeart)
 			{
 				return false;
@@ -57,9 +48,9 @@ namespace CalamityModClassic1Point2.Items
 				player.itemTime = Item.useTime;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.ManaEffect(100);
+					player.ManaEffect(50);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.pHeart = true;
 			}
 			return true;
@@ -68,7 +59,7 @@ namespace CalamityModClassic1Point2.Items
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "Phantoplasm", 150);
+			recipe.AddIngredient(null, "Phantoplasm", 100);
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();
 		}

@@ -1,0 +1,443 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using CalamityModClassicPreTrailer.Projectiles;
+
+namespace CalamityModClassicPreTrailer.NPCs.TheDevourerofGods
+{
+	[AutoloadBossHead]
+	public class DevourerofGodsBodyS : ModNPC
+	{
+		private int invinceTime = 360;
+
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("The Devourer of Gods");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
+
+		public override void SetDefaults()
+		{
+			NPC.damage = 220; //70
+			NPC.npcSlots = 5f;
+			NPC.width = 54; //34
+			NPC.height = 54; //34
+			NPC.defense = 0;
+			NPC.lifeMax = CalamityWorldPreTrailer.revenge ? 1875000 : 1650000; //720000 672000
+			if (CalamityWorldPreTrailer.death)
+			{
+				NPC.lifeMax = 3060000;
+			}
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = CalamityWorldPreTrailer.death ? 10000000 : 9200000;
+			}
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
+			NPC.aiStyle = -1; //new
+			AIType = -1; //new
+			AnimationType = 10; //new
+			NPC.knockBackResist = 0f;
+			NPC.alpha = 255;
+			NPC.behindTiles = true;
+			NPC.noGravity = true;
+			NPC.noTileCollide = true;
+			NPC.chaseable = false;
+			NPC.canGhostHeal = false;
+			NPC.HitSound = SoundID.NPCHit4;
+			NPC.DeathSound = SoundID.NPCDeath14;
+			NPC.netAlways = true;
+			NPC.boss = true;
+			for (int k = 0; k < NPC.buffImmune.Length; k++)
+			{
+				NPC.buffImmune[k] = true;
+			}
+			Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/UniversalCollapse");
+			NPC.dontCountMe = true;
+		}
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return false;
+		}
+
+		public override void BossHeadRotation(ref float rotation)
+		{
+			rotation = NPC.rotation;
+		}
+
+		public override void AI()
+		{
+			bool expertMode = Main.expertMode;
+			bool speedBoost1 = (double)NPC.life <= (double)NPC.lifeMax * 0.8; //speed increase
+			bool speedBoost2 = (double)NPC.life <= (double)NPC.lifeMax * 0.6; //speed increase
+			bool speedBoost3 = (double)NPC.life <= (double)NPC.lifeMax * 0.4; //speed increase
+			bool speedBoost4 = (double)NPC.life <= (double)NPC.lifeMax * 0.2; //speed increase
+			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.2f, 0.05f, 0.2f);
+			if (invinceTime > 0)
+			{
+				invinceTime--;
+				NPC.dontTakeDamage = true;
+			}
+			else
+			{
+				NPC.dontTakeDamage = false;
+			}
+			if (NPC.ai[3] > 0f)
+			{
+				NPC.realLife = (int)NPC.ai[3];
+			}
+			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
+			{
+				NPC.TargetClosest(true);
+			}
+			NPC.velocity.Length();
+			if (NPC.velocity.X < 0f)
+			{
+				NPC.spriteDirection = -1;
+			}
+			else if (NPC.velocity.X > 0f)
+			{
+				NPC.spriteDirection = 1;
+			}
+			bool flag = false;
+			if (NPC.ai[1] <= 0f)
+			{
+				flag = true;
+			}
+			else if (Main.npc[(int)NPC.ai[1]].life <= 0)
+			{
+				flag = true;
+			}
+			if (flag)
+			{
+				NPC.life = 0;
+				NPC.HitEffect(0, 10.0);
+				NPC.checkDead();
+			}
+			if (!Main.npc[CalamityGlobalNPC.DoGHead].active)
+			{
+				NPC.active = false;
+			}
+			if (Main.npc[(int)NPC.ai[2]].localAI[3] >= 1f)
+			{
+				NPC.alpha = Main.npc[(int)NPC.ai[2]].alpha;
+			}
+			else if (Main.npc[(int)NPC.ai[1]].alpha < 128)
+			{
+				NPC.alpha -= 42;
+				if (NPC.alpha <= 0 && invinceTime <= 0)
+				{
+					NPC.alpha = 0;
+				}
+			}
+			float fallSpeed = 16f;
+			float turnSpeed = 0.3f;
+			float speed = fallSpeed;
+			if (Main.npc[(int)NPC.ai[2]].ai[2] == 0f)
+			{
+				if (speedBoost4 || CalamityWorldPreTrailer.death)
+				{
+					speed = 26f;
+					turnSpeed = 0.53f;
+				}
+				else if (speedBoost3)
+				{
+					speed = 21.5f;
+					turnSpeed = 0.43f;
+				}
+				else if (speedBoost2)
+				{
+					speed = 20.5f;
+					turnSpeed = 0.39f;
+				}
+				else if (speedBoost1)
+				{
+					speed = 19f;
+					turnSpeed = 0.36f;
+				}
+			}
+			else
+			{
+				turnSpeed = 0.2f;
+				if (speedBoost4 || CalamityWorldPreTrailer.death)
+				{
+					turnSpeed = 0.4f;
+					speed = 28f;
+				}
+				else if (speedBoost3)
+				{
+					turnSpeed = 0.29f;
+					speed = 22f;
+				}
+				else if (speedBoost2)
+				{
+					turnSpeed = 0.25f;
+					speed = 20f;
+				}
+				else if (speedBoost1)
+				{
+					turnSpeed = 0.22f;
+					speed = 18f;
+				}
+			}
+			int num180 = (int)(NPC.position.X / 16f) - 1;
+			int num181 = (int)((NPC.position.X + (float)NPC.width) / 16f) + 2;
+			int num182 = (int)(NPC.position.Y / 16f) - 1;
+			int num183 = (int)((NPC.position.Y + (float)NPC.height) / 16f) + 2;
+			if (num180 < 0)
+			{
+				num180 = 0;
+			}
+			if (num181 > Main.maxTilesX)
+			{
+				num181 = Main.maxTilesX;
+			}
+			if (num182 < 0)
+			{
+				num182 = 0;
+			}
+			if (num183 > Main.maxTilesY)
+			{
+				num183 = Main.maxTilesY;
+			}
+			if (Main.player[NPC.target].dead)
+			{
+				NPC.TargetClosest(false);
+			}
+			float num188 = speed;
+			float num189 = turnSpeed;
+			Vector2 vector18 = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
+			float num191 = Main.player[NPC.target].position.X + (float)(Main.player[NPC.target].width / 2);
+			float num192 = Main.player[NPC.target].position.Y + (float)(Main.player[NPC.target].height / 2);
+			num191 = (float)((int)(num191 / 16f) * 16);
+			num192 = (float)((int)(num192 / 16f) * 16);
+			vector18.X = (float)((int)(vector18.X / 16f) * 16);
+			vector18.Y = (float)((int)(vector18.Y / 16f) * 16);
+			num191 -= vector18.X;
+			num192 -= vector18.Y;
+			float num193 = (float)System.Math.Sqrt((double)(num191 * num191 + num192 * num192));
+			if (NPC.ai[1] > 0f && NPC.ai[1] < (float)Main.npc.Length)
+			{
+				try
+				{
+					vector18 = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
+					num191 = Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) - vector18.X;
+					num192 = Main.npc[(int)NPC.ai[1]].position.Y + (float)(Main.npc[(int)NPC.ai[1]].height / 2) - vector18.Y;
+				}
+				catch
+				{
+				}
+				NPC.rotation = (float)System.Math.Atan2((double)num192, (double)num191) + 1.57f;
+				num193 = (float)System.Math.Sqrt((double)(num191 * num191 + num192 * num192));
+				int num194 = NPC.width;
+				num193 = (num193 - (float)num194) / num193;
+				num191 *= num193;
+				num192 *= num193;
+				NPC.velocity = Vector2.Zero;
+				NPC.position.X = NPC.position.X + num191;
+				NPC.position.Y = NPC.position.Y + num192;
+				if (num191 < 0f)
+				{
+					NPC.spriteDirection = -1;
+				}
+				else if (num191 > 0f)
+				{
+					NPC.spriteDirection = 1;
+				}
+			}
+			else
+			{
+				num193 = (float)System.Math.Sqrt((double)(num191 * num191 + num192 * num192));
+				float num196 = System.Math.Abs(num191);
+				float num197 = System.Math.Abs(num192);
+				float num198 = num188 / num193;
+				num191 *= num198;
+				num192 *= num198;
+				if ((NPC.velocity.X > 0f && num191 > 0f) || (NPC.velocity.X < 0f && num191 < 0f) || (NPC.velocity.Y > 0f && num192 > 0f) || (NPC.velocity.Y < 0f && num192 < 0f))
+				{
+					if (NPC.velocity.X < num191)
+					{
+						NPC.velocity.X = NPC.velocity.X + num189;
+					}
+					else
+					{
+						if (NPC.velocity.X > num191)
+						{
+							NPC.velocity.X = NPC.velocity.X - num189;
+						}
+					}
+					if (NPC.velocity.Y < num192)
+					{
+						NPC.velocity.Y = NPC.velocity.Y + num189;
+					}
+					else
+					{
+						if (NPC.velocity.Y > num192)
+						{
+							NPC.velocity.Y = NPC.velocity.Y - num189;
+						}
+					}
+					if ((double)System.Math.Abs(num192) < (double)num188 * 0.2 && ((NPC.velocity.X > 0f && num191 < 0f) || (NPC.velocity.X < 0f && num191 > 0f)))
+					{
+						if (NPC.velocity.Y > 0f)
+						{
+							NPC.velocity.Y = NPC.velocity.Y + num189 * 2f;
+						}
+						else
+						{
+							NPC.velocity.Y = NPC.velocity.Y - num189 * 2f;
+						}
+					}
+					if ((double)System.Math.Abs(num191) < (double)num188 * 0.2 && ((NPC.velocity.Y > 0f && num192 < 0f) || (NPC.velocity.Y < 0f && num192 > 0f)))
+					{
+						if (NPC.velocity.X > 0f)
+						{
+							NPC.velocity.X = NPC.velocity.X + num189 * 2f; //changed from 2
+						}
+						else
+						{
+							NPC.velocity.X = NPC.velocity.X - num189 * 2f; //changed from 2
+						}
+					}
+				}
+				else
+				{
+					if (num196 > num197)
+					{
+						if (NPC.velocity.X < num191)
+						{
+							NPC.velocity.X = NPC.velocity.X + num189 * 1.1f; //changed from 1.1
+						}
+						else if (NPC.velocity.X > num191)
+						{
+							NPC.velocity.X = NPC.velocity.X - num189 * 1.1f; //changed from 1.1
+						}
+						if ((double)(System.Math.Abs(NPC.velocity.X) + System.Math.Abs(NPC.velocity.Y)) < (double)num188 * 0.5)
+						{
+							if (NPC.velocity.Y > 0f)
+							{
+								NPC.velocity.Y = NPC.velocity.Y + num189;
+							}
+							else
+							{
+								NPC.velocity.Y = NPC.velocity.Y - num189;
+							}
+						}
+					}
+					else
+					{
+						if (NPC.velocity.Y < num192)
+						{
+							NPC.velocity.Y = NPC.velocity.Y + num189 * 1.1f;
+						}
+						else if (NPC.velocity.Y > num192)
+						{
+							NPC.velocity.Y = NPC.velocity.Y - num189 * 1.1f;
+						}
+						if ((double)(System.Math.Abs(NPC.velocity.X) + System.Math.Abs(NPC.velocity.Y)) < (double)num188 * 0.5)
+						{
+							if (NPC.velocity.X > 0f)
+							{
+								NPC.velocity.X = NPC.velocity.X + num189;
+							}
+							else
+							{
+								NPC.velocity.X = NPC.velocity.X - num189;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			cooldownSlot = 0;
+			return (NPC.alpha == 0 && invinceTime <= 0);
+		}
+
+		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+		{
+			if (modifiers.FinalDamage.Base > NPC.lifeMax / 2)
+			{
+				modifiers.SetMaxDamage(0);
+			}
+			double protection = CalamityWorldPreTrailer.death ? 0.03 : 0.045;
+			modifiers.FinalDamage *= (float)protection;
+		}
+
+		public override bool CheckActive()
+		{
+			return false;
+		}
+
+		public override bool PreKill()
+		{
+			return false;
+		}
+
+		public override void HitEffect(NPC.HitInfo hit)
+		{
+			if (NPC.life <= 0)
+			{
+				float randomSpread = (float)(Main.rand.Next(-100, 100) / 100);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGS3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGS4").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position,
+						NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGS5").Type, 1f);
+				}
+				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
+				NPC.width = 50;
+				NPC.height = 50;
+				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
+				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
+				for (int num621 = 0; num621 < 10; num621++)
+				{
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 2f);
+					Main.dust[num622].velocity *= 3f;
+					if (Main.rand.Next(2) == 0)
+					{
+						Main.dust[num622].scale = 0.5f;
+						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+					}
+				}
+				for (int num623 = 0; num623 < 20; num623++)
+				{
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 3f);
+					Main.dust[num624].noGravity = true;
+					Main.dust[num624].velocity *= 5f;
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173, 0f, 0f, 100, default(Color), 2f);
+					Main.dust[num624].velocity *= 2f;
+				}
+			}
+		}
+
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
+			NPC.damage = (int)(NPC.damage * 0.8f);
+		}
+
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		{
+			target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 240, true);
+			target.AddBuff(BuffID.Frostburn, 240, true);
+			target.AddBuff(BuffID.Darkness, 240, true);
+		}
+	}
+}

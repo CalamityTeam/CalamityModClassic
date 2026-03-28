@@ -1,94 +1,79 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Head)]
-public class TarragonHelm : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-    public override void SetDefaults()
+    [AutoloadEquip(EquipType.Head)]
+    public class TarragonHelm : ModItem
     {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 1550000;
-        Item.defense = 27; //83
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 200);
-            }
+            // DisplayName.SetDefault("Tarragon Helm");
+            /* Tooltip.SetDefault("Temporary immunity to lava and immunity to cursed inferno, fire, cursed, and chilled debuffs\n" +
+                "Can move freely through liquids\n" +
+                "5% increased damage reduction\n" +
+                "10% increased melee damage and critical strike chance\n" +
+                "Helm of the disciple of ancients"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 50, 0, 0);
+			Item.defense = 33; //98
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == Mod.Find<ModItem>("TarragonBreastplate").Type && legs.type == Mod.Find<ModItem>("TarragonLeggings").Type;
+        }
+
+        public override void ArmorSetShadows(Player player)
+        {
+            player.armorEffectDrawShadowSubtle = true;
+            player.armorEffectDrawOutlines = true;
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.tarraSet = true;
+            modPlayer.tarraMelee = true;
+            player.setBonus = "Increased heart pickup range\n" +
+                "Enemies have a chance to drop extra hearts on death\n" +
+                "You have a 25% chance to gain a life regen buff when you take damage\n" +
+                "Press Y to cloak yourself in life energy that heavily reduces enemy contact damage for 10 seconds\n" +
+                "This has a 30 second cooldown";
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.GetDamage(DamageClass.Melee) += 0.1f;
+            player.GetCritChance(DamageClass.Melee) += 10;
+            player.endurance += 0.05f;
+			player.lavaMax += 240;
+			player.ignoreWater = true;
+            player.buffImmune[BuffID.CursedInferno] = true;
+            player.buffImmune[BuffID.OnFire] = true;
+            player.buffImmune[BuffID.Cursed] = true;
+            player.buffImmune[BuffID.Chilled] = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "UeliaceBar", 7);
+            recipe.AddIngredient(null, "DivineGeode", 6);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-        return body.type == Mod.Find<ModItem>("TarragonBreastplate").Type && legs.type == Mod.Find<ModItem>("TarragonLeggings").Type;
-    }
-    
-    public override void ArmorSetShadows(Player player)
-    {
-    	player.armorEffectDrawShadowSubtle = true;
-    	player.armorEffectDrawOutlines = true;
-    }
-
-    public override void UpdateArmorSet(Player player)
-    {
-    	CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-    	modPlayer.tarraSet = true;
-        player.setBonus = "Grants multiple defense boosts if health is low\n" +
-        	"You regen health quickly when you damage enemies\n" +
-        	"Enemies are less likely to target you\n" +
-        	"Increased heart pickup range\n" +
-        	"Enemies have a chance to drop extra hearts on death";
-        if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
-		{
-			player.statDefense += 4;
-			player.endurance += 0.025f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
-		{
-			player.statDefense += 8;
-			player.endurance += 0.05f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
-		{
-			player.statDefense += 12;
-			player.endurance += 0.1f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
-		{
-			player.statDefense += 20;
-			player.endurance += 0.15f;
-		}
-    }
-    
-    public override void UpdateEquip(Player player)
-    {
-    	player.endurance += 0.05f;
-    	player.maxMinions += 3;
-    	player.lavaImmune = true;
-    	player.ignoreWater = true;
-    	player.buffImmune[BuffID.CursedInferno] = true;
-    	player.buffImmune[BuffID.OnFire] = true;
-    	player.buffImmune[BuffID.Cursed] = true;
-    	player.buffImmune[BuffID.Chilled] = true;
-    }
-
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "UeliaceBar", 7);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-    }
-}}
+}

@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ExcaliburShortsword : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Excalibur Shortsword");
-			//Tooltip.SetDefault("Don't underestimate the power of shortswords");
+			// DisplayName.SetDefault("Excalibur Shortsword");
+			// Tooltip.SetDefault("Don't underestimate the power of shortswords");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 10;
 			Item.useTime = 10;
@@ -30,8 +30,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 		}
 	
 		public override void AddRecipes()
@@ -44,9 +44,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Enchanted_Gold);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 57);
 	        }
 	    }
 	}

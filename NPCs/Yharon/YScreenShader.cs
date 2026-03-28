@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Yharon
+namespace CalamityModClassicPreTrailer.NPCs.Yharon
 {
 	public class YScreenShaderData : ScreenShaderData
 	{
@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 
 		private void UpdateYIndex()
 		{
-			int YType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("Yharon").Type;
+			int YType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("Yharon").Type;
 			if (YIndex >= 0 && Main.npc[YIndex].active && Main.npc[YIndex].type == YType)
 			{
 				return;

@@ -5,33 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ForsakenSaber : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Forsaken Saber");
+			// DisplayName.SetDefault("Forsaken Saber");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 40;
-			Item.damage = 55;
+			Item.width = 54;
+			Item.damage = 65;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.useAnimation = 23;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTime = 23;
+			Item.useAnimation = 18;
+			Item.useStyle = 1;
+			Item.useTime = 18;
 			Item.useTurn = true;
 			Item.knockBack = 6;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 48;
-			Item.maxStack = 1;
-			Item.value = 350000;
-			Item.rare = ItemRarityID.Pink;
+			Item.height = 52;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 			Item.shoot = Mod.Find<ModProjectile>("SandBlade").Type;
 			Item.shootSpeed = 5f;
 		}
@@ -52,9 +51,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Teleporter);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 159);
 	        }
 	    }
 	}

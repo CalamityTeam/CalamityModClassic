@@ -6,30 +6,31 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class BloodyEdge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Bloody Edge");
-			//Tooltip.SetDefault("Chance to heal the player on enemy hits");
+			// DisplayName.SetDefault("Bloody Edge");
+			// Tooltip.SetDefault("Chance to heal the player on enemy hits");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 40;
-			Item.damage = 43;
+			Item.width = 46;
+			Item.damage = 47;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 23;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 23;
 			Item.knockBack = 5.25f;
 			Item.UseSound = SoundID.Item1;
-			Item.autoReuse = false;
-			Item.height = 42;
-			Item.value = 160000;
-			Item.rare = ItemRarityID.Orange;
+			Item.autoReuse = true;
+            Item.useTurn = true;
+			Item.height = 60;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 	
 		public override void AddRecipes()
@@ -52,20 +53,20 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 5);
 	        }
 	    }
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-	    	if (target.type == NPCID.TargetDummy)
+	    	if (target.type == NPCID.TargetDummy || !target.canGhostHeal)
 			{
 				return;
 			}
 	    	int healAmount = (Main.rand.Next(3) + 1);
-	    	if (Main.rand.NextBool(2))
+	    	if (Main.rand.Next(2) == 0)
 	    	{
 	    		player.statLife += healAmount;
 	    		player.HealEffect(healAmount);

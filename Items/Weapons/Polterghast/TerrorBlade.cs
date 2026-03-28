@@ -6,50 +6,41 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Polterghast
+namespace CalamityModClassicPreTrailer.Items.Weapons.Polterghast
 {
 	public class TerrorBlade : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Terror Blade");
-			//Tooltip.SetDefault("Fires a terror beam that bounces off tiles\nOn every bounce it emits an explosion");
+			// DisplayName.SetDefault("Terror Blade");
+			// Tooltip.SetDefault("Fires a terror beam that bounces off tiles\nOn every bounce it emits an explosion");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 82;
-			Item.damage = 220;
+			Item.width = 88;
+			Item.damage = 250;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 18;
 			Item.useTime = 18;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 8.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 72;
-			Item.value = 1000000;
-			Item.shoot = Mod.Find<ModProjectile>("TerrorBeam").Type;
+			Item.height = 80;
+            Item.value = Item.buyPrice(1, 40, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("TerrorBeam").Type;
 			Item.shootSpeed = 20f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.RedTorch);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 60);
 	        }
 	    }
 	}

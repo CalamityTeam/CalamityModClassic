@@ -5,46 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Helstorm : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Helstorm");
+			// DisplayName.SetDefault("Helstorm");
 		}
 
 	    public override void SetDefaults()
 	    {
-			Item.damage = 34;
+			Item.damage = 21;
 			Item.DamageType = DamageClass.Ranged;
-			Item.width = 70;
-			Item.height = 36;
+			Item.width = 50;
+			Item.height = 24;
 			Item.useTime = 7;
 			Item.useAnimation = 7;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.knockBack = 2.5f;
-			Item.value = 420000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shoot = 10;
 			Item.shootSpeed = 11.5f;
 			Item.useAmmo = 97;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{    
-		    int num6 = Main.rand.Next(2, 3);
-		    for (int index = 0; index < num6; ++index)
+		    for (int index = 0; index < 2; ++index)
 		    {
 		        float num7 = velocity.X;
 		        float num8 = velocity.Y;
 		        float SpeedX = velocity.X + (float) Main.rand.Next(-10, 11) * 0.05f;
 		        float SpeedY = velocity.Y + (float) Main.rand.Next(-10, 11) * 0.05f;
-		        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
 		    }
 		    return false;
 		}

@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
+namespace CalamityModClassicPreTrailer.NPCs.TheDevourerofGods
 {
 	public class DoGSky : CustomSky
 	{
@@ -34,9 +34,9 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 				{
 					x = Vector2.Distance(Main.player[Main.myPlayer].Center, Main.npc[this.DoGIndex].Center);
 				}
-				return 1f - Utils.SmoothStep(3000f, 6000f, x);
+				return (1f - Utils.SmoothStep(3000f, 6000f, x)) * 0.5f;
 			}
-			return 0f;
+			return 0.5f;
 		}
 		
 		public override Color OnTileColor(Color inColor)
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 
 		private bool UpdateDoGIndex()
 		{
-			int DoGType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("DevourerofGodsHead").Type;
+			int DoGType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("DevourerofGodsHead").Type;
 			if (DoGIndex >= 0 && Main.npc[DoGIndex].active && Main.npc[DoGIndex].type == DoGType)
 			{
 				return true;
@@ -67,10 +67,19 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 
 		public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
 		{
-			if (maxDepth >= 0 && minDepth < 0)
+			if (maxDepth >= 0 && minDepth < 0 && CalamityGlobalNPC.DoGHead >= 0)
 			{
 				float intensity = this.GetIntensity();
-				spriteBatch.Draw(TextureAssets.BlackTile.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * intensity);
+                if ((double)Main.npc[CalamityGlobalNPC.DoGHead].life < (double)Main.npc[CalamityGlobalNPC.DoGHead].lifeMax * 0.15 || CalamityWorldPreTrailer.death)
+                {
+                    spriteBatch.Draw(TextureAssets.BlackTile.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
+                        Color.Black * (intensity + 0.5f));
+                }
+                else
+                {
+                    spriteBatch.Draw(TextureAssets.BlackTile.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
+                        (Main.npc[CalamityGlobalNPC.DoGHead].ai[2] == 0f ? Color.Cyan : Color.Fuchsia) * intensity);
+                }
 			}
 		}
 

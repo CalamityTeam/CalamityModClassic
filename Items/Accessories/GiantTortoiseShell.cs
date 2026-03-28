@@ -1,30 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
 	public class GiantTortoiseShell : ModItem
-	{		
+	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Giant Tortoise Shell");
+			/* Tooltip.SetDefault("10% reduced movement speed\n" +
+				"Enemies take damage when they hit you"); */
+		}
+		
 		public override void SetDefaults()
 		{
-			Item.defense = 12;
+			Item.defense = 8;
 			Item.width = 20;
 			Item.height = 24;
-			Item.value = 100000;
-			Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 9, 0, 0);
+            Item.rare = 5;
 			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			player.moveSpeed -= 0.1f;
-			player.thorns = 0.5f;
+			player.thorns = 0.25f;
 		}
 	}
 }

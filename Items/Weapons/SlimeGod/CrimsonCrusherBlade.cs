@@ -5,56 +5,51 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.SlimeGod {
-public class CrimsonCrusherBlade : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Crimson Crusher Blade");
-	}
-
-    public override void SetDefaults()
+    public class CrimsonCrusherBlade : ModItem
     {
-        Item.damage = 41;
-        Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-        Item.width = 60;
-        Item.height = 66;
-        Item.useTime = 28;
-        Item.useAnimation = 28;
-        Item.useTurn = true;
-        Item.useStyle = ItemUseStyleID.Swing;
-        Item.knockBack = 7f;
-        Item.value = 90000;
-        Item.rare = ItemRarityID.Green;
-        Item.UseSound = SoundID.Item1;
-        Item.autoReuse = true;
-    }
-    
-    public override void MeleeEffects(Player player, Rectangle hitbox)
-    {
-        if (Main.rand.NextBool(7))
+        public override void SetStaticDefaults()
         {
-        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood);
+            // DisplayName.SetDefault("Crimson Crusher Blade");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 41;
+            Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+            Item.width = 68;
+            Item.height = 76;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
+            Item.useTurn = true;
+            Item.useStyle = 1;
+            Item.knockBack = 7f;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+        }
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.Next(7) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 5);
+            }
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "EbonianGel", 15);
+            recipe.AddIngredient(ItemID.CrimstoneBlock, 50);
+            recipe.AddIngredient(ItemID.TissueSample, 5);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 4);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.Register();
         }
     }
-    
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "EbonianGel", 15);
-        recipe.AddIngredient(ItemID.CrimstoneBlock, 50);
-        recipe.AddIngredient(ItemID.TissueSample, 5);
-        recipe.AddIngredient(ItemID.IronBar, 4);
-        recipe.AddTile(TileID.DemonAltar);
-        recipe.Register();
-        recipe = CreateRecipe();
-        recipe.AddIngredient(null, "EbonianGel", 15);
-        recipe.AddIngredient(ItemID.CrimstoneBlock, 50);
-        recipe.AddIngredient(ItemID.TissueSample, 5);
-        recipe.AddIngredient(ItemID.LeadBar, 4);
-        recipe.AddTile(TileID.DemonAltar);
-        recipe.Register();
-    }
-}}
+}

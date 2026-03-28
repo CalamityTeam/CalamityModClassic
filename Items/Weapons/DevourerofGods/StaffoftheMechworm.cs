@@ -11,51 +11,68 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods
+namespace CalamityModClassicPreTrailer.Items.Weapons.DevourerofGods
 {
 	public class StaffoftheMechworm : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Staff of the Mechworm");
-			//Tooltip.SetDefault("Summons an aerial mechworm to fight for you");
+			// DisplayName.SetDefault("Staff of the Mechworm");
+			/* Tooltip.SetDefault("Summons an aerial mechworm to fight for you\n" +
+                "Damage scales with the amount of minion slots you have\n" +
+                "The damage scaling stops growing after 10 minion slots"); */
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 75;
+			Item.damage = 30;
 			Item.mana = 15;
 			Item.width = 58;
 			Item.height = 58;
-			Item.useTime = 36;
-			Item.useAnimation = 36;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.noMelee = true; //so the item's animation doesn't do damage
+			Item.useTime = 12;
+			Item.useAnimation = 12;
+			Item.useStyle = 1;
+			Item.noMelee = true;
 			Item.knockBack = 2f;
-			Item.value = 1250000;
-			Item.UseSound = SoundID.Item113;
+            Item.value = Item.buyPrice(1, 40, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item113;
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("MechwormHead").Type;
 			Item.shootSpeed = 10f;
 			Item.DamageType = DamageClass.Summon;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool CanUseItem(Player player)
+        {
+            float neededSlots = 1;
+            float foundSlotsCount = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile p = Main.projectile[i];
+                if (p.active && p.minion && p.owner == player.whoAmI)
+                {
+                    foundSlotsCount += p.minionSlots;
+                    if (foundSlotsCount + neededSlots > player.maxMinions)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			damage = (int)(damage * ((player.GetDamage(DamageClass.Summon).Multiplicative * 5 / 3) + ((player.GetDamage(DamageClass.Summon).Multiplicative * 0.46f) * (player.maxMinions - 1))));  //36 +
+            int maxMinionScale = player.maxMinions;
+            if (maxMinionScale > 10)
+            {
+                maxMinionScale = 10;
+            }
+			damage = (int)(damage * ((player.GetDamage(DamageClass.Summon).Multiplicative * 5 / 3) + ((player.GetDamage(DamageClass.Summon).Multiplicative * 0.46f) * (maxMinionScale - 1))));
 			int owner = player.whoAmI;
 			float num72 = Item.shootSpeed;
 			player.itemTime = Item.useTime;
@@ -74,7 +91,8 @@ namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods
 				velX = (float)player.direction;
 				velY = 0f;
 				dist = num72;
-			} else
+			}
+            else
 			{
 				dist = num72 / dist;
 			}
@@ -82,8 +100,6 @@ namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods
 			velY *= dist;
 			int head = -1;
 			int tail = -1;
-			//Looking these up every iteration is very costly,
-			// so cache the value before staring the loop
 			int typeHead = Mod.Find<ModProjectile>("MechwormHead").Type;
 			int typeTail = Mod.Find<ModProjectile>("MechwormTail").Type;
 			for (int i = 0; i < Main.maxProjectiles; i++)
@@ -119,25 +135,25 @@ namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods
 				velY = 0f;
 				vector2.X = (float)Main.mouseX + Main.screenPosition.X;
 				vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-				int curr = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormHead").Type, damage, knockback, owner);
+				int curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormHead").Type, damage, knockback, owner);
 
 				int prev = curr;
-				curr = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, knockback, owner, (float)prev);
+				curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, knockback, owner, (float)prev);
 
 				prev = curr;
-				curr = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, knockback, owner, (float)prev);
+				curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, knockback, owner, (float)prev);
 				Main.projectile[prev].localAI[1] = (float)curr;
 				Main.projectile[prev].netUpdate = true;
 
 				prev = curr;
-				curr = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormTail").Type, damage, knockback, owner, (float)prev);
+				curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormTail").Type, damage, knockback, owner, (float)prev);
 				Main.projectile[prev].localAI[1] = (float)curr;
 				Main.projectile[prev].netUpdate = true;
 			} 
 			else if (head != -1 && tail != -1)
 			{
-				int body = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, knockback, owner, Main.projectile[tail].ai[0]);
-				int back = Projectile.NewProjectile(source, vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, knockback, owner, (float)body);
+				int body = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, knockback, owner, Main.projectile[tail].ai[0]);
+				int back = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, knockback, owner, (float)body);
 
 				Main.projectile[body].localAI[1] = (float)back;
 				Main.projectile[body].ai[1] = 1f;

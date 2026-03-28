@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -6,57 +6,54 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Projectiles;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.Items;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
 
-namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
+namespace CalamityModClassicPreTrailer.NPCs.CalamityBiomeNPCs
 {
 	public class ScryllarRage : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Scryllar");
+			// DisplayName.SetDefault("Scryllar");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 		}
 		
 		public override void SetDefaults()
 		{
 			NPC.aiStyle = -1;
 			AIType = -1;
-			NPC.damage = 105;
+			NPC.damage = 65;
 			NPC.width = 80; //324
 			NPC.height = 80; //216
 			NPC.defense = 10;
-			NPC.lifeMax = 230;
+			NPC.lifeMax = 50;
 			NPC.alpha = 100;
 			NPC.knockBackResist = 0.9f;
-			NPC.value = Item.buyPrice(0, 0, 50, 0);
+			NPC.value = Item.buyPrice(0, 0, 5, 0);
 			NPC.HitSound = SoundID.NPCHit49;
 			NPC.DeathSound = SoundID.NPCDeath51;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.lavaImmune = true;
-			if (CalamityWorld1Point2.downedProvidence)
+			if (CalamityWorldPreTrailer.downedProvidence)
 			{
 				NPC.damage = 320;
 				NPC.defense = 80;
 				NPC.lifeMax = 2300;
-				NPC.value = Item.buyPrice(0, 3, 0, 0);
-            }
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BiomeManagers.BrimstoneCragsBiome>().Type };
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                new FlavorTextBestiaryInfoElement("The soul of an angry crag dweller.")
-
-            });
-        }
-
-        public override void AI()
+				NPC.value = Item.buyPrice(0, 0, 50, 0);
+			}
+			Banner = Mod.Find<ModNPC>("Scryllar").Type;
+			BannerItem = Mod.Find<ModItem>("ScryllarBanner").Type;
+		}
+		
+		public override void AI()
 		{
 			NPC.rotation = NPC.velocity.X * 0.04f;
 			NPC.spriteDirection = ((NPC.direction > 0) ? 1 : -1);
@@ -253,41 +250,34 @@ namespace CalamityModClassic1Point2.NPCs.CalamityBiomeNPCs
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld1Point2.revenge)
+			if (CalamityWorldPreTrailer.revenge)
 			{
-				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
+				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 180, true);
 			}
 		}
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneCalamity ? 0.125f : 0f;
+			return spawnInfo.Player.GetModPlayer<CalamityPlayerPreTrailer>().ZoneCalamity ? 0.125f : 0f;
         }
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * balance);
-			NPC.damage = (int)(NPC.damage * 0.85f);
+			npcLoot.Add(ItemDropRule.ByCondition(new ProvCondition(), Mod.Find<ModItem>("Bloodstone").Type, 2));
+			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsHardmode(), Mod.Find<ModItem>("EssenceofChaos").Type, 3));
 		}
-
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<EssenceofChaos>(), 2, 1, 2));
-            npcLoot.Add(ItemDropRule.ByCondition(new ProvidenceDowned(), ModContent.ItemType<Bloodstone>(), 2));
-        }
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LifeDrain, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 235, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 40; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LifeDrain, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 235, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}

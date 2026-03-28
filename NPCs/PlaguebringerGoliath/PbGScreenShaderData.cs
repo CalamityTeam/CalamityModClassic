@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
+namespace CalamityModClassicPreTrailer.NPCs.PlaguebringerGoliath
 {
 	public class PbGScreenShaderData : ScreenShaderData
 	{
@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerGoliath
 
 		private void UpdatePbGIndex()
 		{
-			int PbGType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("CalamitasRun3").Type;
+			int PbGType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("CalamitasRun3").Type;
 			if (PbGIndex >= 0 && Main.npc[PbGIndex].active && Main.npc[PbGIndex].type == PbGType)
 			{
 				return;

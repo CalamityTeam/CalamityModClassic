@@ -1,16 +1,17 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.SlimeGod
+namespace CalamityModClassicPreTrailer.Items.SlimeGod
 {
 	public class OverloadedSludge : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Overloaded Sludge");
-			//Tooltip.SetDefault("It looks corrupted");
+			// DisplayName.SetDefault("Overloaded Sludge");
+			/* Tooltip.SetDefault("It looks corrupted\n" +
+                "Summons the Slime God"); */
 		}
 		
 		public override void SetDefaults()
@@ -18,16 +19,17 @@ namespace CalamityModClassic1Point2.Items.SlimeGod
 			Item.width = 20;
 			Item.height = 20;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 4;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodCore").Type);
+			return !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodCore").Type) && !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGod").Type) && 
+                !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodSplit").Type) && !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodRun").Type) && !NPC.AnyNPCs(Mod.Find<ModNPC>("SlimeGodRunSplit").Type);
 		}
 		
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */

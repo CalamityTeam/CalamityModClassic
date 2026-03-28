@@ -5,48 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class AlphaRay : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Alpha Ray");
-			//Tooltip.SetDefault("Disintegrates everything\nRight click to change modes");
+			// DisplayName.SetDefault("Alpha Ray");
+			/* Tooltip.SetDefault("Disintegrates everything\n" +
+				"Right click to change modes"); */
 		}
 
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 125;
+	        Item.damage = 240;
 	        Item.DamageType = DamageClass.Magic;
-	        Item.mana = 10;
-	        Item.width = 78;
-	        Item.height = 70;
+	        Item.mana = 5;
+	        Item.width = 84;
+	        Item.height = 74;
 	        Item.useTime = 3;
 	        Item.useAnimation = 3;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 1.5f;
-	        Item.value = 10000000;
-	        Item.UseSound = SoundID.Item33;
+            Item.value = Item.buyPrice(1, 80, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item33;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 6f;
 	        Item.shoot = Mod.Find<ModProjectile>("ParticleBeamofDoom").Type;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
+		}
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, 0);
+        }
 	    
 	    public override bool AltFunctionUse(Player player)
 		{
@@ -57,7 +54,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    {
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigBeamofDeath").Type, (int)((double)damage * 3f), knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigBeamofDeath").Type, (int)((double)damage * 1.7), knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
@@ -77,11 +74,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 					{
 						value9 -= vector7;
 					}
-					Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-					int laser = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, 440, (int)((double)damage * 0.35f), knockback, player.whoAmI, 0.0f, 0.0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.8), knockback, player.whoAmI, 0.0f, 0.0f);
+					int laser = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X * 2f, velocity.Y * 2f, 440, (int)((double)damage * 0.4), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[laser].timeLeft = 120;
-		        	Main.projectile[laser].velocity.X *= 2f;
-		        	Main.projectile[laser].velocity.Y *= 2f;
 		        	Main.projectile[laser].tileCollide = false;
 				}
 				return false;
@@ -92,8 +87,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(null, "GalacticaSingularity", 5);
-	        recipe.AddIngredient(null, "CosmiliteBar", 8);
-	        recipe.AddIngredient(null, "Wingman", 2);
+            recipe.AddIngredient(null, "DarksunFragment", 15);
+            recipe.AddIngredient(null, "Wingman", 2);
 	        recipe.AddIngredient(null, "Genisis");
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();

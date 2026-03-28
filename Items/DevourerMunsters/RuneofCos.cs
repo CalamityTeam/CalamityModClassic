@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,14 +6,17 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.DevourerMunsters
+namespace CalamityModClassicPreTrailer.Items.DevourerMunsters
 {
 	public class RuneofCos : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Rune of Kos");
-			//Tooltip.SetDefault("Used to seal the sentinels of the cosmic devourer\nWhen used in certain areas of the world it will unleash them\nNot consumable");
+			// DisplayName.SetDefault("Rune of Kos");
+			/* Tooltip.SetDefault("A relic of the profaned flame\n" +
+                "Contains the power hunted relentlessly by the sentinels of the cosmic devourer\n" +
+                "When used in certain areas of the world it will unleash them\n" +
+                "Not consumable"); */
 		}
 		
 		public override void SetDefaults()
@@ -26,18 +29,8 @@ namespace CalamityModClassic1Point2.Items.DevourerMunsters
 			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item44;
 			Item.consumable = false;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
@@ -51,7 +44,7 @@ namespace CalamityModClassic1Point2.Items.DevourerMunsters
 			{
 				for (int num662 = 0; num662 < 2; num662++)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DarkEnergySpawn").Type, 0, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DarkEnergySpawn").Type, 0, 0f, Main.myPlayer, 0f, 0f);
 				}
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("CeaselessVoid").Type);
 			}
@@ -66,5 +59,15 @@ namespace CalamityModClassic1Point2.Items.DevourerMunsters
 			SoundEngine.PlaySound(SoundID.Roar, player.position);
 			return true;
 		}
-	}
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "UnholyEssence", 40);
+            recipe.AddIngredient(ItemID.LunarBar, 10);
+            recipe.AddIngredient(ItemID.FragmentSolar, 5);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
+        }
+    }
 }

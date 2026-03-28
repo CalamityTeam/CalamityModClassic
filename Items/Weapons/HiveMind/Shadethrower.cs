@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
+namespace CalamityModClassicPreTrailer.Items.Weapons.HiveMind
 {
 	public class Shadethrower : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Shadethrower");
-			//Tooltip.SetDefault("33% chance to not consume gel");
+			// DisplayName.SetDefault("Shadethrower");
+			// Tooltip.SetDefault("33% chance to not consume gel");
 		}
 
 	    public override void SetDefaults()
@@ -25,12 +25,12 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 			Item.height = 14;
 			Item.useTime = 10;
 			Item.useAnimation = 30;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 1.5f;
 			Item.UseSound = SoundID.Item34;
-			Item.value = 50000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("ShadeFire").Type;
 			Item.shootSpeed = 5.5f;
@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.HiveMind
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 33)
+	    	if (Main.rand.Next(0, 100) < 33)
 	    		return false;
 	    	return true;
 	    }

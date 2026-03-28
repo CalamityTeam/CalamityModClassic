@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,14 +7,16 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 
-namespace CalamityModClassic1Point2.Items.Providence
+namespace CalamityModClassicPreTrailer.Items.Providence
 {
 	public class ProfanedCore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Profaned Core");
-			//Tooltip.SetDefault("The core of the unholy flame");
+			// DisplayName.SetDefault("Profaned Core");
+			/* Tooltip.SetDefault("The core of the unholy flame\n" +
+                "Summons Providence\n" +
+                "Can only be used during daytime"); */
 		}
 		
 		public override void SetDefaults()
@@ -24,14 +26,15 @@ namespace CalamityModClassic1Point2.Items.Providence
 			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
-			Item.rare = ItemRarityID.Cyan;
+			Item.rare = 9;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(Mod.Find<ModNPC>("Providence").Type) && Main.dayTime && (player.ZoneHallow || player.ZoneUnderworldHeight);
+			return !NPC.AnyNPCs(Mod.Find<ModNPC>("Providence").Type) && Main.dayTime && (player.ZoneHallow || player.ZoneUnderworldHeight) && CalamityWorldPreTrailer.downedBossAny;
 		}
 		
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
@@ -40,16 +43,5 @@ namespace CalamityModClassic1Point2.Items.Providence
 			SoundEngine.PlaySound(SoundID.Roar, player.position);
 			return true;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 	}
 }

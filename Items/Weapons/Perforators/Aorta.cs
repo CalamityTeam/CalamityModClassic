@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Perforators
+namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 {
 	public class Aorta : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Aorta");
+			// DisplayName.SetDefault("Aorta");
 		}
 
 	    public override void SetDefaults()
@@ -22,12 +22,12 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 	        Item.damage = 25;
 	        Item.useTime = 22;
 	        Item.useAnimation = 22;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.channel = true;
 	        Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 	        Item.knockBack = 4.25f;
-	        Item.value = 70000;
-	        Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.autoReuse = false;
 	        Item.shoot = Mod.Find<ModProjectile>("AortaProjectile").Type;
 	    }

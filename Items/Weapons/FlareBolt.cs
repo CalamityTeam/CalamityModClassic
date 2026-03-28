@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FlareBolt : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Flare Bolt");
-			//Tooltip.SetDefault("Casts a slow-moving ball of flame");
+			// DisplayName.SetDefault("Flare Bolt");
+			// Tooltip.SetDefault("Casts a slow-moving ball of flame");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 20;
+	        Item.damage = 27;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 12;
 	        Item.width = 28;
 	        Item.height = 30;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5.5f;
-	        Item.value = 90000;
-	        Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.UseSound = SoundID.Item20;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("FlareBoltProjectile").Type;

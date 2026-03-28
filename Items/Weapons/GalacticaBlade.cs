@@ -5,46 +5,37 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class GalacticaBlade : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Galactus Blade");
-			//Tooltip.SetDefault("Forged with the fury of nuclear chaos");
+			// DisplayName.SetDefault("Galactus Blade");
+			// Tooltip.SetDefault("Forged with the fury of nuclear chaos");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 60;
-			Item.damage = 173;
+			Item.width = 76;
+			Item.damage = 95;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 17;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 17;
 			Item.useTurn = true;
-			Item.knockBack = 6;
+			Item.knockBack = 6f;
 			Item.UseSound = SoundID.Item105;
 			Item.autoReuse = true;
-			Item.height = 58;
-			Item.value = 10000000;
-			Item.shoot = Mod.Find<ModProjectile>("GalacticaComet").Type;
+			Item.height = 68;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("GalacticaComet").Type;
 			Item.shootSpeed = 23f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 	
 		public override void AddRecipes()
 		{
@@ -105,24 +96,24 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-100, 101) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-100, 101) * 0.02f;
-				int projectile = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("GalacticaComet").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
+				float speedY5 = num79 + (float)Main.rand.Next(-100, 101) * 0.02f;
+				int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalacticaComet").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
 			}
 			return false;
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if(Main.rand.NextBool(3))
+	        if (Main.rand.Next(4) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.YellowTorch);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, (Main.rand.Next(2) == 0 ? 164 : 229));
 	        }
 	    }
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			target.AddBuff(BuffID.OnFire, 1200);
-			target.AddBuff(BuffID.CursedInferno, 600);
+			target.AddBuff(BuffID.OnFire, 600);
+			target.AddBuff(BuffID.Frostburn, 600);
 		}
 	}
 }

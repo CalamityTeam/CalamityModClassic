@@ -5,33 +5,34 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using Terraria.Audio;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class MagnaStriker : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Magna Striker");
-			//Tooltip.SetDefault("Fires a string of opal and magna strikes");
+			// DisplayName.SetDefault("Magna Striker");
+			// Tooltip.SetDefault("Fires a string of opal and magna strikes");
 		}
 
 	    public override void SetDefaults()
 	    {
-			Item.damage = 52;
+			Item.damage = 42;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 60;
 			Item.height = 22;
 			Item.useTime = 5;
 			Item.reuseDelay = 6;
 			Item.useAnimation = 20;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 2.25f;
-			Item.value = 900000;
-			Item.rare = ItemRarityID.Yellow;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/OpalStrike");
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
+			Item.UseSound = new SoundStyle("CalamityModClassicPreTrailer/Sounds/Item/OpalStrike");
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("OpalStrike").Type;
 			Item.shootSpeed = 15f;
@@ -48,11 +49,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			int randomProj = Main.rand.Next(2);
 			if (randomProj == 0)
 			{
-				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OpalStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OpalStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 			else
 			{
-				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MagnaStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MagnaStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 		    return false;
 		}

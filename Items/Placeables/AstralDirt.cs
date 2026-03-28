@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Items.Placeables
+{
+    public class AstralDirt : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Astral Dirt");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.createTile = Mod.Find<ModTile>("AstralDirt").Type;
+            Item.useStyle = 1;
+            Item.useTurn = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.autoReuse = true;
+            Item.consumable = true;
+            Item.width = 16;
+            Item.height = 16;
+            Item.maxStack = 999;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe(1);
+            recipe.AddTile(18);
+            recipe.AddIngredient(Mod.Find<ModItem>("AstralDirtWall").Type, 4);
+            recipe.Register();
+            base.AddRecipes();
+        }
+    }
+}

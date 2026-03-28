@@ -1,26 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items {
-public class Ectoblood : ModItem
+namespace CalamityModClassicPreTrailer.Items
 {
-	public override void SetStaticDefaults()
+	public class Ectoblood : ModItem
 	{
-		//DisplayName.SetDefault("Ectoblood");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Ectoblood");
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 24;
+			Item.height = 32;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = 8;
+		}
 	}
-		
-	public override void SetDefaults()
-	{
-		Item.width = 24;
-		Item.height = 32;
-		Item.maxStack = 999;
-		Item.value = 3500;
-		Item.rare = ItemRarityID.Yellow;
-	}
-}}
+}

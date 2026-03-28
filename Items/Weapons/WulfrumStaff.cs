@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class WulfrumStaff : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Wulfrum Staff");
-			//Tooltip.SetDefault("Fires a wulfrum bolt");
+			// DisplayName.SetDefault("Wulfrum Staff");
+			// Tooltip.SetDefault("Fires a wulfrum bolt");
 			Item.staff[Item.type] = true;
 		}
 
@@ -27,11 +27,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 46;
 	        Item.useTime = 25;
 	        Item.useAnimation = 25;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3;
-	        Item.value = 20000;
-	        Item.rare = ItemRarityID.Blue;
+            Item.value = Item.buyPrice(0, 1, 0, 0);
+            Item.rare = 1;
 	        Item.UseSound = SoundID.Item43;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("WulfrumBolt").Type;
@@ -40,7 +40,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			return false;
 		}
 	    

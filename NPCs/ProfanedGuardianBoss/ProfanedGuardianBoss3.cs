@@ -7,54 +7,81 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Bestiary;
 
-namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
+namespace CalamityModClassicPreTrailer.NPCs.ProfanedGuardianBoss
 {
-	public class ProfanedGuardianBoss3 : ModNPC
+    [AutoloadBossHead]
+    public class ProfanedGuardianBoss3 : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Profaned Guardian");
-			Main.npcFrameCount[NPC.type] = 4;
+			// DisplayName.SetDefault("Profaned Guardian");
+			Main.npcFrameCount[NPC.type] = 6;
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+                        {
+                            PortraitPositionXOverride = 0,
+                            PortraitScale = 0.75f,
+                            Scale = 0.75f
+                        };
+                        value.Position.X += 25;
+                        value.Position.Y += 15;
+                        NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+				new FlavorTextBestiaryInfoElement("mr. donut three, he heals real good")
+			});
 		}
 		
 		public override void SetDefaults()
 		{
 			NPC.npcSlots = 3f;
 			NPC.aiStyle = -1;
-			NPC.damage = 110;
+			NPC.damage = 80;
 			NPC.width = 100; //324
 			NPC.height = 80; //216
-			NPC.defense = 88;
-			NPC.lifeMax = 34000;
+			NPC.defense = 25;
+			NPC.lifeMax = 25000;
+            NPC.value = 0f;
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 240000 : 200000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
+			NPC.canGhostHeal = false;
 			AIType = -1;
 			NPC.boss = true;
-			for (int k = 0; k < NPC.buffImmune.Length; k++)
+            Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/Guardians");
+            for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
-			}
-			NPC.value = Item.buyPrice(1, 0, 0, 0);
+            }
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("AbyssalFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("ArmorCrunch").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("DemonFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("GodSlayerInferno").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Nightwither").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Shred").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("WhisperingDeath").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("SilvaStun").Type] = false;
 			NPC.HitSound = SoundID.NPCHit52;
 			NPC.DeathSound = SoundID.NPCDeath55;
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-                new FlavorTextBestiaryInfoElement("Devotion to devotion.")
-
-            });
-        }
-
-        public override void FindFrame(int frameHeight)
+		}
+		
+		public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 0.15f;
             NPC.frameCounter %= Main.npcFrameCount[NPC.type];
@@ -67,7 +94,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 			bool expertMode = Main.expertMode;
 			bool isHoly = Main.player[NPC.target].ZoneHallow;
 			bool isHell = Main.player[NPC.target].ZoneUnderworldHeight;
-			NPC.defense = (isHoly || isHell) ? 88 : 99999;
+			NPC.defense = (isHoly || isHell || CalamityWorldPreTrailer.bossRushActive) ? 25 : 99999;
 			Vector2 vectorCenter = NPC.Center;
 			Player player = Main.player[NPC.target];
 			NPC.TargetClosest(false);
@@ -85,7 +112,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 					return;
 				}
 			}
-			else if (NPC.timeLeft > 1800)
+			else if (NPC.timeLeft < 1800)
 			{
 				NPC.timeLeft = 1800;
 			}
@@ -115,7 +142,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 					Main.dust[num1012].fadeIn = 1f;
 				}
 			}
-			if (CalamityGlobalNPC1Point2.doughnutBoss < 0) 
+			if (!Main.npc[CalamityGlobalNPC.doughnutBoss].active) 
 			{
 				NPC.active = false;
 				NPC.netUpdate = true;
@@ -124,8 +151,8 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 			if (NPC.ai[0] == 0f) 
 			{
 				Vector2 vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num784 = Main.npc[CalamityGlobalNPC1Point2.doughnutBoss].Center.X - vector96.X;
-				float num785 = Main.npc[CalamityGlobalNPC1Point2.doughnutBoss].Center.Y - vector96.Y;
+				float num784 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.X - vector96.X;
+				float num785 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.Y - vector96.Y;
 				float num786 = (float)Math.Sqrt((double)(num784 * num784 + num785 * num785));
 				if (num786 > 90f) 
 				{
@@ -141,7 +168,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 					NPC.velocity.Y = NPC.velocity.Y * 1.15f; //1.05f
 					NPC.velocity.X = NPC.velocity.X * 1.15f; //1.05f
 				}
-				if (Main.netMode != NetmodeID.MultiplayerClient && ((expertMode && Main.rand.NextBool(50)) || Main.rand.NextBool(100))) 
+				if (Main.netMode != 1 && ((expertMode && Main.rand.Next(50) == 0) || Main.rand.Next(100) == 0)) 
 				{
 					NPC.TargetClosest(true);
 					vector96 = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -163,8 +190,8 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 				value4 *= 27f; //9f
 				NPC.velocity = (NPC.velocity * 99f + value4) / 100f;
 				Vector2 vector97 = new Vector2(NPC.Center.X, NPC.Center.Y);
-				float num787 = Main.npc[CalamityGlobalNPC1Point2.doughnutBoss].Center.X - vector97.X;
-				float num788 = Main.npc[CalamityGlobalNPC1Point2.doughnutBoss].Center.Y - vector97.Y;
+				float num787 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.X - vector97.X;
+				float num788 = Main.npc[CalamityGlobalNPC.doughnutBoss].Center.Y - vector97.Y;
 				float num789 = (float)Math.Sqrt((double)(num787 * num787 + num788 * num788));
 				if (num789 > 700f) 
 				{
@@ -172,7 +199,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 					return;
 				}
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient) 
+			if (Main.netMode != 1) 
 			{
 				NPC.localAI[0] += expertMode ? 2f : 1f;
 				if (NPC.localAI[0] >= 600f)
@@ -193,8 +220,8 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 				    	for (i = 0; i < 3; i++ )
 				    	{
 				   			offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-				        	Projectile.NewProjectile(NPC.GetSource_FromThis(), value9.X, value9.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
-				        	Projectile.NewProjectile(NPC.GetSource_FromThis(), value9.X, value9.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
+				        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), value9.X, value9.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
+				        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), value9.X, value9.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), projectileShot, damage, 0f, Main.myPlayer, 0f, 0f);
 				    	}
 					}
 				}
@@ -218,7 +245,7 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 			target.AddBuff(BuffID.OnFire, 600, true);
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
@@ -228,13 +255,26 @@ namespace CalamityModClassic1Point2.NPCs.ProfanedGuardianBoss
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 244, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossH").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossH2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossH3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossH4").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ProfanedGuardianBossH5").Type, 1f);
+				}
 				for (int k = 0; k < 50; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 244, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}

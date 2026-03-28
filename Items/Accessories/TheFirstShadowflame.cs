@@ -1,33 +1,37 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class TheFirstShadowflame : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("The First Shadowflame");
-		//Tooltip.SetDefault("One of the first magical artifacts, granted to a disheveled race of humans long ago by the Tyrant King Yharim\nLittle did the humans know of the horrid curse that lied within...\nGrants shadowflame powers to all minions");
-	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 26;
-		Item.height = 26;
-		Item.value = 150000;
-		Item.rare = ItemRarityID.Pink;
-		Item.accessory = true;
-	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.shadowMinions = true;
-	}
-}}
+    public class TheFirstShadowflame : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("The First Shadowflame");
+            /* Tooltip.SetDefault("It is said that in the past, Prometheus descended from the heavens to grant man fire.\n" +
+				"If that were true, then it is surely the demons of hell that would have risen from below to do the same.\n" +
+				"Minions inflict shadowflame on enemy hits."); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
+            Item.value = Item.buyPrice(0, 15, 0, 0);
+            Item.rare = 5;
+            Item.accessory = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.shadowMinions = true;
+        }
+    }
+}

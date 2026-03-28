@@ -7,51 +7,55 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using CalamityModClassic1Point2;
+using CalamityModClassicPreTrailer.Tiles;
+using CalamityModClassicPreTrailer;
 using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.DesertScourge
+namespace CalamityModClassicPreTrailer.NPCs.DesertScourge
 {
 	public class DesertScourgeHeadSmall : ModNPC
 	{
 		public bool flies = false;
 		public float speed = 12.5f;
 		public float turnSpeed = 0.125f;
+		public int minLength = NPC.downedBoss3 ? 20 : 12;
+		public int maxLength = NPC.downedBoss3 ? 21 : 13;
 		bool TailSpawned = false;
 		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Desert Scourge");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("Desert Scourge");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
-			NPC.damage = 15; //150
+			NPC.damage = 13; //150
 			NPC.npcSlots = 2f;
 			NPC.width = 32; //324
 			NPC.height = 80; //216
 			NPC.defense = 0;
-			NPC.lifeMax = 1000; //250000
-			NPC.aiStyle = 6; //new
+			NPC.lifeMax = 800; //250000
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = 350000;
+            }
+            NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
 			NPC.knockBackResist = 0f;
-			NPC.value = Item.buyPrice(0, 0, 5, 0);
 			NPC.alpha = 255;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-			}
-			NPC.boss = true;
-			NPC.behindTiles = true;
+            }
+            NPC.behindTiles = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit1;
@@ -81,22 +85,22 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			if (!TailSpawned)
             {
                 int Previous = NPC.whoAmI;
-                for (int num36 = 0; num36 < 13; num36++)
+                for (int num36 = 0; num36 < maxLength; num36++)
                 {
                     int lol = 0;
-                    if (num36 >= 0 && num36 < 12)
+                    if (num36 >= 0 && num36 < minLength)
                     {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeBodySmall").Type, NPC.whoAmI);
+                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeBodySmall").Type, NPC.whoAmI);
                     }
                     else
                     {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeTailSmall").Type, NPC.whoAmI);
+                        lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeTailSmall").Type, NPC.whoAmI);
                     }
                     Main.npc[lol].realLife = NPC.whoAmI;
                     Main.npc[lol].ai[2] = (float)NPC.whoAmI;
                     Main.npc[lol].ai[1] = (float)Previous;
                     Main.npc[Previous].ai[0] = (float)lol;
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, lol, 0f, 0f, 0f, 0);
+                    NetMessage.SendData(23, -1, -1, null, lol, 0f, 0f, 0f, 0);
                     Previous = lol;
                 }
                 TailSpawned = true;
@@ -146,7 +150,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			{
 				NPC.localAI[1] = 1f;
 				Rectangle rectangle12 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-				int num954 = 1000;
+				int num954 = CalamityWorldPreTrailer.death ? 300 : 1000;
 				bool flag95 = true;
 				if (NPC.position.Y > player.position.Y)
 				{
@@ -168,7 +172,11 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 					}
 				}
 			}
-			if (player.dead)
+            else
+            {
+                NPC.localAI[1] = 0f;
+            }
+            if (player.dead)
 			{
 				flag94 = false;
 				NPC.velocity.Y = NPC.velocity.Y + 1f;
@@ -183,7 +191,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 						if (Main.npc[num957].aiStyle == NPC.aiStyle)
 						{
 							Main.npc[num957].active = false;
-						}
+                        }
 					}
 				}
 			}
@@ -409,33 +417,43 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 				}
 			}
 		}
-		
-		public override void HitEffect(NPC.HitInfo hit)
+
+        public override bool PreKill()
+        {
+            return false;
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead").Type, 0.65f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead2").Type, 0.65f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScourgeHead").Type, 0.65f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScourgeHead2").Type, 0.65f);
+				}
 				for (int k = 0; k < 10; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage *= 2;
-		}
+            NPC.damage = (int)(NPC.damage * 1.1f);
+        }
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			target.AddBuff(BuffID.Bleeding, 200, true);
+			target.AddBuff(BuffID.Bleeding, 180, true);
 		}
 	}
 }

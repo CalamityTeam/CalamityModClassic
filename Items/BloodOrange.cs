@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,27 +6,34 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class BloodOrange : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Blood Orange");
+			/* Tooltip.SetDefault("Permanently increases maximum life by 25\n" +
+			                   "Can only be used if the max amount of life fruit has been consumed"); */
+		}
+		
 		public override void SetDefaults()
 		{
 			Item.width = 20;
 			Item.height = 20;
 			Item.useAnimation = 30;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 5;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item4;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.bOrange || player.statLifeMax < 500)
 			{
 				return false;
@@ -41,9 +48,9 @@ namespace CalamityModClassic1Point2.Items
 				player.itemTime = Item.useTime;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.HealEffect(50);
+					player.HealEffect(25);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.bOrange = true;
 			}
 			return true;
@@ -53,11 +60,11 @@ namespace CalamityModClassic1Point2.Items
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LifeFruit, 5);
-			recipe.AddIngredient(null, "EssenceofChaos", 10);
-			recipe.AddIngredient(null, "EssenceofCinder", 10);
-			recipe.AddIngredient(null, "EssenceofEleum", 10);
-			recipe.AddIngredient(ItemID.SoulofNight, 30);
-			recipe.AddIngredient(ItemID.SoulofLight, 30);
+			recipe.AddIngredient(null, "EssenceofChaos", 5);
+			recipe.AddIngredient(null, "EssenceofCinder", 5);
+			recipe.AddIngredient(null, "EssenceofEleum", 5);
+			recipe.AddIngredient(ItemID.SoulofNight, 10);
+			recipe.AddIngredient(ItemID.SoulofLight, 10);
 	        recipe.AddTile(TileID.MythrilAnvil);
 	        recipe.Register();
 		}

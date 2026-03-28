@@ -5,51 +5,43 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using Terraria.Audio;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ElementalBlaster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Elemental Blaster");
-			//Tooltip.SetDefault("Does not consume ammo\nFires a storm of rainbow blasts");
+			// DisplayName.SetDefault("Elemental Blaster");
+			// Tooltip.SetDefault("Does not consume ammo\nFires a storm of rainbow blasts");
 		}
 
 	    public override void SetDefaults()
 	    {
-			Item.damage = 110;
+			Item.damage = 77;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 104;
 			Item.height = 42;
 			Item.useTime = 2;
 			Item.useAnimation = 6;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 1.75f;
-			Item.value = 1000000;
-			Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/PlasmaBolt");
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = new SoundStyle("CalamityModClassicPreTrailer/Sounds/Item/PlasmaBolt");
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("RainbowBlast").Type;
-			Item.shootSpeed = 24f;
+			Item.shootSpeed = 18f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
 	    
 	    public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-15, 0);
 		}
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 		
 		public override void AddRecipes()
 		{

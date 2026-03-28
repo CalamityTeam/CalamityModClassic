@@ -8,47 +8,48 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
-using Terraria.ModLoader.Utilities;
-using Terraria.GameContent.ItemDropRules;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader.Utilities;
 
-namespace CalamityModClassic1Point2.NPCs.NormalNPCs
+namespace CalamityModClassicPreTrailer.NPCs.NormalNPCs
 {
 	public class WulfrumDrone : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Wulfrum Drone");
+			// DisplayName.SetDefault("Wulfrum Drone");
 			Main.npcFrameCount[NPC.type] = 5;
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				new FlavorTextBestiaryInfoElement("A strange little mechanism of unknown origin, and despite being made of metal, its peculiar noises would imply otherwise.")
+			});
 		}
 		
 		public override void SetDefaults()
 		{
-			NPC.damage = 25;
+			NPC.damage = 10;
 			NPC.aiStyle = 3;
 			AIType = 73;
 			NPC.width = 40; //324
 			NPC.height = 30; //216
 			NPC.defense = 6;
-			NPC.lifeMax = 60;
+			NPC.lifeMax = 22;
 			NPC.knockBackResist = 0.35f;
-			NPC.value = Item.buyPrice(0, 0, 3, 0);
+			NPC.value = Item.buyPrice(0, 0, 0, 50);
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-                new FlavorTextBestiaryInfoElement("A mechanism of unknown origin.")
-
-            });
-        }
-
-        public override void AI()
+			Banner = NPC.type;
+			BannerItem = Mod.Find<ModItem>("WulfrumDroneBanner").Type;
+		}
+		
+		public override void AI()
 		{
 			NPC.spriteDirection = ((NPC.direction > 0) ? 1 : -1);
 		}
@@ -63,37 +64,32 @@ namespace CalamityModClassic1Point2.NPCs.NormalNPCs
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.PlayerSafe || Main.hardMode)
+			if (spawnInfo.PlayerSafe || spawnInfo.Player.GetModPlayer<CalamityPlayerPreTrailer>().ZoneSulphur)
 			{
 				return 0f;
 			}
-			return SpawnCondition.OverworldDaySlime.Chance * 0.2f;
+			return SpawnCondition.OverworldDaySlime.Chance * (Main.hardMode ? 0.05f : 0.2f);
 		}
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GrassBlades, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 3, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 15; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GrassBlades, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 3, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
-        }
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<WulfrumShard>(), 1, 1, 3));
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsExpert(), ModContent.ItemType<WulfrumShard>(), 2));
-        }
+		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
+			npcLoot.Add(new CommonDrop(Mod.Find<ModItem>("WulfrumShard").Type, 1, 1, 4));
+			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsExpert(), Mod.Find<ModItem>("WulfrumShard").Type, 2));
 		}
 	}
 }

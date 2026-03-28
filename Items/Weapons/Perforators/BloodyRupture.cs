@@ -6,19 +6,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Perforators
+namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 {
 	public class BloodyRupture : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Bloody Rupture");
-			//Tooltip.SetDefault("Enemies release homing blood orbs on death");
+			// DisplayName.SetDefault("Bloody Rupture");
+			// Tooltip.SetDefault("Enemies release homing blood orbs on death");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = 3;
 			Item.useTurn = false;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
@@ -30,8 +30,8 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 			Item.UseSound = SoundID.Item1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.value = 12000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 		
 		public override void AddRecipes()
@@ -46,9 +46,9 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 5);
 	        }
 	    }
 	    
@@ -56,7 +56,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 	    {
 	    	if (target.life <= 0)
 	    	{
-	    		Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Blood").Type, hit.Damage, hit.Knockback, Main.myPlayer);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Blood").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

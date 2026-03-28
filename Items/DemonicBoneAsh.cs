@@ -1,26 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items {
-public class DemonicBoneAsh : ModItem
+namespace CalamityModClassicPreTrailer.Items
 {
-	public override void SetStaticDefaults()
+	public class DemonicBoneAsh : ModItem
 	{
-		//DisplayName.SetDefault("Demonic Bone Ash");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Demonic Bone Ash");
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 20;
+			Item.height = 20;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 2, 0, 0);
+			Item.rare = 3;
+		}
 	}
-		
-	public override void SetDefaults()
-	{
-		Item.width = 20;
-		Item.height = 20;
-		Item.maxStack = 999;
-		Item.value = 20000;
-		Item.rare = ItemRarityID.Orange;
-	}
-}}
+}

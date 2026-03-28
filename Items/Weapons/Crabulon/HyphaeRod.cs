@@ -5,36 +5,37 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Crabulon
+namespace CalamityModClassicPreTrailer.Items.Weapons.Crabulon
 {
 	public class HyphaeRod : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hyphae Rod");
-			//Tooltip.SetDefault("Creates mushroom spores near the player");
+			// DisplayName.SetDefault("Hyphae Rod");
+			// Tooltip.SetDefault("Creates mushroom spores near the player");
 			Item.staff[Item.type] = true;
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 13;
+	        Item.damage = 20;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 7;
 	        Item.width = 34;
 	        Item.height = 34;
 	        Item.useTime = 24;
 	        Item.useAnimation = 24;
-	        Item.useStyle = ItemUseStyleID.Shoot;
-	        Item.noMelee = true; //so the item's animation doesn't do damage
-	        Item.knockBack = 4.25f;
-	        Item.value = 40000;
-	        Item.rare = ItemRarityID.Green;
+	        Item.useStyle = 5;
+	        Item.noMelee = true;
+	        Item.knockBack = 2f;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item8;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.TruffleSpore;
+	        Item.shoot = 590;
 	        Item.shootSpeed = 1f;
 	    }
 	    
@@ -86,8 +87,9 @@ namespace CalamityModClassic1Point2.Items.Weapons.Crabulon
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, type, damage, knockback, i, 0f, (float)Main.rand.Next(3));
+				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
+				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, i, 0f, (float)Main.rand.Next(3));
+				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMagic = true;
 			}
 	    	return false;
 		}

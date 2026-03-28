@@ -1,28 +1,28 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class HeartAttack : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Heart Attack");
-			//Description.SetDefault("Reduces your damage by 30% during the day, you are one with the dark...");
+			// DisplayName.SetDefault("Heart Attack");
+			// Description.SetDefault("You survived a heart attack.  Boosts max life.");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
-			Main.buffNoSave[Type] = true;
+			Main.buffNoSave[Type] = false;
 			BuffID.Sets.LongerExpertDebuff[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().hAttack = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().hAttack = true;
 		}
 	}
 }

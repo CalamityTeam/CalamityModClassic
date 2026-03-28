@@ -1,50 +1,60 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Legs)]
-public class TarragonLeggings : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-
-    public override void SetDefaults()
+    [AutoloadEquip(EquipType.Legs)]
+    public class TarragonLeggings : ModItem
     {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 1462500;
-        Item.defense = 26;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
+            // DisplayName.SetDefault("Tarragon Leggings");
+            /* Tooltip.SetDefault("20% increased movement speed; greater speed boost if health is lower\n" +
+                "6% increased damage and critical strike chance\n" +
+                "Leggings of a fabled explorer"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 30, 0, 0);
+			Item.defense = 32;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.20f;
+            if (player.statLife <= (int)((double)player.statLifeMax2 * 0.5))
             {
-                line2.OverrideColor = new Color(0, 255, 200);
+                player.moveSpeed += 0.15f;
             }
+            player.GetDamage(DamageClass.Melee) += 0.06f;
+            player.GetCritChance(DamageClass.Melee) += 6;
+            player.GetDamage(DamageClass.Magic) += 0.06f;
+            player.GetCritChance(DamageClass.Magic) += 6;
+            player.GetDamage(DamageClass.Ranged) += 0.06f;
+            player.GetCritChance(DamageClass.Ranged) += 6;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.06f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingCrit += 6;
+            player.GetDamage(DamageClass.Summon) += 0.06f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "UeliaceBar", 11);
+            recipe.AddIngredient(null, "DivineGeode", 12);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-
-    public override void UpdateEquip(Player player)
-    {
-    	player.moveSpeed += 0.20f;
-    	if(player.statLife <= (player.statLifeMax2 * 0.5f))
-        {
-        	player.moveSpeed += 0.15f;
-    	}
-    }
-
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "UeliaceBar", 11);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-    }
-}}
+}

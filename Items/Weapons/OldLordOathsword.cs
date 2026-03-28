@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class OldLordOathsword : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Old Lord Oathsword");
-			//Tooltip.SetDefault("A relic of the ancient underworld");
+			// DisplayName.SetDefault("Old Lord Oathsword");
+			// Tooltip.SetDefault("A relic of the ancient underworld");
 		}
 
 		public override void SetDefaults()
@@ -24,14 +24,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.height = 78;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 24;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 24;
 			Item.useTurn = true;
 			Item.knockBack = 4.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.value = 120000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 		}
 	}
 }

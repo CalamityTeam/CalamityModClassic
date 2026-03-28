@@ -6,30 +6,36 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.Perforator
+namespace CalamityModClassicPreTrailer.NPCs.Perforator
 {
 	public class PerforatorTailSmall : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("The Perforator");
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			// DisplayName.SetDefault("The Perforator");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
 			NPC.damage = 10;
 			NPC.npcSlots = 5f;
-			NPC.width = 32; //324
-			NPC.height = 28; //216
+			NPC.width = 40; //324
+			NPC.height = 34; //216
 			NPC.defense = 18;
-			NPC.lifeMax = 2500; //250000
+			NPC.lifeMax = 1250; //250000
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = CalamityWorldPreTrailer.death ? 600000 : 500000;
+			}
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -38,10 +44,10 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			NPC.alpha = 255;
 			NPC.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
 			NPC.buffImmune[Mod.Find<ModBuff>("TemporalSadness").Type] = true;
-			NPC.boss = true;
-			NPC.behindTiles = true;
+            NPC.behindTiles = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
+			NPC.canGhostHeal = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.netAlways = true;
@@ -75,15 +81,17 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
 				for (int k = 0; k < 5; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
-			}
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity, Mod.Find<ModGore>("SmallPerf3").Type, 1f);
+            }
 		}
 		
 		public override bool CheckActive()
@@ -96,18 +104,16 @@ namespace CalamityModClassic1Point2.NPCs.Perforator
 			return false;
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
-		
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-		{
-			if (Main.expertMode)
-			{
-				target.AddBuff(BuffID.Bleeding, 60, true);
-			}
-		}
-	}
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            target.AddBuff(Mod.Find<ModBuff>("BurningBlood").Type, 60, true);
+            target.AddBuff(BuffID.Bleeding, 60, true);
+        }
+    }
 }

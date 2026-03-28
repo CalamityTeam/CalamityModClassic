@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class FlashBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Flash Round");
-			//Tooltip.SetDefault("Gives off a concussive blast that confuses enemies in a large area for a short time");
+			// DisplayName.SetDefault("Flash Round");
+			// Tooltip.SetDefault("Gives off a concussive blast that confuses enemies in a large area for a short time");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.15f;
 			Item.value = 250;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 1;
 			Item.shoot = Mod.Find<ModProjectile>("FlashBullet").Type;
 			Item.shootSpeed = 12f;
 			Item.ammo = 97;

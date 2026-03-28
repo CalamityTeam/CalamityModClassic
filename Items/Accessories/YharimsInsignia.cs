@@ -1,78 +1,53 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class YharimsInsignia : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetDefaults()
-	{
-		Item.width = 22;
-		Item.height = 38;
-		Item.value = 5000000;
-		Item.accessory = true;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class YharimsInsignia : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 200);
-            }
+            // DisplayName.SetDefault("Yharim's Insignia");
+            /* Tooltip.SetDefault("10% increased damage when under 50% life\n" +
+                "10% increased melee speed\n" +
+                "5% increased melee damage\n" +
+                "Melee attacks and melee projectiles inflict holy fire\n" +
+                "Increased invincibility after taking damage\n" +
+                "Temporary immunity to lava\n" +
+                "Increased melee knockback"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 22;
+            Item.height = 38;
+            Item.value = Item.buyPrice(0, 30, 0, 0);
+            Item.accessory = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.yInsignia = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.WarriorEmblem);
+            recipe.AddIngredient(null, "NecklaceofVexation");
+            recipe.AddIngredient(null, "CoreofCinder", 5);
+            recipe.AddIngredient(ItemID.CrossNecklace);
+            recipe.AddIngredient(null, "BadgeofBravery");
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.yInsignia = true;
-		player.longInvince = true;
-		player.kbGlove = true;
-		player.GetDamage(DamageClass.Melee) += 0.07f;
-		player.GetAttackSpeed(DamageClass.Melee) += 0.07f;
-		player.lavaImmune = true;
-		if(player.statLife <= (player.statLifeMax2 * 0.5f))
-		{
-			player.GetDamage(DamageClass.Melee) += 0.15f;
-			player.GetDamage(DamageClass.Magic) += 0.15f;
-			player.GetDamage(DamageClass.Ranged) += 0.15f;
-			player.GetDamage(DamageClass.Throwing) += 0.15f;
-			player.GetDamage(DamageClass.Summon) += 0.15f;
-		}
-		if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
-		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
-		}
-	}
-	
-	public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-		recipe.AddIngredient(ItemID.WarriorEmblem);
-		recipe.AddIngredient(null, "NecklaceofVexation");
-		recipe.AddIngredient(null, "CoreofCinder", 5);
-		recipe.AddIngredient(ItemID.CrossNecklace);
-		recipe.AddIngredient(null, "BadgeofBravery");
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-	}
-}}
+}

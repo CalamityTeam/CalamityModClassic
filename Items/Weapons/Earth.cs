@@ -5,55 +5,46 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Earth : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Earth");
+			/* Tooltip.SetDefault("Has a chance to lower enemy defense by 50 when striking them\n" +
+			           "Your attacks will heal you a lot\n" +
+			           "Rains RGB meteors that explode into more meteors after a short time on enemy hits\n" +
+			           "Ice meteors freeze enemies\n" +
+			           "Flame meteors explode\n" +
+			           "Green meteors spawn healing orbs"); */
+		}
+
 		public override void SetDefaults()
 		{
 			Item.width = 92;
-			Item.damage = 420;
+			Item.damage = 840;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 16;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 16;
 			Item.useTurn = true;
 			Item.knockBack = 9.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 104;
-			Item.value = 69696969;
+            Item.value = Item.buyPrice(5, 0, 0, 0);
+            Item.rare = 10;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 16;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, 0, 255);
-	            }
-	        }
-	    }
 		
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	    {
-			if (target.type == NPCID.TargetDummy)
-			{
-				return;
-			}
-			if (Main.rand.NextBool(3))
-			{
-				target.defense -= 50;
-			}
-			int heal = Main.rand.Next(20, 69);
-		    player.statLife += heal;
-		   	player.HealEffect(heal);
 			float num72 = 25f;
-		   	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-		   	float num78 = (float)Main.mouseX - Main.screenPosition.X - vector2.X;
+			Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
+			float num78 = (float)Main.mouseX - Main.screenPosition.X - vector2.X;
 			float num79 = (float)Main.mouseY - Main.screenPosition.Y - vector2.Y;
 			if (player.gravDir == -1f)
 			{
@@ -71,7 +62,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			{
 				num80 = num72 / num80;
 			}
-		   	num78 *= num80;
+			num78 *= num80;
 			num79 *= num80;
 			int num107 = 3;
 			for (int num108 = 0; num108 < num107; num108++)
@@ -94,9 +85,20 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78;
-				float speedY4 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				Projectile.NewProjectile(player.GetSource_FromThis(), vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("Earth").Type, hit.Damage, hit.Knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
+				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Earth").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
 			}
+			if (target.type == NPCID.TargetDummy || !target.canGhostHeal)
+			{
+				return;
+			}
+			if (Main.rand.Next(2) == 0)
+			{
+				target.defense -= 50;
+			}
+			int heal = Main.rand.Next(1, 69);
+		    player.statLife += heal;
+		   	player.HealEffect(heal);
 		}
 	
 		public override void AddRecipes()

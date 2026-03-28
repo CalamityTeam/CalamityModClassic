@@ -6,14 +6,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class CelestialClaymore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Celestial Claymore");
-			//Tooltip.SetDefault("Spawns cosmic energy flames near the player that generate large explosions after 2 seconds");
+			// DisplayName.SetDefault("Celestial Claymore");
+			// Tooltip.SetDefault("Spawns cosmic energy flames near the player that generate large explosions after 2 seconds");
 		}
 
 		public override void SetDefaults()
@@ -24,13 +24,13 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useAnimation = 23;
 			Item.useTime = 23;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 5.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 50;
-			Item.value = 300000;
-			Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 			Item.shoot = Mod.Find<ModProjectile>("CosmicSpiritBomb1").Type;
 			Item.shootSpeed = 0.1f;
 		}
@@ -86,14 +86,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		    		case 2: type = Mod.Find<ModProjectile>("CosmicSpiritBomb3").Type; break;
 		    		default: break;
 				}
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
 			}
 	    	return false;
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(4))
+	        if (Main.rand.Next(4) == 0)
 			{
 				int num249 = Main.rand.Next(2);
 				if (num249 == 0)

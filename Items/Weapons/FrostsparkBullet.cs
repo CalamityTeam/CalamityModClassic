@@ -4,16 +4,17 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class FrostsparkBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Frostspark Bullet");
-			//Tooltip.SetDefault("Has a chance to freeze enemies and explode into electicity\nEnemies that are immune to being frozen take more damage from these bullets");
+			// DisplayName.SetDefault("Frostspark Bullet");
+			/* Tooltip.SetDefault("Has a chance to freeze enemies and explode into electricity\n" +
+                "Enemies that are immune to being frozen take more damage from these bullets"); */
 		}
 
 		public override void SetDefaults()
@@ -26,7 +27,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.25f;
 			Item.value = 600;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("FrostsparkBullet").Type;
 			Item.shootSpeed = 14f;
 			Item.ammo = 97;

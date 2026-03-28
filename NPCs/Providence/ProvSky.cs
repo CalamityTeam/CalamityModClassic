@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Providence
+namespace CalamityModClassicPreTrailer.NPCs.Providence
 {
 	public class ProvSky : CustomSky
 	{
@@ -34,9 +34,9 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 				{
 					x = Vector2.Distance(Main.player[Main.myPlayer].Center, Main.npc[this.ProvIndex].Center);
 				}
-				return 1f - Utils.SmoothStep(3000f, 6000f, x);
+				return (1f - Utils.SmoothStep(3000f, 6000f, x)) * 0.5f;
 			}
-			return 0f;
+			return 0.7f; //0.5
 		}
 		
 		public override Color OnTileColor(Color inColor)
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 
 		private bool UpdatePIndex()
 		{
-			int ProvType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("Providence").Type;
+			int ProvType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("Providence").Type;
 			if (ProvIndex >= 0 && Main.npc[ProvIndex].active && Main.npc[ProvIndex].type == ProvType)
 			{
 				return true;

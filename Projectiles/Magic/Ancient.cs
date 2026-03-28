@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Projectiles.Magic
+{
+    public class Ancient : ModProjectile
+    {
+    	public int addDustTimer = 0;
+    	
+    	public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Ancient");
+		}
+    	
+        public override void SetDefaults()
+        {
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = 5;
+            Projectile.extraUpdates = 6;
+            Projectile.timeLeft = 151;
+            Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 2;
+        }
+
+        public override void AI()
+        {
+        	Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.6f) / 255f, ((255 - Projectile.alpha) * 0.5f) / 255f, ((255 - Projectile.alpha) * 0f) / 255f);
+        	addDustTimer++;
+        	if (addDustTimer >= 30)
+        	{
+	        	int numProj = 2;
+	        	int randomSpread = Main.rand.Next(3, 19);
+	            float rotation = MathHelper.ToRadians(randomSpread);
+	            if (Projectile.owner == Main.myPlayer)
+	            {
+		            for (int i = 0; i < numProj + 1; i++)
+		            {
+		                Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numProj - 1)));
+		                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("Ancient2").Type, (int)((double)Projectile.damage * 0.5f), Projectile.knockBack * 0.5f, Projectile.owner, 0f, 0f);
+		            }
+	            }
+	            addDustTimer = 0;
+        	}
+			if (Projectile.timeLeft > 151)
+			{
+				Projectile.timeLeft = 151;
+			}
+			if (Projectile.ai[0] > 4f)
+			{
+				float num296 = 1f;
+				if (Projectile.ai[0] == 8f)
+				{
+					num296 = 0.25f;
+				}
+				else if (Projectile.ai[0] == 9f)
+				{
+					num296 = 0.5f;
+				}
+				else if (Projectile.ai[0] == 10f)
+				{
+					num296 = 0.75f;
+				}
+				Projectile.ai[0] += 1f;
+				int num297 = 32;
+				for (int num298 = 0; num298 < 2; num298++)
+				{
+					int num299 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, num297, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+					if ((num297 == 32 && Main.rand.Next(2) == 0))
+					{
+						Main.dust[num299].noGravity = true;
+						Main.dust[num299].scale *= 2f;
+						Dust expr_DBEF_cp_0 = Main.dust[num299];
+						expr_DBEF_cp_0.velocity.X = expr_DBEF_cp_0.velocity.X * 6f;
+						Dust expr_DC0F_cp_0 = Main.dust[num299];
+						expr_DC0F_cp_0.velocity.Y = expr_DC0F_cp_0.velocity.Y * 6f;
+					}
+					else
+					{
+						Main.dust[num299].scale *= 1.5f;
+					}
+					Dust expr_DC74_cp_0 = Main.dust[num299];
+					expr_DC74_cp_0.velocity.X = expr_DC74_cp_0.velocity.X * 3f;
+					Dust expr_DC94_cp_0 = Main.dust[num299];
+					expr_DC94_cp_0.velocity.Y = expr_DC94_cp_0.velocity.Y * 3f;
+					Main.dust[num299].scale *= num296;
+				}
+				for (int num298 = 0; num298 < 2; num298++)
+				{
+					int num299 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, num297, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+					if ((num297 == 32 && Main.rand.Next(3) == 0))
+					{
+						Main.dust[num299].noGravity = true;
+						Main.dust[num299].scale *= 4f;
+						Dust expr_DBEF_cp_0 = Main.dust[num299];
+						expr_DBEF_cp_0.velocity.X = expr_DBEF_cp_0.velocity.X * 4f;
+						Dust expr_DC0F_cp_0 = Main.dust[num299];
+						expr_DC0F_cp_0.velocity.Y = expr_DC0F_cp_0.velocity.Y * 4f;
+					}
+					else
+					{
+						Main.dust[num299].scale *= 2.5f;
+					}
+					Dust expr_DC74_cp_0 = Main.dust[num299];
+					expr_DC74_cp_0.velocity.X = expr_DC74_cp_0.velocity.X * 2f;
+					Dust expr_DC94_cp_0 = Main.dust[num299];
+					expr_DC94_cp_0.velocity.Y = expr_DC94_cp_0.velocity.Y * 2f;
+					Main.dust[num299].scale *= num296;
+				}
+			}
+			else
+			{
+				Projectile.ai[0] += 1f;
+			}
+			Projectile.rotation += 0.3f * (float)Projectile.direction;
+			return;	
+        }
+    }
+}

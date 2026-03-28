@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class CharredOre : ModTile
 	{
@@ -12,20 +13,16 @@ namespace CalamityModClassic1Point2.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			RegisterItemDrop(ModContent.ItemType<Items.CharredOre>());
+            Main.tileLighted[Type] = true;
+			Main.tileOreFinderPriority[Type] = 710;
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Charred Ore");
- 			AddMapEntry(new Color(128, 0, 0));
+ 			AddMapEntry(new Color(128, 0, 0), name);
 			MineResist = 6f;
 			MinPick = 199;
-            HitSound = Terraria.ID.SoundID.Tink;
+            HitSound = SoundID.Tink;
             DustType = 235;
             Main.tileSpelunker[Type] = true;
-		}
-		
-		public override void RandomUpdate(int i, int j)
-		{
-			Main.tileOreFinderPriority[Type] = (short)(Main.hardMode ? 710 : 0);
 		}
 		
 		public override bool CanExplode(int i, int j)

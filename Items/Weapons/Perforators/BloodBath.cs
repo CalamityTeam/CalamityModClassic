@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Perforators
+namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 {
 	public class BloodBath : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Blood Bath");
-			//Tooltip.SetDefault("Drench your foes in blood");
+			// DisplayName.SetDefault("Blood Bath");
+			// Tooltip.SetDefault("Drench your foes in blood");
 			Item.staff[Item.type] = true;
 		}
 
@@ -27,11 +27,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 	        Item.height = 50;
 	        Item.useTime = 15;
 	        Item.useAnimation = 30;
-	        Item.useStyle = ItemUseStyleID.Shoot;
-	        Item.noMelee = true; //so the item's animation doesn't do damage
+	        Item.useStyle = 5;
+	        Item.noMelee = true;
 	        Item.knockBack = 5.75f;
-	        Item.value = 90000;
-	        Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 	        Item.UseSound = SoundID.Item21;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("BloodBeam").Type;
@@ -73,11 +73,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 	    	num78 *= num80;
 			num79 *= num80;
 			int num107 = 2;
-			if (Main.rand.NextBool(3))
+			if (Main.rand.Next(3) == 0)
 			{
 				num107++;
 			}
-			if (Main.rand.NextBool(3))
+			if (Main.rand.Next(3) == 0)
 			{
 				num107++;
 			}
@@ -101,8 +101,8 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
+				float speedY5 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
 			}
 			return false;
 		}

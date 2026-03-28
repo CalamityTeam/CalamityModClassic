@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class EnhancedNanoRound : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Enhanced Nano Round");
-			//Tooltip.SetDefault("Confuses enemies and releases a cloud of nanites when enemies die");
+			// DisplayName.SetDefault("Enhanced Nano Round");
+			// Tooltip.SetDefault("Confuses enemies and releases a cloud of nanites when enemies die");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 5.5f;
 			Item.value = 500;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("EnhancedNanoRound").Type;
 			Item.shootSpeed = 8f;
 			Item.ammo = 97;

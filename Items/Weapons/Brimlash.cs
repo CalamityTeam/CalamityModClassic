@@ -6,13 +6,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Brimlash : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Brimlash");
+			// DisplayName.SetDefault("Brimlash");
 		}
 
 		public override void SetDefaults()
@@ -23,13 +23,13 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useAnimation = 25;
 			Item.useTime = 25;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 50;
-			Item.value = 650000;
-			Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 			Item.shoot = Mod.Find<ModProjectile>("Brimlash").Type;
 			Item.shootSpeed = 15f;
 		}
@@ -46,9 +46,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.LifeDrain);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 235);
 	        }
 	    }
 	    

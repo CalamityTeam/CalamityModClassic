@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class Irradiated : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Irradiated");
-			//Description.SetDefault("Your skin is burning off");
+			// DisplayName.SetDefault("Acid Rain");
+			// Description.SetDefault("Your skin is burning off");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
@@ -23,12 +23,12 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().irradiated = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().irradiated = true;
 		}
 		
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().irradiated = true;
+			npc.GetGlobalNPC<CalamityGlobalNPC>().irradiated = true;
 		}
 	}
 }

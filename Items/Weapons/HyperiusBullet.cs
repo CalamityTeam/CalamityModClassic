@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class HyperiusBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hyperius Bullet");
-			//Tooltip.SetDefault("Your enemies might have a bad time");
+			// DisplayName.SetDefault("Hyperius Bullet");
+			// Tooltip.SetDefault("Your enemies might have a bad time");
 		}
 
 		public override void SetDefaults()
@@ -25,8 +25,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
-			Item.value = 1000;
-			Item.rare = ItemRarityID.Cyan;
+			Item.value = 2000;
+			Item.rare = 9;
 			Item.shoot = Mod.Find<ModProjectile>("HyperiusBullet").Type;
 			Item.shootSpeed = 16f;
 			Item.ammo = 97;

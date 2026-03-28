@@ -1,52 +1,54 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using CalamityModClassicPreTrailer.BiomeManagers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
-using CalamityModClassic1Point2.Items;
-using Terraria.GameContent.ItemDropRules;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
-namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
+namespace CalamityModClassicPreTrailer.NPCs.AstralBiomeNPCs
 {
 	public class AstralProbe : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Astral Probe");
+			// DisplayName.SetDefault("Astral Probe");
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				new FlavorTextBestiaryInfoElement("Once a common bird, its only purpose now is to defend the infection.")
+			});
 		}
 		
 		public override void SetDefaults()
 		{
-			NPC.damage = 50;
+			NPC.damage = 30;
 			NPC.width = 30; //324
 			NPC.height = 30; //216
 			NPC.defense = 20;
-			NPC.lifeMax = 400;
+			NPC.lifeMax = 70;
 			NPC.aiStyle = -1;
 			AIType = -1;
 			NPC.knockBackResist = 0.85f;
-			NPC.value = Item.buyPrice(0, 0, 15, 0);
+			NPC.value = Item.buyPrice(0, 0, 5, 0);
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BiomeManagers.AstralMeteorBiome>().Type };
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                new FlavorTextBestiaryInfoElement("You thought you heard it emitting bird noises.")
-
-            });
-        }
-
-        public override void AI()
+			Banner = NPC.type;
+			BannerItem = Mod.Find<ModItem>("AstralProbeBanner").Type;
+			SpawnModBiomes = new int[] { ModContent.GetInstance<Astral>().Type };
+		}
+		
+		public override void AI()
 		{
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
@@ -131,7 +133,7 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
 			{
 				NPC.localAI[0] = 0f;
 			}
-			if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[0] >= 200f)
+			if (Main.netMode != 1 && NPC.localAI[0] >= 200f)
 			{
 				NPC.localAI[0] = 0f;
 				if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
@@ -139,10 +141,10 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
 					int num8 = 18;
 					if (Main.expertMode)
 					{
-						num8 = 21;
+						num8 = 14;
 					}
 					int num9 = 84;
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), vector.X, vector.Y, num4, num5, num9, num8, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector.X, vector.Y, num4, num5, num9, num8, 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
 			int num10 = (int)NPC.position.X + NPC.width / 2;
@@ -212,94 +214,127 @@ namespace CalamityModClassic1Point2.NPCs.AstralBiomeNPCs
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			if (NPC.life <= 0)
+            if (NPC.soundDelay == 0)
+            {
+                NPC.soundDelay = 15;
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        SoundEngine.PlaySound(new SoundStyle("CalamityModClassicPreTrailer/Sounds/NPCHit/AstralEnemyHit"), NPC.Center);
+                        break;
+                    case 1:
+                        SoundEngine.PlaySound(new SoundStyle("CalamityModClassicPreTrailer/Sounds/NPCHit/AstralEnemyHit2"), NPC.Center);
+                        break;
+                    case 2:
+                        SoundEngine.PlaySound(new SoundStyle("CalamityModClassicPreTrailer/Sounds/NPCHit/AstralEnemyHit3"), NPC.Center);
+                        break;
+                }
+            }
+
+            if (NPC.life <= 0)
 			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 30;
-				NPC.height = 30;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				for (int num621 = 0; num621 < 5; num621++)
+				if (Main.netMode != NetmodeID.Server)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
+					NPC.width = 30;
+					NPC.height = 30;
+					NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
+					for (int num621 = 0; num621 < 5; num621++)
 					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							173, 0f, 0f, 100, default(Color), 2f);
+						Main.dust[num622].velocity *= 3f;
+						if (Main.rand.Next(2) == 0)
+						{
+							Main.dust[num622].scale = 0.5f;
+							Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						}
 					}
-				}
-				for (int num623 = 0; num623 < 10; num623++)
-				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 3f);
-					Main.dust[num624].noGravity = true;
-					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.ShadowbeamStaff, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num624].velocity *= 2f;
-				}
-				for (int num625 = 0; num625 < 3; num625++)
-				{
-					float scaleFactor10 = 0.33f;
-					if (num625 == 1)
+
+					for (int num623 = 0; num623 < 10; num623++)
 					{
-						scaleFactor10 = 0.66f;
+						int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							173, 0f, 0f, 100, default(Color), 3f);
+						Main.dust[num624].noGravity = true;
+						Main.dust[num624].velocity *= 5f;
+						num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173,
+							0f, 0f, 100, default(Color), 2f);
+						Main.dust[num624].velocity *= 2f;
 					}
-					if (num625 == 2)
+
+					for (int num625 = 0; num625 < 3; num625++)
 					{
-						scaleFactor10 = 1f;
+						float scaleFactor10 = 0.33f;
+						if (num625 == 1)
+						{
+							scaleFactor10 = 0.66f;
+						}
+
+						if (num625 == 2)
+						{
+							scaleFactor10 = 1f;
+						}
+
+						int num626 = Gore.NewGore(NPC.GetSource_FromThis(null),
+							new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f,
+								NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2),
+							Main.rand.Next(61, 64), 1f);
+						Main.gore[num626].velocity *= scaleFactor10;
+						Gore expr_13AB6_cp_0 = Main.gore[num626];
+						expr_13AB6_cp_0.velocity.X = expr_13AB6_cp_0.velocity.X + 1f;
+						Gore expr_13AD6_cp_0 = Main.gore[num626];
+						expr_13AD6_cp_0.velocity.Y = expr_13AD6_cp_0.velocity.Y + 1f;
+						num626 = Gore.NewGore(NPC.GetSource_FromThis(null),
+							new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f,
+								NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2),
+							Main.rand.Next(61, 64), 1f);
+						Main.gore[num626].velocity *= scaleFactor10;
+						Gore expr_13B79_cp_0 = Main.gore[num626];
+						expr_13B79_cp_0.velocity.X = expr_13B79_cp_0.velocity.X - 1f;
+						Gore expr_13B99_cp_0 = Main.gore[num626];
+						expr_13B99_cp_0.velocity.Y = expr_13B99_cp_0.velocity.Y + 1f;
+						num626 = Gore.NewGore(NPC.GetSource_FromThis(null),
+							new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f,
+								NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2),
+							Main.rand.Next(61, 64), 1f);
+						Main.gore[num626].velocity *= scaleFactor10;
+						Gore expr_13C3C_cp_0 = Main.gore[num626];
+						expr_13C3C_cp_0.velocity.X = expr_13C3C_cp_0.velocity.X + 1f;
+						Gore expr_13C5C_cp_0 = Main.gore[num626];
+						expr_13C5C_cp_0.velocity.Y = expr_13C5C_cp_0.velocity.Y - 1f;
+						num626 = Gore.NewGore(NPC.GetSource_FromThis(null),
+							new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f,
+								NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2),
+							Main.rand.Next(61, 64), 1f);
+						Main.gore[num626].velocity *= scaleFactor10;
+						Gore expr_13CFF_cp_0 = Main.gore[num626];
+						expr_13CFF_cp_0.velocity.X = expr_13CFF_cp_0.velocity.X - 1f;
+						Gore expr_13D1F_cp_0 = Main.gore[num626];
+						expr_13D1F_cp_0.velocity.Y = expr_13D1F_cp_0.velocity.Y - 1f;
 					}
-					int num626 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num626].velocity *= scaleFactor10;
-					Gore expr_13AB6_cp_0 = Main.gore[num626];
-					expr_13AB6_cp_0.velocity.X = expr_13AB6_cp_0.velocity.X + 1f;
-					Gore expr_13AD6_cp_0 = Main.gore[num626];
-					expr_13AD6_cp_0.velocity.Y = expr_13AD6_cp_0.velocity.Y + 1f;
-					num626 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num626].velocity *= scaleFactor10;
-					Gore expr_13B79_cp_0 = Main.gore[num626];
-					expr_13B79_cp_0.velocity.X = expr_13B79_cp_0.velocity.X - 1f;
-					Gore expr_13B99_cp_0 = Main.gore[num626];
-					expr_13B99_cp_0.velocity.Y = expr_13B99_cp_0.velocity.Y + 1f;
-					num626 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num626].velocity *= scaleFactor10;
-					Gore expr_13C3C_cp_0 = Main.gore[num626];
-					expr_13C3C_cp_0.velocity.X = expr_13C3C_cp_0.velocity.X + 1f;
-					Gore expr_13C5C_cp_0 = Main.gore[num626];
-					expr_13C5C_cp_0.velocity.Y = expr_13C5C_cp_0.velocity.Y - 1f;
-					num626 = Gore.NewGore(NPC.GetSource_FromThis(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num626].velocity *= scaleFactor10;
-					Gore expr_13CFF_cp_0 = Main.gore[num626];
-					expr_13CFF_cp_0.velocity.X = expr_13CFF_cp_0.velocity.X - 1f;
-					Gore expr_13D1F_cp_0 = Main.gore[num626];
-					expr_13D1F_cp_0.velocity.Y = expr_13D1F_cp_0.velocity.Y - 1f;
 				}
 			}
 		}
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<Stardust>(), 2, 1, 2));
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsExpert(), ModContent.ItemType<Stardust>(), 1));
-        }
+		
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(new CommonDrop(Mod.Find<ModItem>("Stardust").Type, 2, 1, 3));
+			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsExpert(), Mod.Find<ModItem>("Stardust").Type, 1));
+		}
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-			return (spawnInfo.Player.GetModPlayer<CalamityPlayer1Point2>().ZoneAstral && !spawnInfo.Player.ZoneTowerStardust && !spawnInfo.Player.ZoneTowerSolar && !spawnInfo.Player.ZoneTowerVortex && !spawnInfo.Player.ZoneTowerNebula) ? 0.75f : 0f;
+			return (spawnInfo.Player.GetModPlayer<CalamityPlayerPreTrailer>().ZoneAstral && !spawnInfo.Player.ZoneTowerStardust && !spawnInfo.Player.ZoneTowerSolar && !spawnInfo.Player.ZoneTowerVortex && !spawnInfo.Player.ZoneTowerNebula) ? 0.1f : 0f;
         }
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld1Point2.downedStarGod)
+			if (CalamityWorldPreTrailer.downedStarGod)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("GodSlayerInferno").Type, 150, true);
 			}
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 	}
 }

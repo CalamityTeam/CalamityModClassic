@@ -5,47 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Judgement : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("The Dance of Light");
-			//Tooltip.SetDefault("Casts a swarm of white flames from the sky");
+			// DisplayName.SetDefault("The Dance of Light");
+			// Tooltip.SetDefault("Casts a swarm of white flames from the sky");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 780;
+	        Item.damage = 500;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 9;
 	        Item.width = 28;
 	        Item.height = 30;
 	        Item.useTime = 15;
 	        Item.useAnimation = 15;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 4f;
-	        Item.value = 10000000;
-	        Item.UseSound = SoundID.Item88;
+            Item.value = Item.buyPrice(5, 0, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item88;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("WhiteFlame").Type;
 	        Item.shootSpeed = 30f;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, 0, 255);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 16;
+		}
 	    
 	    public override void AddRecipes()
 		{
@@ -102,8 +93,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
+				float speedY5 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
 			}
 			return false;
 		}

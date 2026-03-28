@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -8,14 +8,15 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
+namespace CalamityModClassicPreTrailer.Items.PlaguebringerGoliath
 {
 	public class Abomination : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Abomination");
-			//Tooltip.SetDefault("Calls in the airborne jungle abomination");
+			// DisplayName.SetDefault("Abombination");
+			/* Tooltip.SetDefault("Calls in the airborne jungle abomination\n" +
+                "Summons the Plaguebringer Goliath"); */
 		}
 		
 		public override void SetDefaults()
@@ -23,10 +24,10 @@ namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
 			Item.width = 28;
 			Item.height = 18;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Yellow;
+			Item.rare = 8;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		
@@ -46,16 +47,9 @@ namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "PlagueCellCluster", 10);
-			recipe.AddIngredient(ItemID.IronBar, 3);
-			recipe.AddIngredient(ItemID.Stinger, 2);
-			recipe.AddIngredient(ItemID.Obsidian, 10);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe = CreateRecipe();
-			recipe.AddIngredient(null, "PlagueCellCluster", 10);
-			recipe.AddIngredient(ItemID.LeadBar, 3);
-			recipe.AddIngredient(ItemID.Stinger, 2);
-			recipe.AddIngredient(ItemID.Obsidian, 10);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+            recipe.AddIngredient(ItemID.Stinger, 2);
+			recipe.AddIngredient(ItemID.Obsidian, 3);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}

@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Meowthrower : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Meowthrower");
-			//Tooltip.SetDefault("Consumes gel at a 50% chance");
+			// DisplayName.SetDefault("Meowthrower");
+			// Tooltip.SetDefault("Consumes gel at a 50% chance");
 		}
 
 	    public override void SetDefaults()
@@ -25,12 +25,12 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.height = 24;
 			Item.useTime = 10;
 			Item.useAnimation = 30;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.noMelee = true;
 			Item.knockBack = 1.25f;
 			Item.UseSound = SoundID.Item34;
-			Item.value = 100000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 12, 0, 0);
+            Item.rare = 4;
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("MeowFire").Type;
 			Item.shootSpeed = 5.5f;
@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 50)
+	    	if (Main.rand.Next(0, 100) < 50)
 	    		return false;
 	    	return true;
 	    }
@@ -61,7 +61,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    			case 2: type = Mod.Find<ModProjectile>("MeowFire2").Type; break;
 	    			default: break;
 				}
-	            Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	}
 	    	return false;
 		}

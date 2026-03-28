@@ -11,47 +11,39 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Cosmilamp : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Cosmilamp");
-			//Tooltip.SetDefault("Summons a cosmic lantern to fight for you");
+			// DisplayName.SetDefault("Cosmilamp");
+			/* Tooltip.SetDefault("Summons a cosmic lantern to fight for you\n" +
+                "Takes up 2 minion slots"); */
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 200;
+	        Item.damage = 180;
 	        Item.mana = 10;
 	        Item.width = 42;
 	        Item.height = 60;
 	        Item.useTime = 36;
 	        Item.useAnimation = 36;
-	        Item.useStyle = ItemUseStyleID.Swing;
+	        Item.useStyle = 1;
 	        Item.noMelee = true;
 	        Item.knockBack = 4f;
-	        Item.value = 1550000;
-	        Item.UseSound = SoundID.Item44;
+            Item.value = Item.buyPrice(1, 40, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item44;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("Cosmilamp").Type;
 	        Item.shootSpeed = 10f;
 	        Item.DamageType = DamageClass.Summon;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 0);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
@@ -79,7 +71,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			num79 = 0f;
 			vector2.X = (float)Main.mouseX + Main.screenPosition.X;
 			vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("Cosmilamp").Type, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("Cosmilamp").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			return false;
 	    }
 	}

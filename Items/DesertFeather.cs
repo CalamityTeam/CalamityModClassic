@@ -1,26 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items {
-public class DesertFeather : ModItem
+namespace CalamityModClassicPreTrailer.Items
 {
-	public override void SetStaticDefaults()
+	public class DesertFeather : ModItem
 	{
-		//DisplayName.SetDefault("Desert Feather");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Desert Feather");
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 24;
+			Item.height = 24;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 0, 10, 0);
+			Item.rare = 1;
+		}
 	}
-		
-	public override void SetDefaults()
-	{
-		Item.width = 24;
-		Item.height = 24;
-		Item.maxStack = 999;
-		Item.value = 5000;
-		Item.rare = ItemRarityID.Green;
-	}
-}}
+}

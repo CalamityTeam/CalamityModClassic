@@ -5,54 +5,47 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons {
-public class Verdant : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
-		public override void SetStaticDefaults()
-		{
-			//DisplayName.SetDefault("Verdant");
-			//Tooltip.SetDefault("Fires leaf crystals when enemies are near");
+    public class Verdant : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Verdant");
+            // Tooltip.SetDefault("Fires leaf crystals when enemies are near");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.CloneDefaults(ItemID.Kraken);
+            Item.damage = 247;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+            Item.useStyle = 5;
+            Item.channel = true;
+            Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+            Item.knockBack = 6f;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.autoReuse = true;
+            Item.shoot = Mod.Find<ModProjectile>("VerdantProjectile").Type;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
 
-    public override void SetDefaults()
-    {
-    	Item.CloneDefaults(ItemID.Kraken);
-        Item.damage = 248;
-        Item.useTime = 22;
-        Item.useAnimation = 22;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.channel = true;
-        Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-        Item.knockBack = 6f;
-        Item.value = 1200000;
-        Item.autoReuse = true;
-        Item.shoot = Mod.Find<ModProjectile>("VerdantProjectile").Type;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 200);
-            }
+            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+            return false;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "UeliaceBar", 6);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-    
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-    {
-        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-		return false;
-	}
-    
-    public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "UeliaceBar", 6);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-	}
-}}
+}

@@ -1,40 +1,42 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class CheatTestThing : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("lol");
-	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 26;
-		Item.height = 26;
-		Item.value = 1;
-		Item.rare = ItemRarityID.Blue;
-		Item.accessory = true;
-	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		bool playerName = player.name == "Fabsol";
-		if (playerName)
-	    {
-	   		modPlayer.lol = true;
-	   	}
-		else if (!player.immune)
-	   	{
-	   		player.KillMe(PlayerDeathReason.ByOther(12), 1000.0, 0, false);
-	   	}
-	}
-}}
+    public class CheatTestThing : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("lul");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
+            Item.value = 1;
+            Item.rare = 1;
+            Item.accessory = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            bool canUse = (player.name == "Fabsol" || player.name == "Totalbiscuit") && player.townNPCs <= 1;
+            if (canUse)
+            {
+                modPlayer.lol = true;
+            }
+            else if (!player.immune)
+            {
+                player.KillMe(PlayerDeathReason.ByOther(12), 1000.0, 0, false);
+            }
+        }
+    }
+}

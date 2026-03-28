@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class GodSlayerCooldown : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("God Slayer Cooldown");
-			//Description.SetDefault("10% increase to all damage; godslayer effect is recharging");
+			// DisplayName.SetDefault("God Slayer Cooldown");
+			// Description.SetDefault("10% increase to all damage; godslayer effect is recharging");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -22,7 +22,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().godSlayerCooldown = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().godSlayerCooldown = true;
 		}
 	}
 }

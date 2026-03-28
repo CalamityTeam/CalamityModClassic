@@ -5,35 +5,35 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ClockGatlignum : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Clock Gatlignum");
-			//Tooltip.SetDefault("33% chance to not consume ammo");
+			// DisplayName.SetDefault("Clock Gatlignum");
+			// Tooltip.SetDefault("33% chance to not consume ammo");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 41;
+	        Item.damage = 45;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 66;
 	        Item.height = 34;
 	        Item.useTime = 2;
 	        Item.reuseDelay = 10;
 	        Item.useAnimation = 6;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3.75f;
-	        Item.value = 1200000;
-	        Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item31;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.shootSpeed = 20f;
 	        Item.useAmmo = 97;
 	    }
@@ -53,7 +53,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool CanConsumeAmmo(Item ammo, Player player)
 	    {
-	    	if (Main.rand.Next(0, 100) <= 33)
+	    	if (Main.rand.Next(0, 100) < 33)
 	    		return false;
 	    	return true;
 	    }

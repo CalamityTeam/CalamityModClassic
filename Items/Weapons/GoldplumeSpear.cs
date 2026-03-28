@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class GoldplumeSpear : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Goldplume Spear");
+			// DisplayName.SetDefault("Goldplume Spear");
 		}
 
 		public override void SetDefaults()
@@ -25,14 +25,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.useTurn = true;
 			Item.noUseGraphic = true;
 			Item.useAnimation = 23;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.useTime = 23;
 			Item.knockBack = 5.75f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.height = 54;
-			Item.value = 85000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("GoldplumeSpearProjectile").Type;
 			Item.shootSpeed = 5f;
 		}

@@ -7,56 +7,85 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using Terraria.WorldBuilding;
+using CalamityModClassicPreTrailer.Tiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader.Utilities;
+using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
+namespace CalamityModClassicPreTrailer.NPCs.PlaguebringerShade
 {
 	public class PlaguebringerShade : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Plaguebringer Shade");
+			// DisplayName.SetDefault("Plaguebringer");
 			Main.npcFrameCount[NPC.type] = 12;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Scale = 0.7f,
+				PortraitScale = 0.8f,
+			};
+			value.Position.X += 25f;
+			value.Position.Y += 15f;
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
 		}
 		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle,
+				new FlavorTextBestiaryInfoElement("What would have been a queen bee, taken away by the plague, now only serving as one of its many servants.")
+			});
+		}
+
+
 		public override void SetDefaults()
 		{
-			NPC.damage = 130; //150
-			NPC.npcSlots = 1f;
+			NPC.damage = 80; //150
+			NPC.npcSlots = 8f;
 			NPC.width = 66; //324
 			NPC.height = 66; //216
 			NPC.defense = 30;
-			NPC.lifeMax = 8000; //250000
+			NPC.lifeMax = CalamityWorldPreTrailer.death ? 4000 : 3000; //250000
+			NPC.value = Item.buyPrice(0, 1, 50, 0);
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = 200000;
+			}
 			NPC.knockBackResist = 0f;
-			NPC.alpha = 50;
 			NPC.aiStyle = -1; //new
-            AIType = -1; //new
+			AIType = -1; //new
 			AnimationType = NPCID.QueenBee;
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
 			}
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("MarkedforDeath").Type] = false;
+			NPC.buffImmune[BuffID.Daybreak] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("AbyssalFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("ArmorCrunch").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("DemonFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("GodSlayerInferno").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("HolyLight").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Nightwither").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Shred").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("WhisperingDeath").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("SilvaStun").Type] = false;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle,
-                new FlavorTextBestiaryInfoElement("Through the Titanium on the goliath's armor, it is able to make shadow clones.")
+			Banner = NPC.type;
+			BannerItem = Mod.Find<ModItem>("PlaguebringerBanner").Type;
+		}
 
-            });
-        }
-
-        public override void AI()
+		public override void AI()
 		{
 			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.05f, 0.15f, 0.025f);
 			if (Main.expertMode)
@@ -65,7 +94,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				NPC.damage = NPC.defDamage - num1041;
 			}
 			bool flag113 = false;
-			if (!Main.player[NPC.target].ZoneJungle)
+			if (!Main.player[NPC.target].ZoneJungle && !CalamityWorldPreTrailer.bossRushActive)
 			{
 				flag113 = true;
 				if (NPC.timeLeft > 150)
@@ -75,7 +104,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 			}
 			else
 			{
-				if (NPC.timeLeft > 750)
+				if (NPC.timeLeft < 750)
 				{
 					NPC.timeLeft = 750;
 				}
@@ -115,7 +144,7 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 			}
 			else if (NPC.ai[0] == -1f)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				if (Main.netMode != 1)
 				{
 					float num1041 = NPC.ai[1];
 					int num1042;
@@ -346,10 +375,10 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				if (Collision.CanHit(vector119, 1, 1, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height) && flag103)
 				{
 					SoundEngine.PlaySound(SoundID.NPCHit8, NPC.position);
-					if (Main.netMode != NetmodeID.MultiplayerClient)
+					if (Main.netMode != 1)
 					{
 						int num1061;
-						if (Main.rand.NextBool(4))
+						if (Main.rand.Next(4) == 0)
 						{
 							num1061 = Mod.Find<ModNPC>("PlagueBeeLargeG").Type;
 						}
@@ -357,11 +386,14 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 						{
 							num1061 = Mod.Find<ModNPC>("PlagueBeeG").Type;
 						}
-						int num1062 = NPC.NewNPC(NPC.GetSource_FromThis(), (int)vector119.X, (int)vector119.Y, num1061, 0, 0f, 0f, 0f, 0f, 255);
-						Main.npc[num1062].velocity.X = (float)Main.rand.Next(-200, 201) * 0.005f;
-						Main.npc[num1062].velocity.Y = (float)Main.rand.Next(-200, 201) * 0.005f;
-						Main.npc[num1062].localAI[0] = 60f;
-						Main.npc[num1062].netUpdate = true;
+						if (NPC.CountNPCS(Mod.Find<ModNPC>("PlagueBeeG").Type) < 3)
+						{
+							int num1062 = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)vector119.X, (int)vector119.Y, num1061, 0, 0f, 0f, 0f, 0f, 255);
+							Main.npc[num1062].velocity.X = (float)Main.rand.Next(-200, 201) * 0.005f;
+							Main.npc[num1062].velocity.Y = (float)Main.rand.Next(-200, 201) * 0.005f;
+							Main.npc[num1062].localAI[0] = 60f;
+							Main.npc[num1062].netUpdate = true;
+						}
 					}
 				}
 				if (num1060 > 400f || !Collision.CanHit(new Vector2(vector119.X, vector119.Y - 30f), 1, 1, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
@@ -442,9 +474,9 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				if (flag104 && NPC.position.Y + (float)NPC.height < Main.player[NPC.target].position.Y && Collision.CanHit(vector121, 1, 1, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
 				{
 					SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-					if (Main.netMode != NetmodeID.MultiplayerClient)
+					if (Main.netMode != 1)
 					{
-						float num1070 = 10.5f; //changed from 8
+						float num1070 = 6f; //changed from 8
 						if (flag113)
 						{
 							num1070 += 2f;
@@ -456,13 +488,17 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 						num1071 *= num1073;
 						num1072 *= num1073;
 						int num1074 = 20; //projectile damage
-						int num1075 = Mod.Find<ModProjectile>("PlagueStingerGoliath").Type; //projectile type
-						if (Main.rand.NextBool(15))
+						int num1075 = Mod.Find<ModProjectile>("PlagueStingerGoliathV2").Type; //projectile type
+						if (Main.rand.Next(15) == 0)
 						{
 							num1074 = 25;
 							num1075 = Mod.Find<ModProjectile>("HiveBombGoliath").Type;
 						}
-						int num1076 = Projectile.NewProjectile(NPC.GetSource_FromThis(), vector121.X, vector121.Y, num1071, num1072, num1075, num1074, 0f, Main.myPlayer, 0f, 0f);
+						if (CalamityWorldPreTrailer.death)
+						{
+							num1074 += 20;
+						}
+						int num1076 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector121.X, vector121.Y, num1071, num1072, num1075, num1074, 0f, Main.myPlayer, 0f, 0f);
 						Main.projectile[num1076].timeLeft = 300;
 					}
 				}
@@ -555,15 +591,37 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				}
 			}
 		}
-		
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (spawnInfo.PlayerSafe || !NPC.downedGolemBoss)
+			{
+				return 0f;
+			}
+			return SpawnCondition.HardmodeJungle.Chance * 0.02f;
+		}
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Poisoned, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 46, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("Pbg").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("Pbg2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("Pbg3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("Pbg4").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("Pbg5").Type, 1f);
+				}
 				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 100;
@@ -572,9 +630,9 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
 				for (int num621 = 0; num621 < 40; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Poisoned, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 46, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					if (Main.rand.Next(2) == 0)
 					{
 						Main.dust[num622].scale = 0.5f;
 						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
@@ -582,26 +640,20 @@ namespace CalamityModClassic1Point2.NPCs.PlaguebringerShade
 				}
 				for (int num623 = 0; num623 < 70; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Poisoned, 0f, 0f, 100, default(Color), 3f);
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 46, 0f, 0f, 100, default(Color), 3f);
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Poisoned, 0f, 0f, 100, default(Color), 2f);
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 46, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num624].velocity *= 2f;
 				}
 			}
 		}
 		
-		public override bool PreKill()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			return false;
+			npcLoot.Add(new CommonDrop(Mod.Find<ModItem>("PlagueCellCluster").Type, 1, 8, 13));
 		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
-		}
-		
+
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			target.AddBuff(Mod.Find<ModBuff>("Plague").Type, 120, true);

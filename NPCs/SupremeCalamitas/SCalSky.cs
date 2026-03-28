@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
+namespace CalamityModClassicPreTrailer.NPCs.SupremeCalamitas
 {
 	public class SCalSky : CustomSky
 	{
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 
 		private bool UpdateSCalIndex()
 		{
-			int SCalType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("SupremeCalamitas").Type;
+			int SCalType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("SupremeCalamitas").Type;
 			if (SCalIndex >= 0 && Main.npc[SCalIndex].active && Main.npc[SCalIndex].type == SCalType)
 			{
 				return true;

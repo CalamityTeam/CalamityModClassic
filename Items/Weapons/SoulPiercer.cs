@@ -5,52 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons {
-public class SoulPiercer : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Soul Piercer");
-		Item.staff[Item.type] = true;
-	}
-
-    public override void SetDefaults()
+    public class SoulPiercer : ModItem
     {
-        Item.damage = 135;
-        Item.DamageType = DamageClass.Magic;
-        Item.mana = 19;
-        Item.width = 60;
-        Item.height = 60;
-        Item.useTime = 18;
-        Item.useAnimation = 18;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true;
-        Item.knockBack = 8f;
-        Item.value = 1350000;
-        Item.UseSound = SoundID.Item73;
-        Item.autoReuse = true;
-        Item.shoot = Mod.Find<ModProjectile>("SoulPiercer").Type;
-        Item.shootSpeed = 6f;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(43, 96, 222);
-            }
+            // DisplayName.SetDefault("Soul Piercer");
+            Item.staff[Item.type] = true;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 185;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 19;
+            Item.width = 60;
+            Item.height = 60;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 8f;
+            Item.value = Item.buyPrice(1, 80, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item73;
+            Item.autoReuse = true;
+            Item.shoot = Mod.Find<ModProjectile>("SoulPiercer").Type;
+            Item.shootSpeed = 6f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
+		}
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CosmiliteBar", 12);
+            recipe.AddTile(null, "DraedonsForge");
+            recipe.Register();
         }
     }
-    
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "CosmiliteBar", 12);
-        recipe.AddTile(null, "DraedonsForge");
-        recipe.Register();
-    }
-}}
+}

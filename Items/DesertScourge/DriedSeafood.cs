@@ -1,16 +1,17 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.DesertScourge
+namespace CalamityModClassicPreTrailer.Items.DesertScourge
 {
 	public class DriedSeafood : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Desert Medallion");
-			//Tooltip.SetDefault("The desert sand stirs...");
+			// DisplayName.SetDefault("Desert Medallion");
+			/* Tooltip.SetDefault("The desert sand stirs...\n" +
+                "Summons the Desert Scourge"); */
 		}
 		
 		public override void SetDefaults()
@@ -18,10 +19,10 @@ namespace CalamityModClassic1Point2.Items.DesertScourge
 			Item.width = 28;
 			Item.height = 28;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = 2;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		
@@ -33,7 +34,7 @@ namespace CalamityModClassic1Point2.Items.DesertScourge
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHead").Type);
-			if (CalamityWorld1Point2.revenge)
+			if (CalamityWorldPreTrailer.revenge)
 			{
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHeadSmall").Type);
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("DesertScourgeHeadSmall").Type);
@@ -45,9 +46,9 @@ namespace CalamityModClassic1Point2.Items.DesertScourge
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.SandBlock, 25);
+			recipe.AddIngredient(ItemID.SandBlock, 15);
 			recipe.AddIngredient(ItemID.AntlionMandible, 3);
-			recipe.AddIngredient(ItemID.Cactus, 15);
+			recipe.AddIngredient(ItemID.Cactus, 10);
 			recipe.AddIngredient(null, "StormlionMandible");
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();

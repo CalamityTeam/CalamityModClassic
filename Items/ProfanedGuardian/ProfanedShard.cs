@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,14 +7,16 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 
-namespace CalamityModClassic1Point2.Items.ProfanedGuardian
+namespace CalamityModClassicPreTrailer.Items.ProfanedGuardian
 {
 	public class ProfanedShard : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Profaned Shard");
-			//Tooltip.SetDefault("A shard of the unholy flame");
+			// DisplayName.SetDefault("Profaned Shard");
+			/* Tooltip.SetDefault("A shard of the unholy flame\n" +
+                "Summons the Profaned Guardians\n" +
+                "Can only be used during daytime"); */
 		}
 		
 		public override void SetDefaults()
@@ -24,20 +26,10 @@ namespace CalamityModClassic1Point2.Items.ProfanedGuardian
 			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(0, 255, 200);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
@@ -47,8 +39,6 @@ namespace CalamityModClassic1Point2.Items.ProfanedGuardian
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("ProfanedGuardianBoss").Type);
-			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("ProfanedGuardianBoss2").Type);
-			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("ProfanedGuardianBoss3").Type);
 			SoundEngine.PlaySound(SoundID.Roar, player.position);
 			return true;
 		}

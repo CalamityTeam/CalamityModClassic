@@ -5,32 +5,33 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using Terraria.Audio;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ChargedDartRifle : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Charged Dart Blaster");
-			//Tooltip.SetDefault("Right click to fire an exploding energy blast that bounces");
+			// DisplayName.SetDefault("Charged Dart Blaster");
+			// Tooltip.SetDefault("Right click to fire an exploding energy blast that bounces");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 100;
+	        Item.damage = 126;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 60;
 	        Item.height = 24;
 	        Item.useTime = 25;
 	        Item.useAnimation = 25;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 1050000;
-	        Item.rare = ItemRarityID.Yellow;
-	        Item.UseSound = new Terraria.Audio.SoundStyle("CalamityModClassic1Point2/Sounds/Item/LaserCannon");
+            Item.value = Item.buyPrice(0, 95, 0, 0);
+            Item.rare = 9;
+	        Item.UseSound = new SoundStyle("CalamityModClassicPreTrailer/Sounds/Item/LaserCannon");
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 22f;
 	        Item.shoot = Mod.Find<ModProjectile>("ChargedBlast").Type;
@@ -51,12 +52,12 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ChargedBlast3").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ChargedBlast3").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
 	    	{
-	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ChargedBlast").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ChargedBlast").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 		}
@@ -67,13 +68,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        recipe.AddIngredient(ItemID.DartRifle);
 	        recipe.AddIngredient(ItemID.MartianConduitPlating, 25);
 	        recipe.AddIngredient(null, "CoreofEleum", 3);
-	        recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddIngredient(ItemID.FragmentVortex, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
 	        recipe.Register();
 	        recipe = CreateRecipe();
 	        recipe.AddIngredient(ItemID.DartPistol);
 	        recipe.AddIngredient(ItemID.MartianConduitPlating, 25);
 	        recipe.AddIngredient(null, "CoreofEleum", 3);
-	        recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddIngredient(ItemID.FragmentVortex, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
 	        recipe.Register();
 	    }
 	}

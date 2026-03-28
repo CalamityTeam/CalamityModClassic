@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -8,14 +8,14 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Bumblefuck
+namespace CalamityModClassicPreTrailer.Items.Bumblefuck
 {
 	public class BirbPheromones : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Birb Pheromones");
-			//Tooltip.SetDefault("Attracts the bumbling birb");
+			// DisplayName.SetDefault("Birb Pheromones");
+			// Tooltip.SetDefault("Attracts the bumbling birb");
 		}
 		
 		public override void SetDefaults()
@@ -23,10 +23,10 @@ namespace CalamityModClassic1Point2.Items.Bumblefuck
 			Item.width = 28;
 			Item.height = 18;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Red;
+			Item.rare = 10;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		
@@ -45,10 +45,9 @@ namespace CalamityModClassic1Point2.Items.Bumblefuck
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 2);
-			recipe.AddIngredient(ItemID.FragmentSolar, 4);
-			recipe.AddIngredient(null, "CosmiliteBar");
-			recipe.AddTile(null, "DraedonsForge");
+			recipe.AddIngredient(ItemID.LunarBar, 3);
+			recipe.AddIngredient(ItemID.FragmentSolar, 5);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
 	}

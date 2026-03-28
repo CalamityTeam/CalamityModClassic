@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Buffs
+namespace CalamityModClassicPreTrailer.Buffs
 {
 	public class ScarfCooldown : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Scarf Cooldown");
-			//Description.SetDefault("Your dodge is recharging");
+			// DisplayName.SetDefault("Scarf Cooldown");
+			// Description.SetDefault("Your dodge is recharging");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -22,7 +22,7 @@ namespace CalamityModClassic1Point2.Buffs
 		
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<CalamityPlayer1Point2>().scarfCooldown = true;
+			player.GetModPlayer<CalamityPlayerPreTrailer>().scarfCooldown = true;
 		}
 	}
 }

@@ -5,47 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Bumblebirb
+namespace CalamityModClassicPreTrailer.Items.Weapons.Bumblebirb
 {
 	public class GoldenEagle : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Golden Eagle");
-			//Tooltip.SetDefault("Fires 5 bullets at once");
+			// DisplayName.SetDefault("Golden Eagle");
+			// Tooltip.SetDefault("Fires 5 bullets at once");
 		}
 
 	    public override void SetDefaults()
 	    {
-			Item.damage = 58;
+			Item.damage = 40;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.width = 46;
 			Item.height = 30;
 			Item.useTime = 7;
 			Item.useAnimation = 7;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.knockBack = 3f;
-			Item.value = 1000000;
-			Item.UseSound = SoundID.Item41;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item41;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
+			Item.shoot = 10;
 			Item.shootSpeed = 20f;
 			Item.useAmmo = 97;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
 		}
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(43, 96, 222);
-	            }
-	        }
-	    }
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{    
@@ -59,11 +50,11 @@ namespace CalamityModClassic1Point2.Items.Weapons.Bumblebirb
 	        float SpeedY4 = velocity.Y - 10f * 0.05f;
 	        float SpeedX5 = velocity.X + 10f * 0.05f;
 	        float SpeedY5 = velocity.Y + 10f * 0.05f;
-	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX2, SpeedY2, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX3, SpeedY3, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX4, SpeedY4, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX5, SpeedY5, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX2, SpeedY2, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX3, SpeedY3, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX4, SpeedY4, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX5, SpeedY5, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

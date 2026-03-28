@@ -1,47 +1,45 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Polterghast {
-public class Affliction : ModItem
+namespace CalamityModClassicPreTrailer.Items.Polterghast
 {
-	public override void SetDefaults()
+	public class Affliction : ModItem
 	{
-		Item.width = 20;
-		Item.height = 20;
-		Item.value = 500000;
-		Item.accessory = true;
-		Item.expert = true;
-	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		if (modPlayer.stressLevel300)
+		public override void SetStaticDefaults()
 		{
+			// DisplayName.SetDefault("Affliction");
+			/* Tooltip.SetDefault("Gives you and all other players on your team +1 life regen,\n" +
+							   "+5% max life, 5% damage reduction, 15 defense, and 10% increased damage\n" +
+							   "These effects are stronger on revengeance mode"); */
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 20;
+			Item.height = 20;
+			Item.value = Item.buyPrice(0, 60, 0, 0);
+			Item.accessory = true;
+			Item.expert = true;
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.affliction = true;
 			if (player.whoAmI != Main.myPlayer && player.miscCounter % 10 == 0)
 			{
 				int myPlayer = Main.myPlayer;
 				if (Main.player[myPlayer].team == player.team && player.team != 0)
 				{
-					float arg = player.position.X - Main.player[myPlayer].position.X;
-					float num3 = player.position.Y - Main.player[myPlayer].position.Y;
-					if ((float)Math.Sqrt((double)(arg * arg + num3 * num3)) < 2800f)
-					{
-						Main.player[myPlayer].AddBuff(Mod.Find<ModBuff>("Afflicted").Type, 20, true);
-					}
+					Main.player[myPlayer].AddBuff(Mod.Find<ModBuff>("Afflicted").Type, 20, true);
 				}
 			}
 		}
-		else if (modPlayer.stressLevel0)
-		{
-			modPlayer.affliction = true;
-		}
 	}
-}}
+}

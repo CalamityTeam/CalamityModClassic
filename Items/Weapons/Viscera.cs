@@ -5,53 +5,46 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons {
-public class Viscera : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Viscera");
-		//Tooltip.SetDefault("The more tiles and enemies the beam bounces off of or travels through the more healing the beam does");
-		Item.staff[Item.type] = true;
-	}
-
-    public override void SetDefaults()
+    public class Viscera : ModItem
     {
-        Item.damage = 360;
-        Item.DamageType = DamageClass.Magic;
-        Item.mana = 23;
-        Item.width = 50;
-        Item.height = 50;
-        Item.useTime = 14;
-        Item.useAnimation = 14;
-        Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noMelee = true;
-        Item.knockBack = 6f;
-        Item.value = 1000000;
-        Item.UseSound = SoundID.Item20;
-        Item.autoReuse = true;
-        Item.shoot = Mod.Find<ModProjectile>("Viscera").Type;
-        Item.shootSpeed = 6f;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 0);
-            }
+            // DisplayName.SetDefault("Viscera");
+            // Tooltip.SetDefault("The more tiles and enemies the beam bounces off of or travels through the more healing the beam does");
+            Item.staff[Item.type] = true;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 153;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 15;
+            Item.width = 50;
+            Item.height = 52;
+            Item.useTime = 14;
+            Item.useAnimation = 14;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 6f;
+            Item.value = Item.buyPrice(1, 40, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item20;
+            Item.autoReuse = true;
+            Item.shoot = Mod.Find<ModProjectile>("Viscera").Type;
+            Item.shootSpeed = 6f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "BloodstoneCore", 4);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-    
-    public override void AddRecipes()
-	{
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "BloodstoneCore", 4);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-    }
-}}
+}

@@ -1,16 +1,17 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
+namespace CalamityModClassicPreTrailer.Items.BrimstoneWaifu
 {
 	public class CharredIdol : ModItem
 	{
 		public override void SetStaticDefaults()
  		{
- 			//DisplayName.SetDefault("Charred Idol");
- 			//Tooltip.SetDefault("Use in the Calamity biome at your own risk");
+ 			// DisplayName.SetDefault("Charred Idol");
+ 			/* Tooltip.SetDefault("Use in the Brimstone Crag at your own risk\n" +
+                "Summons the Brimstone Elemental"); */
  		}
 		
 		public override void SetDefaults()
@@ -18,16 +19,16 @@ namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
 			Item.width = 28;
 			Item.height = 18;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.LightPurple;
+			Item.rare = 6;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			return modPlayer.ZoneCalamity && !NPC.AnyNPCs(Mod.Find<ModNPC>("BrimstoneElemental").Type);
 		}
 		
@@ -41,7 +42,6 @@ namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.HallowedBar, 5);
 			recipe.AddIngredient(ItemID.SoulofNight, 5);
 			recipe.AddIngredient(null, "EssenceofChaos", 5);
 			recipe.AddTile(TileID.MythrilAnvil);

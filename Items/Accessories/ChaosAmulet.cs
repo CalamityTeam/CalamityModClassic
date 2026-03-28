@@ -1,20 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
 	public class ChaosAmulet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Chaos Amulet");
-			//Tooltip.SetDefault("Spelunker effect");
+			// DisplayName.SetDefault("Chaos Amulet");
+			// Tooltip.SetDefault("Spelunker effect");
 		}
 		
 		public override void SetDefaults()
@@ -22,8 +22,8 @@ namespace CalamityModClassic1Point2.Items.Accessories
 			Item.width = 20;
 			Item.height = 24;
 			Item.lifeRegen = 2;
-			Item.value = 150000;
-			Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 15, 0, 0);
+            Item.rare = 8;
 			Item.accessory = true;
 		}
 		

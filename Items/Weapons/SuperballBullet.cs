@@ -4,21 +4,21 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class SuperballBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Superball Bullet");
-			//Tooltip.SetDefault("Bounces at extreme speeds");
+			// DisplayName.SetDefault("Superball Bullet");
+			// Tooltip.SetDefault("Bounces at extreme speeds");
 		}
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 10;
+			Item.damage = 6;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 8;
 			Item.height = 8;
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
 			Item.value = 250;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 1;
 			Item.shoot = Mod.Find<ModProjectile>("SuperballBullet").Type;
 			Item.shootSpeed = 1f;
 			Item.ammo = 97;

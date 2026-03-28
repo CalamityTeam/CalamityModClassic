@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class PrimordialEarth : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Primordial Earth");
-			//Tooltip.SetDefault("An ancient relic from an ancient land");
+			// DisplayName.SetDefault("Primordial Earth");
+			// Tooltip.SetDefault("An ancient relic from an ancient land");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 75;
+	        Item.damage = 85;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 19;
 	        Item.width = 28;
 	        Item.height = 30;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7;
-	        Item.value = 8500000;
-	        Item.rare = ItemRarityID.Red;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item20;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("SupremeDustProjectile").Type;

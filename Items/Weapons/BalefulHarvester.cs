@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class BalefulHarvester : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Baleful Harvester");
+			// DisplayName.SetDefault("Baleful Harvester");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 105;
-			Item.width = 54;
-			Item.height = 54;
+			Item.damage = 110;
+			Item.width = 66;
+			Item.height = 66;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.useAnimation = 32;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTime = 32;
+			Item.useAnimation = 22;
+			Item.useStyle = 1;
+			Item.useTime = 22;
 			Item.useTurn = true;
-			Item.knockBack = 8;
+			Item.knockBack = 8f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.value = 475000;
-			Item.rare = ItemRarityID.Lime;
+            Item.value = Item.buyPrice(0, 60, 0, 0);
+            Item.rare = 7;
 			Item.shoot = Mod.Find<ModProjectile>("BalefulHarvesterProjectile").Type;
 			Item.shootSpeed = 6f;
 		}

@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Projectiles.Boss
+{
+    public class SandBlast : ModProjectile
+    {
+    	public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Sand Blast");
+		}
+    	
+        public override void SetDefaults()
+        {
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.hostile = true;
+            Projectile.ignoreWater = true;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 300;
+            Projectile.alpha = 255;
+        }
+
+        public override void AI()
+        {
+            if (Projectile.ai[1] == 0f)
+            {
+                for (int num621 = 0; num621 < 10; num621++)
+                {
+                    int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 85, 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num622].velocity *= 3f;
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[num622].scale = 0.5f;
+                        Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
+                }
+                Projectile.ai[1] = 1f;
+                SoundEngine.PlaySound(SoundID.Item21, Projectile.position);
+            }
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+            Projectile.localAI[0] += 1f;
+            if (Projectile.localAI[0] > 4f)
+            {
+                Projectile.alpha -= 50;
+                if (Projectile.alpha < 0)
+                {
+                    Projectile.alpha = 0;
+                }
+                int num469 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 85, 0f, 0f, 100, default(Color), 1f);
+                Main.dust[num469].noGravity = true;
+                Main.dust[num469].velocity *= 0f;
+            }
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+        	for (int dust = 0; dust <= 10; dust++)
+        	{
+        		float num463 = (float)Main.rand.Next(-10, 11);
+				float num464 = (float)Main.rand.Next(-10, 11);
+				float num465 = (float)Main.rand.Next(3, 9);
+				float num466 = (float)Math.Sqrt((double)(num463 * num463 + num464 * num464));
+				num466 = num465 / num466;
+				num463 *= num466;
+				num464 *= num466;
+        		int num467 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 85, 0f, 0f, 100, default(Color), 1.2f);
+        		Main.dust[num467].noGravity = true;
+				Main.dust[num467].position.X = Projectile.Center.X;
+				Main.dust[num467].position.Y = Projectile.Center.Y;
+				Dust expr_149DF_cp_0 = Main.dust[num467];
+				expr_149DF_cp_0.position.X = expr_149DF_cp_0.position.X + (float)Main.rand.Next(-10, 11);
+				Dust expr_14A09_cp_0 = Main.dust[num467];
+				expr_14A09_cp_0.position.Y = expr_14A09_cp_0.position.Y + (float)Main.rand.Next(-10, 11);
+				Main.dust[num467].velocity.X = num463;
+				Main.dust[num467].velocity.Y = num464;
+        	}
+        }
+    }
+}

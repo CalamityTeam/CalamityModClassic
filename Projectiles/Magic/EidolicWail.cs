@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Projectiles.Magic
+{
+    public class EidolicWail : ModProjectile
+    {
+    	public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Wail");
+		}
+    	
+        public override void SetDefaults()
+        {
+            Projectile.width = 36;
+            Projectile.height = 36;
+            Projectile.scale = 0.005f;
+            Projectile.alpha = 100;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 1;
+            Projectile.timeLeft = 450;
+        }
+
+        public override void AI()
+        {
+            if (Projectile.localAI[0] < 1f)
+            {
+                Projectile.localAI[0] += 0.005f; //200 to reach full size and max power
+                Projectile.scale += 0.005f;
+                Projectile.width = (int)(36f * Projectile.scale);
+                Projectile.height = (int)(36f * Projectile.scale);
+            }
+            else
+            {
+                Projectile.width = 36;
+                Projectile.height = 36;
+            }
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y;
+            }
+            return false;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            target.damage = (int)((double)target.damage * (double)Projectile.localAI[0]);
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(Mod.Find<ModBuff>("CrushDepth").Type, 600);
+            Projectile.velocity *= 0.975f;
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            if (Projectile.timeLeft < 85)
+            {
+                byte b2 = (byte)(Projectile.timeLeft * 3);
+                byte a2 = (byte)(100f * ((float)b2 / 255f));
+                return new Color((int)b2, (int)b2, (int)b2, (int)a2);
+            }
+            return new Color(255, 255, 255, 100);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, tex.Size() / 2f, Projectile.scale, SpriteEffects.None, 0f);
+            return false;
+        }
+    }
+}

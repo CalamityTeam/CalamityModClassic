@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
+namespace CalamityModClassicPreTrailer.NPCs.SupremeCalamitas
 {
 	public class SoulSeekerSupreme : ModNPC
 	{
@@ -16,7 +16,16 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Soul Seeker");
+			// DisplayName.SetDefault("Soul Seeker");
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(),
+				new FlavorTextBestiaryInfoElement("A construct of the witch, it and its brethren serve as a shield when a battle is particularly rough.")
+			});
 		}
 		
 		public override void SetDefaults()
@@ -27,36 +36,32 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			NPC.height = 40;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.chaseable = false;
-			NPC.damage = 300;
-			NPC.defense = 250;
-			NPC.lifeMax = 100000;
+			NPC.canGhostHeal = false;
+			NPC.damage = 0;
+			NPC.defense = 100;
+			NPC.lifeMax = Main.expertMode ? 90000 : 50000;
+            if (CalamityWorldPreTrailer.revenge)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 100000 : 170000;
+            }
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
 			}
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new FlavorTextBestiaryInfoElement("Orbital constructs that harvest the lifeforce of unfortunate victims.")
+		}
 
-            });
-        }
-
-        public override bool PreAI()
+		public override bool PreAI()
 		{
 			bool expertMode = Main.expertMode;
 			if (start)
 			{
-				for (int num621 = 0; num621 < 15; num621++)
+				for (int num621 = 0; num621 < 10; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 2f);
 				}
 				NPC.ai[1] = NPC.ai[0];
 				start = false;
@@ -67,32 +72,38 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			direction *= 9f;
 			NPC.rotation = direction.ToRotation();
 			timer++;
-			if (timer > 60)
+			if (timer > 180)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(4))
+				if (Main.netMode != 1)
 				{
-					int damage = expertMode ? 100 : 112;
-					int proj2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, direction.X, direction.Y, Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage, 1f, NPC.target);
+					int damage = expertMode ? 150 : 200; //600 500
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(null), NPC.Center.X, NPC.Center.Y, direction.X, direction.Y, Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage, 1f, NPC.target);
 				}
 				timer = 0;
 			}
-			if (NPC.CountNPCS(Mod.Find<ModNPC>("SupremeCalamitas").Type) < 1)
+			if (!Main.npc[CalamityGlobalNPC.SCal].active)
 			{
 				NPC.active = false;
+                NPC.netUpdate = true;
 				return false;
 			}
 			Player player = Main.player[NPC.target];
 			NPC parent = Main.npc[NPC.FindFirstNPC(Mod.Find<ModNPC>("SupremeCalamitas").Type)];
 			double deg = (double)NPC.ai[1];
 			double rad = deg * (Math.PI / 180);
-			double dist = 1200;
+			double dist = 300;
 			NPC.position.X = parent.Center.X - (int)(Math.Cos(rad) * dist) - NPC.width / 2;
 			NPC.position.Y = parent.Center.Y - (int)(Math.Sin(rad) * dist) - NPC.height / 2;
-			NPC.ai[1] += 2f;
+			NPC.ai[1] += 0.5f; //2
 			return false;
 		}
-		
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+
+        public override bool PreKill()
+        {
+            return false;
+        }
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
 			cooldownSlot = 1;
 			return true;
@@ -110,9 +121,9 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
 				for (int num621 = 0; num621 < 5; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					if (Main.rand.Next(2) == 0)
 					{
 						Main.dust[num622].scale = 0.5f;
 						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
@@ -120,10 +131,10 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 				}
 				for (int num623 = 0; num623 < 10; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 3f);
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 3f);
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num624].velocity *= 2f;
 				}
 			}
@@ -132,12 +143,6 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		public override bool CheckActive()
 		{
 			return false;
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

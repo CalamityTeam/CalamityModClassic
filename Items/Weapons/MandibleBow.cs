@@ -5,15 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class MandibleBow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Mandible Bow");
+			// DisplayName.SetDefault("Mandible Bow");
 		}
 
 	    public override void SetDefaults()
@@ -24,16 +25,21 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 40;
 	        Item.useTime = 25;
 	        Item.useAnimation = 25;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2f;
-	        Item.value = 15000;
-	        Item.rare = ItemRarityID.Blue;
+            Item.value = Item.buyPrice(0, 1, 0, 0);
+            Item.rare = 1;
 	        Item.UseSound = SoundID.Item5;
 	        Item.autoReuse = false;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.shootSpeed = 30f;
 	        Item.useAmmo = 40;
 	    }
-	}
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+    }
 }

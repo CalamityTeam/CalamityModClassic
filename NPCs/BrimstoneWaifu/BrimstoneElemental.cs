@@ -1,90 +1,114 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using CalamityModClassicPreTrailer.BiomeManagers;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Items.BrimstoneWaifu;
+using CalamityModClassicPreTrailer.Items.Placeables;
+using CalamityModClassicPreTrailer.Items.Weapons.BrimstoneWaifu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
-using CalamityModClassic1Point2.Items;
-using Terraria.GameContent.ItemDropRules;
-using CalamityModClassic1Point2.NPCs.AstralBiomeNPCs;
-using CalamityModClassic1Point2.Items.BrimstoneWaifu;
-using CalamityModClassic1Point2.Items.Weapons.BrimstoneWaifu;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
-namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
+namespace CalamityModClassicPreTrailer.NPCs.BrimstoneWaifu
 {
 	[AutoloadBossHead]
 	public class BrimstoneElemental : ModNPC
 	{
-		public int dustTimer = 60;
-		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("A Brimstone Elemental");
+			// DisplayName.SetDefault("Brimstone Elemental");
 			Main.npcFrameCount[NPC.type] = 12;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Scale = 0.5f,
+				PortraitScale = 0.64f
+			};
+			value.Position.Y -= 24f;
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
 		}
 		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+				new FlavorTextBestiaryInfoElement("Once a great goddess, all she has within her heart now is hate. Hate for all that might pity her.")
+			});
+		}
+
 		public override void SetDefaults()
 		{
-			NPC.npcSlots = 15f;
+			NPC.npcSlots = 64f;
 			NPC.damage = 60;
 			NPC.width = 100;
 			NPC.height = 150;
 			NPC.defense = 20;
-			NPC.lifeMax = CalamityWorld1Point2.revenge ? 22000 : 20000;
+			NPC.lifeMax = CalamityWorldPreTrailer.revenge ? 35708 : 26000;
+			if (CalamityWorldPreTrailer.death)
+			{
+				NPC.lifeMax = 54050;
+			}
 			NPC.knockBackResist = 0f;
 			NPC.aiStyle = -1; //new
-            AIType = -1; //new
-			NPC.value = Item.buyPrice(0, 10, 0, 0);
+			AIType = -1; //new
+			NPC.value = Item.buyPrice(0, 12, 0, 0);
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
 			}
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("MarkedforDeath").Type] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
+			NPC.buffImmune[BuffID.Daybreak] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("AbyssalFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("ArmorCrunch").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("DemonFlames").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("GodSlayerInferno").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("HolyLight").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Nightwither").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Plague").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("Shred").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("WhisperingDeath").Type] = false;
+			NPC.buffImmune[Mod.Find<ModBuff>("SilvaStun").Type] = false;
 			NPC.boss = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.netAlways = true;
 			NPC.HitSound = SoundID.NPCHit23;
 			NPC.DeathSound = SoundID.NPCDeath39;
-			Music = MusicID.Boss2;
-			//bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("BrimstoneWaifuBag").Type;
-			if (CalamityWorld1Point2.downedProvidence)
+			Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/LeftAlone");
+			if (CalamityWorldPreTrailer.downedProvidence)
 			{
 				NPC.damage = 210;
 				NPC.defense = 120;
 				NPC.lifeMax = 300000;
-				NPC.value = Item.buyPrice(1, 0, 0, 0);
-            }
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<BiomeManagers.BrimstoneCragsBiome>().Type };
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                new FlavorTextBestiaryInfoElement("Something smells like sulphur.")
+				NPC.value = Item.buyPrice(0, 35, 0, 0);
+			}
+			if (CalamityWorldPreTrailer.bossRushActive)
+			{
+				NPC.lifeMax = CalamityWorldPreTrailer.death ? 2300000 : 2000000;
+			}
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
+			SpawnModBiomes = new int[] { ModContent.GetInstance<Crag>().Type };
+		}
 
-            });
-        }
-
-        public override void AI()
+		public override void AI()
 		{
+			CalamityGlobalNPC.brimstoneElemental = NPC.whoAmI;
 			Player player = Main.player[NPC.target];
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-			bool brimDust = (double)NPC.life <= (double)NPC.lifeMax * 0.75;
-			bool speedBoost = (double)NPC.life <= (double)NPC.lifeMax * 0.65;
-			bool brimRain = (double)NPC.life <= (double)NPC.lifeMax * 0.5;
-			bool brimSpeed = (double)NPC.life <= (double)NPC.lifeMax * 0.35;
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			bool brimTeleport = (double)NPC.life <= (double)NPC.lifeMax * 0.2;
-			bool provy = CalamityWorld1Point2.downedProvidence;
-			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld1Point2.revenge;
+			bool provy = (CalamityWorldPreTrailer.downedProvidence && !CalamityWorldPreTrailer.bossRushActive);
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
+			bool revenge = (CalamityWorldPreTrailer.revenge || CalamityWorldPreTrailer.bossRushActive);
 			bool calamity = modPlayer.ZoneCalamity;
-			bool isHell = player.ZoneUnderworldHeight;
-			NPC.dontTakeDamage = !isHell;
 			NPC.TargetClosest(true);
 			Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y);
 			Vector2 vectorCenter = NPC.Center;
@@ -94,11 +118,15 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 			int dustAmt = (NPC.ai[0] == 2f) ? 2 : 1;
 			int size = (NPC.ai[0] == 2f) ? 50 : 35;
 			float speed = expertMode ? 5f : 4.5f;
-			for (int num1011 = 0; num1011 < 2; num1011++) 
+			if (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive)
 			{
-				if (Main.rand.Next(3) < dustAmt) 
+				speed = 5.5f;
+			}
+			for (int num1011 = 0; num1011 < 2; num1011++)
+			{
+				if (Main.rand.Next(3) < dustAmt)
 				{
-					int dust = Dust.NewDust(NPC.Center - new Vector2((float)size), size * 2, size * 2, DustID.LifeDrain, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, 90, default(Color), 1.5f);
+					int dust = Dust.NewDust(NPC.Center - new Vector2((float)size), size * 2, size * 2, 235, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, 90, default(Color), 1.5f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity *= 0.2f;
 					Main.dust[dust].fadeIn = 1f;
@@ -115,79 +143,38 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 			{
 				NPC.timeLeft = 1800;
 			}
-			if (revenge)
+			if (NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
 			{
-				int damageBoost = (int)(30f * (1f - (float)NPC.life / (float)NPC.lifeMax));
-				NPC.damage = NPC.defDamage + damageBoost;
+				speed = 11f;
 			}
-			if (!calamity)
+			else if (!calamity)
 			{
-				speed = 7.5f;
+				speed = 7f;
 			}
-			else if (speedBoost)
+			else if ((double)NPC.life <= (double)NPC.lifeMax * 0.65)
 			{
 				speed = expertMode ? 6f : 5f;
 			}
 			if (NPC.ai[0] <= 2f)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-					dustTimer--;
-					if (dustTimer <= 0)
-					{
-						int damage = expertMode ? 30 : 35;
-						Vector2 position = Vector2.Normalize(player.Center - vectorCenter) * (float)(NPC.width + 20) / 2f + vectorCenter;
-						int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(), (int)position.X, (int)position.Y, (float)(NPC.direction * 2), 4f, Mod.Find<ModProjectile>("BrimDust").Type, damage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f); //changed
-						Main.projectile[projectile].timeLeft = 90;
-						Main.projectile[projectile].velocity.X = 0f;
-				        Main.projectile[projectile].velocity.Y = 0f;
-			    	    dustTimer = 60;
-					}
-				}
 				NPC.rotation = NPC.velocity.X * 0.04f;
 				NPC.spriteDirection = ((NPC.direction > 0) ? 1 : -1);
-				if (totalDistance < speed)
-				{
-					NPC.velocity.X = xDistance;
-					NPC.velocity.Y = yDistance;
-				}
-				else
-				{
-					totalDistance = speed / totalDistance;
-					NPC.velocity.X = xDistance * totalDistance;
-					NPC.velocity.Y = yDistance * totalDistance;
-				}
+				totalDistance = speed / totalDistance;
+				xDistance *= totalDistance;
+				yDistance *= totalDistance;
+				NPC.velocity.X = (NPC.velocity.X * 50f + xDistance) / 51f;
+				NPC.velocity.Y = (NPC.velocity.Y * 50f + yDistance) / 51f;
 			}
-			if (NPC.ai[0] == 0f) 
+			if (NPC.ai[0] == 0f)
 			{
-				NPC.defense = 20;
+				NPC.defense = provy ? 120 : 20;
 				NPC.chaseable = true;
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				if (Main.netMode != 1)
 				{
 					NPC.localAI[1] += 1f;
-					if (revenge)
-					{
-						NPC.localAI[1] += 1f;
-					}
 					if (NPC.justHit)
 					{
 						NPC.localAI[1] += 1f;
-					}
-					if (brimDust)
-					{
-						NPC.localAI[1] += 1f;
-					}
-					if (brimRain)
-					{
-						NPC.localAI[1] += 2f;
-					}
-					if (brimTeleport)
-					{
-						NPC.localAI[1] += 3f;
-					}
-					if (!calamity)
-					{
-						NPC.localAI[1] += 3f;
 					}
 					if (NPC.localAI[1] >= (float)(200 + Main.rand.Next(100)))
 					{
@@ -220,107 +207,117 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 					}
 				}
 			}
-			else if (NPC.ai[0] == 1f) 
+			else if (NPC.ai[0] == 1f)
 			{
-				NPC.defense = 20;
-				NPC.chaseable = true;
-				NPC.alpha += 5;
+				NPC.dontTakeDamage = true;
+				NPC.defense = provy ? 120 : 20;
+				NPC.chaseable = false;
+				NPC.alpha += (brimTeleport ? 5 : 4);
 				if (NPC.alpha >= 255)
 				{
+					if (Main.netMode != 1 && NPC.CountNPCS(Mod.Find<ModNPC>("Brimling").Type) < 2 && revenge)
+					{
+						NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("Brimling").Type, 0, 0f, 0f, 0f, 0f, 255);
+					}
 					NPC.alpha = 255;
 					NPC.position.X = NPC.ai[1] * 16f - (float)(NPC.width / 2);
 					NPC.position.Y = NPC.ai[2] * 16f - (float)(NPC.height / 2);
 					NPC.ai[0] = 2f;
+					NPC.netUpdate = true;
 					return;
 				}
 			}
-			else if (NPC.ai[0] == 2f) 
+			else if (NPC.ai[0] == 2f)
 			{
-				NPC.defense = 20;
-				NPC.chaseable = true;
-				NPC.alpha -= 5;
+				NPC.alpha -= (brimTeleport ? 5 : 4);
 				if (NPC.alpha <= 0)
 				{
+					NPC.dontTakeDamage = false;
+					NPC.defense = provy ? 120 : 20;
+					NPC.chaseable = true;
 					NPC.ai[3] += 1f;
 					NPC.alpha = 0;
-					if (NPC.ai[3] >= 2f) 
+					if (NPC.ai[3] >= 2f)
 					{
 						NPC.ai[0] = 3f;
 						NPC.ai[1] = 0f;
 						NPC.ai[2] = 0f;
 						NPC.ai[3] = 0f;
-					} 
+					}
 					else
 					{
 						NPC.ai[0] = 0f;
 					}
+					NPC.netUpdate = true;
 					return;
 				}
 			}
-			else if (NPC.ai[0] == 3f) 
+			else if (NPC.ai[0] == 3f)
 			{
-				NPC.defense = 20;
+				NPC.defense = provy ? 120 : 20;
+				NPC.dontTakeDamage = false;
 				NPC.chaseable = true;
 				NPC.rotation = NPC.velocity.X * 0.04f;
 				NPC.spriteDirection = ((NPC.direction > 0) ? 1 : -1);
-				float xVelocity = 6f; //changed from 6 to 7.5 modifies speed while firing projectiles
-				float yVelocity = 0.075f; //changed from 0.075 to 0.09375 modifies speed while firing projectiles
 				Vector2 shootFromVectorX = new Vector2(NPC.position.X + (float)(NPC.width / 2) + (float)(Main.rand.Next(20) * NPC.direction), NPC.position.Y + (float)NPC.height * 0.8f);
-				Vector2 shootFromVectorY = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
-				float playerDistanceX = player.position.X + (float)(player.width / 2) - shootFromVectorY.X;
-				float playerDistanceY = player.position.Y + (float)(player.height / 2) - 300f - shootFromVectorY.Y;
-				float totalPlayerDistance = (float)Math.Sqrt((double)(playerDistanceX * playerDistanceX + playerDistanceY * playerDistanceY));
 				NPC.ai[1] += 1f;
 				bool shootProjectile = false;
-				if ((double)NPC.life < (double)NPC.lifeMax * 0.1)
+				if (NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
+				{
+					if (NPC.ai[1] % 10f == 9f)
+					{
+						shootProjectile = true;
+					}
+				}
+				else if (CalamityWorldPreTrailer.bossRushActive)
 				{
 					if (NPC.ai[1] % 15f == 14f)
 					{
 						shootProjectile = true;
 					}
 				}
-				else if (NPC.life < NPC.lifeMax / 3)
+				else if ((double)NPC.life < (double)NPC.lifeMax * 0.1)
+				{
+					if (NPC.ai[1] % 20f == 19f)
+					{
+						shootProjectile = true;
+					}
+				}
+				else if ((double)NPC.life < (double)NPC.lifeMax * 0.5)
 				{
 					if (NPC.ai[1] % 25f == 24f)
 					{
 						shootProjectile = true;
 					}
 				}
-				else if (NPC.life < NPC.lifeMax / 2)
-				{
-					if (NPC.ai[1] % 30f == 29f)
-					{
-						shootProjectile = true;
-					}
-				}
-				else if (NPC.ai[1] % 35f == 34f)
+				else if (NPC.ai[1] % 30f == 29f)
 				{
 					shootProjectile = true;
 				}
 				if (shootProjectile && NPC.position.Y + (float)NPC.height < player.position.Y && Collision.CanHit(shootFromVectorX, 1, 1, player.position, player.width, player.height))
 				{
-					if (Main.netMode != NetmodeID.MultiplayerClient)
+					if (Main.netMode != 1)
 					{
-						float projectileSpeed = 7f; //changed from 10
-						if (Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)].GetModPlayer<CalamityPlayer1Point2>().stressLevel400)
+						float projectileSpeed = 6f; //changed from 10
+						if (NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
 						{
-							projectileSpeed += 1f;
+							projectileSpeed += 4f;
 						}
 						if (revenge)
 						{
 							projectileSpeed += 1f;
 						}
-						if (brimRain)
+						if ((double)NPC.life <= (double)NPC.lifeMax * 0.5 || CalamityWorldPreTrailer.bossRushActive)
 						{
 							projectileSpeed += 1f; //changed from 3 not a prob
 						}
-						if (brimSpeed)
+						if ((double)NPC.life <= (double)NPC.lifeMax * 0.1 || CalamityWorldPreTrailer.bossRushActive)
 						{
-							projectileSpeed += 2f;
+							projectileSpeed += 1f;
 						}
 						if (!calamity)
 						{
-							projectileSpeed += 3f;
+							projectileSpeed += 2f;
 						}
 						float relativeSpeedX = player.position.X + (float)player.width * 0.5f - shootFromVectorX.X + (float)Main.rand.Next(-80, 81);
 						float relativeSpeedY = player.position.Y + (float)player.height * 0.5f - shootFromVectorX.Y + (float)Main.rand.Next(-40, 41);
@@ -328,93 +325,61 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 						totalRelativeSpeed = projectileSpeed / totalRelativeSpeed;
 						relativeSpeedX *= totalRelativeSpeed;
 						relativeSpeedY *= totalRelativeSpeed;
-						int projectileDamage = expertMode ? 25 : 30; //projectile damage
+						int projectileDamage = expertMode ? 24 : 32; //projectile damage
 						int projectileType = Mod.Find<ModProjectile>("BrimstoneHellfireball").Type; //projectile type
-						int projectileShot = Projectile.NewProjectile(NPC.GetSource_FromThis(), shootFromVectorX.X, shootFromVectorX.Y, relativeSpeedX, relativeSpeedY, projectileType, projectileDamage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+						int projectileShot = Projectile.NewProjectile(NPC.GetSource_FromThis(null),shootFromVectorX.X, shootFromVectorX.Y, relativeSpeedX, relativeSpeedY, projectileType, projectileDamage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
 						Main.projectile[projectileShot].timeLeft = 240;
 					}
 				}
-				if (!Collision.CanHit(new Vector2(shootFromVectorX.X, shootFromVectorX.Y - 30f), 1, 1, player.position, player.width, player.height))
+				if (NPC.position.Y > player.position.Y - 150f) //200
 				{
-					xVelocity = 14f; //changed from 14 not a prob
-					yVelocity = 0.1f; //changed from 0.1 not a prob
-					shootFromVectorY = shootFromVectorX;
-					playerDistanceX = player.position.X + (float)(player.width / 2) - shootFromVectorY.X;
-					playerDistanceY = player.position.Y + (float)(player.height / 2) - shootFromVectorY.Y;
-					totalPlayerDistance = (float)Math.Sqrt((double)(playerDistanceX * playerDistanceX + playerDistanceY * playerDistanceY));
-					totalPlayerDistance = xVelocity / totalPlayerDistance;
-					if (NPC.velocity.X < playerDistanceX)
+					if (NPC.velocity.Y > 0f)
 					{
-						NPC.velocity.X = NPC.velocity.X + yVelocity;
-						if (NPC.velocity.X < 0f && playerDistanceX > 0f)
-						{
-							NPC.velocity.X = NPC.velocity.X + yVelocity;
-						}
+						NPC.velocity.Y = NPC.velocity.Y * 0.98f;
 					}
-					else if (NPC.velocity.X > playerDistanceX)
+					NPC.velocity.Y = NPC.velocity.Y - 0.1f;
+					if (NPC.velocity.Y > 2f)
 					{
-						NPC.velocity.X = NPC.velocity.X - yVelocity;
-						if (NPC.velocity.X > 0f && playerDistanceX < 0f)
-						{
-							NPC.velocity.X = NPC.velocity.X - yVelocity;
-						}
-					}
-					if (NPC.velocity.Y < playerDistanceY)
-					{
-						NPC.velocity.Y = NPC.velocity.Y + yVelocity;
-						if (NPC.velocity.Y < 0f && playerDistanceY > 0f)
-						{
-							NPC.velocity.Y = NPC.velocity.Y + yVelocity;
-						}
-					}
-					else if (NPC.velocity.Y > playerDistanceY)
-					{
-						NPC.velocity.Y = NPC.velocity.Y - yVelocity;
-						if (NPC.velocity.Y > 0f && playerDistanceY < 0f)
-						{
-							NPC.velocity.Y = NPC.velocity.Y - yVelocity;
-						}
+						NPC.velocity.Y = 2f;
 					}
 				}
-				else if (totalPlayerDistance > 100f)
+				else if (NPC.position.Y < player.position.Y - 400f) //500
 				{
-					NPC.TargetClosest(true);
-					NPC.spriteDirection = NPC.direction;
-					totalPlayerDistance = xVelocity / totalPlayerDistance;
-					if (NPC.velocity.X < playerDistanceX)
+					if (NPC.velocity.Y < 0f)
 					{
-						NPC.velocity.X = NPC.velocity.X + yVelocity;
-						if (NPC.velocity.X < 0f && playerDistanceX > 0f)
-						{
-							NPC.velocity.X = NPC.velocity.X + yVelocity * 2f;
-						}
+						NPC.velocity.Y = NPC.velocity.Y * 0.98f;
 					}
-					else if (NPC.velocity.X > playerDistanceX)
+					NPC.velocity.Y = NPC.velocity.Y + 0.1f;
+					if (NPC.velocity.Y < -2f)
 					{
-						NPC.velocity.X = NPC.velocity.X - yVelocity;
-						if (NPC.velocity.X > 0f && playerDistanceX < 0f)
-						{
-							NPC.velocity.X = NPC.velocity.X - yVelocity * 2f;
-						}
-					}
-					if (NPC.velocity.Y < playerDistanceY)
-					{
-						NPC.velocity.Y = NPC.velocity.Y + yVelocity;
-						if (NPC.velocity.Y < 0f && playerDistanceY > 0f)
-						{
-							NPC.velocity.Y = NPC.velocity.Y + yVelocity * 2f;
-						}
-					}
-					else if (NPC.velocity.Y > playerDistanceY)
-					{
-						NPC.velocity.Y = NPC.velocity.Y - yVelocity;
-						if (NPC.velocity.Y > 0f && playerDistanceY < 0f)
-						{
-							NPC.velocity.Y = NPC.velocity.Y - yVelocity * 2f;
-						}
+						NPC.velocity.Y = -2f;
 					}
 				}
-				if (NPC.ai[1] > 500f)
+				if (NPC.position.X + (float)(NPC.width / 2) > player.position.X + (float)(player.width / 2) + 150f) //100
+				{
+					if (NPC.velocity.X > 0f)
+					{
+						NPC.velocity.X = NPC.velocity.X * 0.985f;
+					}
+					NPC.velocity.X = NPC.velocity.X - 0.1f;
+					if (NPC.velocity.X > 8f)
+					{
+						NPC.velocity.X = 8f;
+					}
+				}
+				if (NPC.position.X + (float)(NPC.width / 2) < player.position.X + (float)(player.width / 2) - 150f) //100
+				{
+					if (NPC.velocity.X < 0f)
+					{
+						NPC.velocity.X = NPC.velocity.X * 0.985f;
+					}
+					NPC.velocity.X = NPC.velocity.X + 0.1f;
+					if (NPC.velocity.X < -8f)
+					{
+						NPC.velocity.X = -8f;
+					}
+				}
+				if (NPC.ai[1] > 300f)
 				{
 					NPC.ai[0] = 4f;
 					NPC.ai[1] = 0f;
@@ -427,11 +392,20 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 			else if (NPC.ai[0] == 4f)
 			{
 				NPC.defense = 99999;
+				NPC.dontTakeDamage = false;
 				NPC.chaseable = false;
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				if (Main.netMode != 1)
 				{
 					NPC.localAI[0] += (float)Main.rand.Next(4);
-					if (NPC.localAI[0] >= (float)Main.rand.Next(140, 141))
+					if (NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
+					{
+						NPC.localAI[0] += 3f;
+					}
+					if (CalamityWorldPreTrailer.death || !calamity)
+					{
+						NPC.localAI[0] += 2f;
+					}
+					if (NPC.localAI[0] >= 140f)
 					{
 						NPC.localAI[0] = 0f;
 						NPC.TargetClosest(true);
@@ -445,7 +419,7 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 						num183 = projectileSpeed / num183;
 						num180 *= num183;
 						num182 *= num183;
-						int num184 = expertMode ? 25 : 30;
+						int num184 = expertMode ? 22 : 30;
 						int num185 = Mod.Find<ModProjectile>("BrimstoneHellblast").Type;
 						shootFromVector.X += num180;
 						shootFromVector.Y += num182;
@@ -454,33 +428,29 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 							num180 = player.position.X + (float)player.width * 0.5f - shootFromVector.X;
 							num182 = player.position.Y + (float)player.height * 0.5f - shootFromVector.Y;
 							num183 = (float)Math.Sqrt((double)(num180 * num180 + num182 * num182));
-							num183 = 12f / num183;
-							num180 += (float)Main.rand.Next(-90, 91);
-							num182 += (float)Main.rand.Next(-90, 91);
+							num183 = projectileSpeed / num183;
+							num180 += (float)Main.rand.Next(-80, 81);
+							num182 += (float)Main.rand.Next(-80, 81);
 							num180 *= num183;
 							num182 *= num183;
-							int randomTime = Main.rand.Next(200, 600);
-							int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(), shootFromVector.X, shootFromVector.Y, num180, num182, num185, num184 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
-							Main.projectile[projectile].timeLeft = randomTime;
+							int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(null), shootFromVector.X, shootFromVector.Y, num180, num182, num185, num184 + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+							Main.projectile[projectile].timeLeft = 300;
 							Main.projectile[projectile].tileCollide = false;
 						}
 						float spread = 45f * 0.0174f;
-					   	double startAngle = Math.Atan2(NPC.velocity.X, NPC.velocity.Y)- spread/2;
-					   	double deltaAngle = spread/8f;
-					   	double offsetAngle;
-					   	int damage = expertMode ? 25 : 30;
-					   	int i;
-					   	for (i = 0; i < 6; i++ )
-					   	{
-					   		int randomTime = Main.rand.Next(400, 700);
-					   		offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-					       	int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(), shootFromVector.X, shootFromVector.Y, (float)( Math.Sin(offsetAngle) * 6f ), (float)( Math.Cos(offsetAngle) * 6f ), Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
-					       	int projectile2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), shootFromVector.X, shootFromVector.Y, (float)( -Math.Sin(offsetAngle) * 6f ), (float)( -Math.Cos(offsetAngle) * 6f ), Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
-					       	Main.projectile[projectile].timeLeft = randomTime;
-					       	Main.projectile[projectile2].timeLeft = randomTime;
-					   	}
+						double startAngle = Math.Atan2(NPC.velocity.X, NPC.velocity.Y) - spread / 2;
+						double deltaAngle = spread / 8f;
+						double offsetAngle;
+						int damage = expertMode ? 22 : 30;
+						int i;
+						for (i = 0; i < 6; i++)
+						{
+							offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
+							int projectile = Projectile.NewProjectile(NPC.GetSource_FromThis(null), shootFromVector.X, shootFromVector.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+							int projectile2 = Projectile.NewProjectile(NPC.GetSource_FromThis(null), shootFromVector.X, shootFromVector.Y, (float)(-Math.Sin(offsetAngle) * 6f), (float)(-Math.Cos(offsetAngle) * 6f), Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage + (provy ? 30 : 0), 0f, Main.myPlayer, 0f, 0f);
+						}
 					}
-		       	}
+				}
 				NPC.TargetClosest(true);
 				NPC.ai[1] += 1f;
 				NPC.velocity *= 0.95f;
@@ -493,19 +463,23 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 					NPC.ai[2] = 0f;
 					NPC.ai[3] = 0f;
 					NPC.netUpdate = true;
-					return;
 				}
 			}
 		}
-		
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return NPC.alpha == 0;
+		}
+
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld1Point2.revenge)
+			if (CalamityWorldPreTrailer.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}
 		}
-		
+
 		public override void FindFrame(int frameHeight) //9 total frames
 		{
 			NPC.frameCounter += 1.0;
@@ -554,68 +528,90 @@ namespace CalamityModClassic1Point2.NPCs.BrimstoneWaifu
 				}
 			}
 		}
-		
+
 		public override void BossLoot(ref string name, ref int potionType)
 		{
 			potionType = ItemID.GreaterHealingPotion;
-        }
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BrimstoneWaifuBag>()));
-            npcLoot.Add(new CommonDrop(ModContent.ItemType<RoseStone>(), 10));
-            npcLoot.Add(ItemDropRule.ByCondition(new ProvidenceDowned(), ModContent.ItemType<Bloodstone>(), 1, 20, 30));
-            npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<EssenceofChaos>(), 1, 2, 3));
-            LeadingConditionRule notExp = new LeadingConditionRule(new Conditions.NotExpert());
-			notExp.OnSuccess(ItemDropRule.OneFromOptions(1, new int[] { ModContent.ItemType<Abaddon>(), ModContent.ItemType<Items.Weapons.BrimstoneWaifu.Brimlance>(), ModContent.ItemType<SeethingDischarge>() }));
-			npcLoot.Add(notExp);
-        }
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
+			npcLoot.Add(new CommonDrop(ModContent.ItemType<BrimstoneElementalTrophy>(), 10));
+			npcLoot.Add(ItemDropRule.ByCondition(new ArmageddonDropRuleCondition(),
+				ModContent.ItemType<BrimstoneWaifuBag>(),
+				1,
+				5, 5));
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BrimstoneWaifuBag>()));
+			notExpert.OnSuccess(ItemDropRule.ByCondition(new ProvCondition(), ModContent.ItemType<Bloodstone>(), 1, 20, 31));
+			notExpert.OnSuccess(new CommonDrop(ModContent.ItemType<RoseStone>(), 10));
+			notExpert.OnSuccess(new CommonDrop(ItemID.SoulofFright, 1, 20, 41));
+			notExpert.OnSuccess(new CommonDrop(ModContent.ItemType<EssenceofChaos>(), 1, 4, 9));
+			notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, new int[]
+				{
+					ModContent.ItemType<Abaddon>(),
+					ModContent.ItemType<Brimlance>(),
+					ModContent.ItemType<SeethingDischarge>(),
+				}));
+			npcLoot.Add(notExpert);
+		}
+
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
 			NPC.damage = (int)(NPC.damage * 0.8f);
 		}
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			for (int k = 0; k < 10; k++)
+			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LifeDrain, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 235, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
+
 			if (NPC.life <= 0)
 			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 200;
-				NPC.height = 150;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				for (int num621 = 0; num621 < 40; num621++)
+				if (Main.netMode != NetmodeID.Server)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
+					NPC.width = 200;
+					NPC.height = 150;
+					NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
+					for (int num621 = 0; num621 < 40; num621++)
 					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 2f);
+						Main.dust[num622].velocity *= 3f;
+						if (Main.rand.Next(2) == 0)
+						{
+							Main.dust[num622].scale = 0.5f;
+							Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						}
 					}
+
+					for (int num623 = 0; num623 < 60; num623++)
+					{
+						int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 3f);
+						Main.dust[num624].noGravity = true;
+						Main.dust[num624].velocity *= 5f;
+						num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235,
+							0f, 0f, 100, default(Color), 2f);
+						Main.dust[num624].velocity *= 2f;
+					}
+
+					float randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity * randomSpread,
+						Mod.Find<ModGore>("BrimstoneGore1").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity * randomSpread,
+						Mod.Find<ModGore>("BrimstoneGore2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity * randomSpread,
+						Mod.Find<ModGore>("BrimstoneGore3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity * randomSpread,
+						Mod.Find<ModGore>("BrimstoneGore4").Type, 1f);
 				}
-				for (int num623 = 0; num623 < 60; num623++)
-				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 3f);
-					Main.dust[num624].noGravity = true;
-					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num624].velocity *= 2f;
-				}
-				float randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore1").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore2").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore3").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore4").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore5").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore6").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BrimstoneGore7").Type, 1f);
 			}
 		}
 	}

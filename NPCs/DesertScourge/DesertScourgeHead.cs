@@ -7,56 +7,71 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
+using CalamityModClassicPreTrailer.Projectiles;
 using Terraria.GameContent.Generation;
-using CalamityModClassic1Point2.Tiles;
-using CalamityModClassic1Point2;
-using Terraria.WorldBuilding;
+using CalamityModClassicPreTrailer.Tiles;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.Items.DesertScourge;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.WorldBuilding;
 
-namespace CalamityModClassic1Point2.NPCs.DesertScourge
+namespace CalamityModClassicPreTrailer.NPCs.DesertScourge
 {
 	[AutoloadBossHead]
 	public class DesertScourgeHead : ModNPC
 	{
-		public bool flies = false;
-		public float speed = 15f;
-		public float turnSpeed = 0.15f;
-		bool TailSpawned = false;
+        private bool flies = false;
+        private float speed = 15f;
+        private float turnSpeed = 0.15f;
+        private const int minLength = 30;
+        private const int maxLength = 31;
+        private bool TailSpawned = false;
 		
 		public override void SetStaticDefaults()
-        {
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Scale = 0.8f,
-                PortraitScale = 0.8f,
-                CustomTexturePath = "CalamityModClassic1Point2/NPCs/DesertScourge/Bestiary",
-                PortraitPositionXOverride = 40,
-                PortraitPositionYOverride = 40
-            };
-            value.Position.X += 50;
-            value.Position.Y += 35;
-            NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
-            //DisplayName.SetDefault("Desert Scourge");
-        }
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
-                new FlavorTextBestiaryInfoElement("When the sea kingdom was incinerated, this serpent became orphaned and had to adapt to a less savory diet of cacti.")
-
-            });
-        }
-
-        public override void SetDefaults()
 		{
-			NPC.damage = 30; //150
-			NPC.npcSlots = 7f;
+			// DisplayName.SetDefault("Desert Scourge");
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			{
+				Scale = 0.75f,
+				PortraitScale = 0.6f,
+				CustomTexturePath = "CalamityModClassicPreTrailer/NPCs/DesertScourge/DesertScourge_Bestiary",
+				PortraitPositionXOverride = 40,
+				PortraitPositionYOverride = 40
+			};
+			value.Position.X += 95;
+			value.Position.Y += 45;
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = value;
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
+				new FlavorTextBestiaryInfoElement("Once a great sea worm, it's been reduced to a husk, desperately searching meals to devour on a regular basis.")
+			});
+		}
+		
+		public override void SetDefaults()
+		{
+			NPC.damage = 20; //66
+			NPC.npcSlots = 12f;
 			NPC.width = 32; //324
 			NPC.height = 80; //216
 			NPC.defense = 0;
-			NPC.lifeMax = CalamityWorld1Point2.revenge ? 5200 : 4000;
+            NPC.lifeMax = CalamityWorldPreTrailer.revenge ? 2650 : 2300;
+            if (CalamityWorldPreTrailer.death)
+            {
+                NPC.damage = 50;
+                NPC.lifeMax = 5100;
+            }
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 4500000 : 4100000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = 6; //new
             AIType = -1; //new
             AnimationType = 10; //new
@@ -67,30 +82,47 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-			}
+            }
 			NPC.behindTiles = true;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.netAlways = true;
-			//bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = Mod.Find<ModItem>("DesertScourgeBag").Type;
-			Music = MusicID.Boss1;
+			Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/DesertScourge");
 			if (Main.expertMode)
 			{
 				NPC.scale = 1.15f;
 			}
 		}
 		
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.ByCondition(new ArmageddonDropRuleCondition(),
+				ModContent.ItemType<DesertScourgeBag>(),
+				1,
+				5, 5));
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<DesertScourgeBag>()));
+		}
+		
 		public override void AI()
 		{
 			Player player = Main.player[NPC.target];
-			bool expertMode = Main.expertMode;
+            NPC.dontTakeDamage = !player.ZoneDesert && !CalamityWorldPreTrailer.bossRushActive;
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
 			float speedMult = expertMode ? 1.5f : 1.45f;
+            if (CalamityWorldPreTrailer.death || CalamityWorldPreTrailer.bossRushActive)
+            {
+                speedMult = 1.6f;
+            }
+            if (NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
+            {
+                speedMult = 2f;
+            }
 			float life = (float)NPC.life;
 			float totalLife = (float)NPC.lifeMax;
-			speed = 15f * (speedMult - (life / totalLife));
-			turnSpeed = 0.15f * (speedMult - (life / totalLife));
+			speed = (NPC.downedBoss3 ? 16f : 13f) * (speedMult - (life / totalLife));
+			turnSpeed = (NPC.downedBoss3 ? 0.16f : 0.13f) * (speedMult - (life / totalLife));
 			if (NPC.ai[3] > 0f)
 			{
 				NPC.realLife = (int)NPC.ai[3];
@@ -105,28 +137,31 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			{
 				NPC.alpha = 0;
 			}
-			if (!TailSpawned)
+            if (Main.netMode != 1)
             {
-                int Previous = NPC.whoAmI;
-                for (int num36 = 0; num36 < 31; num36++)
+                if (!TailSpawned && NPC.ai[0] == 0f)
                 {
-                    int lol = 0;
-                    if (num36 >= 0 && num36 < 30)
+                    int Previous = NPC.whoAmI;
+                    for (int num36 = 0; num36 < maxLength; num36++)
                     {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeBody").Type, NPC.whoAmI);
+                        int lol = 0;
+                        if (num36 >= 0 && num36 < minLength)
+                        {
+                            lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeBody").Type, NPC.whoAmI);
+                        }
+                        else
+                        {
+                            lol = NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeTail").Type, NPC.whoAmI);
+                        }
+                        Main.npc[lol].realLife = NPC.whoAmI;
+                        Main.npc[lol].ai[2] = (float)NPC.whoAmI;
+                        Main.npc[lol].ai[1] = (float)Previous;
+                        Main.npc[Previous].ai[0] = (float)lol;
+                        NetMessage.SendData(23, -1, -1, null, lol, 0f, 0f, 0f, 0);
+                        Previous = lol;
                     }
-                    else
-                    {
-                        lol = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X + (NPC.width / 2), (int)NPC.position.Y + (NPC.height / 2), Mod.Find<ModNPC>("DesertScourgeTail").Type, NPC.whoAmI);
-                    }
-                    Main.npc[lol].realLife = NPC.whoAmI;
-                    Main.npc[lol].ai[2] = (float)NPC.whoAmI;
-                    Main.npc[lol].ai[1] = (float)Previous;
-                    Main.npc[Previous].ai[0] = (float)lol;
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, lol, 0f, 0f, 0f, 0);
-                    Previous = lol;
+                    TailSpawned = true;
                 }
-                TailSpawned = true;
             }
 			int num180 = (int)(NPC.position.X / 16f) - 1;
 			int num181 = (int)((NPC.position.X + (float)NPC.width) / 16f) + 2;
@@ -173,7 +208,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			{
 				NPC.localAI[1] = 1f;
 				Rectangle rectangle12 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-				int num954 = 1000;
+				int num954 = ((NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive)) ? 500 : 1000);
 				bool flag95 = true;
 				if (NPC.position.Y > player.position.Y)
 				{
@@ -195,7 +230,11 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 					}
 				}
 			}
-			if (player.dead)
+            else
+            {
+                NPC.localAI[1] = 0f;
+            }
+            if (player.dead)
 			{
 				flag94 = false;
 				NPC.velocity.Y = NPC.velocity.Y + 1f;
@@ -210,7 +249,7 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 						if (Main.npc[num957].aiStyle == NPC.aiStyle)
 						{
 							Main.npc[num957].active = false;
-						}
+                        }
 					}
 				}
 			}
@@ -439,38 +478,41 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 		
 		public override void BossLoot(ref string name, ref int potionType)
 		{
-			potionType = ItemID.None;
+			potionType = ItemID.SandBlock;
 		}
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead2").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScourgeHead").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("ScourgeHead2").Type, 1f);
+				}
+
 				for (int k = 0; k < 10; k++)
 				{
-					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(NPC.position, NPC.width, NPC.height, 5, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 			}
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
-			NPC.damage *= 2;
-		}
+            NPC.damage = (int)(NPC.damage * 1.8f);
+        }
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (Main.expertMode)
-			{
-				target.AddBuff(BuffID.Bleeding, 600, true);
-			}
+			target.AddBuff(BuffID.Bleeding, 300, true);
 		}
 	}
 }

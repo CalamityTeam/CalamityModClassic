@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Calamitas
+namespace CalamityModClassicPreTrailer.NPCs.Calamitas
 {
 	public class SoulSeeker : ModNPC
 	{
@@ -15,7 +16,16 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Soul Seeker");
+			// DisplayName.SetDefault("Soul Seeker");
+		}
+		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+				new FlavorTextBestiaryInfoElement("Guardians for the clone, it's possible these are empowered Soul Slurpers.")
+			});
 		}
 		
 		public override void SetDefaults()
@@ -26,14 +36,20 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			NPC.height = 40;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
+			NPC.canGhostHeal = false;
 			NPC.damage = 60;
 			NPC.defense = 20;
-			NPC.lifeMax = 1500;
-			for (int k = 0; k < NPC.buffImmune.Length; k++)
+			NPC.lifeMax = 3750;
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 200000 : 150000;
+            }
+            for (int k = 0; k < NPC.buffImmune.Length; k++)
 			{
 				NPC.buffImmune[k] = true;
-				NPC.buffImmune[BuffID.Ichor] = false;
 			}
+			NPC.buffImmune[BuffID.Ichor] = false;
+			NPC.buffImmune[BuffID.CursedInferno] = false;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
 		}
@@ -45,7 +61,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			{
 				for (int num621 = 0; num621 < 15; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 2f);
 				}
 				NPC.ai[1] = NPC.ai[0];
 				start = false;
@@ -58,20 +74,28 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 			timer++;
 			if (timer > 60)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(10))
+				if (Main.netMode != 1 && Main.rand.Next(10) == 0)
 				{
+					if (NPC.CountNPCS(Mod.Find<ModNPC>("LifeSeeker").Type) < 10)
+					{
+						int x = (int)(NPC.position.X + (float)Main.rand.Next(NPC.width - 25));
+						int y = (int)(NPC.position.Y + (float)Main.rand.Next(NPC.height - 25));
+						int num663 = Mod.Find<ModNPC>("LifeSeeker").Type;
+						int num664 = NPC.NewNPC(NPC.GetSource_FromThis(null),x, y, num663, 0, 0f, 0f, 0f, 0f, 255);
+					}
 					for (int num621 = 0; num621 < 5; num621++)
 					{
-						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
+						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235, 0f, 0f, 100, default(Color), 2f);
 					}
-					int damage = expertMode ? 21 : 24;
-					int proj2 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, direction.X, direction.Y, Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage, 1f, NPC.target);
+					int damage = expertMode ? 22 : 30;
+					Projectile.NewProjectile(NPC.GetSource_FromThis(null), NPC.Center.X, NPC.Center.Y, direction.X, direction.Y, Mod.Find<ModProjectile>("BrimstoneBarrage").Type, damage, 1f, NPC.target);
 				}
 				timer = 0;
 			}
 			if (NPC.CountNPCS(Mod.Find<ModNPC>("CalamitasRun3").Type) < 1)
 			{
 				NPC.active = false;
+                NPC.netUpdate = true;
 				return false;
 			}
 			Player player = Main.player[NPC.target];
@@ -89,33 +113,48 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		{
 			for (int k = 0; k < 5; k++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LifeDrain, hit.HitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, 235, hit.HitDirection, -1f, 0, default(Color), 1f);
 			}
 			if (NPC.life <= 0)
 			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 50;
-				NPC.height = 50;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				for (int num621 = 0; num621 < 20; num621++)
+				if (Main.netMode != NetmodeID.Server)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+						Mod.Find<ModGore>("SoulSlurper4").Type, 1f);
+					NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
+					NPC.width = 50;
+					NPC.height = 50;
+					NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
+					NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
+					for (int num621 = 0; num621 < 20; num621++)
 					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 2f);
+						Main.dust[num622].velocity *= 3f;
+						if (Main.rand.Next(2) == 0)
+						{
+							Main.dust[num622].scale = 0.5f;
+							Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						}
 					}
-				}
-				for (int num623 = 0; num623 < 40; num623++)
-				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 3f);
-					Main.dust[num624].noGravity = true;
-					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LifeDrain, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num624].velocity *= 2f;
+
+					for (int num623 = 0; num623 < 40; num623++)
+					{
+						int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height,
+							235, 0f, 0f, 100, default(Color), 3f);
+						Main.dust[num624].noGravity = true;
+						Main.dust[num624].velocity *= 5f;
+						num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 235,
+							0f, 0f, 100, default(Color), 2f);
+						Main.dust[num624].velocity *= 2f;
+					}
 				}
 			}
 		}
@@ -123,12 +162,6 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 		public override bool CheckActive()
 		{
 			return false;
-		}
-		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
-		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
-			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

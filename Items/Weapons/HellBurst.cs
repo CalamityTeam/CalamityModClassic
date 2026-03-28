@@ -5,32 +5,32 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class HellBurst : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Hell Burst");
-			//Tooltip.SetDefault("Casts a beam of flame");
+			// DisplayName.SetDefault("Hell Burst");
+			// Tooltip.SetDefault("Casts a beam of flame");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 43;
+	        Item.damage = 40;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 14;
 	        Item.width = 52;
 	        Item.height = 52;
 	        Item.useTime = 30;
 	        Item.useAnimation = 30;
-	        Item.useStyle = ItemUseStyleID.Swing;
+	        Item.useStyle = 1;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 600000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item34;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("FlameBeamTip").Type;

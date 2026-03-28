@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class MarniteObliterator : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Marnite Obliterator");
+			// DisplayName.SetDefault("Marnite Obliterator");
 		}
 		
 		public override void SetDefaults()
@@ -25,10 +25,10 @@ namespace CalamityModClassic1Point2.Items
 			Item.pick = 57;
 			Item.axe = 10;
 			Item.tileBoost++;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.knockBack = 3;
-			Item.value = Item.buyPrice(0, 1, 0, 0);
-			Item.rare = ItemRarityID.Green;
+			Item.value = Item.buyPrice(0, 2, 0, 0);
+			Item.rare = 2;
 			Item.UseSound = SoundID.Item23;
 			Item.autoReuse = true;
 			Item.shoot = Mod.Find<ModProjectile>("MarniteObliterator").Type;

@@ -5,31 +5,31 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
     public class Aftershock : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Aftershock");
-			//Tooltip.SetDefault("Summons boulders from the sky on enemy hits");
+			// DisplayName.SetDefault("Aftershock");
+			// Tooltip.SetDefault("Summons boulders from the sky on enemy hits");
 		}
 
         public override void SetDefaults()
         {
-            Item.damage = 50;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-            Item.width = 60;
-            Item.height = 60;
+            Item.width = 54;
+            Item.height = 58;
             Item.useTime = 28;
             Item.useAnimation = 28;
 			Item.useTurn = true;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = 1;
             Item.knockBack = 7.5f;
-            Item.value = 150000;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.shootSpeed = 12f;
@@ -78,16 +78,15 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			num78 *= num80;
 			num79 *= num80;
 			float speedX4 = num78;
-			float speedY4 = num79 + (float)Main.rand.Next(-10, 11) * 0.02f;
-			int boulder = Projectile.NewProjectile(player.GetSource_FromThis(), vector2.X, vector2.Y, speedX4, speedY4, ProjectileID.BoulderStaffOfEarth, 50, hit.Knockback, player.whoAmI, 0f, (float)Main.rand.Next(10));
-			Main.projectile[boulder].DamageType = DamageClass.Melee;
+			float speedY5 = num79 + (float)Main.rand.Next(-10, 11) * 0.02f;
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Aftershock").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
         }
         
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            if (Main.rand.NextBool(5))
+            if (Main.rand.Next(5) == 0)
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Sand);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 32);
             }
         }
     }

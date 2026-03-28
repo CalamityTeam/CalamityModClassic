@@ -1,45 +1,55 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
+namespace CalamityModClassicPreTrailer.Items.BrimstoneWaifu
 {
     public class RoseStone : ModItem
     {
     	public override void SetStaticDefaults()
 	 	{
-	 		Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(3, 11));
+	 		// DisplayName.SetDefault("Rose Stone");
+	 		/* Tooltip.SetDefault("One of the ancient relics\n" +
+            	"Increases max life by 20, life regen by 1, and all damage by 3%\n" +
+            	"Summons a brimstone elemental to fight for you"); */
 	 	}
     	
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 20;
-            Item.value = 500000;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 15, 0, 0);
+            Item.rare = 5;
 			Item.accessory = true;
         }
-        
+
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)/* tModPorter Suggestion: Consider using new hook CanAccessoryBeEquippedWith */
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            if (modPlayer.elementalHeart)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
 		{
         	Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 0.6f, 0f, 0.25f);
-			player.lifeRegen += 2;
-			player.statLifeMax2 += 50;
-			player.GetCritChance(DamageClass.Melee) += 2;
-			player.GetDamage(DamageClass.Melee) += 0.02f;
-			player.GetCritChance(DamageClass.Magic) += 2;
-			player.GetDamage(DamageClass.Magic) += 0.02f;
-			player.GetCritChance(DamageClass.Ranged) += 2;
-			player.GetDamage(DamageClass.Ranged) += 0.02f;
-			player.GetCritChance(DamageClass.Throwing) += 2;
-			player.GetDamage(DamageClass.Throwing) += 0.02f;
-			player.GetDamage(DamageClass.Summon) += 0.02f;
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			player.lifeRegen += 1;
+			player.statLifeMax2 += 20;
+			player.GetDamage(DamageClass.Melee) += 0.03f;
+			player.GetDamage(DamageClass.Magic) += 0.03f;
+			player.GetDamage(DamageClass.Ranged) += 0.03f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.03f;
+			player.GetDamage(DamageClass.Summon) += 0.03f;
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.brimstoneWaifu = true;
 			if (player.whoAmI == Main.myPlayer)
 			{
@@ -49,7 +59,7 @@ namespace CalamityModClassic1Point2.Items.BrimstoneWaifu
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] < 1)
 				{
-					Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, 60, 2f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, (int)(45f * player.GetDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

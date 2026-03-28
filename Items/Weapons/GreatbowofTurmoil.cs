@@ -5,38 +5,44 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class GreatbowofTurmoil : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Greatbow of Turmoil");
+			// DisplayName.SetDefault("Greatbow of Turmoil");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 70;
+	        Item.damage = 52;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 18;
 	        Item.height = 36;
 	        Item.useTime = 17;
 	        Item.useAnimation = 17;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 4f;
-	        Item.value = 300000;
-	        Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item5;
 	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.PurificationPowder;
+	        Item.shoot = 10;
 	        Item.shootSpeed = 17f;
 	        Item.useAmmo = 40;
 	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        /*public void OverhaulInit()
+        {
+            this.SetTag("bow");
+        }*/
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 	    	for (int i = 0; i < 3; i++)
 	    	{
@@ -49,8 +55,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		    		case 3: type = ProjectileID.IchorArrow; break;
 		    		default: break;
 				}
-		        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
-	    	}
+                int index = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Main.projectile[index].noDropItem = true;
+            }
 	    	return false;
 		}
 	    

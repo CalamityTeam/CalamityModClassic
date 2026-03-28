@@ -1,51 +1,54 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Legs)]
-public class BloodflareCuisses : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-    public override void SetStaticDefaults()
+    [AutoloadEquip(EquipType.Legs)]
+    public class BloodflareCuisses : ModItem
     {
-        //DisplayName.SetDefault("Bloodflare Cuisses");
-        //Tooltip.SetDefault("30% increased movement speed");
-    }
-
-    public override void SetDefaults()
-    {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 1762500;
-        Item.defense = 29;
-    }
-    
-    public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 0);
-            }
+            // DisplayName.SetDefault("Bloodflare Cuisses");
+            // Tooltip.SetDefault("30% increased movement speed, 10% increased damage and 7% increased critical strike chance");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 36, 0, 0);
+			Item.defense = 29;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
+
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.3f;
+            player.GetDamage(DamageClass.Melee) += 0.1f;
+            player.GetCritChance(DamageClass.Melee) += 7;
+            player.GetDamage(DamageClass.Magic) += 0.1f;
+            player.GetCritChance(DamageClass.Magic) += 7;
+            player.GetDamage(DamageClass.Ranged) += 0.1f;
+            player.GetCritChance(DamageClass.Ranged) += 7;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.1f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingCrit += 7;
+            player.GetDamage(DamageClass.Summon) += 0.1f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "BloodstoneCore", 13);
+            recipe.AddIngredient(null, "RuinousSoul", 3);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
-
-    public override void UpdateEquip(Player player)
-    {
-    	player.moveSpeed += 0.3f;
-    }
-
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "BloodstoneCore", 13);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
-    }
-}}
+}

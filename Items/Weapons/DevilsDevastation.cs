@@ -6,44 +6,35 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class DevilsDevastation : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Devil's Devastation");
-			//Tooltip.SetDefault("Wielded by the progenitor of the underworld");
+			// DisplayName.SetDefault("Devil's Devastation");
+			// Tooltip.SetDefault("Wielded by the progenitor of the underworld");
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 68;
-			Item.damage = 400;
+			Item.width = 74;
+			Item.damage = 450;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 20;
 			Item.useTime = 20;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.knockBack = 6.75f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.height = 68;
-			Item.value = 10000000;
-			Item.shoot = Mod.Find<ModProjectile>("Oathblade").Type;
+			Item.height = 74;
+            Item.value = Item.buyPrice(1, 80, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("Oathblade").Type;
 			Item.shootSpeed = 28f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(43, 96, 222);
-	            }
-	        }
-	    }
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -52,7 +43,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		    for (int j = 0; j < numProj + 1; j++)
 		    {
 		    	Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numProj - 1)));
-		        int demon = Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		        int demon = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		        Main.projectile[demon].penetrate = 1;
 		    }
 			float num72 = Item.shootSpeed;
@@ -98,10 +89,10 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num78 *= num80;
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				float speedY4 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("DemonBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("DemonBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
-				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY4, Mod.Find<ModProjectile>("DemonBlastType3").Type, damage, knockback, player.whoAmI, 0f, 1f);
+				float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType3").Type, damage, knockback, player.whoAmI, 0f, 1f);
 			}
 	    	return false;
 		}
@@ -119,9 +110,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.ShadowbeamStaff);
+	        	int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 173);
 	        }
 	    }
 	}

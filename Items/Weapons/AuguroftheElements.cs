@@ -5,21 +5,21 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class AuguroftheElements : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Augur of the Elements");
-			//Tooltip.SetDefault("Casts a burst of elemental tentacles to spear your enemies");
+			// DisplayName.SetDefault("Augur of the Elements");
+			// Tooltip.SetDefault("Casts a burst of elemental tentacles to spear your enemies");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 105;
+	        Item.damage = 74;
 	        Item.DamageType = DamageClass.Magic;
 	        Item.mana = 6;
 	        Item.width = 28;
@@ -28,18 +28,19 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.useTime = 1;
 	        Item.reuseDelay = 10;
 	        Item.useAnimation = 10;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5.5f;
-	        Item.value = 10000000;
-	        Item.rare = ItemRarityID.Red;
-	        Item.UseSound = SoundID.Item103;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item103;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("ElementTentacle").Type;
 	        Item.shootSpeed = 30f;
-	    }
-	    
-	    public override void AddRecipes()
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "EldritchTome");
@@ -64,16 +65,16 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			value2.Normalize();
 			value2 *= Item.shootSpeed;
 			float num91 = (float)Main.rand.Next(10, 50) * 0.001f;
-			if (Main.rand.NextBool(2))
+			if (Main.rand.Next(2) == 0)
 			{
 				num91 *= -1f;
 			}
 			float num92 = (float)Main.rand.Next(10, 50) * 0.001f;
-			if (Main.rand.NextBool(2))
+			if (Main.rand.Next(2) == 0)
 			{
 				num92 *= -1f;
 			}
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, value2.X, value2.Y, type, damage, knockback, player.whoAmI, num92, num91);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, value2.X, value2.Y, type, damage, knockback, player.whoAmI, num92, num91);
 	    	return false;
 		}
 	}

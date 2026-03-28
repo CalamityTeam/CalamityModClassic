@@ -5,31 +5,31 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class ProporsePistol : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Proporse Pistol");
-			//Tooltip.SetDefault("Fires a blue energy blast that bounces on tile hits");
+			// DisplayName.SetDefault("Proporse Pistol");
+			// Tooltip.SetDefault("Fires a blue energy blast that bounces on tile hits");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 45;
+	        Item.damage = 65;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 36;
 	        Item.height = 20;
 	        Item.useTime = 25;
 	        Item.useAnimation = 25;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3.5f;
-	        Item.value = 100000;
-	        Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 36, 0, 0);
+            Item.rare = 5;
 	        Item.UseSound = SoundID.Item33;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 20f;
@@ -39,7 +39,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ProBolt").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ProBolt").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

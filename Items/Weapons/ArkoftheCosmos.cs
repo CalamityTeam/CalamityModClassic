@@ -6,40 +6,38 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class ArkoftheCosmos : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Ark of the Cosmos");
+			/* Tooltip.SetDefault("Fires different homing projectiles based on what biome you're in\n" +
+				"Upon hitting an enemy you are granted a buff based on what biome you're in\n" +
+				"Projectiles also change based on moon events"); */
+		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 76;
-			Item.damage = 380;
+			Item.width = 100;
+			Item.damage = 680;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
 			Item.useTurn = true;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.crit += 15;
 			Item.knockBack = 9.5f;
 			Item.UseSound = SoundID.Item60;
 			Item.autoReuse = true;
-			Item.height = 76;
-			Item.value = 30000000;
-			Item.shoot = Mod.Find<ModProjectile>("EonBeam").Type;
+			Item.height = 100;
+            Item.value = Item.buyPrice(2, 50, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("EonBeam").Type;
 			Item.shootSpeed = 28f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 15;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-		{
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(108, 45, 199);
-	            }
-	        }
-	    }
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -50,11 +48,10 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		    	case 2: type = Mod.Find<ModProjectile>("EonBeamV3").Type; break;
 		    	case 3: type = Mod.Find<ModProjectile>("EonBeamV4").Type; break;
 			}
-	        int projectile = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	        int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 	        Main.projectile[projectile].timeLeft = 160;
 	        Main.projectile[projectile].tileCollide = false;
 			float num72 = Main.rand.Next(22, 30);
-			damage = Main.rand.Next(500, 621);
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 	    	float num78 = (float)Main.mouseX + Main.screenPosition.X + vector2.X;
 			float num79 = (float)Main.mouseY + Main.screenPosition.Y + vector2.Y;
@@ -90,7 +87,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-360, 361) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-360, 361) * 0.02f;
-				int projectileFire = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Galaxia2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				int projectileFire = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Galaxia2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
 				Main.projectile[projectileFire].timeLeft = 80;
 			}
 	    	return false;
@@ -103,17 +100,18 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			recipe.AddIngredient(null, "ArkoftheElements");
 			recipe.AddIngredient(null, "NightmareFuel", 5);
         	recipe.AddIngredient(null, "EndothermicEnergy", 5);
-			recipe.AddIngredient(null, "HellcasterFragment", 5);
+			recipe.AddIngredient(null, "HellcasterFragment", 3);
 			recipe.AddIngredient(null, "DarksunFragment", 5);
-	        recipe.AddTile(null, "DraedonsForge");
+            recipe.AddIngredient(null, "AuricOre", 25);
+            recipe.AddTile(null, "DraedonsForge");
 	        recipe.Register();
 		}
 	
 	    public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(5))
+	        if (Main.rand.Next(5) == 0)
 			{
-				int num250 = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, DustID.RainbowTorch, (float)(player.direction * 2), 0f, 150, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1.3f);
+				int num250 = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, 66, (float)(player.direction * 2), 0f, 150, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1.3f);
 				Main.dust[num250].velocity *= 0.2f;
 				Main.dust[num250].noGravity = true;
 			}

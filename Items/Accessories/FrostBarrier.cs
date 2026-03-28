@@ -1,29 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
 	public class FrostBarrier : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Frost Barrier");
+			/* Tooltip.SetDefault("You will freeze enemies near you when you are struck\n" +
+			                   "You are immune to the chilled debuff"); */
+		}
+		
 		public override void SetDefaults()
 		{
 			Item.defense = 4;
 			Item.width = 20;
 			Item.height = 24;
-			Item.value = 50000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 9, 0, 0);
+            Item.rare = 3;
 			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			modPlayer.fBarrier = true;
 			player.buffImmune[46] = true;
 		}

@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FrostBolt : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Frost Bolt");
-			//Tooltip.SetDefault("Casts a slow-moving ball of frost");
+			// DisplayName.SetDefault("Frost Bolt");
+			// Tooltip.SetDefault("Casts a slow-moving ball of frost");
 		}
 
 	    public override void SetDefaults()
@@ -26,11 +26,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 30;
 	        Item.useTime = 16;
 	        Item.useAnimation = 16;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 3.5f;
-	        Item.value = 30000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item8;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("FrostBoltProjectile").Type;

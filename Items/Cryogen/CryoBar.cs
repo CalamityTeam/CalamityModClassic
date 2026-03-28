@@ -1,27 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Cryogen {
-public class CryoBar : ModItem
+namespace CalamityModClassicPreTrailer.Items.Cryogen
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Cryo Bar");
-		//Tooltip.SetDefault("Cold to the touch");
-	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 15;
-		Item.height = 12;
-		Item.maxStack = 999;
-		Item.value = 28750;
-		Item.rare = ItemRarityID.Pink;
-	}
-}}
+    public class CryoBar : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Frigid Bar");
+            // Tooltip.SetDefault("Cold to the touch");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 30;
+            Item.height = 24;
+            Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = 5;
+        }
+    }
+}

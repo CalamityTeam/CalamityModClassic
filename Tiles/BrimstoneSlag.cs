@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Tiles
+namespace CalamityModClassicPreTrailer.Tiles
 {
 	public class BrimstoneSlag : ModTile
 	{
@@ -14,12 +15,12 @@ namespace CalamityModClassic1Point2.Tiles
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
 			MineResist = 6f;
-			MinPick = 199;
+			MinPick = 179;
 			DustType = 53;
-			HitSound = Terraria.ID.SoundID.Tink;
+			HitSound = SoundID.Tink;
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Brimstone Slag");
- 			AddMapEntry(new Color(20, 20, 20));
+ 			AddMapEntry(new Color(20, 20, 20), name);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)
@@ -29,10 +30,6 @@ namespace CalamityModClassic1Point2.Tiles
 		
 		public override bool CanExplode(int i, int j)
 		{
-			if (Main.tile[i, j].TileType == ModContent.TileType<BrimstoneSlag>())
-			{
-				return false;
-			}
 			return false;
 		}
 

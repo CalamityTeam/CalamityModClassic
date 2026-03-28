@@ -1,13 +1,12 @@
 using Terraria.ModLoader;
-using Terraria.ID;
 
-namespace CalamityModClassic1Point2.Items.Placeables
+namespace CalamityModClassicPreTrailer.Items.Placeables
 {
 	public class DesertScourgeTrophy : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Desert Scourge Trophy");
+			// DisplayName.SetDefault("Desert Scourge Trophy");
 		}
 		
 		public override void SetDefaults()
@@ -19,10 +18,10 @@ namespace CalamityModClassic1Point2.Items.Placeables
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.consumable = true;
 			Item.value = 50000;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = 1;
 			Item.createTile = Mod.Find<ModTile>("BossTrophy").Type;
 			Item.placeStyle = 0;
 		}

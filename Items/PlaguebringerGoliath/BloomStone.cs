@@ -1,42 +1,44 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
+namespace CalamityModClassicPreTrailer.Items.PlaguebringerGoliath
 {
     public class BloomStone : ModItem
     {
     	public override void SetStaticDefaults()
 		{
+			// DisplayName.SetDefault("Bloom Stone");
+			/* Tooltip.SetDefault("One of the ancient relics\n" +
+            	"Enemies that get near you take damage and all damage is increased by 3%\n" +
+            	"You grow flowers on the grass beneath you, chance to grow very random dye plants on grassless dirt"); */
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 7));
+			ItemID.Sets.AnimatesAsSoul[Type] = true;
 		}
     	
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 20;
-            Item.value = 500000;
-            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.buyPrice(0, 15, 0, 0);
+            Item.rare = 5;
 			Item.accessory = true;
         }
         
         public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-        	Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 0.25f, 0.4f, 0.2f);
-			player.GetCritChance(DamageClass.Melee) += 2;
-			player.GetDamage(DamageClass.Melee) += 0.02f;
-			player.GetCritChance(DamageClass.Magic) += 2;
-			player.GetDamage(DamageClass.Magic) += 0.02f;
-			player.GetCritChance(DamageClass.Ranged) += 2;
-			player.GetDamage(DamageClass.Ranged) += 0.02f;
-			player.GetCritChance(DamageClass.Throwing) += 2;
-			player.GetDamage(DamageClass.Throwing) += 0.02f;
-			player.GetDamage(DamageClass.Summon) += 0.02f;
+            CalamityCustomThrowingDamagePlayer modPlayer2 = CalamityCustomThrowingDamagePlayer.ModPlayer(player);
+            Lighting.AddLight((int)player.Center.X / 16, (int)player.Center.Y / 16, 0.25f, 0.4f, 0.2f);
+			player.GetDamage(DamageClass.Melee) += 0.03f;
+			player.GetDamage(DamageClass.Magic) += 0.03f;
+			player.GetDamage(DamageClass.Ranged) += 0.03f;
+			modPlayer2.throwingDamage += 0.03f;
+			player.GetDamage(DamageClass.Summon) += 0.03f;
 			int bloomCounter = 0;
 			int num = 186;
 			float num2 = 150f;
@@ -58,10 +60,11 @@ namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
 							}
 							if (flag)
 							{
-								nPC.SimpleStrikeNPC(num3, 0, false);
-								if (Main.netMode != NetmodeID.SinglePlayer)
+								
+								nPC.StrikeNPC(nPC.CalculateHitInfo(num3, 0));
+								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(MessageID.DamageNPC, -1, -1, null, l, (float)num3, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData(28, -1, -1, null, l, (float)num3, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -72,141 +75,99 @@ namespace CalamityModClassic1Point2.Items.PlaguebringerGoliath
 			if (bloomCounter >= 180)
 			{
 				bloomCounter = 0;
-            }
-            if (player.whoAmI == Main.myPlayer && player.velocity.Y == 0f && player.grappling[0] == -1)
-            {
-                int num4 = (int)player.Center.X / 16;
-                int num5 = (int)(player.position.Y + (float)player.height - 1f) / 16;
-                if (!Main.tile[num4, num5].HasTile && Main.tile[num4, num5].LiquidAmount == 0 && Main.tile[num4, num5 + 1] != null && WorldGen.SolidTile(num4, num5 + 1))
-                {
-                    Main.tile[num4, num5].TileFrameY = 0;
-                    Main.tile[num4, num5].Get<TileWallWireStateData>().Slope = 0;
-                    Main.tile[num4, num5].Get<TileWallWireStateData>().IsHalfBlock = false;
-                    if (Main.tile[num4, num5 + 1].TileType == 0)
-                    {
-                        if (Main.rand.NextBool(1000))
-                        {
-
-                            if (!Main.tile[num4, num5].HasTile)
-                            {
-                                WorldGen.PlaceTile(num4, num5, 227);
-                            }
-                            else
-                            {
-                                Main.tile[num4, num5].TileType = 227;
-                            }
-                            Main.tile[num4, num5].TileType = 227;
-                            Main.tile[num4, num5].TileFrameX = (short)(34 * Main.rand.Next(1, 13));
-                            while (Main.tile[num4, num5].TileFrameX == 144)
-                            {
-                                Main.tile[num4, num5].TileFrameX = (short)(34 * Main.rand.Next(1, 13));
-                            }
-                        }
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
-                        }
-                    }
-                    if (Main.tile[num4, num5 + 1].TileType == 2)
-                    {
-                        if (Main.rand.NextBool(2))
-                        {
-                            if (!Main.tile[num4, num5].HasTile)
-                            {
-                                WorldGen.PlaceTile(num4, num5, 3);
-                            }
-                            else
-                            {
-                                Main.tile[num4, num5].TileType = 3;
-                            }
-                            Main.tile[num4, num5].TileType = 3;
-                            Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 11));
-                            while (Main.tile[num4, num5].TileFrameX == 144)
-                            {
-                                Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 11));
-                            }
-                        }
-                        else
-                        {
-                            if (!Main.tile[num4, num5].HasTile)
-                            {
-                                WorldGen.PlaceTile(num4, num5, 73);
-                            }
-                            else
-                            {
-                                Main.tile[num4, num5].TileType = 73;
-                            }
-                            Main.tile[num4, num5].TileType = 73;
-                            Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 21));
-                            while (Main.tile[num4, num5].TileFrameX == 144)
-                            {
-                                Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 21));
-                            }
-                        }
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
-                        }
-                    }
-                    else if (Main.tile[num4, num5 + 1].TileType == 109)
-                    {
-                        if (Main.rand.NextBool(2))
-                        {
-                            if (!Main.tile[num4, num5].HasTile)
-                            {
-                                WorldGen.PlaceTile(num4, num5, 110);
-                            }
-                            else
-                            {
-                                Main.tile[num4, num5].TileType = 110;
-                            }
-                            Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(4, 7));
-                            while (Main.tile[num4, num5].TileFrameX == 90)
-                            {
-                                Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(4, 7));
-                            }
-                        }
-                        else
-                        {
-                            if (!Main.tile[num4, num5].HasTile)
-                            {
-                                WorldGen.PlaceTile(num4, num5, 113);
-                            }
-                            else
-                            {
-                                Main.tile[num4, num5].TileType = 113;
-                            }
-                            Main.tile[num4, num5].TileType = 113;
-                            Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(2, 8));
-                            while (Main.tile[num4, num5].TileFrameX == 90)
-                            {
-                                Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(2, 8));
-                            }
-                        }
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
-                        }
-                    }
-                    else if (Main.tile[num4, num5 + 1].TileType == 60)
-                    {
-                        if (!Main.tile[num4, num5].HasTile)
-                        {
-                            WorldGen.PlaceTile(num4, num5, 74);
-                        }
-                        else
-                        {
-                            Main.tile[num4, num5].TileType = 74;
-                        }
-                        Main.tile[num4, num5].TileType = 74;
-                        Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(9, 17));
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                        {
-                            NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
-                        }
-                    }
-                }
-            }
-        }
+			}
+			if (player.whoAmI == Main.myPlayer && player.velocity.Y == 0f && player.grappling[0] == -1) 
+			{
+				int num4 = (int)player.Center.X / 16;
+				int num5 = (int)(player.position.Y + (float)player.height - 1f) / 16;
+				if (!Main.tile[num4, num5].HasTile && Main.tile[num4, num5].LiquidAmount == 0 && Main.tile[num4, num5 + 1] != null && WorldGen.SolidTile(num4, num5 + 1)) 
+				{
+					Main.tile[num4, num5].TileFrameY = 0;
+					Main.tile[num4, num5].Get<TileWallWireStateData>().Slope = 0;
+					Main.tile[num4, num5].Get<TileWallWireStateData>().IsHalfBlock = false;
+					if (Main.tile[num4, num5 + 1].TileType == 0)
+					{
+						if (Main.rand.Next(1000) == 0) 
+						{
+							Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+							Main.tile[num4, num5].TileType = 227;
+							Main.tile[num4, num5].TileFrameX = (short)(34 * Main.rand.Next(1, 13));
+							while (Main.tile[num4, num5].TileFrameX == 144) 
+							{
+								Main.tile[num4, num5].TileFrameX = (short)(34 * Main.rand.Next(1, 13));
+							}
+						}
+						if (Main.netMode == 1) 
+						{
+							NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
+						}
+					}
+					if (Main.tile[num4, num5 + 1].TileType == 2) 
+					{
+						if (Main.rand.Next(2) == 0) 
+						{
+							Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+							Main.tile[num4, num5].TileType = 3;
+							Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 11));
+							while (Main.tile[num4, num5].TileFrameX == 144) 
+							{
+								Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 11));
+							}
+						}
+						else 
+						{
+							Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+							Main.tile[num4, num5].TileType = 73;
+							Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 21));
+							while (Main.tile[num4, num5].TileFrameX == 144) 
+							{
+								Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(6, 21));
+							}
+						}
+						if (Main.netMode == 1) 
+						{
+							NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
+						}
+					} 
+					else if (Main.tile[num4, num5 + 1].TileType == 109) 
+					{
+						if (Main.rand.Next(2) == 0) 
+						{
+							Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+							Main.tile[num4, num5].TileType = 110;
+							Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(4, 7));
+							while (Main.tile[num4, num5].TileFrameX == 90) 
+							{
+								Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(4, 7));
+							}
+						} 
+						else 
+						{
+							Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+							Main.tile[num4, num5].TileType = 113;
+							Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(2, 8));
+							while (Main.tile[num4, num5].TileFrameX == 90) 
+							{
+								Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(2, 8));
+							}
+						}
+						if (Main.netMode == 1) 
+						{
+							NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
+						}
+					} 
+					else if (Main.tile[num4, num5 + 1].TileType == 60) 
+					{
+						Main.tile[num4, num5].Get<TileWallWireStateData>().HasTile = true;
+						Main.tile[num4, num5].TileType = 74;
+						Main.tile[num4, num5].TileFrameX = (short)(18 * Main.rand.Next(9, 17));
+						if (Main.netMode == 1) 
+						{
+							NetMessage.SendTileSquare(-1, num4, num5, 1, TileChangeType.None);
+						}
+					}
+				}
+			}
+		}
     }
 }

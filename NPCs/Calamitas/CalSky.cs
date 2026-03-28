@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Calamitas
+namespace CalamityModClassicPreTrailer.NPCs.Calamitas
 {
 	public class CalSky : CustomSky
 	{
@@ -47,7 +47,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 
 		private bool UpdateCalIndex()
 		{
-			int CalType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("CalamitasRun3").Type;
+			int CalType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("CalamitasRun3").Type;
 			if (CalIndex >= 0 && Main.npc[CalIndex].active && Main.npc[CalIndex].type == CalType)
 			{
 				return true;

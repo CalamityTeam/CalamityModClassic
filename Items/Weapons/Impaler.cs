@@ -5,31 +5,31 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Impaler : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Impaler");
+			// DisplayName.SetDefault("Impaler");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 85;
+	        Item.damage = 120;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.crit += 14;
 	        Item.width = 40;
 	        Item.height = 26;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 7f;
-	        Item.value = 1050000;
-	        Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item5;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("FlamingStake").Type;
@@ -46,13 +46,13 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 	        float SpeedX = velocity.X + (float) Main.rand.Next(-5, 6) * 0.05f;
 	        float SpeedY = velocity.Y + (float) Main.rand.Next(-5, 6) * 0.05f;
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("ExplodingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("ExplodingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 	        }
 	        else
 	        {
-	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("FlamingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("FlamingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 	        }
 	    	return false;
 		}

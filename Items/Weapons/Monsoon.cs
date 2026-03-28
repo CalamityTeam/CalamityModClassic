@@ -5,41 +5,42 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Projectiles;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class Monsoon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Monsoon");
+			// DisplayName.SetDefault("Monsoon");
 		}
 
-	    public override void SetDefaults()
-	    {
-	        Item.damage = 63;
-	        Item.DamageType = DamageClass.Ranged;
-	        Item.width = 30;
-	        Item.height = 62;
-	        Item.useTime = 21;
-	        Item.useAnimation = 21;
-	        Item.useStyle = ItemUseStyleID.Shoot;
-	        Item.noMelee = true;
-	        Item.knockBack = 2.5f;
-	        Item.value = 1000000;
-	        Item.rare = ItemRarityID.Cyan;
-	        Item.UseSound = SoundID.Item5;
-	        Item.autoReuse = true;
-	        Item.shoot = ProjectileID.WoodenArrowFriendly;
-	        Item.shootSpeed = 10f;
-	        Item.useAmmo = 40;
-	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override void SetDefaults()
 		{
-	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-	    	float num117 = 0.314159274f;
+			Item.damage = 63;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 30;
+			Item.height = 62;
+			Item.useTime = 21;
+			Item.useAnimation = 21;
+			Item.useStyle = 5;
+			Item.noMelee = true;
+			Item.knockBack = 2.5f;
+			Item.value = Item.buyPrice(0, 95, 0, 0);
+			Item.rare = 9;
+			Item.UseSound = SoundID.Item5;
+			Item.autoReuse = true;
+			Item.shoot = 1;
+			Item.shootSpeed = 10f;
+			Item.useAmmo = 40;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
+			float num117 = 0.314159274f;
 			int num118 = 5;
 			Vector2 vector7 = new Vector2(velocity.X, velocity.Y);
 			vector7.Normalize();
@@ -53,30 +54,40 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				{
 					value9 -= vector7;
 				}
-				switch (Main.rand.Next(12))
+				if (type == ProjectileID.WoodenArrowFriendly)
 				{
-		    		case 1: type = 408; break;
-		    		default: break;
+					if (Main.rand.Next(12) == 0)
+					{
+						type = 408;
+					}
+					if (Main.rand.Next(25) == 0)
+					{
+						type = Mod.Find<ModProjectile>("TyphoonArrow").Type;
+					}
+					int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+					Main.projectile[num121].GetGlobalProjectile<CalamityGlobalProjectile>().forceRanged = true;
+					Main.projectile[num121].noDropItem = true;
 				}
-				switch (Main.rand.Next(25))
+				else
 				{
-		    		case 1: type = Mod.Find<ModProjectile>("TyphoonArrow").Type; break;
-		    		default: break;
+					int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+					Main.projectile[num121].noDropItem = true;
 				}
-				int num121 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
-				Main.projectile[num121].noDropItem = true;
 			}
 			return false;
-	    }
-	
-	    public override void AddRecipes()
-	    {
-	        Recipe recipe = CreateRecipe();
-	        recipe.AddIngredient(ItemID.FragmentVortex, 20);
-	        recipe.AddIngredient(ItemID.Tsunami);
-	        recipe.AddIngredient(ItemID.SharkFin, 5);
-	        recipe.AddTile(TileID.LunarCraftingStation);
-	        recipe.Register();
-	    }
+		}
+
+		public override void AddRecipes()
+		{
+			Recipe recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.FragmentVortex, 15);
+			recipe.AddIngredient(ItemID.Tsunami);
+			recipe.AddIngredient(ItemID.SharkFin, 2);
+			recipe.AddIngredient(null, "DepthCells", 10);
+			recipe.AddIngredient(null, "Lumenite", 10);
+			recipe.AddIngredient(null, "Tenebris", 5);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.Register();
+		}
 	}
 }

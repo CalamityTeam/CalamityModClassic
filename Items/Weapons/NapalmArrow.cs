@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class NapalmArrow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Napalm Arrow");
-			//Tooltip.SetDefault("Explodes into fire shards");
+			// DisplayName.SetDefault("Napalm Arrow");
+			// Tooltip.SetDefault("Explodes into fire shards");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
 			Item.value = 1000;
-			Item.rare = ItemRarityID.Orange;
+			Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("NapalmArrow").Type;
 			Item.shootSpeed = 13f;
 			Item.ammo = 40;

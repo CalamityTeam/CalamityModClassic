@@ -5,47 +5,38 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class Azathoth : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Azathoth");
-			//Tooltip.SetDefault("Destroy the universe in the blink of an eye\nFires cosmic orbs that blast nearby enemies with lasers");
+			// DisplayName.SetDefault("Azathoth");
+			// Tooltip.SetDefault("Destroy the universe in the blink of an eye\nFires cosmic orbs that blast nearby enemies with lasers");
 		}
 
 	    public override void SetDefaults()
 	    {
 	    	Item.CloneDefaults(ItemID.Kraken);
-	        Item.damage = 250;
+	        Item.damage = 200;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.channel = true;
 	        Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 	        Item.knockBack = 6f;
-	        Item.value = 10000000;
+	        Item.value = Item.buyPrice(5, 0, 0, 0);
+            Item.rare = 10;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("AzathothProjectile").Type;
-	    }
-	    
-	    public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(255, 0, 255);
-	            }
-	        }
-	    }
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 16;
+		}
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
-	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 			return false;
 		}
 	    

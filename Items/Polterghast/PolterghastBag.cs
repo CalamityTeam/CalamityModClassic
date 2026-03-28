@@ -1,48 +1,56 @@
+using CalamityModClassicPreTrailer.Items.Accessories;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
+using CalamityModClassicPreTrailer.Items.Weapons.Polterghast;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 using Terraria.ID;
-using CalamityModClassic1Point2.Items.Armor;
-using CalamityModClassic1Point2.Items.PlaguebringerGoliath;
-using CalamityModClassic1Point2.Items.Weapons.Plaguebringer;
-using Terraria.GameContent.ItemDropRules;
-using CalamityModClassic1Point2.Items.Weapons.Polterghast;
 
-namespace CalamityModClassic1Point2.Items.Polterghast
+namespace CalamityModClassicPreTrailer.Items.Polterghast
 {
 	public class PolterghastBag : ModItem
 	{
 		public override void SetStaticDefaults()
- 		{
- 			//DisplayName.SetDefault("Treasure Bag");
- 			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
- 		}
-		
+		{
+			// DisplayName.SetDefault("Treasure Bag");
+			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+		}
+
 		public override void SetDefaults()
 		{
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = ItemRarityID.Cyan;
+			Item.rare = 9;
 			Item.expert = true;
-			//bossBagNPC = Mod.Find<ModNPC>("Polterghast").Type;
 		}
 
 		public override bool CanRightClick()
 		{
 			return true;
-        }
-        public override void ModifyItemLoot(ItemLoot itemLoot)
-        {
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<Affliction>(), 1));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<RuinousSoul>(), 1, 15, 20));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<BansheeHook>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<EtherealSubjugator>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<DaemonsFlame>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<FatesReveal>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<GhastlyVisage>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<GhoulishGouger>(), 3));
-            itemLoot.Add(new CommonDrop(ModContent.ItemType<TerrorBlade>(), 3));
-        }
+		}
+
+		public override void ModifyItemLoot(ItemLoot itemLoot)
+		{
+			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
+			itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Ectoheart>(), 1)));
+				itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+				{
+					ModContent.ItemType<StressPills>(),
+					ModContent.ItemType<Laudanum>(),
+					ModContent.ItemType<HeartofDarkness>(),
+				})));
+			Main.LocalPlayer.TryGettingDevArmor(null);
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<BansheeHook>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<DaemonsFlame>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<EtherealSubjugator>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<FatesReveal>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<GhastlyVisage>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<GhoulishGouger>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<TerrorBlade>(), 3));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<RuinousSoul>(), 1, 6, 11));
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<Affliction>(), 1));
+		}
 	}
 }

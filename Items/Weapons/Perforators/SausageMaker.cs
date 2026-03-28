@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons.Perforators
+namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 {
 	public class SausageMaker : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Sausage Maker");
+			// DisplayName.SetDefault("Sausage Maker");
 		}
 
 		public override void SetDefaults()
@@ -25,14 +25,14 @@ namespace CalamityModClassic1Point2.Items.Weapons.Perforators
 			Item.useTurn = true;
 			Item.noUseGraphic = true;
 			Item.useAnimation = 20;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = 5;
 			Item.useTime = 20;
 			Item.knockBack = 6.25f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.height = 42;
-			Item.value = 105000;
-			Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 4, 0, 0);
+            Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("SausageMaker").Type;
 			Item.shootSpeed = 6f;
 		}

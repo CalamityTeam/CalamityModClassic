@@ -5,31 +5,31 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class BarracudaGun : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Barracuda Gun");
+			// DisplayName.SetDefault("Barracuda Gun");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 72;
+	        Item.damage = 76;
 	        Item.channel = true;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 54;
 	        Item.height = 28;
 	        Item.useTime = 20;
 	        Item.useAnimation = 20;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
-	        Item.knockBack = 1.05f;
-	        Item.value = 900000;
-	        Item.rare = ItemRarityID.Cyan;
+	        Item.knockBack = 1f;
+            Item.value = Item.buyPrice(0, 80, 0, 0);
+            Item.rare = 8;
 	        Item.UseSound = SoundID.Item10;
 	        Item.autoReuse = true;
 	        Item.shootSpeed = 15f;
@@ -62,7 +62,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(ItemID.PiranhaGun);
 	        recipe.AddIngredient(null, "CoreofCalamity", 2);
-	        recipe.AddIngredient(ItemID.SharkFin, 5);
+            recipe.AddIngredient(null, "Tenebris", 5);
+            recipe.AddIngredient(ItemID.SharkFin, 2);
 	        recipe.AddTile(TileID.MythrilAnvil);
 	        recipe.Register();
 	    }

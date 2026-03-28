@@ -1,36 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.DevourerMunsters {
-public class ArmoredShell : ModItem
+namespace CalamityModClassicPreTrailer.Items.DevourerMunsters
 {
-	public override void SetStaticDefaults()
+	public class ArmoredShell : ModItem
 	{
-		//DisplayName.SetDefault("Armored Shell");
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Armored Shell");
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 24;
+			Item.height = 30;
+			Item.maxStack = 999;
+			Item.value = Item.buyPrice(0, 7, 0, 0);
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 13;
+		}
 	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 24;
-		Item.height = 30;
-		Item.maxStack = 999;
-		Item.value = 15000;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
-    {
-        foreach (TooltipLine line2 in list)
-        {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 0);
-            }
-        }
-    }
-}}
+}

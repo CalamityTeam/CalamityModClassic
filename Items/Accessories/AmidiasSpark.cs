@@ -1,27 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-public class AmidiasSpark : ModItem
-{	
-	public override void SetDefaults()
+namespace CalamityModClassicPreTrailer.Items.Accessories
+{
+	public class AmidiasSpark : ModItem
 	{
-		Item.width = 26;
-		Item.height = 26;
-		Item.value = 10000;
-		Item.rare = ItemRarityID.Blue;
-		Item.accessory = true;
+		public override void SetStaticDefaults()
+		{
+				// DisplayName.SetDefault("Amidias' Spark");
+				/* Tooltip.SetDefault("Taking damage releases a blast of sparks\n" +
+								   "Sparks do extra damage in Hardmode"); */
+		}
+
+		public override void SetDefaults()
+		{
+			Item.width = 26;
+			Item.height = 26;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = 1;
+			Item.accessory = true;
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+			modPlayer.aSpark = true;
+		}
 	}
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.aSpark = true;
-	}
-}}
+}

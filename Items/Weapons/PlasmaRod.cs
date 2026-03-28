@@ -5,16 +5,18 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class PlasmaRod : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Plasma Rod");
-			//Tooltip.SetDefault("Casts a low-damage plasma bolt\nShooting a tile will cause several bolts with increased damage to fire\nShooting an enemy will cause several debuffs for a short time");
+			// DisplayName.SetDefault("Plasma Rod");
+			/* Tooltip.SetDefault("Casts a low-damage plasma bolt\n" +
+                "Shooting a tile will cause several bolts with increased damage to fire\n" +
+                "Shooting an enemy will cause several debuffs for a short time"); */
 			Item.staff[Item.type] = true;
 		}
 
@@ -27,11 +29,11 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.height = 40;
 	        Item.useTime = 36;
 	        Item.useAnimation = 36;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 2.5f;
-	        Item.value = 60000;
-	        Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(0, 1, 0, 0);
+            Item.rare = 1;
 	        Item.UseSound = SoundID.Item109;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("PlasmaRay").Type;

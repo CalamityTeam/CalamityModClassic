@@ -1,89 +1,76 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Head)]
-public class AtaxiaHood : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
+    [AutoloadEquip(EquipType.Head)]
+    public class AtaxiaHood : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Ataxia Hood");
+            /* Tooltip.SetDefault("12% increased rogue damage and 10% increased rogue critical strike chance\n" +
+                "50% chance to not consume rogue items\n" +
+                "Temporary immunity to lava and immunity to fire damage"); */
+        }
 
-    public override void SetDefaults()
-    {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 450000;
-        Item.rare = ItemRarityID.Yellow;
-        Item.defense = 13; //49
-    }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 30, 0, 0);
+			Item.rare = 8;
+            Item.defense = 12; //49
+        }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-        return body.type == Mod.Find<ModItem>("AtaxiaArmor").Type && legs.type == Mod.Find<ModItem>("AtaxiaSubligar").Type;
-    }
-    
-    public override void ArmorSetShadows(Player player)
-    {
-    	player.armorEffectDrawOutlines = true;
-    }
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == Mod.Find<ModItem>("AtaxiaArmor").Type && legs.type == Mod.Find<ModItem>("AtaxiaSubligar").Type;
+        }
 
-    public override void UpdateArmorSet(Player player)
-    {
-        player.setBonus = "Throwing damage buffs and slight defense debuffs as health decreases\n" +
-        	"Inferno effect when below 50% life\n" +
-        	"Throwing weapons have a 10% chance to unleash a volley of chaos flames around the player that chase enemies when used\n" +
-        	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-        modPlayer.ataxiaBlaze = true;
-    	modPlayer.ataxiaVolley = true;
-    	if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
-		{
-			player.endurance -= 0.025f;
-			player.GetCritChance(DamageClass.Throwing) += 5;
-			player.GetDamage(DamageClass.Throwing) += 0.05f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
-		{
-			player.endurance -= 0.05f;
-			player.GetCritChance(DamageClass.Throwing) += 10;
-			player.GetDamage(DamageClass.Throwing) += 0.1f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
-		{
-			player.endurance -= 0.1f;
-			player.GetCritChance(DamageClass.Throwing) += 15;
-			player.GetDamage(DamageClass.Throwing) += 0.15f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
-		{
-			player.endurance -= 0.15f;
-			player.GetCritChance(DamageClass.Throwing) += 20;
-			player.GetDamage(DamageClass.Throwing) += 0.2f;
-		}
-        if(player.statLife <= (player.statLifeMax2 * 0.5f))
-       	{
-       		player.AddBuff(BuffID.Inferno, 2);
-       	}
-    }
-    
-    public override void UpdateEquip(Player player)
-    {
-        player.ThrownCost50 = true;
-        player.GetDamage(DamageClass.Throwing) += 0.12f;
-        player.GetCritChance(DamageClass.Throwing) += 10;
-    	player.lavaImmune = true;
-    	player.buffImmune[BuffID.OnFire] = true;
-    }
+        public override void ArmorSetShadows(Player player)
+        {
+            player.armorEffectDrawOutlines = true;
+        }
 
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "CruptixBar", 7);
-        recipe.AddTile(TileID.MythrilAnvil);
-        recipe.Register();
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "5% increased rogue damage\n" +
+                "Inferno effect when below 50% life\n" +
+                "Rogue weapons have a 10% chance to unleash a volley of chaos flames around the player that chase enemies when used\n" +
+                "You have a 20% chance to emit a blazing explosion when you are hit\n" +
+				"Rogue stealth builds while not attacking and not moving, up to a max of 120\n" +
+				"Rogue stealth only reduces when you attack, it does not reduce while moving\n" +
+				"The higher your rogue stealth the higher your rogue damage, crit, and movement speed";
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.ataxiaBlaze = true;
+            modPlayer.ataxiaVolley = true;
+			modPlayer.rogueStealthMax = 1.2f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.05f;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingAmmoCost50 = true;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.12f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingCrit += 10;
+			player.lavaMax += 240;
+			player.buffImmune[BuffID.OnFire] = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CruptixBar", 7);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+        }
     }
-}}
+}

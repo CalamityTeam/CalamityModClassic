@@ -1,57 +1,64 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Head)]
-public class VictideMask : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-    public override void SetStaticDefaults()
+    [AutoloadEquip(EquipType.Head)]
+    public class VictideMask : ModItem
     {
-        //DisplayName.SetDefault("Victide Mask");
-        //Tooltip.SetDefault("5% increased magic damage");
-    }
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Victide Mask");
+            // Tooltip.SetDefault("5% increased magic damage");
+        }
 
-    public override void SetDefaults()
-    {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 40000;
-        Item.rare = ItemRarityID.Green;
-        Item.defense = 2; //9
-    }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 1, 50, 0);
+			Item.rare = 2;
+            Item.defense = 2; //9
+        }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-        return body.type == Mod.Find<ModItem>("VictideBreastplate").Type && legs.type == Mod.Find<ModItem>("VictideLeggings").Type;
-    }
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == Mod.Find<ModItem>("VictideBreastplate").Type && legs.type == Mod.Find<ModItem>("VictideLeggings").Type;
+        }
 
-    public override void UpdateArmorSet(Player player)
-    {
-        player.setBonus = "Increased life regen and magic damage while submerged in liquid";
-        player.ignoreWater = true;
-        if(player.wet == true || player.honeyWet == true || player.lavaWet == true)
-    	{
-        	player.GetDamage(DamageClass.Magic) += 0.15f;
-        	player.lifeRegen += 3;
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Increased life regen and magic damage while submerged in liquid\n" +
+                    "When using any weapon you have a 10% chance to throw a returning seashell projectile\n" +
+                    "This seashell does true damage and does not benefit from any damage class\n" +
+                    "Slightly reduces breath loss in the abyss";
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.victideSet = true;
+            player.ignoreWater = true;
+            if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
+            {
+                player.GetDamage(DamageClass.Magic) += 0.1f;
+                player.lifeRegen += 3;
+            }
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.GetDamage(DamageClass.Magic) += 0.05f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "VictideBar", 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
         }
     }
-    
-    public override void UpdateEquip(Player player)
-    {
-        player.GetDamage(DamageClass.Magic) += 0.05f;
-    }
-
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "VictideBar", 3);
-        recipe.AddTile(TileID.Anvils);
-        recipe.Register();
-    }
-}}
+}

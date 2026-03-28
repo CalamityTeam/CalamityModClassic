@@ -1,0 +1,28 @@
+using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using CalamityModClassicPreTrailer;
+using CalamityModClassicPreTrailer.NPCs;
+
+namespace CalamityModClassicPreTrailer.Buffs.Fabsol
+{
+	public class BloodyMary : ModBuff
+	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Bloody Mary");
+			// Description.SetDefault("Damage, critical strike chance, movement speed, and melee speed boosted during a Blood Moon, life regen and defense reduced");
+			Main.debuff[Type] = true;
+			Main.pvpBuff[Type] = true;
+			Main.buffNoSave[Type] = false;
+			BuffID.Sets.LongerExpertDebuff[Type] = false;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+		
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.GetModPlayer<CalamityPlayerPreTrailer>().bloodyMary = true;
+		}
+	}
+}

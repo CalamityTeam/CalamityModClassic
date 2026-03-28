@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -8,14 +8,14 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.Perforator
+namespace CalamityModClassicPreTrailer.Items.Perforator
 {
 	public class BloodyWormFood : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Bloody Worm Food");
-			//Tooltip.SetDefault("Summons the Perforator Hive");
+			// DisplayName.SetDefault("Bloody Worm Food");
+			// Tooltip.SetDefault("Summons the Perforator Hive");
 		}
 		
 		public override void SetDefaults()
@@ -23,10 +23,10 @@ namespace CalamityModClassic1Point2.Items.Perforator
 			Item.width = 28;
 			Item.height = 18;
 			Item.maxStack = 20;
-			Item.rare = ItemRarityID.Orange;
+			Item.rare = 3;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.consumable = true;
 		}
 		

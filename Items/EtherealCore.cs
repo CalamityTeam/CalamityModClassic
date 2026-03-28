@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,16 +6,16 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class EtherealCore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Ethereal Core");
-			//Tooltip.SetDefault("Permanently increases maximum mana by 100");
+			// DisplayName.SetDefault("Ethereal Core");
+			// Tooltip.SetDefault("Permanently increases maximum mana by 50");
 		}
 		
 		public override void SetDefaults()
@@ -23,16 +23,16 @@ namespace CalamityModClassic1Point2.Items
 			Item.width = 20;
 			Item.height = 20;
 			Item.useAnimation = 30;
-			Item.rare = ItemRarityID.Red;
+			Item.rare = 10;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item29;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.eCore)
 			{
 				return false;
@@ -47,9 +47,9 @@ namespace CalamityModClassic1Point2.Items
 				player.itemTime = Item.useTime;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.ManaEffect(100);
+					player.ManaEffect(50);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.eCore = true;
 			}
 			return true;
@@ -60,8 +60,8 @@ namespace CalamityModClassic1Point2.Items
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.MeteoriteBar, 25);
 			recipe.AddIngredient(null, "AstralBar", 25);
-			recipe.AddIngredient(ItemID.FragmentNebula, 50);
-			recipe.AddIngredient(ItemID.FallenStar, 100);
+			recipe.AddIngredient(ItemID.FragmentNebula, 20);
+			recipe.AddIngredient(ItemID.FallenStar, 50);
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();
 		}

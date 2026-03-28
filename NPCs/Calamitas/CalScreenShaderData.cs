@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.Calamitas
+namespace CalamityModClassicPreTrailer.NPCs.Calamitas
 {
 	public class CalScreenShaderData : ScreenShaderData
 	{
@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.NPCs.Calamitas
 
 		private void UpdateCalIndex()
 		{
-			int CalType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("CalamitasRun3").Type;
+			int CalType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("CalamitasRun3").Type;
 			if (CalIndex >= 0 && Main.npc[CalIndex].active && Main.npc[CalIndex].type == CalType)
 			{
 				return;

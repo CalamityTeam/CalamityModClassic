@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,45 +6,60 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.Items.SupremeCalamitas
+namespace CalamityModClassicPreTrailer.Items.SupremeCalamitas
 {
 	public class EyeofExtinction : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Eye of Extinction");
-			//Tooltip.SetDefault("Death");
+			// DisplayName.SetDefault("Eye of Extinction");
+			/* Tooltip.SetDefault("Death\n" +
+                "Summons Supreme Calamitas\n" +
+                "Creates a large square arena of blocks around your player\n" +
+                "Your player is the CENTER of the arena so be sure to use this item in a good location\n" +
+                "Not consumable"); */
 		}
 		
 		public override void SetDefaults()
 		{
 			Item.width = 40;
 			Item.height = 40;
-			Item.maxStack = 20;
 			Item.useAnimation = 45;
 			Item.useTime = 45;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.consumable = true;
+			Item.useStyle = 4;
+			Item.consumable = false;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 15;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.OverrideColor = new Color(108, 45, 199);
-	            }
-	        }
-	    }
 		
 		public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(Mod.Find<ModNPC>("SupremeCalamitas").Type);
+			return !NPC.AnyNPCs(Mod.Find<ModNPC>("SupremeCalamitas").Type) && CalamityWorldPreTrailer.downedBossAny;
 		}
 		
 		public override bool? UseItem(Player player)/* tModPorter Suggestion: Return null instead of false */
 		{
+			int surface = (int)Main.worldSurface;
+			for (int i = 0; i < Main.maxTilesX; i++)
+			{
+				for (int j = 0; j < surface; j++)
+				{
+					if (Main.tile[i, j] != null)
+					{
+						if (Main.tile[i, j].TileType == Mod.Find<ModTile>("ArenaTile").Type)
+						{
+							WorldGen.KillTile(i, j, false, false, false);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendTileSquare(-1, i, j, 1, TileChangeType.None);
+							}
+							else
+							{
+								WorldGen.SquareTileFrame(i, j, true);
+							}
+						}
+					}
+				}
+			}
 			NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("SupremeCalamitas").Type);
 			SoundEngine.PlaySound(SoundID.Roar, player.position);
 			return true;
@@ -53,12 +68,14 @@ namespace CalamityModClassic1Point2.Items.SupremeCalamitas
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "NightmareFuel", 3);
-        	recipe.AddIngredient(null, "EndothermicEnergy", 3);
-        	recipe.AddIngredient(null, "DarksunFragment");
-			recipe.AddIngredient(null, "CosmiliteBar", 5);
-			recipe.AddIngredient(null, "Phantoplasm", 5);
-			recipe.AddIngredient(null, "BlightedEyeball");
+            recipe.AddIngredient(null, "AuricOre", 50);
+            recipe.AddIngredient(null, "NightmareFuel", 30);
+        	recipe.AddIngredient(null, "EndothermicEnergy", 30);
+        	recipe.AddIngredient(null, "DarksunFragment", 25);
+			recipe.AddIngredient(null, "CosmiliteBar", 15);
+			recipe.AddIngredient(null, "Phantoplasm", 15);
+            recipe.AddIngredient(null, "HellcasterFragment", 5);
+            recipe.AddIngredient(null, "BlightedEyeball");
 			recipe.AddTile(null, "DraedonsForge");
 			recipe.Register();
 		}

@@ -5,50 +5,55 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class GrandGuardian : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Grand Guardian");
+			/* Tooltip.SetDefault("Has a chance to lower enemy defense by 15 when striking them\n" +
+			           "If enemy defense is 0 or below your attacks will heal you\n" +
+			           "Striking enemies causes a large explosion\n" +
+			           "Striking enemies that have under half life will make you release rainbow bolts\n" +
+			           "Enemies spawn healing orbs on death"); */
+		}
+
 		public override void SetDefaults()
 		{
 			Item.width = 124;
-			Item.damage = 300;
+			Item.damage = 160;
 			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.useAnimation = 22;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = 1;
 			Item.useTime = 22;
 			Item.useTurn = true;
 			Item.knockBack = 8.5f;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.height = 124;
-			Item.maxStack = 1;
-			Item.value = 5000000;
-			Item.rare = ItemRarityID.Red;
+            Item.value = Item.buyPrice(1, 0, 0, 0);
+            Item.rare = 10;
 			Item.shootSpeed = 12f;
 		}
 		
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-	    {
-			if (target.type == NPCID.TargetDummy)
+		{
+			if (Main.rand.Next(5) == 0)
 			{
-				return;
+				target.defense -= 15;
 			}
-			if (Main.rand.NextBool(2))
+			if (target.defense <= 0 && target.canGhostHeal)
 			{
-				target.defense -= 30;
+		    	player.statLife += 4;
+		    	player.HealEffect(4);
 			}
-			if (target.defense <= 0)
-			{
-		    	player.statLife += 12;
-		    	player.HealEffect(12);
-			}
-			Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("RainbowBoom").Type, (int)((double)hit.Damage * 0.5f), hit.Knockback, Main.myPlayer);
+			Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("RainbowBoom").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.5), 0f, Main.myPlayer);
 			float spread = 180f * 0.0174f;
-			double startAngle = Math.Atan2(Item.shootSpeed, Item.shootSpeed)- spread/2;
-			double deltaAngle = spread/8f;
+			double startAngle = Math.Atan2(Item.shootSpeed, Item.shootSpeed) - spread / 2;
+			double deltaAngle = spread / 8f;
 			double offsetAngle;
 			int i;
 			if (target.life <= (target.lifeMax * 0.5f))
@@ -58,9 +63,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 					float randomSpeedX = (float)Main.rand.Next(9);
 					float randomSpeedY = (float)Main.rand.Next(6, 15);
 				   	offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-				   	int projectile1 = Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)hit.Damage * 0.5f), hit.Knockback, Main.myPlayer);
-				    int projectile2 = Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)hit.Damage * 0.5f), hit.Knockback, Main.myPlayer);
-					int projectile3 = Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)hit.Damage * 0.5f), hit.Knockback, Main.myPlayer);
+				   	int projectile1 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.75), Item.knockBack, Main.myPlayer);
+				    int projectile2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.75), Item.knockBack, Main.myPlayer);
+					int projectile3 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainBolt").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.75), Item.knockBack, Main.myPlayer);
 				    Main.projectile[projectile1].velocity.X = -randomSpeedX;
 				    Main.projectile[projectile1].velocity.Y = -randomSpeedY;
 				    Main.projectile[projectile2].velocity.X = randomSpeedX;
@@ -76,9 +81,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 					float randomSpeedX = (float)Main.rand.Next(9);
 					float randomSpeedY = (float)Main.rand.Next(6, 15);
 				   	offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-				   	int projectile1 = Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, hit.Damage, hit.Knockback, Main.myPlayer);
-				    int projectile2 = Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, hit.Damage, hit.Knockback, Main.myPlayer);
-					int projectile3 = Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, hit.Damage, hit.Knockback, Main.myPlayer);
+				   	int projectile1 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
+				    int projectile2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
+					int projectile3 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("RainHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
 				    Main.projectile[projectile1].velocity.X = -randomSpeedX;
 				    Main.projectile[projectile1].velocity.Y = -randomSpeedY;
 				    Main.projectile[projectile2].velocity.X = randomSpeedX;
@@ -91,9 +96,9 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 	    {
-	        if (Main.rand.NextBool(3))
+	        if (Main.rand.Next(3) == 0)
 	        {
-	            int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.RainbowTorch, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f);
+	            int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 66, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f);
 	            Main.dust[dust].noGravity = true;
 	        }
 	    }

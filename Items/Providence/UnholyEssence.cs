@@ -1,46 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Providence {
-public class UnholyEssence : ModItem
+namespace CalamityModClassicPreTrailer.Items.Providence
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Unholy Essence");
-		//Tooltip.SetDefault("The essence of profaned creatures");
-	}
-	
-	public override void SetDefaults()
-	{
-		Item.width = 15;
-		Item.height = 12;
-		Item.maxStack = 999;
-		Item.rare = ItemRarityID.Cyan;
-		Item.value = 58750;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class UnholyEssence : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(0, 255, 200);
-            }
+            // DisplayName.SetDefault("Unholy Essence");
+            // Tooltip.SetDefault("The essence of profaned creatures");
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 5));
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 15;
+            Item.height = 12;
+            Item.maxStack = 999;
+            Item.rare = 10;
+			Item.value = Item.buyPrice(0, 6, 50, 0);
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            maxFallSpeed = 0f;
+            float num = (float)Main.rand.Next(90, 111) * 0.01f;
+            num *= Main.essScale;
+            Lighting.AddLight((int)((Item.position.X + (float)(Item.width / 2)) / 16f), (int)((Item.position.Y + (float)(Item.height / 2)) / 16f), 0.45f * num, 0.3f * num, 0f * num);
         }
     }
-	
-	public override void Update(ref float gravity, ref float maxFallSpeed)
-    {
-		maxFallSpeed = 0f;
-        float num = (float)Main.rand.Next(90, 111) * 0.01f;
-        num *= Main.essScale;
-        Lighting.AddLight((int)((Item.position.X + (float)(Item.width / 2)) / 16f), (int)((Item.position.Y + (float)(Item.height / 2)) / 16f), 0.45f * num, 0.3f * num, 0f * num);
-    }
-}}
+}

@@ -1,77 +1,75 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Accessories {
-[AutoloadEquip(EquipType.Shield)]
-public class AsgardianAegis : ModItem
+namespace CalamityModClassicPreTrailer.Items.Accessories
 {
-	public override void SetDefaults()
-	{
-		Item.width = 60;
-		Item.height = 54;
-		Item.value = 10000000;
-		Item.defense = 15;
-		Item.accessory = true;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    [AutoloadEquip(EquipType.Shield)]
+    public class AsgardianAegis : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
-            {
-                line2.OverrideColor = new Color(43, 96, 222);
-            }
+            // DisplayName.SetDefault("Asgardian Aegis");
+            /* Tooltip.SetDefault("Grants immunity to fire blocks and knockback\n" +
+                "Immune to most debuffs\n" +
+                "+40 max life\n" +
+                "Grants a supreme holy flame dash\n" +
+                "Can be used to ram enemies\n" +
+                "Press N to activate buffs to all damage, crit chance, and defense\n" +
+                "Activating this buff will reduce your movement speed and increase enemy aggro\n" +
+                "10% damage reduction while submerged in liquid\n" +
+                "Toggle visibility of this accessory to enable/disable the dash"); */
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 60;
+            Item.height = 54;
+            Item.value = Item.buyPrice(0, 90, 0, 0); //30 gold reforge
+            Item.defense = 10;
+            Item.accessory = true;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
+		}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            if (!hideVisual) { modPlayer.dashMod = 4; }
+            modPlayer.elysianAegis = true;
+            player.noKnockback = true;
+            player.fireWalk = true;
+            player.statLifeMax2 += 40;
+            player.buffImmune[46] = true;
+            player.buffImmune[44] = true;
+            player.buffImmune[33] = true;
+            player.buffImmune[36] = true;
+            player.buffImmune[30] = true;
+            player.buffImmune[20] = true;
+            player.buffImmune[32] = true;
+            player.buffImmune[31] = true;
+            player.buffImmune[35] = true;
+            player.buffImmune[23] = true;
+            player.buffImmune[22] = true;
+            player.buffImmune[Mod.Find<ModBuff>("BrimstoneFlames").Type] = true;
+            player.buffImmune[Mod.Find<ModBuff>("HolyLight").Type] = true;
+            player.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
+            if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir)) { player.endurance += 0.1f; }
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "AsgardsValor");
+            recipe.AddIngredient(null, "ElysianAegis");
+            recipe.AddIngredient(null, "CosmiliteBar", 5);
+            recipe.AddIngredient(null, "Phantoplasm", 5);
+            recipe.AddTile(null, "DraedonsForge");
+            recipe.Register();
         }
     }
-	
-	public override void UpdateAccessory(Player player, bool hideVisual)
-	{
-		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-		modPlayer.dashMod = 4;
-		modPlayer.elysianAegis = true;
-		player.noKnockback = true;
-		player.fireWalk = true;
-		player.lifeRegen += 5;
-		player.statLifeMax2 += 150;
-		player.buffImmune[46] = true;
-		player.buffImmune[44] = true;
-		player.buffImmune[33] = true;
-		player.buffImmune[36] = true;
-		player.buffImmune[30] = true;
-		player.buffImmune[20] = true;
-		player.buffImmune[32] = true;
-		player.buffImmune[31] = true;
-		player.buffImmune[35] = true;
-		player.buffImmune[23] = true;
-		player.buffImmune[22] = true;
-		player.buffImmune[Mod.Find<ModBuff>("BrimstoneFlames").Type] = true;
-		player.buffImmune[Mod.Find<ModBuff>("HolyLight").Type] = true;
-		player.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
-		if(player.statLife <= (player.statLifeMax2 * 0.25f))
-		{
-			player.statDefense += 10;
-		}
-		if(player.wet == true || player.honeyWet == true || player.lavaWet == true)
-		{
-			player.endurance += 0.12f;
-		}
-	}
-	
-	public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "AsgardsValor");
-        recipe.AddIngredient(null, "ElysianAegis");
-        recipe.AddIngredient(null, "CosmiliteBar", 5);
-        recipe.AddIngredient(null, "Phantoplasm", 5);
-        recipe.AddTile(null, "DraedonsForge");
-        recipe.Register();
-	}
-}}
+}

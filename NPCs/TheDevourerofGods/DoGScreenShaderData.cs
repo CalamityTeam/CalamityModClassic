@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
+namespace CalamityModClassicPreTrailer.NPCs.TheDevourerofGods
 {
 	public class DoGScreenShaderData : ScreenShaderData
 	{
@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 
 		private void UpdateDoGIndex()
 		{
-			int DoGType = ModLoader.GetMod("CalamityModClassic1Point2").Find<ModNPC>("DevourerofGodsHead").Type;
+			int DoGType = ModLoader.GetMod("CalamityModClassicPreTrailer").Find<ModNPC>("DevourerofGodsHead").Type;
 			if (DoGIndex >= 0 && Main.npc[DoGIndex].active && Main.npc[DoGIndex].type == DoGType)
 			{
 				return;

@@ -5,15 +5,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class FellerofEvergreens : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Feller of Evergreens");
+			// DisplayName.SetDefault("Feller of Evergreens");
 		}
 
 	    public override void SetDefaults()
@@ -26,10 +26,10 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	        Item.useAnimation = 25;
 	        Item.useTurn = true;
 	        Item.axe = 15;
-	        Item.useStyle = ItemUseStyleID.Swing;
+	        Item.useStyle = 1;
 	        Item.knockBack = 5;
-	        Item.value = 30000;
-	        Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = 2;
 	        Item.UseSound = SoundID.Item1;
 	        Item.autoReuse = true;
 	    }
@@ -37,14 +37,14 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
-	        recipe.AddIngredient(ItemID.Wood, 15);
-	        recipe.AddIngredient(ItemID.TungstenBar, 10);
+	        recipe.AddRecipeGroup(RecipeGroupID.Wood, 15);
+            recipe.AddIngredient(ItemID.TungstenBar, 10);
 	        recipe.AddIngredient(ItemID.TungstenAxe);
 	        recipe.AddTile(TileID.Anvils);
 	        recipe.Register();
 	        recipe = CreateRecipe();
-	        recipe.AddIngredient(ItemID.Wood, 15);
-	        recipe.AddIngredient(ItemID.SilverBar, 10);
+	        recipe.AddRecipeGroup(RecipeGroupID.Wood, 15);
+            recipe.AddIngredient(ItemID.SilverBar, 10);
 	        recipe.AddIngredient(ItemID.SilverAxe);
 	        recipe.AddTile(TileID.Anvils);
 	        recipe.Register();

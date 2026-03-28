@@ -7,51 +7,57 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Projectiles;
 
-namespace CalamityModClassic1Point2.NPCs.HiveMind
+namespace CalamityModClassicPreTrailer.NPCs.HiveMind
 {
 	[AutoloadBossHead]
 	public class HiveMind : ModNPC
 	{
-		public override void SetStaticDefaults()
+		int burrowTimer = 720;
+        int oldDamage = 10;
+
+        public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("The Hive Mind");
+			// DisplayName.SetDefault("The Hive Mind");
 			Main.npcFrameCount[NPC.type] = 4;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Hide = true
-            };
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-        }
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+		}
 		
 		public override void SetDefaults()
 		{
 			NPC.npcSlots = 5f;
-			NPC.damage = 30;
-			NPC.width = 230; //324
-			NPC.height = 180; //216
+			NPC.damage = 10;
+			NPC.width = 150; //324
+			NPC.height = 120; //216
 			NPC.defense = 10;
-			NPC.lifeMax = CalamityWorld1Point2.revenge ? 3000 : 2000;
+			NPC.lifeMax = CalamityWorldPreTrailer.revenge ? 1800 : 1200;
+            if (CalamityWorldPreTrailer.death)
+            {
+                NPC.lifeMax = 3300;
+            }
+            if (CalamityWorldPreTrailer.bossRushActive)
+            {
+                NPC.lifeMax = CalamityWorldPreTrailer.death ? 400000 : 350000;
+            }
+			double HPBoost = (double)Config.BossHealthPercentageBoost * 0.01;
+			NPC.lifeMax += (int)((double)NPC.lifeMax * HPBoost);
 			NPC.aiStyle = -1; //new
             AIType = -1; //new
-			NPC.knockBackResist = 0f;
-			NPC.buffImmune[44] = true;
-			NPC.buffImmune[39] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[20] = true;
-			NPC.buffImmune[Mod.Find<ModBuff>("BrimstoneFlames").Type] = true;
-			NPC.buffImmune[Mod.Find<ModBuff>("HolyLight").Type] = true;
-			NPC.buffImmune[Mod.Find<ModBuff>("Plague").Type] = true;
 			NPC.buffImmune[Mod.Find<ModBuff>("GlacialState").Type] = true;
 			NPC.buffImmune[Mod.Find<ModBuff>("TemporalSadness").Type] = true;
+			NPC.knockBackResist = 0f;
 			NPC.boss = true;
-			NPC.HitSound = SoundID.NPCHit1;
+            NPC.value = 0f;
+            NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			Music = MusicID.Boss2;
-		}
-		
-		public override void FindFrame(int frameHeight)
+			Music = MusicLoader.GetMusicSlot("CalamityModClassicPreTrailer/Sounds/Music/HiveMind");
+        }
+
+        public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter += 0.15f;
             NPC.frameCounter %= Main.npcFrameCount[NPC.type];
@@ -61,27 +67,59 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 		
 		public override void AI()
 		{
+			NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
-			bool expertMode = Main.expertMode;
-			bool revenge = CalamityWorld1Point2.revenge;
-			CalamityGlobalNPC1Point2.hiveMind = NPC.whoAmI;
-			if (Main.netMode != NetmodeID.MultiplayerClient) 
+			if (!player.active || player.dead)
+			{
+				if (NPC.timeLeft > 60)
+					NPC.timeLeft = 60;
+				if (NPC.localAI[3] < 120f) 
+				{
+					float[] aiArray = NPC.localAI;
+					int number = 3;
+					float num244 = aiArray[number];
+					aiArray[number] = num244 + 1f;
+				}
+				if (NPC.localAI[3] > 60f) 
+				{
+					NPC.velocity.Y = NPC.velocity.Y + (NPC.localAI[3] - 60f) * 0.5f;
+					NPC.noGravity = true;
+					NPC.noTileCollide = true;
+					if (burrowTimer > 30)
+						burrowTimer = 30;
+				}
+				return;
+			}
+			if (NPC.localAI[3] > 0f) 
+			{
+				float[] aiArray = NPC.localAI;
+				int number = 3;
+				float num244 = aiArray[number];
+				aiArray[number] = num244 - 1f;
+				return;
+			}
+			NPC.noGravity = false;
+			NPC.noTileCollide = false;
+			bool expertMode = (Main.expertMode || CalamityWorldPreTrailer.bossRushActive);
+			bool revenge = (CalamityWorldPreTrailer.revenge || CalamityWorldPreTrailer.bossRushActive);
+			CalamityGlobalNPC.hiveMind = NPC.whoAmI;
+			if (Main.netMode != 1) 
 			{
 				if (revenge)
 				{
 					NPC.localAI[1] += 1f;
-					if (NPC.localAI[1] >= 300f)
+					if (NPC.localAI[1] >= 600f)
 					{
 						NPC.localAI[1] = 0f;
-						NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("HiveBlob").Type, NPC.whoAmI, 0f, 0f, 0f, 0f, 255);;
+						NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("HiveBlob").Type, NPC.whoAmI, 0f, 0f, 0f, 0f, 255);
 					}
 				}
 				if (NPC.localAI[0] == 0f) 
 				{
 					NPC.localAI[0] = 1f;
-					for (int num723 = 0; num723 < 10; num723++) 
+					for (int num723 = 0; num723 < 5; num723++) 
 					{
-						NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("HiveBlob").Type, NPC.whoAmI, 0f, 0f, 0f, 0f, 255);
+						NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("HiveBlob").Type, NPC.whoAmI, 0f, 0f, 0f, 0f, 255);
 					}
 				}
 			}
@@ -91,7 +129,7 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			{
 				for (int num569 = 0; num569 < 200; num569++)
 				{
-					if (Main.npc[num569].active && Main.npc[num569].type == (Mod.Find<ModNPC>("DankCreeper").Type))
+					if (Main.npc[num569].active && Main.npc[num569].type == Mod.Find<ModNPC>("DankCreeper").Type)
 					{
 						flag100 = true;
 						num568++;
@@ -112,112 +150,173 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 			}
 	       	if (NPC.life > 0)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				if (Main.netMode != 1)
 				{
 					int num660 = (int)((double)NPC.lifeMax * 0.25);
 					if ((float)(NPC.life + num660) < NPC.ai[3])
 					{
 						NPC.ai[3] = (float)NPC.life;
-						int num661 = Main.rand.Next(8, 13);
+						int num661 = Main.rand.Next(3, 6);
 						for (int num662 = 0; num662 < num661; num662++)
 						{
 							int x = (int)(NPC.position.X + (float)Main.rand.Next(NPC.width - 32));
 							int y = (int)(NPC.position.Y + (float)Main.rand.Next(NPC.height - 32));
 							int num663 = Mod.Find<ModNPC>("HiveBlob").Type;
-							if (Main.rand.NextBool(4))
+							if (Main.rand.Next(3) == 0 || NPC.GetGlobalNPC<CalamityGlobalNPC>().enraged || (Config.BossRushXerocCurse && CalamityWorldPreTrailer.bossRushActive))
 							{
 								num663 = Mod.Find<ModNPC>("DankCreeper").Type;
 							}
-							int num664 = NPC.NewNPC(NPC.GetSource_FromThis(), x, y, num663, 0, 0f, 0f, 0f, 0f, 255);
-							Main.npc[num664].SetDefaults(num663);
+							int num664 = NPC.NewNPC(NPC.GetSource_FromThis(null), x, y, num663, 0, 0f, 0f, 0f, 0f, 255);
+							Main.npc[num664].SetDefaults(num663, default);
 							Main.npc[num664].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
 							Main.npc[num664].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
-							Main.npc[num664].ai[0] = (float)(-1000 * Main.rand.Next(3));
-							Main.npc[num664].ai[1] = 0f;
-							if (Main.netMode == NetmodeID.Server && num664 < 200)
+							if (Main.netMode == 2 && num664 < 200)
 							{
-								NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num664, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData(23, -1, -1, null, num664, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						return;
 					}
 				}
 			}
+			burrowTimer--;
+			if (burrowTimer < -120)
+			{
+				burrowTimer = 600;
+				NPC.scale = 1f;
+				NPC.alpha = 0;
+				NPC.dontTakeDamage = false;
+                NPC.damage = oldDamage;
+            }
+			else if (burrowTimer < -60)
+			{
+				NPC.scale += 0.0165f;
+				NPC.alpha -= 4;
+				int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 2.5f * NPC.scale);
+				Main.dust[num622].velocity *= 2f;
+				if (Main.rand.Next(2) == 0)
+				{
+					Main.dust[num622].scale = 0.5f;
+					Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+				}
+				for (int i = 0; i < 2; i++)
+				{
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 3.5f * NPC.scale);
+					Main.dust[num624].noGravity = true;
+					Main.dust[num624].velocity *= 3.5f;
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 2.5f * NPC.scale);
+					Main.dust[num624].velocity *= 1f;
+				}
+			}
+			else if (burrowTimer == -60)
+			{
+				NPC.scale = 0.01f;
+				if (Main.netMode != 1)
+				{
+					NPC.Center = player.Center;
+					NPC.position.Y = player.position.Y - NPC.height;
+					int tilePosX = (int)NPC.Center.X / 16;
+					int tilePosY = (int)(NPC.position.Y + NPC.height) / 16 + 1;
+				}
+                NPC.netUpdate = true;
+            }
+			else if (burrowTimer < 0)
+			{
+				NPC.scale -= 0.0165f;
+				NPC.alpha += 4;
+				int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 2.5f * NPC.scale);
+				Main.dust[num622].velocity *= 2f;
+				if (Main.rand.Next(2) == 0)
+				{
+					Main.dust[num622].scale = 0.5f;
+					Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+				}
+				for (int i = 0; i < 2; i++)
+				{
+					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 3.5f * NPC.scale);
+					Main.dust[num624].noGravity = true;
+					Main.dust[num624].velocity *= 3.5f;
+					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.Center.Y), NPC.width, NPC.height / 2, 14, 0f, -3f, 100, default(Color), 2.5f * NPC.scale);
+					Main.dust[num624].velocity *= 1f;
+				}
+			}
+			else if (burrowTimer == 0)
+			{
+				if (!player.active || player.dead)
+				{
+					burrowTimer = 30;
+				}
+				else
+				{
+					NPC.dontTakeDamage = true;
+                    oldDamage = NPC.damage;
+                    NPC.damage = 0;
+                }
+			}
 		}
 		
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: balance -> balance (bossAdjustment is different, see the docs for details) */
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
-			NPC.damage = (int)(NPC.damage * 0.8f);
-		}
+            NPC.damage = (int)(NPC.damage * 0.8f);
+        }
 		
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			for (int k = 0; k < 5; k++)
-			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Demonite, hit.HitDirection, -1f, 0, default(Color), 1f);
-			}
-			if (NPC.life <= 0)
-			{
-				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
-				NPC.width = 200;
-				NPC.height = 150;
-				NPC.position.X = NPC.position.X - (float)(NPC.width / 2);
-				NPC.position.Y = NPC.position.Y - (float)(NPC.height / 2);
-				for (int num621 = 0; num621 < 40; num621++)
+            if (NPC.life > 0)
+            {
+                if (NPC.CountNPCS(NPCID.EaterofSouls) < 3 && NPC.CountNPCS(NPCID.DevourerHead) < 1)
+                {
+                    if (Main.rand.Next(60) == 0 && Main.netMode != 1)
+                    {
+                        Vector2 spawnAt = NPC.Center + new Vector2(0f, (float)NPC.height / 2f);
+                        NPC.NewNPC(NPC.GetSource_FromThis(null), (int)spawnAt.X, (int)spawnAt.Y, NPCID.EaterofSouls);
+                    }
+                    if (Main.rand.Next(150) == 0 && Main.netMode != 1)
+                    {
+                        Vector2 spawnAt = NPC.Center + new Vector2(0f, (float)NPC.height / 2f);
+                        NPC.NewNPC(NPC.GetSource_FromThis(null), (int)spawnAt.X, (int)spawnAt.Y, NPCID.DevourerHead);
+                    }
+                }
+                int num285 = 0;
+                while ((double)num285 < NPC.damage / (double)NPC.lifeMax * 100.0)
+                {
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, 14, (float)hit.HitDirection, -1f, 0, default(Color), 1f);
+                    num285++;
+                }
+            }
+            else
+            {
+	            if (Main.netMode != NetmodeID.Server)
+	            {
+		            Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+			            Mod.Find<ModGore>("HiveMindGore").Type, 1f);
+		            Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+			            Mod.Find<ModGore>("HiveMindGore2").Type, 1f);
+		            Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+			            Mod.Find<ModGore>("HiveMindGore3").Type, 1f);
+		            Gore.NewGore(NPC.GetSource_FromThis(null), NPC.position, NPC.velocity,
+			            Mod.Find<ModGore>("HiveMindGore4").Type, 1f);
+	            }
+	            if (Main.netMode != 1)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Demonite, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num622].velocity *= 3f;
-					if (Main.rand.NextBool(2))
+					if (NPC.CountNPCS(Mod.Find<ModNPC>("HiveMindP2").Type) < 1)
 					{
-						Main.dust[num622].scale = 0.5f;
-						Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+						NPC.NewNPC(NPC.GetSource_FromThis(null), (int)NPC.Center.X, (int)NPC.Center.Y, Mod.Find<ModNPC>("HiveMindP2").Type, NPC.whoAmI, 0f, 0f, 0f, 0f, NPC.target);
+						SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 					}
 				}
-				for (int num623 = 0; num623 < 70; num623++)
-				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Demonite, 0f, 0f, 100, default(Color), 3f);
-					Main.dust[num624].noGravity = true;
-					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Demonite, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[num624].velocity *= 2f;
-				}
-			}
-			if (NPC.CountNPCS(NPCID.EaterofSouls) < 8 && NPC.CountNPCS(NPCID.DevourerHead) < 2)
-			{
-				if (Main.rand.NextBool(40))
-				{
-					Vector2 spawnAt = NPC.Center + new Vector2(0f, (float)NPC.height / 2f);
-					int spawn = NPC.NewNPC(NPC.GetSource_FromThis(), (int)spawnAt.X, (int)spawnAt.Y, NPCID.EaterofSouls);
-					if (Main.netMode == NetmodeID.Server && spawn < 200)
-					{
-						NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn, 0f, 0f, 0f, 0, 0, 0);
-					}
-				}
-				if (Main.rand.NextBool(160))
-				{
-					Vector2 spawnAt = NPC.Center + new Vector2(0f, (float)NPC.height / 2f);
-					int spawn = NPC.NewNPC(NPC.GetSource_FromThis(), (int)spawnAt.X, (int)spawnAt.Y, NPCID.DevourerHead);
-					if (Main.netMode == NetmodeID.Server && spawn < 200)
-					{
-						NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn, 0f, 0f, 0f, 0, 0, 0);
-					}
-				}
-			}
+            }
 		}
-		
-		public override bool CheckDead()
+
+		public override bool CanHitPlayer (Player target, ref int cooldownSlot)
 		{
-			float targetX = NPC.Center.X;
-			float targetY = NPC.Center.Y;
-			int spawn = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y - 10, Mod.Find<ModNPC>("HiveMindP2").Type, 0, NPC.whoAmI, targetX, targetY);
-			if (Main.netMode == NetmodeID.Server && spawn < 200)
-			{
-				NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, spawn, 0f, 0f, 0f, 0, 0, 0);
-			}
-			SoundEngine.PlaySound(SoundID.Roar, NPC.position);
-			return true;
+			return NPC.scale == 1f; //no damage when shrunk
+		}
+
+		public override bool? DrawHealthBar (byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return NPC.scale == 1f;
 		}
 		
 		public override bool PreKill()
@@ -227,7 +326,7 @@ namespace CalamityModClassic1Point2.NPCs.HiveMind
 		
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			if (CalamityWorld1Point2.revenge)
+			if (CalamityWorldPreTrailer.revenge)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("Horror").Type, 300, true);
 			}

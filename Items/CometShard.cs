@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,16 +6,16 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.NPCs;
+using CalamityModClassicPreTrailer.NPCs;
 
-namespace CalamityModClassic1Point2.Items
+namespace CalamityModClassicPreTrailer.Items
 {
 	public class CometShard : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Comet Shard");
-			//Tooltip.SetDefault("Permanently increases maximum mana by 50");
+			// DisplayName.SetDefault("Comet Shard");
+			// Tooltip.SetDefault("Permanently increases maximum mana by 50");
 		}
 		
 		public override void SetDefaults()
@@ -23,16 +23,16 @@ namespace CalamityModClassic1Point2.Items
 			Item.width = 20;
 			Item.height = 20;
 			Item.useAnimation = 30;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 5;
 			Item.useTime = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item29;
 			Item.consumable = true;
 		}
 		
 		public override bool CanUseItem(Player player)
 		{
-			CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+			CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 			if (modPlayer.cShard)
 			{
 				return false;
@@ -49,7 +49,7 @@ namespace CalamityModClassic1Point2.Items
 				{
 					player.ManaEffect(50);
 				}
-				CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
+				CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
 				modPlayer.cShard = true;
 			}
 			return true;

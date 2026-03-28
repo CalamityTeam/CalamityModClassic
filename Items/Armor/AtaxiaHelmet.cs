@@ -1,95 +1,82 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Head)]
-public class AtaxiaHelmet : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-    public override void SetDefaults()
+    [AutoloadEquip(EquipType.Head)]
+    public class AtaxiaHelmet : ModItem
     {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 450000;
-        Item.rare = ItemRarityID.Yellow;
-        Item.defense = 4; //40
-    }
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Ataxia Helmet");
+            /* Tooltip.SetDefault("5% increased minion damage and increased minion knockback\n" +
+                "+2 max minions\n" +
+                "Temporary immunity to lava and immunity to fire damage"); */
+        }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-        return body.type == Mod.Find<ModItem>("AtaxiaArmor").Type && legs.type == Mod.Find<ModItem>("AtaxiaSubligar").Type;
-    }
-    
-    public override void ArmorSetShadows(Player player)
-    {
-    	player.armorEffectDrawOutlines = true;
-    }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 30, 0, 0);
+			Item.rare = 8;
+            Item.defense = 6; //40
+        }
 
-    public override void UpdateArmorSet(Player player)
-    {
-        player.setBonus = "Summon damage buffs and slight defense debuffs as health decreases\n" +
-        	"Inferno effect when below 50% life\n" +
-        	"Summons a chaos spirit to protect you\n" +
-        	"You have a 20% chance to emit a blazing explosion when you are hit";
-        CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
-        modPlayer.ataxiaBlaze = true;
-		modPlayer.chaosSpirit = true;
-		if (player.whoAmI == Main.myPlayer)
-		{
-			if (player.FindBuffIndex(Mod.Find<ModBuff>("ChaosSpirit").Type) == -1)
-			{
-				player.AddBuff(Mod.Find<ModBuff>("ChaosSpirit").Type, 3600, true);
-			}
-			if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ChaosSpirit").Type] < 1)
-			{
-				Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("ChaosSpirit").Type, 0, 0f, Main.myPlayer, 0f, 0f);
-			}
-		}
-		if(player.statLife <= (player.statLifeMax2 * 0.8f) && player.statLife > (player.statLifeMax2 * 0.6f))
-		{
-			player.endurance -= 0.025f;
-			player.GetDamage(DamageClass.Summon) += 0.05f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
-		{
-			player.endurance -= 0.05f;
-			player.GetDamage(DamageClass.Summon) += 0.1f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
-		{
-			player.endurance -= 0.1f;
-			player.GetDamage(DamageClass.Summon) += 0.15f;
-		}
-		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
-		{
-			player.endurance -= 0.15f;
-			player.GetDamage(DamageClass.Summon) += 0.2f;
-		}
-        if(player.statLife <= (player.statLifeMax2 * 0.5f))
-       	{
-       		player.AddBuff(BuffID.Inferno, 2);
-       	}
-    }
-    
-    public override void UpdateEquip(Player player)
-    {
-        player.GetDamage(DamageClass.Summon) += 0.12f;
-        player.GetKnockback(DamageClass.Summon).Base += 1.5f;
-		player.maxMinions += 2;
-    	player.lavaImmune = true;
-    	player.buffImmune[BuffID.OnFire] = true;
-    }
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == Mod.Find<ModItem>("AtaxiaArmor").Type && legs.type == Mod.Find<ModItem>("AtaxiaSubligar").Type;
+        }
 
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "CruptixBar", 7);
-        recipe.AddTile(TileID.MythrilAnvil);
-        recipe.Register();
+        public override void ArmorSetShadows(Player player)
+        {
+            player.armorEffectDrawOutlines = true;
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "40% increased minion damage\n" +
+                "Inferno effect when below 50% life\n" +
+                "Summons a chaos spirit to protect you\n" +
+                "You have a 20% chance to emit a blazing explosion when you are hit";
+            CalamityPlayerPreTrailer modPlayer = player.GetModPlayer<CalamityPlayerPreTrailer>();
+            modPlayer.ataxiaBlaze = true;
+            modPlayer.chaosSpirit = true;
+            if (player.whoAmI == Main.myPlayer)
+            {
+                if (player.FindBuffIndex(Mod.Find<ModBuff>("ChaosSpirit").Type) == -1)
+                {
+                    player.AddBuff(Mod.Find<ModBuff>("ChaosSpirit").Type, 3600, true);
+                }
+                if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ChaosSpirit").Type] < 1)
+                {
+                    Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("ChaosSpirit").Type, (int)(190f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
+                }
+            }
+            player.GetDamage(DamageClass.Summon) += 0.4f;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.GetDamage(DamageClass.Summon) += 0.05f;
+            player.GetKnockback(DamageClass.Summon).Base += 1.5f;
+            player.maxMinions += 2;
+			player.lavaMax += 240;
+			player.buffImmune[BuffID.OnFire] = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CruptixBar", 7);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+        }
     }
-}}
+}

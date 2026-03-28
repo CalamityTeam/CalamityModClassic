@@ -5,66 +5,58 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons {
-public class StreamGouge : ModItem
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
-	public override void SetStaticDefaults()
-	{
-		//DisplayName.SetDefault("Stream Gouge");
-		//Tooltip.SetDefault("Fires an essence flame beam\nThis spear ignores npc immunity frames");
-	}
-
-	public override void SetDefaults()
-	{
-		Item.width = 86;  //The width of the .png file in pixels divided by 2.
-		Item.damage = 350;  //Keep this reasonable please.
-		Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;  //Dictates whether this is a melee-class weapon.
-		Item.noMelee = true;
-		Item.useTurn = true;
-		Item.noUseGraphic = true;
-		Item.useAnimation = 19;
-		Item.useStyle = ItemUseStyleID.Shoot;
-		Item.useTime = 19;
-		Item.knockBack = 9.75f;  //Ranges from 1 to 9.
-		Item.UseSound = SoundID.Item20;
-		Item.autoReuse = true;  //Dictates whether the weapon can be "auto-fired".
-		Item.height = 86;  //The height of the .png file in pixels divided by 2.
-		Item.maxStack = 1;
-		Item.value = 1350000;  //Value is calculated in copper coins.
-		Item.shoot = Mod.Find<ModProjectile>("StreamGouge").Type;
-		Item.shootSpeed = 15f;
-	}
-	
-	public override void ModifyTooltips(List<TooltipLine> list)
+    public class StreamGouge : ModItem
     {
-        foreach (TooltipLine line2 in list)
+        public override void SetStaticDefaults()
         {
-            if (line2.Mod == "Terraria" && line2.Name == "ItemName")
+            // DisplayName.SetDefault("Stream Gouge");
+            // Tooltip.SetDefault("Fires an essence flame beam\nThis spear ignores npc immunity frames");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 86;
+            Item.damage = 350;
+            Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+            Item.noMelee = true;
+            Item.useTurn = true;
+            Item.noUseGraphic = true;
+            Item.useAnimation = 19;
+            Item.useStyle = 5;
+            Item.useTime = 19;
+            Item.knockBack = 9.75f;
+            Item.UseSound = SoundID.Item20;
+            Item.autoReuse = true;
+            Item.height = 86;
+            Item.value = Item.buyPrice(1, 80, 0, 0);
+            Item.rare = 10;
+            Item.shoot = Mod.Find<ModProjectile>("StreamGouge").Type;
+            Item.shootSpeed = 15f;
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 14;
+		}
+
+        public override bool CanUseItem(Player player)
+        {
+            for (int i = 0; i < 1000; ++i)
             {
-                line2.OverrideColor = new Color(43, 96, 222);
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
             }
+            return true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "CosmiliteBar", 14);
+            recipe.AddTile(null, "DraedonsForge");
+            recipe.Register();
         }
     }
-	
-	public override bool CanUseItem(Player player)
-    {
-        for (int i = 0; i < 1000; ++i)
-        {
-            if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-	public override void AddRecipes()
-	{
-		Recipe recipe = CreateRecipe();
-		recipe.AddIngredient(null, "CosmiliteBar", 14);
-        recipe.AddTile(null, "DraedonsForge");
-        recipe.Register();
-	}
-}}
+}

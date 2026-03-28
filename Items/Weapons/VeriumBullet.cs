@@ -4,21 +4,21 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
 
-namespace CalamityModClassic1Point2.Items.Weapons
+namespace CalamityModClassicPreTrailer.Items.Weapons
 {
 	public class VeriumBullet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Verium Bullet");
-			//Tooltip.SetDefault("There is no escape!");
+			// DisplayName.SetDefault("Verium Bullet");
+			// Tooltip.SetDefault("There is no escape!");
 		}
 		
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = 8;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 8;
 			Item.height = 8;
@@ -26,7 +26,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			Item.consumable = true;
 			Item.knockBack = 1.25f;
 			Item.value = 500;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = 3;
 			Item.shoot = Mod.Find<ModProjectile>("VeriumBullet").Type;
 			Item.shootSpeed = 16f;
 			Item.ammo = 97;

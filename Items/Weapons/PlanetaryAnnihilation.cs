@@ -5,38 +5,45 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items;
+using CalamityModClassicPreTrailer.Items;
+//using TerrariaOverhaul;
 
-namespace CalamityModClassic1Point2.Items.Weapons 
+namespace CalamityModClassicPreTrailer.Items.Weapons 
 {
 	public class PlanetaryAnnihilation : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Planetary Annihilation");
+			// DisplayName.SetDefault("Planetary Annihilation");
 		}
 
 	    public override void SetDefaults()
 	    {
-	        Item.damage = 135;
+	        Item.damage = 75;
 	        Item.DamageType = DamageClass.Ranged;
 	        Item.width = 58;
 	        Item.height = 102;
 	        Item.useTime = 22;
 	        Item.useAnimation = 22;
-	        Item.useStyle = ItemUseStyleID.Shoot;
+	        Item.useStyle = 5;
 	        Item.noMelee = true;
 	        Item.knockBack = 5.5f;
-	        Item.value = 2000000;
-	        Item.rare = ItemRarityID.Red;
-	        Item.UseSound = SoundID.Item75;
+            Item.value = Item.buyPrice(1, 20, 0, 0);
+            Item.rare = 10;
+            Item.UseSound = SoundID.Item75;
 	        Item.autoReuse = true;
 	        Item.shoot = Mod.Find<ModProjectile>("TerraBall").Type;
 	        Item.shootSpeed = 16f;
 	        Item.useAmmo = 40;
-	    }
-	    
-	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+			Item.GetGlobalItem<CalamityGlobalItem>().postMoonLordRarity = 12;
+		}
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, 0);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			float num72 = Main.rand.Next(19, 35);
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -78,22 +85,43 @@ namespace CalamityModClassic1Point2.Items.Weapons
 			num78 *= num80;
 			num79 *= num80;
 			float speedX4 = num78 + (float)Main.rand.Next(-240, 241) * 0.02f;
-			float speedY4 = num79 + (float)Main.rand.Next(-240, 241) * 0.02f;
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 1.3f), Mod.Find<ModProjectile>("TerraBallR").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(2));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 1.2f), Mod.Find<ModProjectile>("TerraBallO").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 1.1f), Mod.Find<ModProjectile>("TerraBallY").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(4));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 1f), Mod.Find<ModProjectile>("TerraBallG").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 0.9f), Mod.Find<ModProjectile>("TerraBallB").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(6));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 0.8f), Mod.Find<ModProjectile>("TerraBallI").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(7));
-			Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY4 * 0.7f), Mod.Find<ModProjectile>("TerraBallV").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(8));
-	    	return false;
+			float speedY5 = num79 + (float)Main.rand.Next(-240, 241) * 0.02f;
+            if (type == ProjectileID.WoodenArrowFriendly)
+            {
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.3f), Mod.Find<ModProjectile>("TerraBallR").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(2));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.2f), Mod.Find<ModProjectile>("TerraBallO").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.1f), Mod.Find<ModProjectile>("TerraBallY").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(4));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1f), Mod.Find<ModProjectile>("TerraBallG").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), Mod.Find<ModProjectile>("TerraBallB").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(6));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), Mod.Find<ModProjectile>("TerraBallI").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(7));
+                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), Mod.Find<ModProjectile>("TerraBallV").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(8));
+            }
+            else
+            {
+                int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.3f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num121].noDropItem = true;
+                int num122 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.2f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num122].noDropItem = true;
+                int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1.1f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num123].noDropItem = true;
+                int num124 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 1f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num124].noDropItem = true;
+                int num125 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num125].noDropItem = true;
+                int num126 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num126].noDropItem = true;
+                int num127 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), type, damage, knockback, player.whoAmI, 0f, 0f);
+                Main.projectile[num127].noDropItem = true;
+            }
+            return false;
 		}
 	
 	    public override void AddRecipes()
 	    {
 	        Recipe recipe = CreateRecipe();
 	        recipe.AddIngredient(null, "GalacticaSingularity", 5);
-	        recipe.AddIngredient(null, "CosmicBolter");
+            recipe.AddIngredient(ItemID.LunarBar, 5);
+            recipe.AddIngredient(null, "CosmicBolter");
 	        recipe.AddIngredient(ItemID.DaedalusStormbow);
 	        recipe.AddTile(TileID.LunarCraftingStation);
 	        recipe.Register();

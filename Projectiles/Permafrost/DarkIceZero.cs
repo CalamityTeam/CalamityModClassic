@@ -1,0 +1,84 @@
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace CalamityModClassicPreTrailer.Projectiles.Permafrost
+{
+	public class DarkIceZero : ModProjectile
+	{
+		public override void SetDefaults()
+		{
+			Projectile.width = 28;
+			Projectile.height = 28;
+			Projectile.aiStyle = 1;
+			AIType = ProjectileID.Bullet;
+			Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+			Projectile.penetrate = 1;
+			Projectile.ignoreWater = true;
+			Projectile.extraUpdates = 1;
+            Projectile.coldDamage = true;
+        }
+		
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Dark Ice");
+		}
+
+		public override void AI()
+		{
+            if (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y) < 16f)
+            {
+                Projectile.velocity *= 1.035f;
+            }
+
+            //make pretty dust
+            int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172, Projectile.velocity.X, Projectile.velocity.Y, 0, default(Color), 1.25f);
+            Main.dust[index2].noGravity = true;
+        }
+		
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+            target.AddBuff(BuffID.Frostburn, 480);
+            target.AddBuff(Mod.Find<ModBuff>("GlacialState").Type, 90);
+        }
+
+		public override Color? GetAlpha (Color lightColor)
+		{
+			return new Color(198, 197, 246);
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+            if (timeLeft > 0)
+            {
+                timeLeft = 0;
+                SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                for (int i = 0; i < 30; i++)
+                {
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172, 0f, 0f, 0, default(Color), Main.rand.NextFloat(1f, 2f));
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 4f;
+                }
+                Projectile.position = Projectile.Center;
+                Projectile.width = 200;
+                Projectile.height = 200;
+                Projectile.position.X -= Projectile.width / 2;
+                Projectile.position.Y -= Projectile.height / 2;
+                for (int index1 = 0; index1 < 20; ++index1)
+                {
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, new Color(), 1.3f);
+                    Main.dust[index2].noGravity = true;
+                    Main.dust[index2].velocity *= 1.5f;
+                }
+                Projectile.penetrate = -1;
+                Projectile.damage /= 2;
+                Projectile.Damage();
+            }
+        }
+	}
+}

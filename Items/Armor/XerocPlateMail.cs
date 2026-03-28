@@ -1,37 +1,51 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityModClassic1Point2.Items.Armor;
+using CalamityModClassicPreTrailer.Items.Armor;
+using CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage;
 
-namespace CalamityModClassic1Point2.Items.Armor {
-[AutoloadEquip(EquipType.Body)]
-public class XerocPlateMail : ModItem
+namespace CalamityModClassicPreTrailer.Items.Armor
 {
-    public override void SetDefaults()
+    [AutoloadEquip(EquipType.Body)]
+    public class XerocPlateMail : ModItem
     {
-        Item.width = 18;
-        Item.height = 18;
-        Item.value = 425000;
-        Item.rare = ItemRarityID.Cyan;
-        Item.defense = 27;
-    }
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Xeroc Plate Mail");
+            /* Tooltip.SetDefault("+20 max life\n" +
+                "6% increased movement speed\n" +
+                "7% increased rogue damage and critical strike chance\n" +
+                "Armor of the cosmos"); */
+        }
 
-    public override void UpdateEquip(Player player)
-    {
-    	player.statLifeMax2 += 150;
-        player.statManaMax2 += 80;
-        player.moveSpeed += 0.12f;
-    }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+			Item.value = Item.buyPrice(0, 32, 0, 0);
+			Item.rare = 9;
+            Item.defense = 27;
+        }
 
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(null, "MeldiateBar", 15);
-        recipe.AddTile(TileID.LunarCraftingStation);
-        recipe.Register();
+        public override void UpdateEquip(Player player)
+        {
+            player.statLifeMax2 += 20;
+            player.moveSpeed += 0.06f;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingCrit += 7;
+            CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage += 0.07f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(null, "MeldiateBar", 22);
+            recipe.AddIngredient(ItemID.LunarBar, 16);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
+        }
     }
-}}
+}
