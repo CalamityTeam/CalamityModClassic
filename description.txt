@@ -1,3 +1,6 @@
 This is a port of version 1.4.2.101 of the Calamity Mod, originally released on May 26th, 2019. Now playable on the modern version of tModLoader! Major highlights of this update consist of Rare Item Variants and unique items added to all Calamity shrines, and a rework of Yharon's phase 2. Also included are earlier revisions of the Sunken Sea, reworked Astral Infection and most bosses.
 
 Suggestions and bug reports will probably not be taken as to keep the version as true as possible, unless it's to fix an error/inconsistency that occurred during porting.
+
+However, if you do identify an issue that makes this Classic release different from the original from 2019, send it to the following Discord:
+https://discord.gg/rtq3jRDsrA
