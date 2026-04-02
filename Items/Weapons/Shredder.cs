@@ -62,7 +62,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			        float num8 = velocity.Y;
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-			        int shot = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+			        int shot = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
                     Main.projectile[shot].timeLeft = 180;
                 }
 			    return false;
@@ -75,7 +75,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			        float num8 = velocity.Y;
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-			        int shot = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ChargedBlast").Type, damage, knockback, player.whoAmI, 0f, 0f);
+			        int shot = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("ChargedBlast").Type, damage, knockback, player.whoAmI, 0f, 0f);
                     Main.projectile[shot].timeLeft = 180;
                 }
 			    return false;

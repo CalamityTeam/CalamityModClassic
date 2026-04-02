@@ -53,7 +53,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    			case 2: type = Mod.Find<ModProjectile>("ChaosFlameLarge").Type; break;
 	    			default: break;
 				}
-	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, velocity.Y, type, (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, 0.0f);
+	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	}
 	    	return false;
 		}
