@@ -50,7 +50,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 	        {
 				float SpeedX = velocity.X + (float)Main.rand.Next(-15, 16) * 0.05f;
 				float SpeedY = velocity.Y + (float)Main.rand.Next(-15, 16) * 0.05f;
-	            int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+	            int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
 				Main.projectile[proj].extraUpdates += 1;
 	        }
 			float num72 = Item.shootSpeed;

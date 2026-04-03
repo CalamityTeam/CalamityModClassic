@@ -47,7 +47,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Yharon
             float SpeedY4 = velocity.Y - 20f * 0.05f;
             float SpeedX5 = velocity.X + 20f * 0.05f;
             float SpeedY5 = velocity.Y + 20f * 0.05f;
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
+            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
             Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX2, SpeedY2, type, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
             Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX3, SpeedY3, type, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
             Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX4, SpeedY4, type, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
