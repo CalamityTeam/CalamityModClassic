@@ -1,5 +1,5 @@
 author = The Calamity Dev Team
-version = 1.0.0.2
+version = 1.0.0.3
 displayName = Calamity Mod Classic 1.4.2.101
 homepage = https://calamitymod.com
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes

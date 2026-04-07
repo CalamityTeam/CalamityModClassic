@@ -5742,19 +5742,19 @@ namespace CalamityModClassicPreTrailer
 					(DoGLore ? 0.5 : 0.0) +
 					(fungalSymbiote ? 0.25 : 0.0);
 
-				damage.Base = damage.Base * (float)damageMult;
+				damage *= (float)damageMult;
 			}
 			if (flamethrowerBoost && item.CountsAsClass(DamageClass.Ranged) && item.useAmmo == 23)
 			{
-				damage.Base = damage.Base * 1.25f;
+				damage *= 1.25f;
 			}
 			if ((cinnamonRoll && CalamityModClassicPreTrailer.fireWeaponList.Contains(item.type)) || (evergreenGin && CalamityModClassicPreTrailer.natureWeaponList.Contains(item.type)))
 			{
-				damage.Base = damage.Base * 1.15f;
+				damage *= 1.15f;
 			}
 			if (fireball && CalamityModClassicPreTrailer.fireWeaponList.Contains(item.type))
 			{
-				damage.Base = damage.Base * 1.1f;
+				damage *= 1.1f;
 			}
 			if (theBee && Player.statLife >= Player.statLifeMax2)
 			{
@@ -6565,23 +6565,23 @@ namespace CalamityModClassicPreTrailer
 			#region AdditiveBoosts
 			if (theBee && !isSummon)
 			{
-				modifiers.FinalDamage.Base += theBeeDamage;
+				modifiers.FinalDamage += theBeeDamage;
 			}
 			if (proj.type == Mod.Find<ModProjectile>("AcidBullet").Type)
 			{
 				int defenseAdd = (int)((double)target.defense * 0.1); //100 defense * 0.1 = 10
-				modifiers.FinalDamage.Base += defenseAdd;
+				modifiers.FinalDamage += defenseAdd;
 			}
 			if (uberBees && (proj.type == ProjectileID.GiantBee || proj.type == ProjectileID.Bee || proj.type == ProjectileID.Wasp || proj.type == Mod.Find<ModProjectile>("PlagueBee").Type))
 			{
 				if (Player.inventory[Player.selectedItem].type == Mod.Find<ModItem>("TheSwarmer").Type || Player.inventory[Player.selectedItem].type == Mod.Find<ModItem>("PlagueKeeper").Type ||
 					Player.inventory[Player.selectedItem].type == Mod.Find<ModItem>("Plaguenade").Type)
 				{
-					modifiers.FinalDamage.Base += Main.rand.Next(10, 21);
+					modifiers.FinalDamage += Main.rand.Next(10, 21);
 				}
 				else
 				{
-					modifiers.FinalDamage.Base += Main.rand.Next(70, 101);
+					modifiers.FinalDamage += Main.rand.Next(70, 101);
 					proj.penetrate = 1;
 				}
 			}
