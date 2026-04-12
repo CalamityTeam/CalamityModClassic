@@ -49,7 +49,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.AbyssWeapons
                 float SpeedX = velocity.X + (float)Main.rand.Next(-40, 41) * 0.05f;
                 float SpeedY = velocity.Y + (float)Main.rand.Next(-40, 41) * 0.05f;
                 float ai1 = (Main.rand.NextFloat() + 0.5f);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Main.rand.Next(type, type + 3), (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, ai1);
+                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Main.rand.Next(type, type + 3), (int)((double)damage * 0.75), knockback, player.whoAmI, 0.0f, ai1);
             }
             return false;
         }

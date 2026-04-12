@@ -51,8 +51,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 num84 = Item.shootSpeed / num84;
                 velocity.X *= num84;
                 velocity.Y *= num84;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, (float)Main.rand.Next(0, 10 * (num107 + 1)), 0f);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, 206, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, (float)Main.rand.Next(0, 10 * (num107 + 1)), 0f);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, 206, damage, knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

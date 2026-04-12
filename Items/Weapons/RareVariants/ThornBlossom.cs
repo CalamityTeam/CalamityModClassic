@@ -50,9 +50,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 			{
 				float SpeedX = velocity.X + (float)Main.rand.Next(-120, 121) * 0.05f;
 				float SpeedY = velocity.Y + (float)Main.rand.Next(-120, 121) * 0.05f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),position.X, position.Y, SpeedX * 1.5f, SpeedY * 1.5f, 150, (int)((double)damage * 1.5), knockback, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(source,position.X, position.Y, SpeedX * 1.5f, SpeedY * 1.5f, 150, (int)((double)damage * 1.5), knockback, player.whoAmI, 0f, 0f);
 			}
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X * 0.66f, velocity.Y * 0.66f, type, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 0.66f, velocity.Y * 0.66f, type, damage, knockback, player.whoAmI, 0f, 0f);
 			return false;
 		}
 	}

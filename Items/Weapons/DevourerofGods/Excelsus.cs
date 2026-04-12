@@ -62,14 +62,14 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.DevourerofGods
 						type = Mod.Find<ModProjectile>("ExcelsusPink").Type;
 						break;
 				}
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
             }
             return false;
         }
 
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("LaserFountain").Type, 0, 0, Main.myPlayer);
+            Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("LaserFountain").Type, 0, 0, Main.myPlayer);
         }
     }
 }

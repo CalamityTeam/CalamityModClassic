@@ -46,7 +46,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		        float SpeedX = velocity.X + (float) Main.rand.Next(-50, 51) * 0.05f;
 		        float SpeedY = velocity.Y + (float) Main.rand.Next(-50, 51) * 0.05f;
 		        float ai = (Main.rand.NextFloat() + 0.5f);
-		        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, ai);
+		        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, ai);
 		    }
 		    return false;
 		}

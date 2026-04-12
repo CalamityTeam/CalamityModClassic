@@ -67,7 +67,7 @@ namespace CalamityModClassicPreTrailer.Items.Calamitas
                             num18 = (float)num17 / num18;
                             num15 *= num18;
                             num16 *= num18;
-                            int num19 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num15, num16, Mod.Find<ModProjectile>("StandingFire").Type, 30, 5f, player.whoAmI, 0f, 0f);
+                            int num19 = Projectile.NewProjectile(player.GetSource_Accessory(Item), x, y, num15, num16, Mod.Find<ModProjectile>("StandingFire").Type, 30, 5f, player.whoAmI, 0f, 0f);
                             Main.projectile[num19].ai[1] = player.position.Y;
                         }
                     }

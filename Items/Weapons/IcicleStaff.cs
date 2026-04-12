@@ -97,7 +97,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 num79 *= num80;
                 float speedX4 = num78;
                 float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("WintersFury").Type, num73, num74, i, 0f, (float)Main.rand.Next(10));
+                Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("WintersFury").Type, num73, num74, i, 0f, (float)Main.rand.Next(10));
             }
             return false;
         }

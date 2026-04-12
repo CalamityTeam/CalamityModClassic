@@ -56,7 +56,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 	    {
 	    	if (target.life <= 0)
 	    	{
-	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Blood").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+	    		Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Blood").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

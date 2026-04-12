@@ -69,12 +69,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("AegisBeam").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("AegisBeam").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
 	    	{
-	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NobodyKnows").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NobodyKnows").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 		}
@@ -89,7 +89,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	    {
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AegisBlast").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+	    	Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AegisBlast").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 		}
 	}
 }

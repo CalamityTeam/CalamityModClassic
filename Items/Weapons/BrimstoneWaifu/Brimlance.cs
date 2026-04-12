@@ -37,5 +37,17 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.BrimstoneWaifu
             Item.shoot = Mod.Find<ModProjectile>("Brimlance").Type;
             Item.shootSpeed = 12f;
         }
+        
+        public override bool CanUseItem(Player player)
+        {
+            for (int i = 0; i < 1000; ++i)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

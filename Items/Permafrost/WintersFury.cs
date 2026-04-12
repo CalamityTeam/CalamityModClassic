@@ -44,14 +44,14 @@ namespace CalamityModClassicPreTrailer.Items.Permafrost
                 speed.Normalize();
                 speed *= 15f;
                 speed.Y -= Math.Abs(speed.X) * 0.2f;
-                int p = Projectile.NewProjectile(Entity.GetSource_FromThis(null),position, speed, Mod.Find<ModProjectile>("FrostShardFriendly").Type, damage, knockback, player.whoAmI);
+                int p = Projectile.NewProjectile(source,position, speed, Mod.Find<ModProjectile>("FrostShardFriendly").Type, damage, knockback, player.whoAmI);
                 Main.projectile[p].minion = false;
                 Main.projectile[p].DamageType = DamageClass.Magic;
             }
             if (Main.rand.Next(3) == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item1, position);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X * 1.2f, velocity.Y * 1.2f, Mod.Find<ModProjectile>("Snowball").Type, damage, knockback * 2f, player.whoAmI);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 1.2f, velocity.Y * 1.2f, Mod.Find<ModProjectile>("Snowball").Type, damage, knockback * 2f, player.whoAmI);
             }
             velocity.X += Main.rand.Next(-40, 41) * 0.05f;
             velocity.Y += Main.rand.Next(-40, 41) * 0.05f;

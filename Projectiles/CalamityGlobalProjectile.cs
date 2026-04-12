@@ -316,7 +316,7 @@ namespace CalamityModClassicPreTrailer.Projectiles
 				}
 				if (projectile.type == ProjectileID.VampireKnife)
 				{
-					float num = (float)projectile.damage * 0.0375f;
+					float num = (float)hit.Damage * 0.0375f;
 					if (num < 0f)
 					{
 						num = 0f;

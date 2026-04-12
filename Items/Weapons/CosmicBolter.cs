@@ -53,7 +53,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				{
 					value9 -= vector7;
 				}
-				int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LunarBolt2").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+				int num121 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LunarBolt2").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 				Main.projectile[num121].noDropItem = true;
 			}
 			return false;

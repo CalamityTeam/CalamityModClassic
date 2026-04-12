@@ -66,7 +66,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 			if (player.altFunctionUse == 2)
 			{
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FulgurationHalberd").Type, damage, knockback, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FulgurationHalberd").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			return false;
 		}

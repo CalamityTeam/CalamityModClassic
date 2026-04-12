@@ -105,7 +105,7 @@ namespace CalamityModClassicPreTrailer.Items.TheDevourerofGods
                                     }
                                     if (flag && Main.myPlayer == player.whoAmI)
                                     {
-                                        Projectile.NewProjectile(Entity.GetSource_FromThis(null),center.X, center.Y, 0f, 0f, Mod.Find<ModProjectile>("NebulaStar").Type, damage, knockBack, player.whoAmI, 0f, 0f);
+                                        Projectile.NewProjectile(player.GetSource_Accessory(Item),center.X, center.Y, 0f, 0f, Mod.Find<ModProjectile>("NebulaStar").Type, damage, knockBack, player.whoAmI, 0f, 0f);
                                         return;
                                     }
                                 }

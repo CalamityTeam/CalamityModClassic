@@ -43,7 +43,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		    for (int j = 0; j < numProj + 1; j++)
 		    {
 		    	Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numProj - 1)));
-		        int demon = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		        int demon = Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		        Main.projectile[demon].penetrate = 1;
 		    }
 			float num72 = Item.shootSpeed;
@@ -90,9 +90,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-40, 41) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType3").Type, damage, knockback, player.whoAmI, 0f, 1f);
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("DemonBlastType3").Type, damage, knockback, player.whoAmI, 0f, 1f);
 			}
 	    	return false;
 		}

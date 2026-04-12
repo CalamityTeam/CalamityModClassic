@@ -46,7 +46,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Astral
                 position = Main.MouseWorld;
                 velocity.X = 0;
                 velocity.Y = 0;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
                 player.UpdateMaxTurrets();
             }
             return false;

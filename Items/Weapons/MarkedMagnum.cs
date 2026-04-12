@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 	    	float damageMult = player.GetDamage(DamageClass.Melee).Additive + player.GetDamage(DamageClass.Ranged).Additive + player.GetDamage(DamageClass.Magic).Additive + 
                 CalamityCustomThrowingDamagePlayer.ModPlayer(player).throwingDamage + player.GetDamage(DamageClass.Summon).Additive;
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	

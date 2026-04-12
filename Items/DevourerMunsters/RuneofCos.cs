@@ -44,7 +44,7 @@ namespace CalamityModClassicPreTrailer.Items.DevourerMunsters
 			{
 				for (int num662 = 0; num662 < 2; num662++)
 				{
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DarkEnergySpawn").Type, 0, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Entity.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DarkEnergySpawn").Type, 0, 0f, Main.myPlayer, 0f, 0f);
 				}
 				NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("CeaselessVoid").Type);
 			}

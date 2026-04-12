@@ -90,7 +90,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float num114 = num78;
 				float num115 = num79 + (float)Main.rand.Next(-80, 81) * 0.02f;
-				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114, num115, 645, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.5), Item.knockBack, i, 0f, (float)Main.rand.Next(3));
+				int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, num114, num115, 645, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.5), Item.knockBack, i, 0f, (float)Main.rand.Next(3));
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
 		}

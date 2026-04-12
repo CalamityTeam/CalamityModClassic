@@ -57,7 +57,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				{
 					value9 -= vector7;
 				}
-				int harpoon = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				int harpoon = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
                 Main.projectile[harpoon].timeLeft = 300;
 			}
 			return false;

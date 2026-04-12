@@ -67,12 +67,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 	    	if (player.altFunctionUse == 2)
 	    	{
-	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SporeBomb").Type, (int)((double)damage * 6f), (Item.knockBack * 60f), player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SporeBomb").Type, (int)((double)damage * 6f), (Item.knockBack * 60f), player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
 	    	{
-	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LeafArrow").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("LeafArrow").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 		}

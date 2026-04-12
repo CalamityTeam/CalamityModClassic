@@ -79,7 +79,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			num79 *= num80;
 			float speedX4 = num78;
 			float speedY5 = num79 + (float)Main.rand.Next(-10, 11) * 0.02f;
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Aftershock").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
+			Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Aftershock").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
         }
         
         public override void MeleeEffects(Player player, Rectangle hitbox)

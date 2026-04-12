@@ -44,13 +44,13 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	    {
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 	        int num6 = 3;
 	        float SpeedX = velocity.X + (float) Main.rand.Next(-20, 21) * 0.05f;
 		    float SpeedY = velocity.Y + (float) Main.rand.Next(-20, 21) * 0.05f;
 	        for (int index = 0; index < num6; ++index)
 	        {
-	            int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX * 1.05f, SpeedY * 1.05f, 440, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
+	            int projectile = Projectile.NewProjectile(source, position.X, position.Y, SpeedX * 1.05f, SpeedY * 1.05f, 440, (int)((double)damage * 0.75f), knockback, player.whoAmI, 0.0f, 0.0f);
 	            Main.projectile[projectile].timeLeft = 120;
 	        }
 	        return false;

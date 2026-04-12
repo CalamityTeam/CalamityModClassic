@@ -71,7 +71,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
 				num133 *= num80;
 				float x2 = vector2.X;
 				float y2 = vector2.Y;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), x2, y2, num132, num133, Mod.Find<ModProjectile>("PlagueFang").Type, damage, knockback, Main.myPlayer, 0f, 0f);
+				Projectile.NewProjectile(source, x2, y2, num132, num133, Mod.Find<ModProjectile>("PlagueFang").Type, damage, knockback, Main.myPlayer, 0f, 0f);
 			}
 			return false;
 		}

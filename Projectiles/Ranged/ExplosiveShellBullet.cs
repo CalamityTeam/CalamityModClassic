@@ -32,9 +32,9 @@ namespace CalamityModClassicPreTrailer.Projectiles.Ranged
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            target.damage += target.lifeMax / 150; //120 + 30 = 150 + (100000 / 150 = 666) = 816 * 15 (pellets) = 12240 * 2 (explosion) = 24480 = 24.48% of boss HP
-			if (target.damage > target.lifeMax / 90 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
-                target.damage = target.lifeMax / 90;
+	        Projectile.damage += target.lifeMax / 150; //120 + 30 = 150 + (100000 / 150 = 666) = 816 * 15 (pellets) = 12240 * 2 (explosion) = 24480 = 24.48% of boss HP
+			if (Projectile.damage > target.lifeMax / 90 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
+				Projectile.damage = target.lifeMax / 90;
         }
 
         public override void OnKill(int timeLeft)

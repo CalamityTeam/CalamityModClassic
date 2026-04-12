@@ -59,7 +59,7 @@ namespace CalamityModClassicPreTrailer.Items.Leviathan
             {
                 if (player.whoAmI == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("PoisonousSeawater").Type, 50, 5f, player.whoAmI, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("PoisonousSeawater").Type, 50, 5f, player.whoAmI, 0f, 0f);
                 }
             }
             int seaCounter = 0;

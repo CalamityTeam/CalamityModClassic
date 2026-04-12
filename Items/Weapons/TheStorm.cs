@@ -90,17 +90,17 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 float speedY5 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
                 if (type == ProjectileID.WoodenArrowFriendly)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
+                    Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
+                    Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
+                    Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), Mod.Find<ModProjectile>("Bolt").Type, num73, num74, i, 0f, 0f);
                 }
                 else
                 {
-                    int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), type, num73, num74, i, 0f, 0f);
+                    int num121 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.9f), type, num73, num74, i, 0f, 0f);
                     Main.projectile[num121].noDropItem = true;
-                    int num122 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), type, num73, num74, i, 0f, 0f);
+                    int num122 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.8f), type, num73, num74, i, 0f, 0f);
                     Main.projectile[num122].noDropItem = true;
-                    int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), type, num73, num74, i, 0f, 0f);
+                    int num123 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, (speedY5 * 0.7f), type, num73, num74, i, 0f, 0f);
                     Main.projectile[num123].noDropItem = true;
                 }
             }

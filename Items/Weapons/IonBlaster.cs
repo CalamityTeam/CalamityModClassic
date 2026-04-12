@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 	        float manaAmount = ((float)player.statMana * 0.01f);
 	        float damageMult = manaAmount * 0.75f;
-	        int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
+	        int projectile = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)((double)damage * damageMult), knockback, player.whoAmI, 0.0f, 0.0f);
 	    	Main.projectile[projectile].scale = manaAmount;
 	    	return false;
 		}

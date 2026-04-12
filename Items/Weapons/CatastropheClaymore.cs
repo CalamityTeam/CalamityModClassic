@@ -44,7 +44,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    		case 2: type = Mod.Find<ModProjectile>("CalamityAuraType3").Type; break;
 	    		default: break;
 			}
-	       	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	       	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 	    	return false;
 		}
 		

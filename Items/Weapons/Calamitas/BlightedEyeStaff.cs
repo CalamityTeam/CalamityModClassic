@@ -75,11 +75,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Calamitas
             vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
             Vector2 spinningpoint = new Vector2(num78, num79);
             spinningpoint = spinningpoint.RotatedBy(1.5707963705062866, default(Vector2));
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Calamitamini").Type, damage, num74, i, 0f, 0f);
+            Projectile.NewProjectile(source, vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Calamitamini").Type, damage, num74, i, 0f, 0f);
             spinningpoint = spinningpoint.RotatedBy(-3.1415927410125732, default(Vector2));
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Catastromini").Type, damage, num74, i, 0f, 0f);
+            Projectile.NewProjectile(source, vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Catastromini").Type, damage, num74, i, 0f, 0f);
             spinningpoint = spinningpoint.RotatedBy(-5.1415927410125732, default(Vector2));
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Cataclymini").Type, damage, num74, i, 0f, 0f);
+            Projectile.NewProjectile(source, vector2.X + spinningpoint.X, vector2.Y + spinningpoint.Y, spinningpoint.X, spinningpoint.Y, Mod.Find<ModProjectile>("Cataclymini").Type, damage, num74, i, 0f, 0f);
             return false;
         }
     }

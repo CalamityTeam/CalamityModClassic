@@ -40,7 +40,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 			for (int projectiles = 0; projectiles <= 2; projectiles++)
 			{
-	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OmegaBiomeOrb").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OmegaBiomeOrb").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 	    	return false;
 		}

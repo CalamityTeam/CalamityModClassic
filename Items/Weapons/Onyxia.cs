@@ -52,7 +52,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             float shardKB = 2f * Item.knockBack;
             float shardVelocityX = (velocity.X + (float)Main.rand.Next(-25, 26) * 0.05f) * 0.9f;
             float shardVelocityY = (velocity.Y + (float)Main.rand.Next(-25, 26) * 0.05f) * 0.9f;
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, shardVelocityX, shardVelocityY, 661, shardDamage, shardKB, player.whoAmI, 0.0f, 0.0f);
+            Projectile.NewProjectile(source, position.X, position.Y, shardVelocityX, shardVelocityY, 661, shardDamage, shardKB, player.whoAmI, 0.0f, 0.0f);
 
             // Fire three symmetric pairs of bullets alongside it
             Vector2 baseVelocity = new Vector2(velocity.X, velocity.Y);
@@ -62,8 +62,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 float randVelMultiplier = Main.rand.NextFloat(0.92f, 1.08f);
                 Vector2 left = baseVelocity.RotatedBy(-randAngle) * randVelMultiplier;
                 Vector2 right = baseVelocity.RotatedBy(randAngle) * randVelMultiplier;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, left.X, left.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, right.X, right.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, left.X, left.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, right.X, right.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

@@ -40,9 +40,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Bumblebirb
 	    
 	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("RougeSlashLarge").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X * 0.8f, velocity.Y * 0.8f, Mod.Find<ModProjectile>("RougeSlashMedium").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X * 0.6f, velocity.Y * 0.6f, Mod.Find<ModProjectile>("RougeSlashSmall").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("RougeSlashLarge").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 0.8f, velocity.Y * 0.8f, Mod.Find<ModProjectile>("RougeSlashMedium").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 0.6f, velocity.Y * 0.6f, Mod.Find<ModProjectile>("RougeSlashSmall").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

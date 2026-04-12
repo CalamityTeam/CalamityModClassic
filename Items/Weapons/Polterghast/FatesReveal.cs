@@ -68,7 +68,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Polterghast
 				vector.Y += (float)(Main.rand.Next(-25, 26) * num108);
                 float spawnX = vector.X;
                 float spawnY = vector.Y;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),spawnX, spawnY, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(source,spawnX, spawnY, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
 			}
 	    	return false;
 		}

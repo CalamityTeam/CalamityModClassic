@@ -61,7 +61,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    			case 2: type = Mod.Find<ModProjectile>("MeowFire2").Type; break;
 	    			default: break;
 				}
-	            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	            Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	}
 	    	return false;
 		}

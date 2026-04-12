@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Permafrost
             {
                 float newSpeedX = velocity.X + Main.rand.Next(-40, 41) * 0.06f;
                 float newSpeedY = velocity.Y + Main.rand.Next(-40, 41) * 0.06f;
-                int p = Projectile.NewProjectile(Entity.GetSource_FromThis(null),position.X, position.Y, newSpeedX, newSpeedY, type, damage, knockback, player.whoAmI);
+                int p = Projectile.NewProjectile(source,position.X, position.Y, newSpeedX, newSpeedY, type, damage, knockback, player.whoAmI);
                 Main.projectile[p].DamageType = DamageClass.Ranged;
             }
             return true;

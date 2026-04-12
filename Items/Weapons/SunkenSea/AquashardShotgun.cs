@@ -49,7 +49,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SunkenSea
 			{
 			    float SpeedX = velocity.X + (float) Main.rand.Next(-40, 41) * 0.05f;
 			    float SpeedY = velocity.Y + (float) Main.rand.Next(-40, 41) * 0.05f;
-			    int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+			    int projectile = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			    Main.projectile[projectile].timeLeft = 200;
 			}
 			return false;

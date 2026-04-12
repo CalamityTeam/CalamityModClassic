@@ -111,7 +111,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					num340 *= 1.5f;
 					num342 *= (float)player.direction;
 					num341 *= player.gravDir;
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), (float)(hitbox.X + hitbox.Width / 2) + num342, (float)(hitbox.Y + hitbox.Height / 2) + num341, (float)player.direction * num340, num339 * player.gravDir, ProjectileID.Spark, (int)((float)Item.damage * 0.1f * player.GetDamage(DamageClass.Melee).Multiplicative), 0f, player.whoAmI, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), (float)(hitbox.X + hitbox.Width / 2) + num342, (float)(hitbox.Y + hitbox.Height / 2) + num341, (float)player.direction * num340, num339 * player.gravDir, ProjectileID.Spark, (int)((float)Item.damage * 0.1f * player.GetDamage(DamageClass.Melee).Multiplicative), 0f, player.whoAmI, 0f, 0f);
 				}
 			}
 			if (Main.rand.Next(4) == 0)
@@ -124,7 +124,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 			if (hit.Crit)
 			{
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center.X, target.Center.Y, 0f, 0f, 612, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item),target.Center.X, target.Center.Y, 0f, 0f, 612, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 			}
 			target.AddBuff(BuffID.OnFire, 300);
 			target.AddBuff(Mod.Find<ModBuff>("BrimstoneFlames").Type, 300);

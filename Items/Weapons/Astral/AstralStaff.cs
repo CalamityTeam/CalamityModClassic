@@ -54,7 +54,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Astral
             velocity2.Normalize();
             velocity2 *= 13f;
 
-            int p = Projectile.NewProjectile(Entity.GetSource_FromThis(null),spawnPos, velocity2, type, damage, knockback, player.whoAmI);
+            int p = Projectile.NewProjectile(source,spawnPos, velocity2, type, damage, knockback, player.whoAmI);
             Main.projectile[p].ai[0] = targetPos.Y - 120;
 
             return false;

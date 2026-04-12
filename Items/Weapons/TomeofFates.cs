@@ -77,11 +77,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             }
             if (projChoice == 0)
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("BrimstoneTentacle").Type, (int)((double)num73 * 1.5f), num74, i, num92, num91);
+                Projectile.NewProjectile(source, vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("BrimstoneTentacle").Type, (int)((double)num73 * 1.5f), num74, i, num92, num91);
             }
             else
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("CosmicTentacle").Type, num73, num74, i, num92, num91);
+                Projectile.NewProjectile(source, vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("CosmicTentacle").Type, num73, num74, i, num92, num91);
             }
             return false;
         }

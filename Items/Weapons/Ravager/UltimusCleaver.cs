@@ -58,7 +58,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Ravager
 						posX = (float)Main.rand.Next(-60, -10);
 						velocityX = (float)Main.rand.Next(-10, -2);
 					}
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), (player.Center.X + posX), (player.Center.Y + 20), velocityX, (float)Main.rand.Next(-7, -3), Mod.Find<ModProjectile>("UltimusCleaverDust").Type, (int)((float)Item.damage * 0.4), 0f, Main.myPlayer);
+					Projectile.NewProjectile(source, (player.Center.X + posX), (player.Center.Y + 20), velocityX, (float)Main.rand.Next(-7, -3), Mod.Find<ModProjectile>("UltimusCleaverDust").Type, (int)((float)Item.damage * 0.4), 0f, Main.myPlayer);
 				}
 			}
 			return false;

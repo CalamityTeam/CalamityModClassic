@@ -65,7 +65,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
             {
                 num92 *= -1f;
             }
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("EldritchTentacle").Type, num73, num74, i, num92, num91);
+            Projectile.NewProjectile(source, vector2.X, vector2.Y, value2.X, value2.Y, Mod.Find<ModProjectile>("EldritchTentacle").Type, num73, num74, i, num92, num91);
             return false;
         }
     }

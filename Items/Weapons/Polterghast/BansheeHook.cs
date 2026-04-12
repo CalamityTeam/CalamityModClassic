@@ -75,7 +75,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Polterghast
             num83 *= num84;
             float ai4 = Main.rand.NextFloat() * Item.shootSpeed * 0.75f * (float)player.direction;
             Vector2 velocity2 = new Vector2(num82, num83);
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity2.X, velocity2.Y, Mod.Find<ModProjectile>("BansheeHook").Type, damage, knockback, player.whoAmI, ai4, 0.0f);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity2.X, velocity2.Y, Mod.Find<ModProjectile>("BansheeHook").Type, damage, knockback, player.whoAmI, ai4, 0.0f);
             return false;
         }
     }

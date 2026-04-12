@@ -57,7 +57,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                     case 1: type = 9; break;
                     case 2: type = Mod.Find<ModProjectile>("AstralStar").Type; break;
                 }
-		        int star = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+		        int star = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
 				Main.projectile[star].GetGlobalProjectile<CalamityGlobalProjectile>().forceRanged = true;
 			}
 		    return false;

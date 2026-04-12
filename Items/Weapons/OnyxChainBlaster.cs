@@ -47,12 +47,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 		    float SpeedX = velocity.X + (float) Main.rand.Next(-25, 26) * 0.05f;
 		    float SpeedY = velocity.Y + (float) Main.rand.Next(-25, 26) * 0.05f;
-		    Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX * 0.9f, SpeedY * 0.9f, 661, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		    Projectile.NewProjectile(source, position.X, position.Y, SpeedX * 0.9f, SpeedY * 0.9f, 661, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		    for (int i = 0; i <= 3; i++)
 		    {
 		    	float SpeedNewX = velocity.X + (float) Main.rand.Next(-45, 46) * 0.05f;
 		    	float SpeedNewY = velocity.Y + (float) Main.rand.Next(-45, 46) * 0.05f;
-		    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedNewX, SpeedNewY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		    	Projectile.NewProjectile(source, position.X, position.Y, SpeedNewX, SpeedNewY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		    }
 		    return false;
 		}

@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    		case 3: type = Mod.Find<ModProjectile>("GalaxyBlastType3").Type; break;
 	    		default: break;
 			}
-	       	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	       	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 			float num72 = Item.shootSpeed;
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
 	    	float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
@@ -90,9 +90,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-40, 41) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlastType3").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(1));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlast").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlastType2").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GalaxyBlastType3").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(1));
 			}
 	    	return false;
 		}

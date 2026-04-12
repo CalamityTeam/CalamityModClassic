@@ -49,9 +49,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					float randomSpeedX = (float)Main.rand.Next(3);
 					float randomSpeedY = (float)Main.rand.Next(3, 5);
 					offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-					int projectile1 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
-					int projectile2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
-					int projectile3 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
+					int projectile1 = Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
+					int projectile2 = Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
+					int projectile3 = Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("Terracotta").Type, 0, 0f, Main.myPlayer);
 					Main.projectile[projectile1].velocity.X = -randomSpeedX;
 					Main.projectile[projectile1].velocity.Y = -randomSpeedY;
 					Main.projectile[projectile2].velocity.X = randomSpeedX;
@@ -60,7 +60,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					Main.projectile[projectile3].velocity.Y = -randomSpeedY;
 				}
 			}
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("TerracottaExplosion").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+			Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("TerracottaExplosion").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)

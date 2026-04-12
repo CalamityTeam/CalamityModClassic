@@ -72,7 +72,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                     case 8: type = Mod.Find<ModProjectile>("BlueExoArrow").Type; break;
                     case 9: type = Mod.Find<ModProjectile>("GreenExoArrow").Type; break;
 				}
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 			return false;
 	    }

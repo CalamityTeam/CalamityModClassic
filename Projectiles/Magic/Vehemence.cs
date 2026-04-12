@@ -56,10 +56,10 @@ namespace CalamityModClassicPreTrailer.Projectiles.Magic
         	double lifeAmount = (double)target.life;
         	double lifeMax = (double)target.lifeMax;
         	double damageMult = (lifeAmount / lifeMax) * 7;
-        	target.damage = (int)Math.Pow(target.damage, damageMult);
-        	if (target.damage > 1000000)
+        	Projectile.damage = (int)Math.Pow(Projectile.damage, damageMult);
+        	if (Projectile.damage > 1000000)
         	{
-		        target.damage = 1000000;
+		        Projectile.damage = 1000000;
         	}
         }
         

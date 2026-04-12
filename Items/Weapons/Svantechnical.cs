@@ -85,13 +85,13 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             {
                 vector2 += new Vector2(num208, num209);
             }
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y - player.gravDir * 4f, num208, num209, type, num73, num74, i, 0f, (float)Main.rand.Next(12) / 6f);
+            Projectile.NewProjectile(source, position.X, position.Y - player.gravDir * 4f, num208, num209, type, num73, num74, i, 0f, (float)Main.rand.Next(12) / 6f);
             int num6 = Main.rand.Next(2, 4);
             for (int index = 0; index < num6; ++index)
             {
                 float SpeedX = velocity.X + (float)Main.rand.Next(-60, 61) * 0.05f;
                 float SpeedY = velocity.Y + (float)Main.rand.Next(-60, 61) * 0.05f;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, vector2.X, vector2.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

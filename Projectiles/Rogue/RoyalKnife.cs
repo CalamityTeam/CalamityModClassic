@@ -99,7 +99,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Rogue
 			{
 				return;
 			}
-        	float num = (float)target.damage * 0.015f;
+        	float num = (float)hit.Damage * 0.015f;
 			if ((int)num == 0)
 			{
 				return;

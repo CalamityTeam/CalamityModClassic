@@ -47,7 +47,7 @@ namespace CalamityModClassicPreTrailer.Items.Yharon
                 {
                     if (player.whoAmI == Main.myPlayer)
                     {
-                        int projectile1 = Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DragonDust").Type, 350, 5f, player.whoAmI, 0f, 0f);
+                        int projectile1 = Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("DragonDust").Type, 350, 5f, player.whoAmI, 0f, 0f);
                         Main.projectile[projectile1].timeLeft = 60;
                     }
                     dragonTimer = 60;
@@ -76,7 +76,7 @@ namespace CalamityModClassicPreTrailer.Items.Yharon
                             num18 = (float)num17 / num18;
                             num15 *= num18;
                             num16 *= num18;
-                            int num19 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num15, num16, Mod.Find<ModProjectile>("SkyFlareFriendly").Type, 750, 9f, player.whoAmI, 0f, 0f);
+                            int num19 = Projectile.NewProjectile(player.GetSource_Accessory(Item), x, y, num15, num16, Mod.Find<ModProjectile>("SkyFlareFriendly").Type, 750, 9f, player.whoAmI, 0f, 0f);
                             Main.projectile[num19].ai[1] = player.position.Y;
                             Main.projectile[num19].hostile = false;
                             Main.projectile[num19].friendly = true;

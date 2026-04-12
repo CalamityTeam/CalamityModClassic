@@ -66,7 +66,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             num79 = 0f;
             vector2.X = (float)Main.mouseX + Main.screenPosition.X;
             vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("GranitePulse").Type, num73, num74, i, 0f, 0f);
+            Projectile.NewProjectile(source, vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("GranitePulse").Type, num73, num74, i, 0f, 0f);
             return false;
         }
     }

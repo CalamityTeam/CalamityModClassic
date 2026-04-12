@@ -77,19 +77,19 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SunkenSea
 			//velY = 0f;
 			//vector2.X = (float)Main.mouseX + Main.screenPosition.X;
 			//vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-			int curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineHead").Type, damage, knockback, owner);
+			int curr = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineHead").Type, damage, knockback, owner);
 			
 			int prev = curr;
-			curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
+			curr = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
 
 			prev = curr;
-			curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
+			curr = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
 			
 			prev = curr;
-			curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
+			curr = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineBody").Type, damage, knockback, owner, (float)prev);
 			
 			prev = curr;
-			curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineTail").Type, damage, knockback, owner, (float)prev);
+			curr = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("SerpentineTail").Type, damage, knockback, owner, (float)prev);
 			Main.projectile[prev].localAI[1] = (float)curr;
 			Main.projectile[prev].netUpdate = true;
 			return false;

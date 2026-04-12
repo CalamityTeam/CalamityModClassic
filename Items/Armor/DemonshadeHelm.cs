@@ -58,7 +58,7 @@ namespace CalamityModClassicPreTrailer.Items.Armor
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("RedDevil").Type] < 1)
 				{
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("RedDevil").Type, 10000, 0f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("RedDevil").Type, 10000, 0f, Main.myPlayer, 0f, 0f);
 				}
 			}
 			player.GetDamage(DamageClass.Summon) += 1f;

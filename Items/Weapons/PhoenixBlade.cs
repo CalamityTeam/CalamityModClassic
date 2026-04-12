@@ -39,7 +39,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    {
 			if (target.life <= 0)
 			{
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, 612, Item.damage, Item.knockBack, Main.myPlayer);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, 612, Item.damage, Item.knockBack, Main.myPlayer);
 				float spread = 180f * 0.0174f;
 				double startAngle = Math.Atan2(Item.shootSpeed, Item.shootSpeed) - spread / 2;
 				double deltaAngle = spread / 8f;
@@ -50,8 +50,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					float randomSpeedX = (float)Main.rand.Next(5);
 					float randomSpeedY = (float)Main.rand.Next(3, 7);
 				   	offsetAngle = (startAngle + deltaAngle * ( i + i * i ) / 2f ) + 32f * i;
-				   	int projectile1 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("PhoenixHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
-				    int projectile2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("PhoenixHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
+				   	int projectile1 = Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)( Math.Sin(offsetAngle) * 5f ), (float)( Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("PhoenixHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
+				    int projectile2 = Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)( -Math.Sin(offsetAngle) * 5f ), (float)( -Math.Cos(offsetAngle) * 5f ), Mod.Find<ModProjectile>("PhoenixHeal").Type, Item.damage, Item.knockBack, Main.myPlayer);
 				    Main.projectile[projectile1].velocity.X = -randomSpeedX;
 				    Main.projectile[projectile1].velocity.Y = -randomSpeedY;
 				    Main.projectile[projectile2].velocity.X = randomSpeedX;

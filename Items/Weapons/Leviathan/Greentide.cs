@@ -94,7 +94,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Leviathan
 				num79 *= num80;
 				float speedX4 = num78;
 				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GreenWater").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), num74, i, 0f, (float)Main.rand.Next(10));
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("GreenWater").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), num74, i, 0f, (float)Main.rand.Next(10));
 			}
         }
         

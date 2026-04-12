@@ -93,7 +93,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Ranged
 			{
 				return;
 			}
-        	float num = (float)target.damage * 0.1f;
+        	float num = (float)hit.Damage * 0.1f;
 			if ((int)num == 0)
 			{
 				return;

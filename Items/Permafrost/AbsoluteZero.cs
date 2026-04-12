@@ -36,7 +36,7 @@ namespace CalamityModClassicPreTrailer.Items.Permafrost
             target.AddBuff(BuffID.Frostburn, 600);
             target.AddBuff(Mod.Find<ModBuff>("GlacialState").Type, 300);
 
-            int p = Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center, Vector2.Zero, Mod.Find<ModProjectile>("DarkIceZero").Type, Item.damage, Item.knockBack * 3f, player.whoAmI);
+            int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item),target.Center, Vector2.Zero, Mod.Find<ModProjectile>("DarkIceZero").Type, Item.damage, Item.knockBack * 3f, player.whoAmI);
             Main.projectile[p].Kill();
         }
     }

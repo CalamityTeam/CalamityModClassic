@@ -80,7 +80,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Cryogen
                 num80 = num72 / num80;
                 num78 *= num80;
                 num79 *= num80;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, 0f, 0f, Mod.Find<ModProjectile>("IceBombFriendly").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), num74, i, 0f, (float)Main.rand.Next(3));
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, 0f, 0f, Mod.Find<ModProjectile>("IceBombFriendly").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), num74, i, 0f, (float)Main.rand.Next(3));
             }
         }
 

@@ -54,7 +54,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    {
 	    	if (player.altFunctionUse == 2)
 	    	{
-	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigBeamofDeath").Type, (int)((double)damage * 1.7), knockback, player.whoAmI, 0.0f, 0.0f);
+	    		Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BigBeamofDeath").Type, (int)((double)damage * 1.7), knockback, player.whoAmI, 0.0f, 0.0f);
 	    		return false;
 	    	}
 	    	else
@@ -74,8 +74,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					{
 						value9 -= vector7;
 					}
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.8), knockback, player.whoAmI, 0.0f, 0.0f);
-					int laser = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X * 2f, velocity.Y * 2f, 440, (int)((double)damage * 0.4), knockback, player.whoAmI, 0.0f, 0.0f);
+					Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.8), knockback, player.whoAmI, 0.0f, 0.0f);
+					int laser = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X * 2f, velocity.Y * 2f, 440, (int)((double)damage * 0.4), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[laser].timeLeft = 120;
 		        	Main.projectile[laser].tileCollide = false;
 				}

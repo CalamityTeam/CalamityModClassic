@@ -121,7 +121,7 @@ namespace CalamityModClassicPreTrailer.Items.Accessories
                             num15 *= num18;
                             num16 *= num18;
                             int type = (Main.rand.Next(2) == 0 ? Mod.Find<ModProjectile>("AuraRain").Type : Mod.Find<ModProjectile>("StandingFire").Type);
-                            int num19 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num15, num16, type, 500, 3f, player.whoAmI, 0f, 0f);
+                            int num19 = Projectile.NewProjectile(player.GetSource_Accessory(Item), x, y, num15, num16, type, 500, 3f, player.whoAmI, 0f, 0f);
                             Main.projectile[num19].tileCollide = false;
                         }
                     }
@@ -189,7 +189,7 @@ namespace CalamityModClassicPreTrailer.Items.Accessories
                             Vector2 velocity = baseVelocity;
                             velocity = baseVelocity.RotatedBy(MathHelper.ToRadians(-FireAngleSpread / 2 + (FireAngleSpread * i / (float)FireProjectiles)));
                             velocity.X = velocity.X + 3 * Main.rand.NextFloat() - 1.5f;
-                            int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), spawn.X, spawn.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BrimstoneHellfireballFriendly2").Type, 500, 5f, Main.myPlayer, 0f, 0f);
+                            int projectile = Projectile.NewProjectile(player.GetSource_Accessory(Item), spawn.X, spawn.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BrimstoneHellfireballFriendly2").Type, 500, 5f, Main.myPlayer, 0f, 0f);
                             Main.projectile[projectile].tileCollide = false;
                             Main.projectile[projectile].timeLeft = 50;
                         }

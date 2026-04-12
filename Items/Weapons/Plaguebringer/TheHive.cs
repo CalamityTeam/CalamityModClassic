@@ -46,7 +46,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
 	    		case 3: type = Mod.Find<ModProjectile>("BeeRPG").Type; break;
 	    		default: break;
 			}
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

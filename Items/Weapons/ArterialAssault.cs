@@ -92,12 +92,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             float speedY5 = num79;
             if (type == ProjectileID.WoodenArrowFriendly)
             {
-                int bloodfire = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("BloodfireArrow").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
+                int bloodfire = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("BloodfireArrow").Type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(15));
                 Main.projectile[bloodfire].tileCollide = false;
             }
             else
             {
-                int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
+                int num121 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
                 Main.projectile[num121].noDropItem = true;
             }
             return false;

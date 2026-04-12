@@ -54,7 +54,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    {
 	    	if (target.life <= (target.lifeMax * 0.5f))
 	    	{
-	    		Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, 612, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+	    		Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, 612, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 	    	}
 		}
 	}

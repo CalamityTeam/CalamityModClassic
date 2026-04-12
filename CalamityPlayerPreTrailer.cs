@@ -5926,9 +5926,57 @@ namespace CalamityModClassicPreTrailer
 		#region OnHitNPC
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
 		{
+			if (unstablePrism && hit.Crit)
+			{
+				for (int num252 = 0; num252 < 3; num252++)
+				{
+					Vector2 value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
+					while (value15.X == 0f && value15.Y == 0f)
+					{
+						value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
+					}
+					value15.Normalize();
+					value15 *= (float)Main.rand.Next(30, 61) * 0.1f;
+					Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, value15.X, value15.Y, Mod.Find<ModProjectile>("UnstableSpark").Type, (int)((double)item.damage * 0.15), 0f, Player.whoAmI, 0f, 0f);
+				}
+			}
+			
+			if (astralStarRain && hit.Crit && astralStarRainCooldown <= 0)
+			{
+				astralStarRainCooldown = 60;
+				for (int n = 0; n < 3; n++)
+				{
+					float x = target.position.X + (float)Main.rand.Next(-400, 400);
+					float y = target.position.Y - (float)Main.rand.Next(500, 800);
+					Vector2 vector = new Vector2(x, y);
+					float num13 = target.position.X + (float)(target.width / 2) - vector.X;
+					float num14 = target.position.Y + (float)(target.height / 2) - vector.Y;
+					num13 += (float)Main.rand.Next(-100, 101);
+					float num15 = 25f;
+					int projectileType = Main.rand.Next(3);
+					if (projectileType == 0)
+					{
+						projectileType = Mod.Find<ModProjectile>("AstralStar").Type;
+					}
+					else if (projectileType == 1)
+					{
+						projectileType = 92;
+					}
+					else
+					{
+						projectileType = 12;
+					}
+					float num16 = (float)Math.Sqrt((double)(num13 * num13 + num14 * num14));
+					num16 = num15 / num16;
+					num13 *= num16;
+					num14 *= num16;
+					int num17 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num13, num14, projectileType, 75, 5f, Player.whoAmI, 0f, 0f);
+				}
+			}
+			
 			if (omegaBlueChestplate)
 				target.AddBuff(Mod.Find<ModBuff>("CrushDepth").Type, 240);
-
+			
 			if (eGauntlet)
 			{
 				target.AddBuff(Mod.Find<ModBuff>("AbyssalFlames").Type, 120, false);
@@ -6080,6 +6128,146 @@ namespace CalamityModClassicPreTrailer
 		#region OnHitNPCWithProj
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
 		{
+			if (proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue)
+			{
+				hit.Crit = (Main.rand.Next(1, 101) < CalamityCustomThrowingDamagePlayer.ModPlayer(Player).throwingCrit);
+			}
+			
+			if (auricSet)
+			{
+				if (silvaThrowing && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue &&
+				    hit.Crit && Player.statLife > (int)((double)Player.statLifeMax2 * 0.5))
+				{
+					hit.Damage *= (int)1.25;
+				}
+			}
+			
+			if (godSlayerRanged && hit.Crit && proj.CountsAsClass(DamageClass.Ranged))
+			{
+				int randomChance = 100 - (int)Player.GetCritChance(DamageClass.Ranged); //100 min to 15 max with cap
+
+				if (randomChance < 15)
+					randomChance = 15;
+				if (Main.rand.Next(randomChance) == 0)
+					hit.Damage *= 2;
+			}
+			if (tarraMage && hit.Crit && proj.CountsAsClass(DamageClass.Magic))
+			{
+				tarraCrits++;
+			}
+			if (tarraThrowing && tarraThrowingCritTimer <= 0 && tarraThrowingCrits < 25 && hit.Crit &&
+				proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue)
+			{
+				tarraThrowingCrits++;
+			}
+			if (unstablePrism && hit.Crit)
+			{
+				for (int num252 = 0; num252 < 3; num252++)
+				{
+					Vector2 value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
+					while (value15.X == 0f && value15.Y == 0f)
+					{
+						value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
+					}
+					value15.Normalize();
+					value15 *= (float)Main.rand.Next(30, 61) * 0.1f;
+					Projectile.NewProjectile(proj.GetSource_FromThis(), proj.oldPosition.X + (float)(proj.width / 2), proj.oldPosition.Y + (float)(proj.height / 2), value15.X, value15.Y, Mod.Find<ModProjectile>("UnstableSpark").Type, (int)((double)proj.damage * 0.15), 0f, Player.whoAmI, 0f, 0f);
+				}
+			}
+			if (astralStarRain && hit.Crit && astralStarRainCooldown <= 0)
+			{
+				astralStarRainCooldown = 60;
+				for (int n = 0; n < 3; n++)
+				{
+					float x = target.position.X + (float)Main.rand.Next(-400, 400);
+					float y = target.position.Y - (float)Main.rand.Next(500, 800);
+					Vector2 vector = new Vector2(x, y);
+					float num13 = target.position.X + (float)(target.width / 2) - vector.X;
+					float num14 = target.position.Y + (float)(target.height / 2) - vector.Y;
+					num13 += (float)Main.rand.Next(-100, 101);
+					float num15 = 25f;
+					int projectileType = Main.rand.Next(3);
+					if (projectileType == 0)
+					{
+						projectileType = Mod.Find<ModProjectile>("AstralStar").Type;
+					}
+					else if (projectileType == 1)
+					{
+						projectileType = 92;
+					}
+					else
+					{
+						projectileType = 12;
+					}
+					float num16 = (float)Math.Sqrt((double)(num13 * num13 + num14 * num14));
+					num16 = num15 / num16;
+					num13 *= num16;
+					num14 *= num16;
+					int num17 = Projectile.NewProjectile(Entity.GetSource_FromThis(), x, y, num13, num14, projectileType, 75, 5f, Player.whoAmI, 0f, 0f);
+				}
+			}
+			if (tarraRanged && hit.Crit && proj.CountsAsClass(DamageClass.Ranged))
+			{
+				int num251 = Main.rand.Next(2, 4);
+				for (int num252 = 0; num252 < num251; num252++)
+				{
+					Vector2 value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+					while (value15.X == 0f && value15.Y == 0f)
+					{
+						value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+					}
+					value15.Normalize();
+					value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
+					int FUCKYOU = Projectile.NewProjectile(Entity.GetSource_FromThis(), target.position.X + (float)(target.width / 2), target.position.Y + (float)(target.height / 2),
+						value15.X, value15.Y, 206, (int)((double)proj.damage * 0.25), 0f, Player.whoAmI, 0f, 0f);
+					Main.projectile[FUCKYOU].netUpdate = true;
+				}
+			}
+			if (bloodflareThrowing && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue && hit.Crit && Main.rand.Next(2) == 0)
+			{
+				if (target.canGhostHeal)
+				{
+					float num11 = 0.03f;
+					num11 -= (float)proj.numHits * 0.015f;
+					if (num11 < 0f)
+					{
+						num11 = 0f;
+					}
+					float num12 = (float)proj.damage * num11;
+					if (num12 < 0f)
+					{
+						num12 = 0f;
+					}
+					if (Player.lifeSteal > 0f)
+					{
+						Player.statLife += 1;
+						Player.HealEffect(1);
+						Player.lifeSteal -= num12 * 2f;
+					}
+				}
+			}
+			if (bloodflareMage && bloodflareMageCooldown <= 0 && hit.Crit && proj.CountsAsClass(DamageClass.Magic))
+			{
+				bloodflareMageCooldown = 120;
+				for (int i = 0; i < 3; i++)
+				{
+					Vector2 value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+					while (value15.X == 0f && value15.Y == 0f)
+					{
+						value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+					}
+					value15.Normalize();
+					value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
+					int fire = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.position.X + (float)(target.width / 2), target.position.Y + (float)(target.height / 2),
+						value15.X, value15.Y, 15, (int)((double)proj.damage * 0.5), 0f, Player.whoAmI, 0f, 0f);
+					Main.projectile[fire].netUpdate = true;
+				}
+			}
+			if (raiderTalisman && raiderStack < 250 && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue && hit.Crit)
+			{
+				raiderStack++;
+			}
+			
 			if (omegaBlueChestplate && proj.friendly && !target.friendly)
 				target.AddBuff(Mod.Find<ModBuff>("CrushDepth").Type, 240);
 
@@ -6257,7 +6445,6 @@ namespace CalamityModClassicPreTrailer
 		public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
 		{
 			#region MultiplierBoosts
-			bool crit = modifiers.CritDamage.Base > 1;
 			double damageMult = 1.0;
 			if (silvaMelee && Main.rand.Next(4) == 0 && item.CountsAsClass(DamageClass.Melee))
 			{
@@ -6325,52 +6512,6 @@ namespace CalamityModClassicPreTrailer
 							Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ChaosGeyser").Type, (int)((double)item.damage * 0.15), 2f, Player.whoAmI, 0f, 0f);
 						}
 					}
-					if (unstablePrism && crit)
-					{
-						for (int num252 = 0; num252 < 3; num252++)
-						{
-							Vector2 value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
-							while (value15.X == 0f && value15.Y == 0f)
-							{
-								value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
-							}
-							value15.Normalize();
-							value15 *= (float)Main.rand.Next(30, 61) * 0.1f;
-							Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, value15.X, value15.Y, Mod.Find<ModProjectile>("UnstableSpark").Type, (int)((double)item.damage * 0.15), 0f, Player.whoAmI, 0f, 0f);
-						}
-					}
-				}
-				if (astralStarRain && crit && astralStarRainCooldown <= 0)
-				{
-					astralStarRainCooldown = 60;
-					for (int n = 0; n < 3; n++)
-					{
-						float x = target.position.X + (float)Main.rand.Next(-400, 400);
-						float y = target.position.Y - (float)Main.rand.Next(500, 800);
-						Vector2 vector = new Vector2(x, y);
-						float num13 = target.position.X + (float)(target.width / 2) - vector.X;
-						float num14 = target.position.Y + (float)(target.height / 2) - vector.Y;
-						num13 += (float)Main.rand.Next(-100, 101);
-						float num15 = 25f;
-						int projectileType = Main.rand.Next(3);
-						if (projectileType == 0)
-						{
-							projectileType = Mod.Find<ModProjectile>("AstralStar").Type;
-						}
-						else if (projectileType == 1)
-						{
-							projectileType = 92;
-						}
-						else
-						{
-							projectileType = 12;
-						}
-						float num16 = (float)Math.Sqrt((double)(num13 * num13 + num14 * num14));
-						num16 = num15 / num16;
-						num13 *= num16;
-						num14 *= num16;
-						int num17 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num13, num14, projectileType, 75, 5f, Player.whoAmI, 0f, 0f);
-					}
 				}
 				if (bloodflareMelee && item.CountsAsClass(DamageClass.Melee))
 				{
@@ -6437,15 +6578,9 @@ namespace CalamityModClassicPreTrailer
 
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
 		{
-			bool crit = modifiers.CritDamage.Base > 1;
 			bool isTrueMelee = proj.GetGlobalProjectile<CalamityGlobalProjectile>().trueMelee;
 			bool isSummon = proj.minion || proj.sentry || CalamityModClassicPreTrailer.projectileMinionList.Contains(proj.type);
 			bool hasClassType = proj.CountsAsClass(DamageClass.Melee) || proj.CountsAsClass(DamageClass.Ranged) || proj.CountsAsClass(DamageClass.Magic) || isSummon || proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue;
-
-			if (proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue)
-			{
-				crit = (Main.rand.Next(1, 101) < CalamityCustomThrowingDamagePlayer.ModPlayer(Player).throwingCrit);
-			}
 
 			#region MultiplierBoosts
 			double damageMult = 1.0;
@@ -6487,25 +6622,11 @@ namespace CalamityModClassicPreTrailer
 			}
 			if (auricSet)
 			{
-				if (silvaThrowing && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue &&
-					crit && Player.statLife > (int)((double)Player.statLifeMax2 * 0.5))
-				{
-					damageMult += 0.25;
-				}
 				if (silvaMelee && proj.CountsAsClass(DamageClass.Melee))
 				{
 					double multiplier = (double)Player.statLife / (double)Player.statLifeMax2;
 					damageMult += multiplier * 0.2;
 				}
-			}
-			if (godSlayerRanged && crit && proj.CountsAsClass(DamageClass.Ranged))
-			{
-				int randomChance = 100 - (int)Player.GetCritChance(DamageClass.Ranged); //100 min to 15 max with cap
-
-				if (randomChance < 15)
-					randomChance = 15;
-				if (Main.rand.Next(randomChance) == 0)
-					damageMult += 1.0;
 			}
 			if (silvaCountdown > 0 && hasSilvaEffect && silvaRanged && proj.CountsAsClass(DamageClass.Ranged))
 			{
@@ -6623,124 +6744,11 @@ namespace CalamityModClassicPreTrailer
 				modifiers.FinalDamage *= 0.75f;
 			#endregion
 
-			if (tarraMage && crit && proj.CountsAsClass(DamageClass.Magic))
-			{
-				tarraCrits++;
-			}
-			if (tarraThrowing && tarraThrowingCritTimer <= 0 && tarraThrowingCrits < 25 && crit &&
-				proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue)
-			{
-				tarraThrowingCrits++;
-			}
-
 			if ((target.damage > 5 || target.boss) && Player.whoAmI == Main.myPlayer && !target.SpawnedFromStatue)
 			{
 				if (theBeeDamage > 0 && (proj.CountsAsClass(DamageClass.Melee) || proj.CountsAsClass(DamageClass.Ranged) || proj.CountsAsClass(DamageClass.Magic) || proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue))
 				{
 					SoundEngine.PlaySound(SoundID.Item110, proj.position);
-				}
-				if (unstablePrism && crit)
-				{
-					for (int num252 = 0; num252 < 3; num252++)
-					{
-						Vector2 value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
-						while (value15.X == 0f && value15.Y == 0f)
-						{
-							value15 = new Vector2((float)Main.rand.Next(-50, 51), (float)Main.rand.Next(-50, 51));
-						}
-						value15.Normalize();
-						value15 *= (float)Main.rand.Next(30, 61) * 0.1f;
-						Projectile.NewProjectile(Entity.GetSource_FromThis(null), proj.oldPosition.X + (float)(proj.width / 2), proj.oldPosition.Y + (float)(proj.height / 2), value15.X, value15.Y, Mod.Find<ModProjectile>("UnstableSpark").Type, (int)((double)modifiers.SourceDamage.Base * 0.15), 0f, Player.whoAmI, 0f, 0f);
-					}
-				}
-				if (astralStarRain && crit && astralStarRainCooldown <= 0)
-				{
-					astralStarRainCooldown = 60;
-					for (int n = 0; n < 3; n++)
-					{
-						float x = target.position.X + (float)Main.rand.Next(-400, 400);
-						float y = target.position.Y - (float)Main.rand.Next(500, 800);
-						Vector2 vector = new Vector2(x, y);
-						float num13 = target.position.X + (float)(target.width / 2) - vector.X;
-						float num14 = target.position.Y + (float)(target.height / 2) - vector.Y;
-						num13 += (float)Main.rand.Next(-100, 101);
-						float num15 = 25f;
-						int projectileType = Main.rand.Next(3);
-						if (projectileType == 0)
-						{
-							projectileType = Mod.Find<ModProjectile>("AstralStar").Type;
-						}
-						else if (projectileType == 1)
-						{
-							projectileType = 92;
-						}
-						else
-						{
-							projectileType = 12;
-						}
-						float num16 = (float)Math.Sqrt((double)(num13 * num13 + num14 * num14));
-						num16 = num15 / num16;
-						num13 *= num16;
-						num14 *= num16;
-						int num17 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), x, y, num13, num14, projectileType, 75, 5f, Player.whoAmI, 0f, 0f);
-					}
-				}
-				if (tarraRanged && crit && proj.CountsAsClass(DamageClass.Ranged))
-				{
-					int num251 = Main.rand.Next(2, 4);
-					for (int num252 = 0; num252 < num251; num252++)
-					{
-						Vector2 value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-						while (value15.X == 0f && value15.Y == 0f)
-						{
-							value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-						}
-						value15.Normalize();
-						value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
-						int FUCKYOU = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.position.X + (float)(target.width / 2), target.position.Y + (float)(target.height / 2),
-							value15.X, value15.Y, 206, (int)((double)modifiers.SourceDamage.Base * 0.25), 0f, Player.whoAmI, 0f, 0f);
-						Main.projectile[FUCKYOU].netUpdate = true;
-					}
-				}
-				if (bloodflareThrowing && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue && crit && Main.rand.Next(2) == 0)
-				{
-					if (target.canGhostHeal)
-					{
-						float num11 = 0.03f;
-						num11 -= (float)proj.numHits * 0.015f;
-						if (num11 < 0f)
-						{
-							num11 = 0f;
-						}
-						float num12 = (float)proj.damage * num11;
-						if (num12 < 0f)
-						{
-							num12 = 0f;
-						}
-						if (Player.lifeSteal > 0f)
-						{
-							Player.statLife += 1;
-							Player.HealEffect(1);
-							Player.lifeSteal -= num12 * 2f;
-						}
-					}
-				}
-				if (bloodflareMage && bloodflareMageCooldown <= 0 && crit && proj.CountsAsClass(DamageClass.Magic))
-				{
-					bloodflareMageCooldown = 120;
-					for (int i = 0; i < 3; i++)
-					{
-						Vector2 value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-						while (value15.X == 0f && value15.Y == 0f)
-						{
-							value15 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-						}
-						value15.Normalize();
-						value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
-						int fire = Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.position.X + (float)(target.width / 2), target.position.Y + (float)(target.height / 2),
-							value15.X, value15.Y, 15, (int)((double)modifiers.SourceDamage.Base * 0.5), 0f, Player.whoAmI, 0f, 0f);
-						Main.projectile[fire].netUpdate = true;
-					}
 				}
 				if (bloodflareMelee && isTrueMelee)
 				{
@@ -6866,10 +6874,6 @@ namespace CalamityModClassicPreTrailer
 							}
 						}
 					}
-				}
-				if (raiderTalisman && raiderStack < 250 && proj.GetGlobalProjectile<CalamityGlobalProjectile>().rogue && crit)
-				{
-					raiderStack++;
 				}
 				if (CalamityWorldPreTrailer.revenge && Config.AdrenalineAndRage)
 				{

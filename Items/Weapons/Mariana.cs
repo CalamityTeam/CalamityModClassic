@@ -63,7 +63,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					}
 					value15.Normalize();
 					value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, value15.X, value15.Y, Mod.Find<ModProjectile>("MarianaProjectile").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, value15.X, value15.Y, Mod.Find<ModProjectile>("MarianaProjectile").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, 0f);
 				}
 				for (int num621 = 0; num621 < 30; num621++)
 				{

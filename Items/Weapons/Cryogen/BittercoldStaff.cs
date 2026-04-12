@@ -82,7 +82,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Cryogen
                 num133 *= num80;
                 float x2 = vector2.X;
                 float y2 = vector2.Y;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), x2, y2, num132, num133, Mod.Find<ModProjectile>("IceSpike").Type, num73, num74, i, 0f, 0f);
+                Projectile.NewProjectile(source, x2, y2, num132, num133, Mod.Find<ModProjectile>("IceSpike").Type, num73, num74, i, 0f, 0f);
             }
             return false;
         }

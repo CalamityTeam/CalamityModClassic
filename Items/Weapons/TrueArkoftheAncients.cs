@@ -43,7 +43,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 case 0: type = Mod.Find<ModProjectile>("EonBeam").Type; break;
                 case 1: type = Mod.Find<ModProjectile>("EonBeamV2").Type; break;
             }
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
             int i = Main.myPlayer;
             float num72 = Main.rand.Next(18, 27);
             float num74 = Item.knockBack;
@@ -94,9 +94,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 num79 *= num80;
                 float speedX4 = num78 + (float)Main.rand.Next(-160, 161) * 0.02f;
                 float speedY5 = num79 + (float)Main.rand.Next(-160, 161) * 0.02f;
-                int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, 92, damage, num74, i, 0f, (float)Main.rand.Next(10));
+                int proj = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, 92, damage, num74, i, 0f, (float)Main.rand.Next(10));
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("TerraBall").Type, damage, num74, i, 0f, (float)Main.rand.Next(5));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("TerraBall").Type, damage, num74, i, 0f, (float)Main.rand.Next(5));
             }
             return false;
         }

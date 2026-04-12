@@ -72,7 +72,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 				velocity.Y = 0;
 				Item.useTime = 20;
 				Item.useAnimation = 20;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MelterAmp").Type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source,position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MelterAmp").Type, damage, knockback, player.whoAmI);
 				return false;
 			}
 			else
@@ -93,7 +93,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 					SpeedY *= 1.5f;
 					type = Mod.Find<ModProjectile>("MelterNote2").Type;
 				}
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 				return false;
 			}
 		}

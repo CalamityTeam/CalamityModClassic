@@ -46,7 +46,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	    {
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("FossilSpike").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+	    	Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("FossilSpike").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 		}
 	}
 }

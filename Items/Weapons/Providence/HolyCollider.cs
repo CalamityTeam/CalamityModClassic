@@ -46,8 +46,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Providence
             for (i = 0; i < 4; i++)
             {
                 offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("HolyColliderHolyFire").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.3), Item.knockBack, Main.myPlayer);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("HolyColliderHolyFire").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.3), Item.knockBack, Main.myPlayer);
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("HolyColliderHolyFire").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.3), Item.knockBack, Main.myPlayer);
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), Mod.Find<ModProjectile>("HolyColliderHolyFire").Type, (int)((double)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative) * 0.3), Item.knockBack, Main.myPlayer);
             }
         }
     }

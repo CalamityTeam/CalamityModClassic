@@ -93,7 +93,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 num149 *= num80;
                 float x4 = vector2.X;
                 float y4 = vector2.Y;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), x4, y4, num148, num149, Mod.Find<ModProjectile>("RoyalKnifeMelee").Type, damage, knockback, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(source, x4, y4, num148, num149, Mod.Find<ModProjectile>("RoyalKnifeMelee").Type, damage, knockback, player.whoAmI, 0f, 0f);
             }
             return false;
         }

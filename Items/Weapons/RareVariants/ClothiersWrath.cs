@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 			for (int i = 0; i < numProj + 1; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numProj - 1)));
-				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null),position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+				int proj = Projectile.NewProjectile(source,position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMagic = true;
 			}
 			return false;

@@ -69,7 +69,7 @@ namespace CalamityModClassicPreTrailer.Items.SunkenSea
 								case 2: type = Mod.Find<ModProjectile>("PendantProjectile3").Type;
 										damage = 30; break;
 							}
-                            int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null),spawn.X, spawn.Y, velocity.X / 3, velocity.Y / 2, type, damage, 5f, Main.myPlayer, 0f, 0f);
+                            int projectile = Projectile.NewProjectile(player.GetSource_Accessory(Item), spawn.X, spawn.Y, velocity.X / 3, velocity.Y / 2, type, damage, 5f, Main.myPlayer, 0f, 0f);
                             Main.projectile[projectile].tileCollide = false;
                             Main.projectile[projectile].timeLeft = 220;
                         }

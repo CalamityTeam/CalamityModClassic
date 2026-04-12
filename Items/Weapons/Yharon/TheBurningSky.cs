@@ -84,7 +84,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Yharon
                 num79 *= num80;
                 float speedX4 = num78 + (float)Main.rand.Next(-1000, 1001) * 0.02f;
                 float speedY5 = num79 + (float)Main.rand.Next(-1000, 1001) * 0.02f;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("BurningMeteor").Type, damage, knockback, i, 0f, (float)Main.rand.Next(10));
+                Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("BurningMeteor").Type, damage, knockback, i, 0f, (float)Main.rand.Next(10));
             }
             return false;
         }

@@ -55,7 +55,7 @@ namespace CalamityModClassicPreTrailer.Items.Crabulon
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("FungalClump").Type] < 1)
 				{
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("FungalClump").Type, (int)(10f * player.GetDamage(DamageClass.Summon).Multiplicative), 1f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("FungalClump").Type, (int)(10f * player.GetDamage(DamageClass.Summon).Multiplicative), 1f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

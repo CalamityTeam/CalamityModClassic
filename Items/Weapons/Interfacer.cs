@@ -57,7 +57,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	        {
 	            float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
 	            float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-	            int bullet = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	            int bullet = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
                 Main.projectile[bullet].extraUpdates += 1;
             }
 			float num72 = Item.shootSpeed;
@@ -101,7 +101,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-30, 31) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
-				int bullet = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				int bullet = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
                 Main.projectile[bullet].extraUpdates += 1;
                 Main.projectile[bullet].tileCollide = false;
 
@@ -124,7 +124,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 num79 *= num80;
                 float speedX6 = num78 + (float)Main.rand.Next(-30, 31) * 0.02f;
                 float speedY7 = num79 + (float)Main.rand.Next(-30, 31) * 0.02f;
-                int bullet2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX6, -speedY7, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+                int bullet2 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX6, -speedY7, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
                 Main.projectile[bullet2].extraUpdates += 1;
                 Main.projectile[bullet2].tileCollide = false;
             }

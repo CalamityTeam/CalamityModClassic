@@ -57,11 +57,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.DevourerofGods
                 float SpeedY = velocity.Y + (float)Main.rand.Next(-20, 21) * 0.05f;
                 if (type == ProjectileID.WoodenArrowFriendly)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("NebulaShot").Type, damage, knockback, player.whoAmI, 0f, 0f);
+                    Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("NebulaShot").Type, damage, knockback, player.whoAmI, 0f, 0f);
                 }
                 else
                 {
-                    int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+                    int num121 = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
                     Main.projectile[num121].noDropItem = true;
                 }
             }

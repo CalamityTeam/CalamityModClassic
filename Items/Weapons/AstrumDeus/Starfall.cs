@@ -61,7 +61,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.AstrumDeus
             {
                 float speedX4 = 2f + (float)Main.rand.Next(-8, 5);
                 float speedY5 = 15f + (float)Main.rand.Next(1, 6);
-                int star = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
+                int star = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
             }
             return false;
 	    }

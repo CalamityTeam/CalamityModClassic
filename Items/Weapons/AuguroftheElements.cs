@@ -74,7 +74,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			{
 				num92 *= -1f;
 			}
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, value2.X, value2.Y, type, damage, knockback, player.whoAmI, num92, num91);
+			Projectile.NewProjectile(source, vector2.X, vector2.Y, value2.X, value2.Y, type, damage, knockback, player.whoAmI, num92, num91);
 	    	return false;
 		}
 	}

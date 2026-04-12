@@ -73,7 +73,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			    {
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-30, 31) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-30, 31) * 0.05f;
-			        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f);
+			        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f);
 			    }
 	    		return false;
 	    	}
@@ -122,7 +122,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					num79 *= num80;
 					float num114 = num78;
 					float num115 = num79 + (float)Main.rand.Next(-40, 41) * 0.02f;
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f); //0.3
+					Projectile.NewProjectile(source, vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, type, damage, knockback, player.whoAmI, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.9f); //0.3
 				}
 	    		return false;
 	    	}

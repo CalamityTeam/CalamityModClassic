@@ -64,13 +64,13 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 					{
 						type = Mod.Find<ModProjectile>("TyphoonArrow").Type;
 					}
-					int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+					int num121 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 					Main.projectile[num121].GetGlobalProjectile<CalamityGlobalProjectile>().forceRanged = true;
 					Main.projectile[num121].noDropItem = true;
 				}
 				else
 				{
-					int num121 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
+					int num121 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 					Main.projectile[num121].noDropItem = true;
 				}
 			}

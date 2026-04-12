@@ -59,7 +59,7 @@ namespace CalamityModClassicPreTrailer.Items.BrimstoneWaifu
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] < 1)
 				{
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, (int)(45f * player.GetDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, (int)(45f * player.GetDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

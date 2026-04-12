@@ -40,7 +40,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
             for (int x = 0; x < 3; x++)
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.position.X + (float)Main.rand.Next(-100, 100), player.position.Y - 600f, 0f, 8f, type, damage, knockback, Main.myPlayer, 0f, 0f);
+                Projectile.NewProjectile(source, player.position.X + (float)Main.rand.Next(-100, 100), player.position.Y - 600f, 0f, 8f, type, damage, knockback, Main.myPlayer, 0f, 0f);
             }
             return false;
 		}

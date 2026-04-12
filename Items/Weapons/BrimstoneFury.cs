@@ -43,7 +43,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			for (int i = 0; i < numProj + 1; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numProj - 1)));
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("BrimstoneBolt").Type, damage, knockback, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("BrimstoneBolt").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			}
 			return false;
 		}

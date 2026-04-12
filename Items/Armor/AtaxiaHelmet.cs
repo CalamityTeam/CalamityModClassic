@@ -56,7 +56,7 @@ namespace CalamityModClassicPreTrailer.Items.Armor
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("ChaosSpirit").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null),player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("ChaosSpirit").Type, (int)(190f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("ChaosSpirit").Type, (int)(190f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
                 }
             }
             player.GetDamage(DamageClass.Summon) += 0.4f;

@@ -66,7 +66,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			{
 				vector2 += new Vector2(num208, num209);
 			}
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y - player.gravDir * 4f, num208, num209, 587, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(12) / 6f);
+			Projectile.NewProjectile(source, position.X, position.Y - player.gravDir * 4f, num208, num209, 587, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(12) / 6f);
 	    	return false;
 		}
 	

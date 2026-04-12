@@ -61,12 +61,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				}
 				if (type == ProjectileID.WoodenArrowFriendly)
 				{
-					int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FlareBat").Type, (int)((double)damage * 1.5f), knockback, player.whoAmI, 0.0f, 0.0f);
+					int num123 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("FlareBat").Type, (int)((double)damage * 1.5f), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[num123].noDropItem = true;
 				}
 				else
 				{
-					int num123 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.66), knockback, player.whoAmI, 0.0f, 0.0f);
+					int num123 = Projectile.NewProjectile(source, vector2.X + value9.X, vector2.Y + value9.Y, velocity.X, velocity.Y, type, (int)((double)damage * 0.66), knockback, player.whoAmI, 0.0f, 0.0f);
 					Main.projectile[num123].noDropItem = true;
 				}
 			}

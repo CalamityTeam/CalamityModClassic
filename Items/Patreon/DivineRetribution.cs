@@ -82,7 +82,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
                 float speedX6 = num78 + (float)Main.rand.Next(-60, 61) * 0.02f;
                 float speedY7 = num79 + (float)Main.rand.Next(-60, 61) * 0.02f;
                 float ai1 = (Main.rand.NextFloat() + 0.5f);
-                int bullet2 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX6, -speedY7, type, damage, knockback, player.whoAmI, 0.0f, ai1);
+                int bullet2 = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX6, -speedY7, type, damage, knockback, player.whoAmI, 0.0f, ai1);
             }
             return false;
         }

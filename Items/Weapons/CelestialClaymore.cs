@@ -86,7 +86,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		    		case 2: type = Mod.Find<ModProjectile>("CosmicSpiritBomb3").Type; break;
 		    		default: break;
 				}
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, 0f, 0f, type, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(3));
 			}
 	    	return false;
 		}

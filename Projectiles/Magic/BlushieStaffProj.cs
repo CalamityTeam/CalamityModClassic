@@ -89,7 +89,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Magic
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         { 
-            target.damage += target.defense * 2;
+            modifiers.FinalDamage += target.defense * 2;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

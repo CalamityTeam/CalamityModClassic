@@ -62,7 +62,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 			int centerID = Mod.Find<ModProjectile>("AtaraxiaMain").Type;
 			int centerDamage = damage;
 			Vector2 centerVec = new Vector2(velocity.X, velocity.Y);
-			int center = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, centerID, centerDamage, knockback, player.whoAmI, 0.0f, 0.0f);
+			int center = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, centerID, centerDamage, knockback, player.whoAmI, 0.0f, 0.0f);
 
 			// Side projectiles (these deal 75% damage)
 			int sideID = Mod.Find<ModProjectile>("AtaraxiaSide").Type;
@@ -75,8 +75,8 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 			Vector2 rightOffset = speed.RotatedBy((double)(-MathHelper.PiOver4), default(Vector2));
 			leftOffset -= 1.4f * speed;
 			rightOffset -= 1.4f * speed;
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), rrp.X + leftOffset.X, rrp.Y + leftOffset.Y, velocity.X, velocity.Y, sideID, sideDamage, knockback, player.whoAmI, 0.0f, 0.0f);
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), rrp.X + rightOffset.X, rrp.Y + rightOffset.Y, velocity.X, velocity.Y, sideID, sideDamage, knockback, player.whoAmI, 0.0f, 0.0f);
+			Projectile.NewProjectile(source, rrp.X + leftOffset.X, rrp.Y + leftOffset.Y, velocity.X, velocity.Y, sideID, sideDamage, knockback, player.whoAmI, 0.0f, 0.0f);
+			Projectile.NewProjectile(source, rrp.X + rightOffset.X, rrp.Y + rightOffset.Y, velocity.X, velocity.Y, sideID, sideDamage, knockback, player.whoAmI, 0.0f, 0.0f);
 			return false;
 		}
 
@@ -104,7 +104,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 				Vector2 velocity = new Vector2(posVec.X, posVec.Y).RotatedBy(spinOffsetAngle);
 				velocity.Normalize();
 				velocity *= 8f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),target.Center + posVec, velocity, trueMeleeID, trueMeleeDamage, Item.knockBack, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item),target.Center + posVec, velocity, trueMeleeID, trueMeleeDamage, Item.knockBack, player.whoAmI, 0.0f, 0.0f);
 			}
 		}
 

@@ -49,11 +49,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			int randomProj = Main.rand.Next(2);
 			if (randomProj == 0)
 			{
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OpalStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("OpalStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 			else
 			{
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MagnaStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("MagnaStrike").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			}
 		    return false;
 		}

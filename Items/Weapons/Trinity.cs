@@ -48,7 +48,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             {
                 float SpeedX = velocity.X + (float)Main.rand.Next(-30, 31) * 0.05f;
                 float SpeedY = velocity.Y + (float)Main.rand.Next(-30, 31) * 0.05f;
-                int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.6), knockback, Main.myPlayer, 0f, 0f);
+                int proj = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.6), knockback, Main.myPlayer, 0f, 0f);
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
             return false;

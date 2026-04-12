@@ -86,7 +86,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78;
 				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Earth").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, speedX4, speedY5, Mod.Find<ModProjectile>("Earth").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0f, (float)Main.rand.Next(10));
 			}
 			if (target.type == NPCID.TargetDummy || !target.canGhostHeal)
 			{

@@ -38,9 +38,9 @@ namespace CalamityModClassicPreTrailer.Items.Permafrost
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 speed = new Vector2(velocity.X, velocity.Y);
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null),position, speed, type, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null),position, speed.RotatedBy(MathHelper.ToRadians(5)), type, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(Entity.GetSource_FromThis(null), position, speed.RotatedBy(MathHelper.ToRadians(-5)), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source,position, speed, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source,position, speed.RotatedBy(MathHelper.ToRadians(5)), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, speed.RotatedBy(MathHelper.ToRadians(-5)), type, damage, knockback, player.whoAmI);
             return false;
         }
     }

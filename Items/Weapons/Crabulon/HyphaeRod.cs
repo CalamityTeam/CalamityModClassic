@@ -88,7 +88,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Crabulon
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-180, 181) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-180, 181) * 0.02f;
-				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, i, 0f, (float)Main.rand.Next(3));
+				int proj = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, i, 0f, (float)Main.rand.Next(3));
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMagic = true;
 			}
 	    	return false;

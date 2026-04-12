@@ -50,7 +50,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 	        {
 				float SpeedX = velocity.X + (float)Main.rand.Next(-15, 16) * 0.05f;
 				float SpeedY = velocity.Y + (float)Main.rand.Next(-15, 16) * 0.05f;
-	            int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+	            int proj = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
 				Main.projectile[proj].extraUpdates += 1;
 	        }
 			float num72 = Item.shootSpeed;
@@ -96,7 +96,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-15, 16) * 0.01f;
 				float speedY5 = num79 + (float)Main.rand.Next(-15, 16) * 0.01f;
-				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
+				int proj = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockback, player.whoAmI, 0f, 0f);
 				Main.projectile[proj].extraUpdates += 1;
 			}
 	        return false;

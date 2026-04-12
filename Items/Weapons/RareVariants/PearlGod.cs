@@ -48,9 +48,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 			for (int index = 0; index < 2; ++index)
 			{
 				float speedMult = (float)(index + 1) * 0.15f;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null),position.X, position.Y, velocity.X * speedMult, velocity.Y * speedMult, Mod.Find<ModProjectile>("FrostsparkBullet").Type, (int)((double)damage * 0.5), knockback, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(source,position.X, position.Y, velocity.X * speedMult, velocity.Y * speedMult, Mod.Find<ModProjectile>("FrostsparkBullet").Type, (int)((double)damage * 0.5), knockback, player.whoAmI, 0.0f, 0.0f);
 			}
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ShockblastRound").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("ShockblastRound").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

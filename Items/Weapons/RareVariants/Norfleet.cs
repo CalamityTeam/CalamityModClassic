@@ -49,7 +49,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Norfleet").Type, 0, 0f, player.whoAmI);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Norfleet").Type, 0, 0f, player.whoAmI);
             return false;
 		}
 	}

@@ -48,7 +48,7 @@ namespace CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage
 			{
 				type = Mod.Find<ModProjectile>("CraniumSmasher").Type;
 			}
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 			return false;
 		}	
 	}

@@ -129,25 +129,25 @@ namespace CalamityModClassicPreTrailer.Items.Armor
                         velY = 0f;
                         vector2.X = (float)Main.mouseX + Main.screenPosition.X;
                         vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-                        int curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormHead").Type, damage, 1f, owner);
+                        int curr = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormHead").Type, damage, 1f, owner);
 
                         int prev = curr;
-                        curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, 1f, owner, (float)prev);
+                        curr = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, 1f, owner, (float)prev);
 
                         prev = curr;
-                        curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, 1f, owner, (float)prev);
+                        curr = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, 1f, owner, (float)prev);
                         Main.projectile[prev].localAI[1] = (float)curr;
                         Main.projectile[prev].netUpdate = true;
 
                         prev = curr;
-                        curr = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormTail").Type, damage, 1f, owner, (float)prev);
+                        curr = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormTail").Type, damage, 1f, owner, (float)prev);
                         Main.projectile[prev].localAI[1] = (float)curr;
                         Main.projectile[prev].netUpdate = true;
                     }
                     else if (head != -1 && tail != -1)
                     {
-                        int body = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, 1f, owner, Main.projectile[tail].ai[0]);
-                        int back = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, 1f, owner, (float)body);
+                        int body = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody").Type, damage, 1f, owner, Main.projectile[tail].ai[0]);
+                        int back = Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, velX, velY, Mod.Find<ModProjectile>("MechwormBody2").Type, damage, 1f, owner, (float)body);
 
                         Main.projectile[body].localAI[1] = (float)back;
                         Main.projectile[body].ai[1] = 1f;

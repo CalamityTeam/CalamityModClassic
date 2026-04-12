@@ -57,7 +57,7 @@ namespace CalamityModClassicPreTrailer.Items.BrimstoneWaifu
                             Vector2 velocity = baseVelocity;
                             velocity = baseVelocity.RotatedBy(MathHelper.ToRadians(-FireAngleSpread / 2 + (FireAngleSpread * i / (float)FireProjectiles)));
                             velocity.X = velocity.X + 3 * Main.rand.NextFloat() - 1.5f;
-                            int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), spawn.X, spawn.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BrimstoneHellfireballFriendly2").Type, 54, 5f, Main.myPlayer, 0f, 0f);
+                            int projectile = Projectile.NewProjectile(player.GetSource_Accessory(Item), spawn.X, spawn.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("BrimstoneHellfireballFriendly2").Type, 54, 5f, Main.myPlayer, 0f, 0f);
                             Main.projectile[projectile].tileCollide = false;
                             Main.projectile[projectile].timeLeft = 50;
                         }

@@ -45,7 +45,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, 297, damage, knockback, player.whoAmI, 0f, 0f);
+            int proj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, 297, damage, knockback, player.whoAmI, 0f, 0f);
 			Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceRanged = true;
 			return false;
         }

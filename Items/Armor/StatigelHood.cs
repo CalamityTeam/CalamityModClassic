@@ -52,11 +52,11 @@ namespace CalamityModClassicPreTrailer.Items.Armor
                 }
                 if (WorldGen.crimson && player.ownedProjectileCounts[Mod.Find<ModProjectile>("SlimeGodAlt").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SlimeGodAlt").Type, (int)(33f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SlimeGodAlt").Type, (int)(33f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
                 }
                 else if (!WorldGen.crimson && player.ownedProjectileCounts[Mod.Find<ModProjectile>("SlimeGod").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SlimeGod").Type, (int)(33f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SlimeGod").Type, (int)(33f * player.GetDamage(DamageClass.Summon).Multiplicative), 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }

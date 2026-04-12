@@ -73,7 +73,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		        {
 		            float SpeedX = velocity.X + (float) Main.rand.Next(-50, 51) * 0.05f;
 		            float SpeedY = velocity.Y + (float) Main.rand.Next(-50, 51) * 0.05f;
-		            int flare = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		            int flare = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 		            Main.projectile[flare].penetrate = 1;
 		            Main.projectile[flare].timeLeft = 600;
 		        }
@@ -88,7 +88,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			        float num8 = velocity.Y;
 			        float SpeedX = velocity.X + (float) Main.rand.Next(-40, 41) * 0.05f;
 			        float SpeedY = velocity.Y + (float) Main.rand.Next(-40, 41) * 0.05f;
-			        int projectile = Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.85), knockback, player.whoAmI, 0.0f, 0.0f);
+			        int projectile = Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, (int)((double)damage * 0.85), knockback, player.whoAmI, 0.0f, 0.0f);
 			        Main.projectile[projectile].timeLeft = 200;
 			    }
 			    return false;

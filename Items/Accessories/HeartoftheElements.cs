@@ -83,23 +83,23 @@ namespace CalamityModClassicPreTrailer.Items.Accessories
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("BigBustyRose").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("BigBustyRose").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("SirenLure").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SirenLure").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SirenLure").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("DrewsSandyWaifu").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("DrewsSandyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("DrewsSandyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("SandyWaifu").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SandyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("SandyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
                 }
                 if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("CloudyWaifu").Type] < 1)
                 {
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("CloudyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, -1f, Mod.Find<ModProjectile>("CloudyWaifu").Type, (int)((float)damage * damageMult * player.GetTotalDamage(DamageClass.Summon).Multiplicative), 2f, Main.myPlayer, 0f, 0f);
                 }
             }
             else

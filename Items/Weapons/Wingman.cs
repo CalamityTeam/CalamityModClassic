@@ -41,7 +41,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             int num6 = 3;
             for (int index = 0; index < num6; ++index)
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, 440, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, 440, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

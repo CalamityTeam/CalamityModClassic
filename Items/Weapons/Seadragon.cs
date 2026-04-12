@@ -47,10 +47,10 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 		    float SpeedX = velocity.X + (float) Main.rand.Next(-10, 11) * 0.05f;
 		    float SpeedY = velocity.Y + (float) Main.rand.Next(-10, 11) * 0.05f;
-		    Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+		    Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
             if (Main.rand.Next(10) == 0)
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("SeaDragonRocket").Type, damage * 2, knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("SeaDragonRocket").Type, damage * 2, knockback, player.whoAmI, 0.0f, 0.0f);
             }
 		    return false;
 		}

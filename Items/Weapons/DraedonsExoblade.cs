@@ -61,7 +61,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
         {
             if (target.life <= (target.lifeMax * 0.05f))
             {
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Exoboom").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("Exoboom").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
             }
             if (Main.rand.Next(5) == 0)
             {
@@ -106,7 +106,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
                 for (int comet = 0; comet < 2; comet++)
                 {
                     float ai1 = (Main.rand.NextFloat() + 0.5f);
-                    Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX, speedY, Mod.Find<ModProjectile>("Exocomet").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0.0f, ai1);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), vector2.X, vector2.Y, speedX, speedY, Mod.Find<ModProjectile>("Exocomet").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, player.whoAmI, 0.0f, ai1);
                 }
             }
             if (target.type == NPCID.TargetDummy || !target.canGhostHeal)

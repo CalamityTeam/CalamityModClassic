@@ -62,7 +62,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			if (target.life <= (target.lifeMax * 0.15f))
 			{
 				SoundEngine.PlaySound(SoundID.Item14, player.position);
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("HiveBombExplosion").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("HiveBombExplosion").Type, (int)((float)Item.damage * player.GetDamage(DamageClass.Melee).Multiplicative), Item.knockBack, Main.myPlayer);
 				for (int num621 = 0; num621 < 30; num621++)
 				{
 					int num622 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 89, 0f, 0f, 100, default(Color), 2f);

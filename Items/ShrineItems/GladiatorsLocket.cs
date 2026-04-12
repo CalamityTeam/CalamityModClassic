@@ -55,8 +55,8 @@ namespace CalamityModClassicPreTrailer.Items.ShrineItems
 				}
 				if (player.ownedProjectileCounts[Mod.Find<ModProjectile>("GladiatorSword").Type] < 1)
 				{
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("GladiatorSword").Type, (int)(20f * player.GetDamage(DamageClass.Summon).Multiplicative), 6f, Main.myPlayer, 0f, 0f);
-					Projectile.NewProjectile(Entity.GetSource_FromThis(null), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("GladiatorSword2").Type, (int)(20f * player.GetDamage(DamageClass.Summon).Multiplicative), 6f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("GladiatorSword").Type, (int)(20f * player.GetDamage(DamageClass.Summon).Multiplicative), 6f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("GladiatorSword2").Type, (int)(20f * player.GetDamage(DamageClass.Summon).Multiplicative), 6f, Main.myPlayer, 0f, 0f);
 				}
 			}
 		}

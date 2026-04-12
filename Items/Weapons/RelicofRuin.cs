@@ -46,8 +46,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             for (i = 0; i < 8; i++)
             {
                 offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), type, damage, knockback, Main.myPlayer);
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), type, damage, knockback, Main.myPlayer);
+                Projectile.NewProjectile(source, position.X, position.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), type, damage, knockback, Main.myPlayer);
+                Projectile.NewProjectile(source, position.X, position.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), type, damage, knockback, Main.myPlayer);
             }
             return false;
         }

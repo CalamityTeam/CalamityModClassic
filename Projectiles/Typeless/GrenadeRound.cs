@@ -80,10 +80,10 @@ namespace CalamityModClassicPreTrailer.Projectiles.Typeless
                 target.HitSound != SoundID.NPCHit50 && target.HitSound != SoundID.NPCHit51 && target.HitSound != SoundID.NPCHit55 &&
                 target.HitSound != SoundID.NPCHit56 && target.HitSound != SoundID.NPCHit57)
             {
-                target.damage += target.lifeMax / 20; //500 + 200 = 700 + (100000 / 20 = 5000) = 5700 * 2 (explosion) = 11400 = 11.4% of boss HP
+	            Projectile.damage += target.lifeMax / 20; //500 + 200 = 700 + (100000 / 20 = 5000) = 5700 * 2 (explosion) = 11400 = 11.4% of boss HP
 			}
-            if (target.damage > target.lifeMax / 12 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
-	            target.damage = target.lifeMax / 12;
+            if (Projectile.damage > target.lifeMax / 12 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
+	            Projectile.damage = target.lifeMax / 12;
         }
 
         public override void OnKill(int timeLeft)

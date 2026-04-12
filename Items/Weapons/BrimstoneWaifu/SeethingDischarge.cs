@@ -46,9 +46,9 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.BrimstoneWaifu
 	        float SpeedY2 = velocity.Y - 10f * 0.05f;
 	        float SpeedX3 = velocity.X + 0f * 0.05f;
 	        float SpeedY3 = velocity.Y + 0f * 0.05f;
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX2, SpeedY2, Mod.Find<ModProjectile>("SeethingDischargeBrimstoneHellblast").Type, damage, knockback, player.whoAmI, 0f, 0f);
-	        Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX3, SpeedY3, type, damage, knockback, player.whoAmI, 0f, 0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, type, damage, knockback, player.whoAmI, 0f, 0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX2, SpeedY2, Mod.Find<ModProjectile>("SeethingDischargeBrimstoneHellblast").Type, damage, knockback, player.whoAmI, 0f, 0f);
+	        Projectile.NewProjectile(source, position.X, position.Y, SpeedX3, SpeedY3, type, damage, knockback, player.whoAmI, 0f, 0f);
 	    	return false;
 		}
 	}

@@ -91,7 +91,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Summon
 			{
 				return;
 			}
-			float num = (float)target.damage * 0.25f;
+			float num = (float)hit.Damage * 0.25f;
 			if ((int)num == 0)
 			{
 				return;

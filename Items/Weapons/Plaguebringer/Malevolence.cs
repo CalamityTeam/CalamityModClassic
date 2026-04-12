@@ -48,7 +48,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Plaguebringer
             {
                 float SpeedX = velocity.X + (float)Main.rand.Next(-20, 21) * 0.05f;
                 float SpeedY = velocity.Y + (float)Main.rand.Next(-20, 21) * 0.05f;
-                Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("PlagueArrow").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("PlagueArrow").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

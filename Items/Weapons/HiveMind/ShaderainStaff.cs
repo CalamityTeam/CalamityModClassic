@@ -60,7 +60,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.HiveMind
 			}
 	    	num78 *= num80;
 			num79 *= num80;
-			int num154 = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("ShadeNimbusCloud").Type, damage, knockback, player.whoAmI, 0f, 0f);
+			int num154 = Projectile.NewProjectile(source, vector2.X, vector2.Y, num78, num79, Mod.Find<ModProjectile>("ShadeNimbusCloud").Type, damage, knockback, player.whoAmI, 0f, 0f);
 			Main.projectile[num154].ai[0] = (float)Main.mouseX + Main.screenPosition.X;
 			Main.projectile[num154].ai[1] = (float)Main.mouseY + Main.screenPosition.Y;
 	    	return false;

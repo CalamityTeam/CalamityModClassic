@@ -37,13 +37,13 @@ namespace CalamityModClassicPreTrailer.Projectiles.Typeless
                 target.HitSound != SoundID.NPCHit49 && target.HitSound != SoundID.NPCHit52 && target.HitSound != SoundID.NPCHit53 &&
                 target.HitSound != SoundID.NPCHit54 && target.HitSound != null)
             {
-                target.damage += target.lifeMax / 25; //400 + 80 = 480 + (100000 / 25 = 4000) = 4480, if crit = 5600 = 5.6% of boss HP
+                Projectile.damage += target.lifeMax / 25; //400 + 80 = 480 + (100000 / 25 = 4000) = 4480, if crit = 5600 = 5.6% of boss HP
             }
-            if (target.damage > target.lifeMax / 15 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
-                target.damage = target.lifeMax / 15;
-            if (modifiers.ToHitInfo(target.damage, true, modifiers.Knockback.Base, false, 0f).Crit)
+            if (Projectile.damage > target.lifeMax / 15 && CalamityPlayerPreTrailer.areThereAnyDamnBosses)
+                Projectile.damage = target.lifeMax / 15;
+            if (modifiers.ToHitInfo(Projectile.damage, true, modifiers.Knockback.Base, false, 0f).Crit)
             {
-                target.damage = (int)((double)target.damage * 1.25);
+                modifiers.FinalDamage *= 1.25f;
                 modifiers.Knockback *= 1.25f;
             }
         }

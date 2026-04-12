@@ -52,7 +52,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			{
 				player.KillMe(PlayerDeathReason.ByOther(10), 1000.0, 0, false);
 			}
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NullShot").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("NullShot").Type, damage, knockback, player.whoAmI, 0.0f, 0.0f);
 	    	return false;
 		}
 	}

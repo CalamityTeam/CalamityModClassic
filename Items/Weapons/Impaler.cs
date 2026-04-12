@@ -48,11 +48,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	        float SpeedY = velocity.Y + (float) Main.rand.Next(-5, 6) * 0.05f;
 	        if (Main.rand.Next(3) == 0)
 	        {
-	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("ExplodingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("ExplodingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 	        }
 	        else
 	        {
-	        	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("FlamingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
+	        	Projectile.NewProjectile(source, position.X, position.Y, SpeedX, SpeedY, Mod.Find<ModProjectile>("FlamingStake").Type, (int)((double)damage), knockback, player.whoAmI, 0.0f, 0.0f);
 	        }
 	    	return false;
 		}

@@ -19,6 +19,7 @@ namespace CalamityModClassicPreTrailer.Tiles.MusicBoxes
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2;
+			TileObjectData.newTile.StyleLineSkip = 2;
 			TileObjectData.addTile((int)Type);
 			TileID.Sets.DisableSmartCursor[0] = true;
 			LocalizedText name = CreateMapEntryName();

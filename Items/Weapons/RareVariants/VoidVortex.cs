@@ -71,8 +71,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 			for (i = 0; i < 4; i++)
 			{
 				offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), type, damage, knockback, player.whoAmI, passedVar, 0f);
-				Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), type, damage, knockback, player.whoAmI, -passedVar, 0f);
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, (float)(Math.Sin(offsetAngle) * 5f), (float)(Math.Cos(offsetAngle) * 5f), type, damage, knockback, player.whoAmI, passedVar, 0f);
+				Projectile.NewProjectile(source, vector2.X, vector2.Y, (float)(-Math.Sin(offsetAngle) * 5f), (float)(-Math.Cos(offsetAngle) * 5f), type, damage, knockback, player.whoAmI, -passedVar, 0f);
 				passedVar += 1f;
 			}
 			return false;

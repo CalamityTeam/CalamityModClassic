@@ -74,7 +74,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			Vector2 vector15 = new Vector2(num78, num79).SafeNormalize(Vector2.UnitY) * num72;
 			vector14 = vector14.SafeNormalize(vector15) * num72;
 			vector14 = Vector2.Lerp(vector14, vector15, 0.25f);
-			Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector13, vector14, type, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, vector13, vector14, type, damage, knockback, player.whoAmI, 0f, 0f);
 			return false;
 		}
 	}

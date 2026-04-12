@@ -51,8 +51,8 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 	    	float ai3 = (Main.rand.NextFloat() - 0.75f) * 0.7853982f; //0.5
 	    	float ai3X = (Main.rand.NextFloat() - 0.25f) * 0.7853982f; //0.5
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Mourningstar").Type, damage, knockback, player.whoAmI, 0.0f, ai3);
-	    	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Mourningstar").Type, damage, knockback, player.whoAmI, 0.0f, ai3X);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Mourningstar").Type, damage, knockback, player.whoAmI, 0.0f, ai3);
+	    	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Mourningstar").Type, damage, knockback, player.whoAmI, 0.0f, ai3X);
 	    	return false;
 		}
 	}

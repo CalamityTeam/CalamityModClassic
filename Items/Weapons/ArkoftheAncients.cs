@@ -43,7 +43,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 	    		case 0: type = Mod.Find<ModProjectile>("EonBeam").Type; break;
 	    		case 1: type = 173; break;
 			}
-	       	Projectile.NewProjectile(Entity.GetSource_FromThis(null), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
+	       	Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, Main.myPlayer);
 			float num72 = Main.rand.Next(18, 25);
 			damage = Main.rand.Next(40, 60);
 	    	Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -89,7 +89,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				num79 *= num80;
 				float speedX4 = num78 + (float)Main.rand.Next(-120, 121) * 0.02f;
 				float speedY5 = num79 + (float)Main.rand.Next(-120, 121) * 0.02f;
-				int proj = Projectile.NewProjectile(Entity.GetSource_FromThis(null), vector2.X, vector2.Y, speedX4, speedY5, 92, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
+				int proj = Projectile.NewProjectile(source, vector2.X, vector2.Y, speedX4, speedY5, 92, damage, knockback, player.whoAmI, 0f, (float)Main.rand.Next(5));
 				Main.projectile[proj].GetGlobalProjectile<CalamityGlobalProjectile>().forceMelee = true;
 			}
 	    	return false;
