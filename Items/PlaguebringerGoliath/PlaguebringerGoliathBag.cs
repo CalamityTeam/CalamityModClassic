@@ -35,14 +35,16 @@ namespace CalamityModClassicPreTrailer.Items.PlaguebringerGoliath
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-			itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<Malachite>(), 20)));
-			itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Malachite>(), 100)));
-				itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
-				{ 
-					ModContent.ItemType<StressPills>(),
-					ModContent.ItemType<Laudanum>(),
-					ModContent.ItemType<HeartofDarkness>(),
-				})));
+			revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<Malachite>(), 20));
+			revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Malachite>(), 100));
+			revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+			{ 
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(), 
+			}));
+			itemLoot.Add(revActive);
+				
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<PestilentDefiler>(), 3));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<ThePlaguebringer>(), 3));

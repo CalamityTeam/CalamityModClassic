@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.GreatSandShark
 		{
 			// DisplayName.SetDefault("Sand Sharknado Staff");
 			// Tooltip.SetDefault("Summons a sandnado to fight for you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

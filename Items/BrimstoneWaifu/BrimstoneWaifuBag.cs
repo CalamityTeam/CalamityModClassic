@@ -33,29 +33,23 @@ namespace CalamityModClassicPreTrailer.Items.BrimstoneWaifu
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-				itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<CharredRelic>(), 1, 1, 1, 1)));
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new ProvCondition(), ModContent.ItemType<Brimrose>(), 1, 1, 1, 1)));
-					itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
-			Main.LocalPlayer.TryGettingDevArmor(null);
-			switch (Main.rand.Next(3))
+			revActive.OnSuccess(new CommonDrop(ModContent.ItemType<CharredRelic>(), 1, 1, 1, 1));
+			revActive.OnSuccess(ItemDropRule.ByCondition(new ProvCondition(), ModContent.ItemType<Brimrose>(), 1, 1, 1, 1));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
 			{
-				case 0:
-					itemLoot.Add(new CommonDrop(ModContent.ItemType<Abaddon>(), 1));
-					break;
-				case 1:
-					itemLoot.Add(new CommonDrop(ModContent.ItemType<Abaddon>(), 1));
-					itemLoot.Add(new CommonDrop(ModContent.ItemType<Brimlance>(), 1));
-					break;
-				case 2:
-					itemLoot.Add(new CommonDrop(ModContent.ItemType<Abaddon>(), 1));
-					itemLoot.Add(new CommonDrop(ModContent.ItemType<SeethingDischarge>(), 1));
-					break;
-			}
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			}))); 
+			itemLoot.Add(revActive);
+			
+			Main.LocalPlayer.TryGettingDevArmor(null);
+			itemLoot.Add(new CommonDrop(ModContent.ItemType<Abaddon>(), 1));
+			ItemDropRule.OneFromOptions(1, new int[]
+			{
+				ModContent.ItemType<Brimlance>(),
+				ModContent.ItemType<SeethingDischarge>()
+			});
 			itemLoot.Add(ItemDropRule.ByCondition(new ProvCondition(), ModContent.ItemType<Bloodstone>(), 1, 25, 36));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<RoseStone>(), 10));
 			itemLoot.Add(new CommonDrop(ItemID.SoulofFright, 1, 25, 41));

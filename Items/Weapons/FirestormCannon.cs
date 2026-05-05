@@ -15,6 +15,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 			// DisplayName.SetDefault("Firestorm Cannon");
 			// Tooltip.SetDefault("70% chance to not consume flares\nRight click to change modes");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

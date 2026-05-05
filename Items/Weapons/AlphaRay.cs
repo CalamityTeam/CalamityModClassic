@@ -16,6 +16,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			// DisplayName.SetDefault("Alpha Ray");
 			/* Tooltip.SetDefault("Disintegrates everything\n" +
 				"Right click to change modes"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 

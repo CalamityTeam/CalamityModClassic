@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.AbyssWeapons
         {
             // DisplayName.SetDefault("Calamari's Lament");
             // Tooltip.SetDefault("Summons a squid to fight for you");
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

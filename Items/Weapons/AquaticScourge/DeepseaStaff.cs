@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.AquaticScourge
 		{
 			// DisplayName.SetDefault("Deepsea Staff");
 			// Tooltip.SetDefault("Summons an aquatic star to fight for you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

@@ -18,6 +18,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			                   "Fires a powerful sniper round\n" +
 			                   "Right click to fire a burst of bullets\n" +
                                "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

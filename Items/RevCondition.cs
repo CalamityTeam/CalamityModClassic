@@ -9,6 +9,6 @@ namespace CalamityModClassicPreTrailer.Items
         
         public bool CanShowItemDropInUI() => CalamityWorldPreTrailer.revenge;
         
-        public string GetConditionDescription() => "This is a Revengeance Mode drop";
+        public string GetConditionDescription() => null;
     }
 }

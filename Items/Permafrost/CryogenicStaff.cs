@@ -14,6 +14,7 @@ namespace CalamityModClassicPreTrailer.Items.Permafrost
 			// DisplayName.SetDefault("Cryogenic Staff");
 			/* Tooltip.SetDefault(@"Summons an animated ice construct to protect you
 Fire rate and range increase the longer it targets an enemy"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

@@ -53,7 +53,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 
 		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.SourceDamage.Base *= 15;
+			modifiers.SourceDamage *= 15;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

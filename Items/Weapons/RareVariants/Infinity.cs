@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.RareVariants
 			/* Tooltip.SetDefault("Bad PC\n" +
 				"Fires a barrage of energy bolts that split and bounce\n" +
 				"Right click to fire a barrage of normal bullets"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

@@ -54,10 +54,10 @@ namespace CalamityModClassicPreTrailer.Tiles.FurniturePlaguedPlate
             }
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Mod.Find<ModItem>("PlaguedPlateCandelabra").Type);
-        }
+        }*/
 
         public override void HitWire(int i, int j)
         {

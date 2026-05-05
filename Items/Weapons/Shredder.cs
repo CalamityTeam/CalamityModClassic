@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			/* Tooltip.SetDefault("The myth, the legend, the weapon that drops more frames than any other\n" +
 				"Fires a barrage of energy bolts that split and bounce\n" +
 				"Right click to fire a barrage of normal bullets"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

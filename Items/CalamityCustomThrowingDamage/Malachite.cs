@@ -18,6 +18,7 @@ namespace CalamityModClassicPreTrailer.Items.CalamityCustomThrowingDamage
 				"Throws a stream of kunai that stick to enemies and explode\n" +
 				"Right click to throw a single kunai that pierces, after piercing an enemy it emits a massive explosion on the next enemy hit\n" +
                 "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SafeSetDefaults()

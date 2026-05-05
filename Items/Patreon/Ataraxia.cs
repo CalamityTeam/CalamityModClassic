@@ -45,11 +45,14 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 		
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			// thanks ataraxia very cool
-			// i'll never forget your 13276749 damage lol
+			// stat modifiers are wack, yo
+			float damageBoost = (float)BaseDamage * player.GetModPlayer<CalamityPlayerPreTrailer>().ataraxiaDamageBoost;
+			damage.Base += damageBoost;
+			/*
 			float damageBoost = (float)BaseDamage * player.GetModPlayer<CalamityPlayerPreTrailer>().ataraxiaDamageBoost;
 			float damageAdd = damageBoost + (float)BaseDamage;
-			damage.Base = (damageAdd * player.GetDamage(DamageClass.Melee).Base);
+			damage = (damageAdd * player.GetDamage(DamageClass.Melee));
+			*/
 		}
 
 		// Fires one large and two small projectiles which stay together in formation.

@@ -15,6 +15,7 @@ namespace CalamityModClassicPreTrailer.Items
                 "Regenerates 1 million life per second\n" +
                 "Will not die when taking damage over time from debuffs\n" +
                 "Right click to kill all super dummies"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

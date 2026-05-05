@@ -57,7 +57,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Amidias
 				Projectile.ai[0] += 0.75f;
 			}
 
-			if (Main.player[Projectile.owner].itemAnimation == 0)
+			if(Main.player[Projectile.owner].itemAnimation <= 1)
 			{
 				Projectile.Kill();
 			}

@@ -7532,7 +7532,10 @@ namespace CalamityModClassicPreTrailer
 			}
 			if (purpleCandle)
 			{
-				modifiers.FinalDamage -= Player.statDefense * 0.05f;
+				// thanks resilient candle very cool
+				float currentEffectiveness = Player.DefenseEffectiveness.Value;
+				float desiredEffectiveness = currentEffectiveness + 0.05f;
+				Player.DefenseEffectiveness *= desiredEffectiveness / currentEffectiveness;
 			}
 			if (abyssalDivingSuitPlates)
 			{

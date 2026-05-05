@@ -16,6 +16,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 			// DisplayName.SetDefault("Fulguration Halberd");
 			/* Tooltip.SetDefault("Inflicts burning blood on enemy hits\n" +
 				"Right click to change modes"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

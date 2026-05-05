@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
             // DisplayName.SetDefault("Aether's Whisper");
             /* Tooltip.SetDefault("Inflicts several long-lasting debuffs and splits on tile hits\n" +
                 "Right click to change from magic to ranged damage"); */
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

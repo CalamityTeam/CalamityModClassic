@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Perforators
 		{
 			// DisplayName.SetDefault("Blood Clot Staff");
 			// Tooltip.SetDefault("Summons a blood clot to fight for you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

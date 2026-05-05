@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Patreon
 			/* Tooltip.SetDefault("Fires music notes\n" +
 							   "Right click summons an amplifier that shoots towards your mouse\n" +
 							   "WOOO!! FAAAAAAANTASYY WORLDDDDD!"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

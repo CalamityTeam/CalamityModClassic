@@ -15,6 +15,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Ravager
 		{
 			// DisplayName.SetDefault("Spikecrag Staff");
 			// Tooltip.SetDefault("Summons an spikecrag to protect you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

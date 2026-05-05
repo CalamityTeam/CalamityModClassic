@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				"Striking an enemy with the blade causes an earthen eruption\n" +
 				"Right click to fire an aegis bolt that costs 4 mana\n" +
                 "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

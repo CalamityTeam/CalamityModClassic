@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
         {
             // DisplayName.SetDefault("Corroslime Staff");
             // Tooltip.SetDefault("Summons a corro slime to fight for you");
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

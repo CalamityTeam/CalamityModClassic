@@ -16,6 +16,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 		{
 			// DisplayName.SetDefault("Plasma Rifle");
 			// Tooltip.SetDefault("Fires a plasma blast that explodes\nRight click to change modes");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

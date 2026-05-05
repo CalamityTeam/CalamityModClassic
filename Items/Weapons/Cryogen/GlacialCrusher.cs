@@ -59,12 +59,12 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Cryogen
 		{
 			if (target.buffImmune[Mod.Find<ModBuff>("GlacialState").Type])
 			{
-				modifiers.SourceDamage.Base *= 2;
+				modifiers.SourceDamage *= 2;
 				modifiers.Knockback *= 2f;
 			}
 			else if (target.GetGlobalNPC<CalamityGlobalNPC>().gState)
 			{
-				modifiers.SourceDamage.Base *= 3;
+				modifiers.SourceDamage *= 3;
 				modifiers.Knockback *= 3f;
 			}
 		}

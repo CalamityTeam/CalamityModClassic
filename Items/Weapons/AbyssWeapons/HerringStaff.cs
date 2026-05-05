@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.AbyssWeapons
         {
             // DisplayName.SetDefault("Herring Staff");
             // Tooltip.SetDefault("Summons a herring to fight for you");
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

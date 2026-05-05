@@ -33,14 +33,16 @@ namespace CalamityModClassicPreTrailer.Items.Astrageldon
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
 	        LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-	        itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new MoonCondition(), ModContent.ItemType<SquishyBeanMount>(), 1)));
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
-			Main.LocalPlayer.TryGettingDevArmor(null);
+	        revActive.OnSuccess(ItemDropRule.ByCondition(new MoonCondition(), ModContent.ItemType<SquishyBeanMount>()));
+	        revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+	        { 
+		        ModContent.ItemType<StressPills>(),
+		        ModContent.ItemType<Laudanum>(),
+		        ModContent.ItemType<HeartofDarkness>(),
+	        })));
+	        itemLoot.Add(revActive);
+			
+	        Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<AstralJelly>(), 1,12, 17));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<Stardust>(), 1, 30, 41));
 			itemLoot.Add(new CommonDrop(ItemID.FallenStar, 1, 30, 51));

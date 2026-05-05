@@ -64,7 +64,7 @@ namespace CalamityModClassicPreTrailer.Projectiles.Melee.Spears
         	{
         		Projectile.ai[0] += 0.95f;
         	}
-        	if(Main.player[Projectile.owner].itemAnimation == 0)
+        	if(Main.player[Projectile.owner].itemAnimation <= 1)
         	{
         		Projectile.Kill();
         	}

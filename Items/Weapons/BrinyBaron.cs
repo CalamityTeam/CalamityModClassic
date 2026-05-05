@@ -17,6 +17,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				"Striking an enemy with the blade causes a briny typhoon to appear\n" +
 				"Right click to fire a razorwind aqua blade\n" +
                 "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

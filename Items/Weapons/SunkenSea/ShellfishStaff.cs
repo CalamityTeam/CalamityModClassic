@@ -22,6 +22,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SunkenSea
             // DisplayName.SetDefault("Shellfish Staff");
             /* Tooltip.SetDefault("Summons a shellfish to fight for you\n" +
 							   "Takes up 2 minion slots"); */
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

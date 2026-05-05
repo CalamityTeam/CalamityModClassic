@@ -19,6 +19,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				"Right click to fire a spread of molten asteroids from the staff\n" +
                 "Revengeance drop"); */
 			Item.staff[Item.type] = true;
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

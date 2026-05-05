@@ -13,6 +13,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Astral
 		{
 			// DisplayName.SetDefault("Hive Pod");
 			// Tooltip.SetDefault("Summons an astral hive to protect you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

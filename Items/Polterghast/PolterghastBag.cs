@@ -34,13 +34,15 @@ namespace CalamityModClassicPreTrailer.Items.Polterghast
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-			itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Ectoheart>(), 1)));
-				itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
-				{
-					ModContent.ItemType<StressPills>(),
-					ModContent.ItemType<Laudanum>(),
-					ModContent.ItemType<HeartofDarkness>(),
-				})));
+			revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Ectoheart>(), 1));
+			revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			}));
+			itemLoot.Add(revActive);
+			
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<BansheeHook>(), 3));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<DaemonsFlame>(), 3));

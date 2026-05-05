@@ -19,6 +19,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				"Fires plasma orbs that linger and emit massive explosions\n" +
 				"Right click to fire a powerful energy beam\n" +
                 "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

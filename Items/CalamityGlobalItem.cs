@@ -1437,115 +1437,124 @@ namespace CalamityModClassicPreTrailer.Items
 			{
 				case ItemID.KingSlimeBossBag:
 					itemLoot.Add(ItemDropRule.ByCondition(new RevCondition(), ModContent.ItemType<CrownJewel>(), 1));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.EyeOfCthulhuBossBag:
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<VictoryShard>(), 1, 3, 6));
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<TeardropCleaver>(), 3));
 						itemLoot.Add(ItemDropRule.ByCondition(new RevCondition(), ModContent.ItemType<CounterScarf>(), 1));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.SkeletronBossBag:
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<ClothiersWrath>(), 40));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.WallOfFleshBossBag:
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<MLGRune>(), 1));
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<Meowthrower>(), 3));
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<RogueEmblem>(), 8));
-						itemLoot.Add(ItemDropRule.OneFromOptions(5, new int[]
-						{
-							ItemID.CrimsonKey,
-							ItemID.CorruptionKey
-						}));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					itemLoot.Add(ItemDropRule.OneFromOptions(5, new int[]
+					{ 
+						ItemID.CrimsonKey,
+						ItemID.CorruptionKey
+					}));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.DestroyerBossBag:
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<SHPC>(), 20)));
-					itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<SHPC>(), 100)));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<SHPC>(), 20));
+					revActive.OnSuccess(new CommonDrop(ModContent.ItemType<SHPC>(), 100));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
-
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.PlanteraBossBag:
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<LivingShard>(), 1, 8, 12));
 					itemLoot.Add(new CommonDrop(ItemID.JungleKey, 5)); 
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<BlossomFlux>(), 20)));
-					itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<BlossomFlux>(), 100)));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<BlossomFlux>(), 20));
+					revActive.OnSuccess(new CommonDrop(ModContent.ItemType<BlossomFlux>(), 100));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break;
 				case ItemID.GolemBossBag:
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<AegisBlade>(), 20)));
-					itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<AegisBlade>(), 100)));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<AegisBlade>(), 20));
+					revActive.OnSuccess(new CommonDrop(ModContent.ItemType<AegisBlade>(), 100));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 
 					break;
 				case ItemID.FishronBossBag:
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<BrinyBaron>(), 20)));
-					itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<BrinyBaron>(), 100)));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<BrinyBaron>(), 20));
+					revActive.OnSuccess(new CommonDrop(ModContent.ItemType<BrinyBaron>(), 100));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 
 					break;
 				case ItemID.BossBagBetsy:
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<Vesuvius>(), 20)));
-					itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Vesuvius>(), 100)));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<Vesuvius>(), 20));
+					revActive.OnSuccess(new CommonDrop(ModContent.ItemType<Vesuvius>(), 100));
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 
 					break;
 				case ItemID.MoonLordBossBag:
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<MLGRune2>(), 1));
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<Infinity>(), 40));
 					itemLoot.Add(new CommonDrop(ModContent.ItemType<GrandDad>(), 40));
-					itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+					revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					})));
+					}));
+					itemLoot.Add(revActive);
 					break; 
 			}
 					

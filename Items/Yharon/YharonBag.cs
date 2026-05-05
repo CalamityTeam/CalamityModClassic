@@ -39,12 +39,14 @@ namespace CalamityModClassicPreTrailer.Items.Yharon
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<DrewsWings>(), 1));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<FoxDrive>(), 1));
-			itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+			revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 			{
 				ModContent.ItemType<StressPills>(),
 				ModContent.ItemType<Laudanum>(),
 				ModContent.ItemType<HeartofDarkness>(), 
-			})));
+			}));
+			itemLoot.Add(revActive);
+			
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<ForgottenDragonEgg>(), 10));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<AngryChickenStaff>(), 3));

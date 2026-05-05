@@ -18,6 +18,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
 				"Fires a stream of leaves\n" +
 				"Right click to fire a spore orb that explodes into a cloud of spore gas\n" +
                 "Revengeance drop"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

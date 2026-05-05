@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.DesertScourge
 		{
 			// DisplayName.SetDefault("Seabound Staff");
 			// Tooltip.SetDefault("Summons a brittle star to fight for you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

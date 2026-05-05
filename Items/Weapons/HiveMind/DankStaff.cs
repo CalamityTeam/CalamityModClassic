@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.HiveMind
 		{
 			// DisplayName.SetDefault("Dank Staff");
 			// Tooltip.SetDefault("Summons a dank creeper to fight for you");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

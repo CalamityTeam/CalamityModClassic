@@ -36,13 +36,15 @@ namespace CalamityModClassicPreTrailer.Items.AstrumDeus
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-				itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<StarlightFuelCell>(), 1)));
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+			revActive.OnSuccess(new CommonDrop(ModContent.ItemType<StarlightFuelCell>(), 1));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			})));
+			itemLoot.Add(revActive);
+			
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<Quasar>(), 40));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<HideofAstrumDeus>(), 40));
 			Main.LocalPlayer.TryGettingDevArmor(null);

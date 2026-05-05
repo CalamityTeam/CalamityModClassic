@@ -45,8 +45,11 @@ namespace CalamityModClassicPreTrailer.Items.Weapons
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             int lifeAmount = player.statLifeMax2 - player.statLife;
+            damage.Base += lifeAmount;
+            /*
             float damageAdd = ((float)lifeAmount + (float)Item.damage);
-            damage.Base = (int)(damageAdd * player.GetDamage(DamageClass.Melee).Base);
+            damage = (damageAdd * player.GetDamage(DamageClass.Melee));
+            */
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)

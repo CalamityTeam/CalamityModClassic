@@ -18,6 +18,7 @@ Fireballs rain meteors, leave dragon dust trails, and launch additional bolts at
 Taking damage while firing the stream will interrupt it and heavily debuff your stats.
 Right click to fire two devastating barrages of five empowered fireballs.
 'Just don't get hit'"); */
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()

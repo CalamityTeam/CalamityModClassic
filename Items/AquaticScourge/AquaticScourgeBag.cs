@@ -34,12 +34,13 @@ namespace CalamityModClassicPreTrailer.Items.AquaticScourge
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-					itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			})));
+			itemLoot.Add(revActive);
 
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<DeepseaStaff>(), 3));

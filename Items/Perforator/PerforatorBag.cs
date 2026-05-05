@@ -35,12 +35,14 @@ namespace CalamityModClassicPreTrailer.Items.Perforator
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			})));
+			itemLoot.Add(revActive);
+					
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<PerforatorMask>(), 7));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<Aorta>(), 3));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<BloodyRupture>(), 3));

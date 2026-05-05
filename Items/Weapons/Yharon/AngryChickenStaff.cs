@@ -24,6 +24,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.Yharon
             /* Tooltip.SetDefault("Summons the Son of Yharon to fight for you\n" +
                                "The dragon increases your life regen, defense, and movement speed while summoned\n" +
                                "Requires 4 minion slots to use"); */
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()

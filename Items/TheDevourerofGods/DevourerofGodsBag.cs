@@ -47,19 +47,21 @@ namespace CalamityModClassicPreTrailer.Items.TheDevourerofGods
 			LeadingConditionRule deathActive = new LeadingConditionRule(new RevCondition());
 			if (CalamityWorldPreTrailer.revenge)
 			{
-				Player player = Main.LocalPlayer;
-					itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new FVodkaCondition(), ModContent.ItemType<Fabsol>(), 1)));
+				//Player player = Main.LocalPlayer;
+				revActive.OnSuccess(ItemDropRule.ByCondition(new FVodkaCondition(), ModContent.ItemType<Fabsol>(), 1));
 				
-				if (CalamityWorldPreTrailer.death && player.difficulty == 2)
-					itemLoot.Add(revActive.OnSuccess(deathActive.OnSuccess(ItemDropRule.ByCondition(new HardcorePlayerCondition(), ModContent.ItemType<CosmicPlushie>(), 1))));
-				itemLoot.Add(revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<CosmicDischarge>(), 20)));
-				itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<CosmicDischarge>(), 100)));
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+				//if (CalamityWorldPreTrailer.death && player.difficulty == 2)
+				revActive.OnSuccess(deathActive.OnSuccess(ItemDropRule.ByCondition(new HardcorePlayerCondition(), ModContent.ItemType<CosmicPlushie>(), 1)));
+				revActive.OnSuccess(ItemDropRule.ByCondition(new DefiledCondition(), ModContent.ItemType<CosmicDischarge>(), 20));
+				revActive.OnSuccess(new CommonDrop(ModContent.ItemType<CosmicDischarge>(), 100));
+				revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
 					{
 						ModContent.ItemType<StressPills>(),
 						ModContent.ItemType<Laudanum>(),
 						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+					})));
+				itemLoot.Add(revActive);
+				itemLoot.Add(deathActive);
 			}
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<Norfleet>(), 40));

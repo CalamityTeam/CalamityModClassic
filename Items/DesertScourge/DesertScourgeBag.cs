@@ -37,12 +37,13 @@ namespace CalamityModClassicPreTrailer.Items.DesertScourge
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-			itemLoot.Add(revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
+			revActive.OnSuccess(new OneFromOptionsDropRule(20, 1, new int[]
 			{
 				ModContent.ItemType<StressPills>(),
 				ModContent.ItemType<Laudanum>(),
 				ModContent.ItemType<HeartofDarkness>(),
-			})));
+			}));
+			itemLoot.Add(revActive);
 			
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<DesertScourgeMask>(), 7));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<SeaboundStaff>(), 3));
@@ -64,11 +65,11 @@ namespace CalamityModClassicPreTrailer.Items.DesertScourge
 			itemLoot.Add(new CommonDrop(ItemID.FishingPotion, 5, 2, 4));
 			itemLoot.Add(new CommonDrop(ItemID.SonarPotion, 5, 2, 4));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<AeroStone>(), 10));
-			if (Main.rand.NextBool((3)))
+			itemLoot.Add(new OneFromOptionsDropRule(36, 2, new int[]
 			{
-				itemLoot.Add(new CommonDrop(ModContent.ItemType<DuneHopper>(), 12));
-				itemLoot.Add(new CommonDrop(ModContent.ItemType<ScourgeoftheDesert>(), 12));
-			}
+				ModContent.ItemType<DuneHopper>(),
+				ModContent.ItemType<ScourgeoftheDesert>(),
+			}));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<DeepDiver>(), 40));
 			itemLoot.Add(ItemDropRule.ByCondition(new SkeletronCondition(), ItemID.GoldenBugNet, 20));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<OceanCrest>(), 1));

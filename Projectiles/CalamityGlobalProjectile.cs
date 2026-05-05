@@ -965,7 +965,7 @@ namespace CalamityModClassicPreTrailer.Projectiles
 						return false;
 					break;
 			}
-			return true;
+			return null;
 		}
 		#endregion
 

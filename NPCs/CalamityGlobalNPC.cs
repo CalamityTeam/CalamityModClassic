@@ -477,7 +477,7 @@ namespace CalamityModClassicPreTrailer.NPCs
 				if (npc.type != Mod.Find<ModNPC>("HiveMindP2").Type && npc.type != Mod.Find<ModNPC>("Leviathan").Type && npc.type != Mod.Find<ModNPC>("StormWeaverHeadNaked").Type &&
 					npc.type != Mod.Find<ModNPC>("StormWeaverBodyNaked").Type && npc.type != Mod.Find<ModNPC>("StormWeaverTailNaked").Type &&
 					npc.type != Mod.Find<ModNPC>("DevourerofGodsHeadS").Type && npc.type != Mod.Find<ModNPC>("DevourerofGodsBodyS").Type &&
-					npc.type != Mod.Find<ModNPC>("DevourerofGodsTailS").Type)
+					npc.type != Mod.Find<ModNPC>("DevourerofGodsTailS").Type && npc.GetGlobalNPC<CalamityGlobalNPC>().newAI[0] != 0f)
 				{
 					if (Main.netMode != 2)
 					{

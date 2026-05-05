@@ -35,12 +35,14 @@ namespace CalamityModClassicPreTrailer.Items.HiveMind
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(), 
+				ModContent.ItemType<HeartofDarkness>(),
+			})));
+			itemLoot.Add(revActive);
+			
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<ShaderainStaff>(), 3));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<LeechingDagger>(), 3));
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<ShadowdropStaff>(), 3));

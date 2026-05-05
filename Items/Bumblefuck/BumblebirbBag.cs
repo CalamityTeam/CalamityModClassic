@@ -33,14 +33,16 @@ namespace CalamityModClassicPreTrailer.Items.Bumblefuck
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-				LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
-				itemLoot.Add(revActive.OnSuccess(new CommonDrop(ModContent.ItemType<RedLightningContainer>(), 1)));
-				itemLoot.Add(revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
-					{
-						ModContent.ItemType<StressPills>(),
-						ModContent.ItemType<Laudanum>(),
-						ModContent.ItemType<HeartofDarkness>(),
-					}))));
+			LeadingConditionRule revActive = new LeadingConditionRule(new RevCondition());
+			revActive.OnSuccess(new CommonDrop(ModContent.ItemType<RedLightningContainer>(), 1));
+			revActive.OnSuccess((new OneFromOptionsDropRule(20, 1, new int[]
+			{
+				ModContent.ItemType<StressPills>(),
+				ModContent.ItemType<Laudanum>(),
+				ModContent.ItemType<HeartofDarkness>(),
+			})));
+			itemLoot.Add(revActive);
+			
 			Main.LocalPlayer.TryGettingDevArmor(null);
 			itemLoot.Add(new CommonDrop(ModContent.ItemType<Swordsplosion>(), 40));
 			itemLoot.Add(ItemDropRule.OneFromOptions(1, new int[]

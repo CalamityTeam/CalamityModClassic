@@ -21,6 +21,7 @@ namespace CalamityModClassicPreTrailer.Items.Weapons.SlimeGod
         {
             // DisplayName.SetDefault("Crimslime Staff");
             // Tooltip.SetDefault("Summons a crim slime to fight for you");
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()
