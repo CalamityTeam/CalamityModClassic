@@ -17,7 +17,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.ChaoticOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Chaotic Ore");
- 			AddMapEntry(new Color(255, 255, 0));
+ 			AddMapEntry(new Color(255, 255, 0), name);
 			MineResist = 4f;
 			MinPick = 209;
 			HitSound = Terraria.ID.SoundID.Tink;

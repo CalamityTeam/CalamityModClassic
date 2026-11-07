@@ -89,7 +89,7 @@ namespace CalamityModClassic1Point2.Projectiles
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.FinalDamage.Base += target.defense / 2;
+			modifiers.SourceDamage.Flat += target.defense / 2;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

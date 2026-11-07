@@ -234,7 +234,7 @@ namespace CalamityModClassic1Point2.Projectiles
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("CosmicIceBurst").Type, hit.Damage, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
 			}
 			Projectile.localAI[1] = 4f;
-			target.AddBuff(Mod.Find<ModBuff>("CosmicFreeze").Type, 300);
+			player.AddBuff(Mod.Find<ModBuff>("CosmicFreeze").Type, 300);
         }
     }
 }

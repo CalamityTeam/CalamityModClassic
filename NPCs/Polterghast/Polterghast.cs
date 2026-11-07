@@ -638,7 +638,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -654,7 +654,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 				modifiers.FinalDamage /= 2;
 				modifiers.DisableCrit();
 			}
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 		
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -662,11 +662,11 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			OnHit(hit.Damage);
 		}
 		
-		private void ModifyHit(ref float damage)
+		private void ModifyHit(ref NPC.HitInfo info)
 		{
-			if (damage > NPC.lifeMax / 8)
+			if (info.Damage > NPC.lifeMax / 8)
 			{
-				damage = NPC.lifeMax / 8;
+				info.Damage = NPC.lifeMax / 8;
 			}
 		}
 		
@@ -687,16 +687,20 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
+			modifiers.ModifyHitInfo += ModifyHitInfo;
+		}
+		public void ModifyHitInfo(ref NPC.HitInfo info)
+		{
 			if (damageTotal >= dpsCap * 60)
 			{
-				modifiers.FinalDamage *= 0;
+				info.Damage = 0;
 			}
 			bool flag = Main.netMode == NetmodeID.SinglePlayer;
 			if (!NPC.active || NPC.life <= 0)
 			{
 				return;
 			}
-			double newDamage = modifiers.FinalDamage.Base;
+			double newDamage = info.Damage;
 			int newDefense = NPC.defense;
 			if (NPC.ichor)
 			{
@@ -711,10 +715,10 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 			{
 				newDamage = 1.0;
 			}
-			/*if (crit)
+			if (info.Crit)
 			{
 				newDamage *= 2;
-			}*/
+			}
 			if (newDamage >= 1.0)
 			{
 				float protection = 0.25f +
@@ -744,7 +748,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 						NPC.life -= (int)newDamage;
 					}
 				}
-				NPC.HitEffect(modifiers.HitDirection, newDamage);
+				NPC.HitEffect(info.HitDirection, newDamage);
 				if (NPC.HitSound != null)
 				{
 					SoundEngine.PlaySound(NPC.HitSound, NPC.position);
@@ -758,7 +762,7 @@ namespace CalamityModClassic1Point2.NPCs.Polterghast
 					NPC.checkDead();
 				}
 			}
-			modifiers.FinalDamage.Base = (float)newDamage;
+			info.Damage = (int)newDamage;
 		}
 		
 		public override void FindFrame(int frameHeight)

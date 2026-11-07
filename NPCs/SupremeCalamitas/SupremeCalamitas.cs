@@ -1151,7 +1151,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -1161,7 +1161,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 		
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -1169,11 +1169,11 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			OnHit(hit.Damage);
 		}
 		
-		private void ModifyHit(ref float damage)
+		private void ModifyHit(ref NPC.HitInfo info)
 		{
-			if (damage > NPC.lifeMax / 8)
+			if (info.Damage > NPC.lifeMax / 8)
 			{
-				damage = NPC.lifeMax / 8;
+				info.Damage = NPC.lifeMax / 8;
 			}
 		}
 		
@@ -1194,16 +1194,20 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
+			
+		}
+		public void ModifyHitInfo(ref NPC.HitInfo hit)
+		{
 			if (damageTotal >= dpsCap * 60)
 			{
-				modifiers.FinalDamage *= 0;
+				hit.Damage = 0;
 			}
 			bool flag = Main.netMode == NetmodeID.SinglePlayer;
 			if (!NPC.active || NPC.life <= 0)
 			{
 				return;
 			}
-			double newDamage = modifiers.FinalDamage.Base;
+			double newDamage = hit.Damage;
 			int newDefense = NPC.defense;
 			if (NPC.ichor)
 			{
@@ -1218,10 +1222,10 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 			{
 				newDamage = 1.0;
 			}
-			/*if (crit)
+			if (hit.Crit)
 			{
 				newDamage *= 2;
-			}*/
+			}
 			if (newDamage >= 1.0)
 			{
 				newDamage = (double)((int)((double)(1f - (NPC.ichor ? 0.25f : 0.33f)) * newDamage));
@@ -1247,7 +1251,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 						NPC.life -= (int)newDamage;
 					}
 				}
-				NPC.HitEffect(modifiers.HitDirection, newDamage);
+				NPC.HitEffect(hit.HitDirection, newDamage);
 				if (NPC.HitSound != null)
 				{
 					SoundEngine.PlaySound(NPC.HitSound, NPC.position);
@@ -1261,7 +1265,7 @@ namespace CalamityModClassic1Point2.NPCs.SupremeCalamitas
 					NPC.checkDead();
 				}
 			}
-			modifiers.FinalDamage.Base = (float)newDamage;
+			hit.Damage = (int)newDamage;
 		}
 		
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

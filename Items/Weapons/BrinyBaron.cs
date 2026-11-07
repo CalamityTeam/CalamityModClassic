@@ -10,6 +10,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 {
 	public class BrinyBaron : ModItem
 	{
+		public override void SetStaticDefaults() => ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 
 		public override void SetDefaults()
 		{
@@ -87,7 +88,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 2f : 0f) + //21
 				(CalamityWorld1Point2.downedDoG ? 2f : 0f) + //28
 				(CalamityWorld1Point2.downedYharon ? 10f : 0f); //48
-			damage.Base = (int)((double)damage.Base * damageMult);
+			damage *= damageMult;
 	    }
 		
 		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

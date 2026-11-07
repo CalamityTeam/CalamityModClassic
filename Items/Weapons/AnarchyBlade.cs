@@ -54,8 +54,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 	    public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 	    {
 	    	int lifeAmount = player.statLifeMax2 - player.statLife;
-	    	float damageAdd = (((float)lifeAmount * 0.1f) + 100f);
-	    	damage.Base = (int)(damageAdd * player.GetDamage(DamageClass.Melee).Base);
+		    damage.Base += lifeAmount * 0.1f;
 	    }
 	    
 	    public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

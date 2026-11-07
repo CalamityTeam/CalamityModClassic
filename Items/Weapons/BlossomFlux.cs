@@ -11,6 +11,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 {
 	public class BlossomFlux : ModItem
 	{
+		public override void SetStaticDefaults() => ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		
 	    public override void SetDefaults()
 	    {
 	        Item.damage = 2;
@@ -81,7 +83,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 20f : 0f) + //50
 				(CalamityWorld1Point2.downedDoG ? 20f : 0f) + //60
 				(CalamityWorld1Point2.downedYharon ? 50f : 0f); //75
-			damage.Base = (int)((double)damage.Base * damageMult);
+			damage *= damageMult;
 	    }
 		
 		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

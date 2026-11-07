@@ -15,6 +15,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 			//DisplayName.SetDefault("Charged Dart Blaster");
 			//Tooltip.SetDefault("Right click to fire an exploding energy blast that bounces");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

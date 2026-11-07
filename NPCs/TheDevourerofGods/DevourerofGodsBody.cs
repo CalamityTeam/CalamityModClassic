@@ -257,7 +257,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
-			modifiers.FinalDamage.Base = 1;
+			modifiers.SetMaxDamage(1);
 		}
 		
 		public override bool CheckActive()
@@ -287,9 +287,12 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			if (NPC.life <= 0)
 			{
 				float randomSpread = (float)(Main.rand.Next(-100, 100) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody2").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody3").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("DoGBody3").Type, 1f);
+				}
 				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 50;

@@ -1076,8 +1076,16 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 		}
 
-		public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
+		private NPC npcToModify = null; 
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
+			npcToModify = npc;
+			modifiers.ModifyHitInfo += CalamityStyleDamage;
+		}
+
+		public void CalamityStyleDamage(ref NPC.HitInfo hit)
+		{
+			NPC npc = npcToModify;
 			if (this.protection > 0f)
 			{
 				bool flag = Main.netMode == NetmodeID.SinglePlayer;
@@ -2782,47 +2790,8 @@ namespace CalamityModClassic1Point2.NPCs
 			}
 		}
 
-		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
-		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eGauntlet)
-			{
-				if (item.CountsAsClass(DamageClass.Melee) && npc.damage > 0 /*&& modifiers.crit*/ && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(3) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
-				{
-					modifiers.FinalDamage.Base = npc.lifeMax * 5;
-				}
-			}
-			if (item.shoot == Mod.Find<ModProjectile>("Exobeam").Type)
-			{
-				if (npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(10) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
-				{
-					modifiers.FinalDamage.Base = npc.lifeMax * 5;
-				}
-			}
-		}
-
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eTalisman)
-			{
-				if (projectile.CountsAsClass(DamageClass.Magic) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
-				{
-					modifiers.FinalDamage.Base = npc.lifeMax * 5;
-				}
-			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().nanotech)
-			{
-				if (projectile.CountsAsClass(DamageClass.Throwing) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
-				{
-					modifiers.FinalDamage.Base = npc.lifeMax * 5;
-				}
-			}
-			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eQuiver)
-			{
-				if (projectile.CountsAsClass(DamageClass.Ranged) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
-				{
-					modifiers.FinalDamage.Base = npc.lifeMax * 5;
-				}
-			}
 			if (CalamityWorld1Point2.revenge)
 			{
 				if (npc.type == NPCID.TheDestroyer ||
@@ -2860,6 +2829,20 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eGauntlet)
+			{
+				if (item.CountsAsClass(DamageClass.Melee) && npc.damage > 0 /*&& modifiers.crit*/ && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(3) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
+				{
+					hit.Damage = npc.lifeMax * 5;
+				}
+			}
+			if (item.shoot == Mod.Find<ModProjectile>("Exobeam").Type)
+			{
+				if (npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(10) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
+				{
+					hit.Damage = npc.lifeMax * 5;
+				}
+			}
 			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().bloodflareSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && ((double)npc.life < (double)npc.lifeMax * 0.5) && Main.rand.NextBool(25))
@@ -2875,6 +2858,27 @@ namespace CalamityModClassic1Point2.NPCs
 
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eTalisman)
+			{
+				if (projectile.CountsAsClass(DamageClass.Magic) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
+				{
+					hit.Damage = npc.lifeMax * 5;
+				}
+			}
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().nanotech)
+			{
+				if (projectile.CountsAsClass(DamageClass.Throwing) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
+				{
+					hit.Damage = npc.lifeMax * 5;
+				}
+			}
+			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().eQuiver)
+			{
+				if (projectile.CountsAsClass(DamageClass.Ranged) && npc.damage > 0 && !npc.boss && !npc.friendly && !npc.dontTakeDamage && Main.rand.NextBool(15) && npc.type != NPCID.Mothron && npc.type != NPCID.Pumpking && npc.type != NPCID.TheDestroyerBody && npc.type != NPCID.TheDestroyerTail && npc.type != NPCID.MourningWood && npc.type != NPCID.Everscream && npc.type != NPCID.SantaNK1 && npc.type != NPCID.IceQueen)
+				{
+					hit.Damage = npc.lifeMax * 5;
+				}
+			}
 			if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<CalamityPlayer1Point2>().bloodflareSet)
 			{
 				if (!npc.SpawnedFromStatue && npc.damage > 0 && ((double)npc.life < (double)npc.lifeMax * 0.5) && Main.rand.NextBool(25))
@@ -2966,6 +2970,17 @@ namespace CalamityModClassic1Point2.NPCs
 			AddLegendaryBossDrop(ref npcLoot, ref npc, NPCID.Plantera, ModContent.ItemType<BlossomFlux>());
 			AddLegendaryBossDrop(ref npcLoot, ref npc, NPCID.TheDestroyer, ModContent.ItemType<SHPC>());
 			AddLegendaryBossDrop(ref npcLoot, ref npc, ModContent.NPCType<Siren>(), ModContent.ItemType<TheCommunity>());
+			#endregion
+			#region legends2
+			// funny legendary scaling moments
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<AegisBlade>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<BrinyBaron>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<CosmicDischarge>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<Vesuvius>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<Malachite>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<BlossomFlux>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<SHPC>());
+			AddLegendaryItemDrop(ref npcLoot, ref npc, ModContent.ItemType<TheCommunity>());
 			#endregion
 			if (npc.type == NPCID.PossessedArmor)
 			{
@@ -3239,10 +3254,24 @@ namespace CalamityModClassic1Point2.NPCs
 			{
 				notStatue.OnSuccess(preHm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 10000))), true);
                 notStatue.OnSuccess(hm.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 5000))));
-				notStatue.OnSuccess(postML.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 4000))), true);
+				notStatue.OnSuccess(postML.OnSuccess(expert.OnFailedRoll(new CommonDrop(itemType, 1000))), true);
                 notStatue.OnSuccess(preHm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 9000))), true);
                 notStatue.OnSuccess(hm.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 4500))), true);
-                notStatue.OnSuccess(postML.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 3700))), true);
+                notStatue.OnSuccess(postML.OnSuccess(expert.OnSuccess(new CommonDrop(itemType, 800))), true);
+			}
+			npcLoot.Add(notStatue);
+		}
+		public static void AddLegendaryItemDrop(ref NPCLoot npcLoot, ref NPC npc, int itemType)
+		{
+			LeadingConditionRule notStatue = new LeadingConditionRule(new Conditions.NotFromStatue());
+			LeadingConditionRule preHm = new LeadingConditionRule(new Conditions.IsPreHardmode());
+			LeadingConditionRule hm = new LeadingConditionRule(new Conditions.IsHardmode());
+			LeadingConditionRule postML = new LeadingConditionRule(new MoonCondition());
+			if (!npc.boss)
+			{
+				notStatue.OnSuccess(preHm.OnSuccess(new CommonDrop(itemType, 500000)), true);
+				notStatue.OnSuccess(hm.OnSuccess(new CommonDrop(itemType, 250000)), true);
+				notStatue.OnSuccess(postML.OnSuccess(new CommonDrop(itemType, 100000)), true);
 			}
 			npcLoot.Add(notStatue);
 		}
@@ -3968,11 +3997,16 @@ namespace CalamityModClassic1Point2.NPCs
 			{
 				shop.Add(new NPCShop.Entry(ItemID.Stake, new Condition("", () => Main.LocalPlayer.HasItem(ModContent.ItemType<Impaler>()))));
 			}
-			if (shop.NpcType == NPCID.TravellingMerchant)
-			{
-				shop.Add(new NPCShop.Entry(ModContent.ItemType<FrostBarrier>(), Condition.MoonPhaseNew));
-			}
         }
+		
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
+			if (Main.moonPhase == 0)
+			{
+				shop[nextSlot] = ModContent.ItemType<FrostBarrier>();
+				nextSlot++;
+			}
+		}
         public void LaceratorEffects(ref NPC npc)
         {
             if (!npc.GetGlobalNPC<CalamityGlobalNPC1Point2>().lacerator)

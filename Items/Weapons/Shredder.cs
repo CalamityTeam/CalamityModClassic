@@ -11,6 +11,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 {
 	public class Shredder : ModItem
 	{
+		public override void SetStaticDefaults() => ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		
 	    public override void SetDefaults()
 	    {
 			Item.damage = 23;

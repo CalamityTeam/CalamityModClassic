@@ -19,7 +19,7 @@ namespace CalamityModClassic1Point2.Tiles
 			HitSound = Terraria.ID.SoundID.Tink;
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Brimstone Slag");
- 			AddMapEntry(new Color(20, 20, 20));
+ 			AddMapEntry(new Color(20, 20, 20), name);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

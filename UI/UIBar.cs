@@ -130,6 +130,18 @@ namespace CalamityModClassic1Point2.UI
 		
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
+			Vector2 MousePosition = new Vector2((float)Main.mouseX, (float)Main.mouseY);
+			if (backPanel.ContainsPoint(MousePosition))
+			{
+				Main.LocalPlayer.mouseInterface = true;
+				Main.instance.MouseText("Stress: " + getValue() + "/" + valueMax + "", 0, 0, -1, -1, -1, -1); //only way I got this to show up consistently, otherwise it fucked up and showed up anywhere onscreen lol.
+			} 		
+			if (dragging)
+			{
+				backPanel.Left.Set(MousePosition.X - offset.X, 0f);
+				backPanel.Top.Set(MousePosition.Y - offset.Y, 0f);
+				Recalculate();
+			}
 		}
 	}
 }

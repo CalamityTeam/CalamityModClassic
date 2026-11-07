@@ -15,7 +15,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.CharredOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Charred Ore");
- 			AddMapEntry(new Color(128, 0, 0));
+ 			AddMapEntry(new Color(128, 0, 0), name);
 			MineResist = 6f;
 			MinPick = 199;
             HitSound = Terraria.ID.SoundID.Tink;

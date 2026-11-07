@@ -416,9 +416,12 @@ namespace CalamityModClassic1Point2.NPCs.Leviathan
 					Main.dust[num624].velocity *= 2f;
 				}
 				float randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib1").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib2").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib3").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib1").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("Leviathangib3").Type, 1f);
+				}
 			}
 		}
 		

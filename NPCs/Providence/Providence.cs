@@ -897,7 +897,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -913,7 +913,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 				modifiers.FinalDamage /= 2;
 				modifiers.DisableCrit();
 			}
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 		
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -921,11 +921,11 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			OnHit(hit.Damage);
 		}
 		
-		private void ModifyHit(ref float damage)
+		private void ModifyHit(ref NPC.HitInfo info)
 		{
-			if (damage > NPC.lifeMax / 8)
+			if (info.Damage > NPC.lifeMax / 8)
 			{
-				damage = NPC.lifeMax / 8;
+				info.Damage = NPC.lifeMax / 8;
 			}
 		}
 		
@@ -946,16 +946,20 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
+			modifiers.ModifyHitInfo += ModifyHitInfo;
+		}
+		public void ModifyHitInfo(ref NPC.HitInfo hit)
+		{
 			if (damageTotal >= dpsCap * 60)
 			{
-				modifiers.FinalDamage *= 0;
+				hit.Damage = 0;
 			}
 			bool flag = Main.netMode == NetmodeID.SinglePlayer;
 			if (!NPC.active || NPC.life <= 0)
 			{
 				return;
 			}
-			double newDamage = modifiers.FinalDamage.Base;
+			double newDamage = hit.Damage;
 			int newDefense = NPC.defense;
 			if (NPC.ichor)
 			{
@@ -970,10 +974,10 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			{
 				newDamage = 1.0;
 			}
-			/*if (crit)
+			if (hit.Crit)
 			{
 				newDamage *= 2;
-			}*/
+			}
 			if (newDamage >= 1.0)
 			{
 				newDamage = (double)((int)((double)(1f - ((NPC.ichor ? 0.25f : 0.33f) + (NPC.ai[0] == 2f ? 0.66f : 0f))) * newDamage));
@@ -999,7 +1003,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 						NPC.life -= (int)newDamage;
 					}
 				}
-				NPC.HitEffect(modifiers.HitDirection, newDamage);
+				NPC.HitEffect(hit.HitDirection, newDamage);
 				if (NPC.HitSound != null)
 				{
 					SoundEngine.PlaySound(NPC.HitSound, NPC.position);
@@ -1013,7 +1017,7 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 					NPC.checkDead();
 				}
 			}
-			modifiers.FinalDamage.Base = (float)newDamage;
+			hit.Damage = (int)newDamage;
 		}
 		
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -1090,11 +1094,14 @@ namespace CalamityModClassic1Point2.NPCs.Providence
 			if (NPC.life <= 0)
 			{
 				float randomSpread = (float)(Main.rand.Next(-50, 50) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence2").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence3").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence4").Type, 1f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence5").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence2").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence3").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence4").Type, 1f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread * Main.rand.NextFloat(), Mod.Find<ModGore>("Providence5").Type, 1f);
+				}
 				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 400;

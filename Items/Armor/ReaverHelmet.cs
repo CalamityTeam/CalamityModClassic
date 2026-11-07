@@ -56,28 +56,28 @@ public class ReaverHelmet : ModItem
 			player.endurance -= 0.05f;
 			player.moveSpeed += 0.05f;
 			player.GetDamage(DamageClass.Summon) += 0.05f;
-			player.GetKnockback(DamageClass.Summon).Base += 0.05f;
+			player.GetKnockback(DamageClass.Summon) += 0.05f;
 		}
 		else if(player.statLife <= (player.statLifeMax2 * 0.6f) && player.statLife > (player.statLifeMax2 * 0.4f))
 		{
 			player.endurance -= 0.1f;
 			player.moveSpeed += 0.1f;
 			player.GetDamage(DamageClass.Summon) += 0.1f;
-			player.GetKnockback(DamageClass.Summon).Base += 0.1f;
+			player.GetKnockback(DamageClass.Summon) += 0.1f;
 		}
 		else if(player.statLife <= (player.statLifeMax2 * 0.4f) && player.statLife > (player.statLifeMax2 * 0.2f))
 		{
 			player.endurance -= 0.2f;
 			player.moveSpeed += 0.2f;
 			player.GetDamage(DamageClass.Summon) += 0.15f;
-			player.GetKnockback(DamageClass.Summon).Base += 0.15f;
+			player.GetKnockback(DamageClass.Summon) += 0.15f;
 		}
 		else if(player.statLife <= (player.statLifeMax2 * 0.2f))
 		{
 			player.endurance -= 0.3f;
 			player.moveSpeed += 0.3f;
 			player.GetDamage(DamageClass.Summon) += 0.2f;
-			player.GetKnockback(DamageClass.Summon).Base += 0.2f;
+			player.GetKnockback(DamageClass.Summon) += 0.2f;
 		}
     }
     
@@ -87,7 +87,7 @@ public class ReaverHelmet : ModItem
     	player.ignoreWater = true;
     	player.buffImmune[BuffID.CursedInferno] = true;
     	player.GetDamage(DamageClass.Summon) += 0.1f;
-        player.GetKnockback(DamageClass.Summon).Base += 1f;
+        player.GetKnockback(DamageClass.Summon) += 1f;
 		player.maxMinions += 2;
         player.moveSpeed += 0.05f;
     }

@@ -15,6 +15,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 			//DisplayName.SetDefault("Scorpio");
 			//Tooltip.SetDefault("Rockets\nRight click to change modes");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 	    public override void SetDefaults()

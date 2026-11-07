@@ -17,7 +17,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.PerennialOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Perennial Ore");
- 			AddMapEntry(new Color(255, 51, 204));
+ 			AddMapEntry(new Color(255, 51, 204), name);
 			MineResist = 3f;
 			MinPick = 199;
 			HitSound = Terraria.ID.SoundID.Tink;

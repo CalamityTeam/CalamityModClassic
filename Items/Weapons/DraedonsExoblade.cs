@@ -42,8 +42,7 @@ public class DraedonsExoblade : ModItem
 	public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 	{
 		int lifeAmount = player.statLifeMax2 - player.statLife;
-    	float damageAdd = (((float)lifeAmount * 5f) + 3280f);
-    	damage.Base = (int)(damageAdd * player.GetDamage(DamageClass.Melee).Base);
+    	damage.Base += lifeAmount * 5f;
     }
 
     public override void MeleeEffects(Player player, Rectangle hitbox)

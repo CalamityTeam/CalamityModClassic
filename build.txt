@@ -1,4 +1,4 @@
-author = Fabsol and the Dev Team
+author = The Calamity Dev Team
 version = 1.0.0.8
 displayName = Calamity Mod Classic 1.2
 homepage = https://discord.gg/calamity

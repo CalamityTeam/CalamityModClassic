@@ -673,7 +673,7 @@ namespace CalamityModClassic1Point2
 				Player.GetCritChance(DamageClass.Throwing) += 5;
 				Player.GetDamage(DamageClass.Throwing) += 0.05f;
 				Player.GetDamage(DamageClass.Summon) += 0.05f;
-				Player.GetKnockback(DamageClass.Summon).Base += 0.5f;
+				Player.GetKnockback(DamageClass.Summon) += 0.5f;
 				Player.moveSpeed += 0.1f;
 			}
 			if (bFlames || aFlames)
@@ -878,7 +878,7 @@ namespace CalamityModClassic1Point2
 				Player.GetCritChance(DamageClass.Throwing) += 5;
 				Player.GetDamage(DamageClass.Throwing) += 0.22f;
 				Player.GetDamage(DamageClass.Summon) += 0.22f;
-				Player.GetKnockback(DamageClass.Summon).Base += 1.5f;
+				Player.GetKnockback(DamageClass.Summon) += 1.5f;
 				Player.moveSpeed += 0.3f;
 			}
 			if (aWeapon)
@@ -951,7 +951,7 @@ namespace CalamityModClassic1Point2
 				Player.GetCritChance(DamageClass.Throwing) += integerTypeBoost;
 				Player.GetDamage(DamageClass.Throwing) += floatTypeBoost;
 				Player.GetDamage(DamageClass.Summon) += floatTypeBoost;
-				Player.GetKnockback(DamageClass.Summon).Base += floatTypeBoost;
+				Player.GetKnockback(DamageClass.Summon) += floatTypeBoost;
 				Player.moveSpeed += floatTypeBoost;
 	        	Player.statLifeMax2 += Player.statLifeMax / 5 / 20 * integerTypeBoost;
 				if (Player.lifeRegen > 0)
@@ -2263,15 +2263,7 @@ namespace CalamityModClassic1Point2
 			}
 			if (CalamityWorld1Point2.revenge)
 			{
-				float damageMult = CalamityWorld1Point2.downedBossAny ? 1.25f : 0.8f;
-				modifiers.FinalDamage.Base = (int)((double)modifiers.FinalDamage.Flat * damageMult);
-				double newDamage = (double)modifiers.FinalDamage.Flat - (double)Player.statDefense * (CalamityWorld1Point2.downedBossAny ? 1 : 0.75);
-				double newDamageLimit = 5.0 + (Main.hardMode ? 10.0 : 0.0) + (NPC.downedPlantBoss ? 10.0 : 0.0) + (NPC.downedMoonlord ? 25.0 : 0.0); //5, 15, 25, 50
-				if (newDamage < newDamageLimit)
-				{
-					newDamage = newDamageLimit;
-				}
-				modifiers.FinalDamage.Base = (int)newDamage;
+				modifiers.ModifyHurtInfo += ModifyHurtInfo;
 			}
 			if (raiderTalisman)
 			{
@@ -2290,7 +2282,18 @@ namespace CalamityModClassic1Point2
     			Player.HealEffect(healAmt);
 			}
 		}
-		
+		public void ModifyHurtInfo(ref Player.HurtInfo info)
+		{
+			float damageMult = CalamityWorld1Point2.downedBossAny ? 1.25f : 0.8f;
+			info.Damage = (int)((double)info.Damage * damageMult);
+			double newDamage = (double)info.Damage - (double)Player.statDefense * (CalamityWorld1Point2.downedBossAny ? 1 : 0.75);
+			double newDamageLimit = 5.0 + (Main.hardMode ? 10.0 : 0.0) + (NPC.downedPlantBoss ? 10.0 : 0.0) + (NPC.downedMoonlord ? 25.0 : 0.0); //5, 15, 25, 50
+			if (newDamage < newDamageLimit)
+			{
+				newDamage = newDamageLimit;
+			}
+			info.Damage = (int)newDamage;
+		}
 		public override void OnHurt(Player.HurtInfo info)
 		{
 			modStealth = 1f;

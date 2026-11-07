@@ -875,7 +875,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -899,7 +899,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			{
 				projectile.penetrate = 1;
 			}
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 		
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -907,11 +907,11 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			OnHit(hit.Damage);
 		}
 		
-		private void ModifyHit(ref float damage)
+		private void ModifyHit(ref NPC.HitInfo info)
 		{
-			if (damage > NPC.lifeMax / 8)
+			if (info.Damage > NPC.lifeMax / 8)
 			{
-				damage = NPC.lifeMax / 8;
+				info.Damage = NPC.lifeMax / 8;
 			}
 		}
 		
@@ -932,7 +932,11 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
-			if (modifiers.FinalDamage.Base > NPC.lifeMax / 2)
+			modifiers.ModifyHitInfo += ModifyHitInfo;
+		}
+		public void ModifyHitInfo(ref NPC.HitInfo info)
+		{
+			if (info.Damage > NPC.lifeMax / 2)
 			{
 				string key = "You think...you can butcher...ME!?";
 				Color messageColor = Color.Cyan;
@@ -944,14 +948,13 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 				{
 					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(key), messageColor);
 				}
-				modifiers.FinalDamage.Base = 1;
+				info.Damage = 1;
 			}
 			if (damageTotal >= dpsCap * 60)
 			{
-				modifiers.FinalDamage.Base = 0;
+				info.Damage = 0;
 			}
 		}
-		
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			scale = 1.5f;
@@ -967,7 +970,8 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		{
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("DoGHead").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("DoGHead").Type, 1f);
 				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 50;

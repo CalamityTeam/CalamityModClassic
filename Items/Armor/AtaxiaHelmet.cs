@@ -79,7 +79,7 @@ public class AtaxiaHelmet : ModItem
     public override void UpdateEquip(Player player)
     {
         player.GetDamage(DamageClass.Summon) += 0.12f;
-        player.GetKnockback(DamageClass.Summon).Base += 1.5f;
+        player.GetKnockback(DamageClass.Summon) += 1.5f;
 		player.maxMinions += 2;
     	player.lavaImmune = true;
     	player.buffImmune[BuffID.OnFire] = true;

@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Items.Weapons.DevourerofGods
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			damage = (int)(damage * ((player.GetDamage(DamageClass.Summon).Multiplicative * 5 / 3) + ((player.GetDamage(DamageClass.Summon).Multiplicative * 0.46f) * (player.maxMinions - 1))));  //36 +
+			damage = (int)(damage * ((player.GetDamage(DamageClass.Summon).Additive * 5 / 3) + ((player.GetDamage(DamageClass.Summon).Additive * 0.46f) * (player.maxMinions - 1))));  //36 +
 			int owner = player.whoAmI;
 			float num72 = Item.shootSpeed;
 			player.itemTime = Item.useTime;
