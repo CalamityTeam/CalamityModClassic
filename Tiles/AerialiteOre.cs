@@ -18,7 +18,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.AerialiteOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Aerialite Ore");
- 			AddMapEntry(new Color(0, 255, 255));
+ 			AddMapEntry(new Color(0, 255, 255), name);
 			MineResist = 2f;
 			MinPick = 64;
 			HitSound = Terraria.ID.SoundID.Tink;

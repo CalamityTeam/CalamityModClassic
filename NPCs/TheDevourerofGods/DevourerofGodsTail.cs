@@ -116,7 +116,7 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 			Player player = Main.player[NPC.target];
 			if (player.vortexStealthActive && projectile.CountsAsClass(DamageClass.Ranged))
 			{
-				modifiers.FinalDamage.Base /= 2;
+				modifiers.FinalDamage /= 2;
 				modifiers.DisableCrit();
 			}
 			if (projectile.penetrate == -1 && !projectile.minion)
@@ -133,7 +133,8 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		{
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("DoGTail").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("DoGTail").Type, 1f);
 				NPC.position.X = NPC.position.X + (float)(NPC.width / 2);
 				NPC.position.Y = NPC.position.Y + (float)(NPC.height / 2);
 				NPC.width = 50;
@@ -163,12 +164,16 @@ namespace CalamityModClassic1Point2.NPCs.TheDevourerofGods
 		
 		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
-			if (modifiers.FinalDamage.Base > NPC.lifeMax / 2)
-			{
-				modifiers.SetMaxDamage(1);
-			}
+			modifiers.ModifyHitInfo += NoDamage;
 		}
 		
+		public void NoDamage(ref NPC.HitInfo info)
+		{
+			if (info.Damage > NPC.lifeMax / 2)
+			{
+				info.Damage = 1;
+			}
+		}
 		public override bool CheckActive()
 		{
 			return false;

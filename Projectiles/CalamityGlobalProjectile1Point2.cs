@@ -96,7 +96,7 @@ namespace CalamityModClassic1Point2.Projectiles
 		{
 			if (projectile.owner == Main.myPlayer && Main.player[(int)Player.FindClosest(projectile.position, projectile.width, projectile.height)].GetModPlayer<CalamityPlayer1Point2>().uberBees && (projectile.type == 566 || projectile.type == 181 || projectile.type == 189))
 			{
-				modifiers.FinalDamage.Base = modifiers.FinalDamage.Base + Main.rand.Next(70, 101);
+				modifiers.SourceDamage.Base += Main.rand.Next(70, 101);
 				projectile.penetrate = 1;
 			}
 		}

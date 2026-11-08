@@ -15,6 +15,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 		{
 			//DisplayName.SetDefault("Alpha Ray");
 			//Tooltip.SetDefault("Disintegrates everything\nRight click to change modes");
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 

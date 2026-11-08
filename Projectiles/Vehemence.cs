@@ -55,7 +55,7 @@ namespace CalamityModClassic1Point2.Projectiles
         	double lifeAmount = (double)target.life;
         	double lifeMax = (double)target.lifeMax;
         	double damageMult = (lifeAmount / lifeMax) * 7;
-        	modifiers.FinalDamage.Base = (int)Math.Pow(modifiers.FinalDamage.Base, damageMult);
+	        Projectile.damage = (int)Math.Pow(Projectile.damage, damageMult);
             modifiers.SetMaxDamage(1000000);
         }
         

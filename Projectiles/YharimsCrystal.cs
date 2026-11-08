@@ -44,7 +44,7 @@ namespace CalamityModClassic1Point2.Projectiles
 			{
 				num26 = 5f;
 			}
-			Projectile.damage = (int)((float)player.inventory[player.selectedItem].damage * player.GetDamage(DamageClass.Magic).Multiplicative);
+			Projectile.damage = (int)((float)player.inventory[player.selectedItem].damage * player.GetDamage(DamageClass.Magic).Additive);
 			Projectile.ai[0] += 1f;
 			Projectile.ai[1] += 1f;
 			bool flag9 = false;

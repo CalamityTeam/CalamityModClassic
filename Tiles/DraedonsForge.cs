@@ -20,7 +20,7 @@ namespace CalamityModClassic1Point2.Tiles
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Draedon's Forge");
- 			AddMapEntry(new Color(0, 255, 0));
+ 			AddMapEntry(new Color(0, 255, 0), name);
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			AdjTiles = new int[]{ TileID.AdamantiteForge, TileID.LunarCraftingStation, TileID.MythrilAnvil };
 		}

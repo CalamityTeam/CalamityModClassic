@@ -148,7 +148,7 @@ namespace CalamityModClassic1Point2.Projectiles
 						}
 						value15.Normalize();
 						value15 *= (float)Main.rand.Next(70, 101) * 0.1f;
-						int spore = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - 4f, Projectile.Center.Y, value15.X, value15.Y, 569 + Main.rand.Next(3), (int)((double)65 * player.GetDamage(DamageClass.Summon).Multiplicative), 1.5f, Projectile.owner, 0f, 0f);
+						int spore = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - 4f, Projectile.Center.Y, value15.X, value15.Y, 569 + Main.rand.Next(3), (int)((double)65 * player.GetDamage(DamageClass.Summon).Additive), 1.5f, Projectile.owner, 0f, 0f);
 						Main.projectile[spore].minion = true;
 						Main.projectile[spore].minionSlots = 0f;
 					}

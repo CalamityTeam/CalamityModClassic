@@ -39,7 +39,7 @@ public class ElementalQuiver : ModItem
 		player.lifeRegen += 2;
 		player.statDefense += 5;
 		player.pickSpeed -= 0.15f;
-		player.GetKnockback(DamageClass.Summon).Base += 0.5f;
+		player.GetKnockback(DamageClass.Summon) += 0.5f;
 	}
 	
 	public override void AddRecipes()

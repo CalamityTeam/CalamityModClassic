@@ -585,16 +585,19 @@ namespace CalamityModClassic1Point2.NPCs.Bumblefuck
 					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CopperCoin, hit.HitDirection, -1f, 0, default(Color), 1f);
 				}
 				float randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleHead").Type, 1f);
+				if (Main.netMode != NetmodeID.Server)
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleHead").Type, 1f);
 				for (int wing = 0; wing < 2; wing++)
 				{
 					randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleWing").Type, 1f);
+					if (Main.netMode != NetmodeID.Server)
+						Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleWing").Type, 1f);
 				}
 				for (int leg = 0; leg < 4; leg++)
 				{
 					randomSpread = (float)(Main.rand.Next(-200, 200) / 100);
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleLeg").Type, 1f);
+					if (Main.netMode != NetmodeID.Server)
+						Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity * randomSpread, Mod.Find<ModGore>("BumbleLeg").Type, 1f);
 				}
 			}
         }

@@ -141,7 +141,7 @@ namespace CalamityModClassic1Point2.Projectiles
 					num406 = num403 / num406;
 					num404 *= num406;
 					num405 *= num406;
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - 4f, Projectile.Center.Y, num404, num405, projectileType, (int)((double)95 * player.GetDamage(DamageClass.Summon).Multiplicative), 5f, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - 4f, Projectile.Center.Y, num404, num405, projectileType, (int)((double)95 * player.GetDamage(DamageClass.Summon).Additive), 5f, Projectile.owner, 0f, 0f);
 					Projectile.ai[0] = 50f;
 					return;
 				}

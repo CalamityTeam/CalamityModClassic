@@ -418,8 +418,11 @@ namespace CalamityModClassic1Point2.NPCs.DesertScourge
 			}
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead").Type, 0.65f);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead2").Type, 0.65f);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead").Type, 0.65f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, NPC.velocity, Mod.Find<ModGore>("ScourgeHead2").Type, 0.65f);
+				}
 				for (int k = 0; k < 10; k++)
 				{
 					Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, hit.HitDirection, -1f, 0, default(Color), 1f);

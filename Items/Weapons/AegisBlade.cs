@@ -10,6 +10,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 {
 	public class AegisBlade : ModItem
 	{
+		public override void SetStaticDefaults() => ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		
 		public override void SetDefaults()
 		{
 			Item.width = 44;
@@ -84,7 +86,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 2f : 0f) + //24
 				(CalamityWorld1Point2.downedDoG ? 2f : 0f) + //31
 				(CalamityWorld1Point2.downedYharon ? 10f : 0f); //60
-			damage.Base = (int)((double)damage.Base * damageMult);
+			damage *= damageMult;
 	    }
 		
 		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

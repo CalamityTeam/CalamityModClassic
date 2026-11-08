@@ -11,6 +11,8 @@ namespace CalamityModClassic1Point2.Items.Weapons
 {
 	public class Malachite : ModItem
 	{
+		public override void SetStaticDefaults() => ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		
 		public override void SetDefaults()
 		{
 			Item.width = 26;
@@ -83,7 +85,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 8f : 0f) + //24
 				(CalamityWorld1Point2.downedDoG ? 8f : 0f) + //31
 				(CalamityWorld1Point2.downedYharon ? 20f : 0f); //55
-			damage.Base = (int)((double)damage.Base * damageMult);
+			damage *= damageMult;
 	    }
 		
 		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)
@@ -104,7 +106,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 0.15f : 0f) +
 				(CalamityWorld1Point2.downedDoG ? 0.15f : 0f) +
 				(CalamityWorld1Point2.downedYharon ? 0.2f : 0f);
-			knockback = knockback * kbMult;
+			knockback *= kbMult;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -17,6 +17,7 @@ using Terraria.Localization;
 using Terraria.GameContent.UI;
 
 using CalamityModClassic1Point2.UI;
+using ReLogic.Content;
 
 namespace CalamityModClassic1Point2
 {
@@ -28,7 +29,7 @@ namespace CalamityModClassic1Point2
 		//call this in mod.Load()
 		public static void OnLoad(Mod mod)
 		{
-			Texture2D borderTex = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/UI/BarStressBorder").Value, barTex = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/UI/BarStress").Value; //replace 'null' with your textures.
+			Texture2D borderTex = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/UI/BarStressBorder", AssetRequestMode.ImmediateLoad).Value, barTex = ModContent.Request<Texture2D>("CalamityModClassic1Point2/ExtraTextures/UI/BarStress", AssetRequestMode.ImmediateLoad).Value; //replace 'null' with your textures.
 			uiBar = new UIBar(borderTex, barTex, 4); //the 4 is how many pixels inwards to stick the bar, which in this case is 4.
 			userBar = new UserInterface();
 			userBar.SetState(uiBar);

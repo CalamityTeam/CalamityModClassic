@@ -19,7 +19,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.AstralOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Astral Ore");
- 			AddMapEntry(new Color(255, 153, 255));
+ 			AddMapEntry(new Color(255, 153, 255), name);
 			MineResist = 5f;
 			HitSound = Terraria.ID.SoundID.Tink;
 			Main.tileSpelunker[Type] = true;

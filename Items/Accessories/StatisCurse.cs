@@ -24,7 +24,7 @@ public class StatisCurse : ModItem
 		CalamityPlayer1Point2 modPlayer = player.GetModPlayer<CalamityPlayer1Point2>();
 		modPlayer.shadowMinions = true;
 		modPlayer.tearMinions = true;
-		player.GetKnockback(DamageClass.Summon).Base += 2.5f;
+		player.GetKnockback(DamageClass.Summon) += 2.5f;
 		player.GetDamage(DamageClass.Summon) += 0.15f;
 		player.maxMinions += 3;
 	}

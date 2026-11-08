@@ -17,7 +17,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.UelibloomOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Uelibloom Ore");
- 			AddMapEntry(new Color(0, 255, 0));
+ 			AddMapEntry(new Color(0, 255, 0), name);
 			MineResist = 5f;
 			MinPick = 249;
 			HitSound = Terraria.ID.SoundID.Tink;

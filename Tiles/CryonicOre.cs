@@ -17,7 +17,7 @@ namespace CalamityModClassic1Point2.Tiles
 			RegisterItemDrop(ModContent.ItemType<Items.CryonicOre>());
 			LocalizedText name = CreateMapEntryName();
  			// name.SetDefault("Cryonic Ore");
- 			AddMapEntry(new Color(0, 0, 150));
+ 			AddMapEntry(new Color(0, 0, 150), name);
 			MineResist = 3f;
 			MinPick = 179;
 			HitSound = Terraria.ID.SoundID.Tink;

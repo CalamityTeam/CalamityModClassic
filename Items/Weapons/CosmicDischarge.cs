@@ -61,7 +61,7 @@ namespace CalamityModClassic1Point2.Items.Weapons
 				(CalamityWorld1Point2.downedProvidence ? 20f : 0f) + //24
 				(CalamityWorld1Point2.downedDoG ? 20f : 0f) + //31
 				(CalamityWorld1Point2.downedYharon ? 40f : 0f); //55
-			damage.Base = (int)((double)damage.Base * damageMult);
+			damage *= damageMult;
 	    }
 		
 		public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

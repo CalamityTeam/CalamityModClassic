@@ -1606,7 +1606,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 		
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Flat);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -1616,7 +1616,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 		
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			ModifyHit(ref modifiers.FinalDamage.Base);
+			modifiers.ModifyHitInfo += ModifyHit;
 		}
 		
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
@@ -1624,11 +1624,11 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			OnHit(damageDone);
 		}
 		
-		private void ModifyHit(ref float damage)
+		private void ModifyHit(ref NPC.HitInfo hit)
 		{
-			if (damage > NPC.lifeMax / 8)
+			if (hit.Damage > NPC.lifeMax / 8)
 			{
-				damage = NPC.lifeMax / 8;
+				hit.Damage = NPC.lifeMax / 8;
 			}
 		}
 		
@@ -1647,23 +1647,19 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			}
 		}
 
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
         {
-            base.ModifyHitNPC(target, ref modifiers);
+	        modifiers.ModifyHitInfo += ModifyHitInfo;
         }
 
-        public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+        public void ModifyHitInfo(ref NPC.HitInfo info)
 		{
 			if (damageTotal >= dpsCap * 60)
 			{
-				modifiers.FinalDamage *= 0;
+				info.Damage = 0;
 			}
-			bool flag = Main.netMode == NetmodeID.SinglePlayer;
-			if (!NPC.active || NPC.life <= 0)
-			{
-				return;
-			}
-			double newDamage = modifiers.FinalDamage.Flat;
+			bool flag = Main.netMode == 0;
+			double newDamage = info.Damage;
 			int newDefense = NPC.defense;
 			if (NPC.ichor)
 			{
@@ -1678,10 +1674,10 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 			{
 				newDamage = 1.0;
 			}
-			/*if (modifiers.NonCritDamage) // help how do you detect crits
+			if (info.Crit)
 			{
 				newDamage *= 2;
-			}*/
+			}
 			if (newDamage >= 1.0)
 			{
 				newDamage = (double)((int)((double)(1f - ((NPC.ichor ? 0.25f : 0.33f) + (protectionBoost ? 0.66f : 0f))) * newDamage));
@@ -1707,7 +1703,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 						NPC.life -= (int)newDamage;
 					}
 				}
-				NPC.HitEffect(modifiers.HitDirection, newDamage);
+				NPC.HitEffect(info.HitDirection, newDamage);
 				if (NPC.HitSound != null)
 				{
 					SoundEngine.PlaySound(NPC.HitSound, NPC.position);
@@ -1721,7 +1717,7 @@ namespace CalamityModClassic1Point2.NPCs.Yharon
 					NPC.checkDead();
 				}
 			}
-			modifiers.FinalDamage.Base = (float)newDamage;
+			info.Damage = (int)newDamage;
 		}
 		
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
