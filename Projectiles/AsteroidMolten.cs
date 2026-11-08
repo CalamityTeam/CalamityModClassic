@@ -123,7 +123,7 @@ namespace CalamityModClassic1Point2.Projectiles
         		(moonLord ? 1 : 0) -
         		(devourerOfGods ? 1 : 0);
         	target.immune[Projectile.owner] = immuneTime;
-        	target.AddBuff(Mod.Find<ModBuff>("Molten").Type, 360);
+        	player.AddBuff(Mod.Find<ModBuff>("Molten").Type, 360);
 		}
     }
 }
